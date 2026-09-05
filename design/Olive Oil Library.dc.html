@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-cde7ec0e-c043-4bea-b643-ce6e55b8c953/styles.css">
+<script src="_ds/organic-cde7ec0e-c043-4bea-b643-ce6e55b8c953/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>body{margin:0;background:var(--color-neutral-100);padding:40px} a{color:var(--color-accent)} a:hover{color:var(--color-accent-700)}</style>
+</helmet>
+
+<div style="display:flex;flex-direction:column;gap:56px;align-items:flex-start">
+
+<!-- ═══════════ 0 · HOMEPAGE ═══════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">00 · Homepage</div>
+<div data-screen-label="00 Homepage" style="width:1280px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:22px 48px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Library</a><a href="#">Producers</a><a href="#">Regions</a><a href="#">Learn</a>
+    <a href="#" class="btn btn-secondary" style="font-size:13px;padding:7px 16px">Sign in</a>
+  </nav>
+  <div style="padding:24px 48px 64px;display:flex;flex-direction:column;gap:72px">
+    <!-- hero -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 520px;gap:56px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:24px">
+        <span class="tag tag-accent-2" style="align-self:flex-start">312 oils tasted · 24 regions</span>
+        <h1 style="font-size:68px;margin:0;line-height:1.02;text-wrap:pretty">Every good olive oil in Europe, tasted and explained.</h1>
+        <p style="font-size:19px;line-height:1.55;margin:0;color:var(--color-neutral-800);max-width:540px;text-wrap:pretty">Independent reviews from our tasting panel and thousands of readers. Find an oil, learn what makes it good, and see where to buy it.</p>
+        <div style="display:flex;gap:12px;align-items:center;max-width:560px">
+          <div style="position:relative;flex:1">
+            <svg style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--color-neutral-600)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <input class="input" style="height:52px;padding-left:44px;font-size:15px" placeholder="Search an oil, producer or region…" value="">
+          </div>
+          <button class="btn btn-primary" style="height:52px;padding:0 26px;font-size:15px">Search</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;font-size:14px;color:var(--color-neutral-700)">Popular: <a href="#">Picual</a><a href="#">Tuscany</a><a href="#">Robust oils</a><a href="#">Under €15</a></div>
+      </div>
+      <div style="position:relative;height:520px"><image-slot id="home-hero" shape="rounded" radius="48" placeholder="Hero photo · grove or bottles"></image-slot></div>
+    </div>
+    <!-- this month -->
+    <div style="display:flex;flex-direction:column;gap:22px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between">
+        <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-size:36px">Top rated this month</h2><span style="font-size:15px;color:var(--color-neutral-700)">Highest expert scores from the latest tasting round</span></div>
+        <a href="#" style="font-size:15px">Browse the library →</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px">
+        <sc-for list="{{ homeOils }}" as="o" hint-placeholder-count="4">
+          <div class="card elev-sm" style="padding:0;overflow:hidden;gap:0">
+            <div style="position:relative;height:180px;background:var(--color-neutral-200)">
+              <image-slot id="{{ o.slot }}" shape="rect" placeholder="Bottle photo"></image-slot>
+              <sc-if value="{{ o.inShop }}" hint-placeholder-val="{{ false }}"><span class="tag tag-accent-2" style="position:absolute;top:12px;left:12px;background:var(--color-accent-2);color:#fff;font-weight:600">In our shop</span></sc-if>
+            </div>
+            <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px">
+              <span class="card-kicker">{{ o.region }}</span>
+              <span class="card-title" style="font-size:18px">{{ o.name }}</span>
+              <div style="display:flex;align-items:center;gap:8px;margin-top:4px"><span style="color:var(--color-accent);font-size:15px;letter-spacing:1px">{{ o.stars }}</span><span style="font-size:13px;font-weight:600">{{ o.score }}</span></div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <!-- regions + learn -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-size:36px">Explore by region</h2><span style="font-size:15px;color:var(--color-neutral-700)">Terroir, cultivars and the producers we trust</span></div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+          <sc-for list="{{ regions }}" as="r" hint-placeholder-count="6">
+            <a href="#" style="display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:inherit">
+              <div style="position:relative;width:150px;height:150px"><image-slot id="{{ r.slot }}" shape="circle" placeholder="{{ r.name }}"></image-slot></div>
+              <span style="font-family:var(--font-heading);font-size:17px">{{ r.name }}</span>
+              <span style="font-size:13px;color:var(--color-neutral-700);margin-top:-8px">{{ r.count }} oils</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;flex-direction:column;gap:4px"><h2 style="margin:0;font-size:36px">Learn</h2><span style="font-size:15px;color:var(--color-neutral-700)">Short guides from the tasting panel</span></div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <sc-for list="{{ articles }}" as="a" hint-placeholder-count="3">
+            <a href="#" class="card" style="flex-direction:row;align-items:center;gap:18px;padding:14px 18px 14px 14px;text-decoration:none;color:inherit">
+              <div style="position:relative;width:88px;height:88px;flex:none"><image-slot id="{{ a.slot }}" shape="rounded" radius="24" placeholder="Photo"></image-slot></div>
+              <div style="display:flex;flex-direction:column;gap:4px;flex:1"><span class="card-kicker">{{ a.kicker }}</span><span class="card-title" style="font-size:19px">{{ a.title }}</span><span style="font-size:13px;color:var(--color-neutral-700)">{{ a.meta }}</span></div>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent)"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    <!-- shop band -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:48px;align-items:center;background:var(--color-accent-2-100);border-radius:calc(var(--radius-lg) * 1.5);padding:48px 56px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <span class="card-kicker" style="color:var(--color-accent-2-800)">Where to buy</span>
+        <h2 style="margin:0;font-size:38px;text-wrap:pretty">Oils marked "In our shop" ship from olijfoliemarkt.nl</h2>
+        <p style="margin:0;font-size:16px;line-height:1.6;color:var(--color-accent-2-900);max-width:560px;text-wrap:pretty">We stock a selection of the oils we rate highest, stored cool and dark and shipped across Europe. Reviews here are independent of what we sell.</p>
+        <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="height:50px;padding:0 26px;font-size:15px;align-self:flex-start;gap:10px">Visit olijfoliemarkt.nl <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></a>
+      </div>
+      <div class="washed" style="position:relative;height:260px"><image-slot id="home-shop" shape="rounded" radius="36" placeholder="Shop / bottles photo"></image-slot></div>
+    </div>
+    <!-- footer -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;padding-top:32px;border-top:1px solid var(--color-divider);font-size:14px;color:var(--color-neutral-700)">
+      <div style="display:flex;flex-direction:column;gap:6px"><span class="nav-brand" style="margin:0">bestoliveoils.eu</span><span>Independent olive oil reviews since 2024</span></div>
+      <div style="display:flex;gap:28px"><a href="#" style="color:inherit;text-decoration:none">Library</a><a href="#" style="color:inherit;text-decoration:none">Producers</a><a href="#" style="color:inherit;text-decoration:none">Regions</a><a href="#" style="color:inherit;text-decoration:none">Learn</a><a href="#" style="color:inherit;text-decoration:none">How we rate</a><a href="#" style="color:inherit;text-decoration:none">Contact</a></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ 1 · LIBRARY ═══════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">01 · Library, search &amp; filters</div>
+<div data-screen-label="01 Library" style="width:1280px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:22px 48px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#" aria-current="page">Library</a><a href="#">Producers</a><a href="#">Regions</a><a href="#">Learn</a>
+    <a href="#" class="btn btn-secondary" style="font-size:13px;padding:7px 16px">Sign in</a>
+  </nav>
+  <div style="padding:28px 48px 56px;display:flex;flex-direction:column;gap:28px">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:720px">
+      <h1 style="font-size:52px;margin:0">The olive oil library</h1>
+      <p style="font-size:17px;margin:0;color:var(--color-neutral-700);text-wrap:pretty">312 extra virgin oils tasted, scored and described by our panel and by readers like you.</p>
+    </div>
+    <div style="display:flex;gap:12px;align-items:center;max-width:720px">
+      <div style="position:relative;flex:1">
+        <svg style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--color-neutral-600)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        <input class="input" style="height:48px;padding-left:44px;font-size:15px" placeholder="Search oils, producers, cultivars…" value="">
+      </div>
+      <button class="btn btn-primary" style="height:48px;padding:0 26px;font-size:15px">Search</button>
+    </div>
+    <div style="display:grid;grid-template-columns:240px minmax(0,1fr);gap:40px;align-items:start">
+      <!-- filters -->
+      <aside style="display:flex;flex-direction:column;gap:26px;font-size:14px">
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-700)">Country / region</h6>
+          <label class="radio"><input type="checkbox" defaultChecked="{{ true }}"><span class="dot"></span>Italy · Tuscany</label>
+          <label class="radio"><input type="checkbox"><span class="dot"></span>Italy · Sicily</label>
+          <label class="radio"><input type="checkbox" defaultChecked="{{ true }}"><span class="dot"></span>Spain · Andalusia</label>
+          <label class="radio"><input type="checkbox"><span class="dot"></span>Greece · Crete</label>
+          <label class="radio"><input type="checkbox"><span class="dot"></span>Portugal · Alentejo</label>
+          <a href="#" style="font-size:13px">Show all 24</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-700)">Cultivar</h6>
+          <div style="display:flex;flex-wrap:wrap;gap:6px">
+            <span class="tag tag-accent">Picual</span><span class="tag tag-neutral">Frantoio</span><span class="tag tag-neutral">Koroneiki</span><span class="tag tag-neutral">Arbequina</span><span class="tag tag-neutral">Coratina</span><span class="tag tag-neutral">Hojiblanca</span><span class="tag tag-neutral">+ 18</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-700)">Intensity</h6>
+          <div class="seg" style="width:100%"><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="int">Delicate</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="int" defaultChecked="{{ true }}">Medium</label><label class="seg-opt" style="flex:1;justify-content:center"><input type="radio" name="int">Robust</label></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-700)">Minimum rating</h6>
+          <div style="display:flex;gap:6px;align-items:center;color:var(--color-accent);font-size:20px;letter-spacing:2px">★★★★<span style="color:var(--color-neutral-400)">★</span><span style="font-size:13px;color:var(--color-neutral-700);letter-spacing:0;margin-left:6px">4 &amp; up</span></div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <label class="radio"><input type="checkbox" defaultChecked="{{ true }}"><span class="dot"></span>Available in our shop</label>
+          <label class="radio"><input type="checkbox"><span class="dot"></span>Certified organic</label>
+        </div>
+        <a href="#" class="btn btn-ghost" style="align-self:flex-start">Clear filters</a>
+      </aside>
+      <!-- grid -->
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div style="display:flex;align-items:center;justify-content:space-between;font-size:14px;color:var(--color-neutral-700)">
+          <span>48 oils · Tuscany, Andalusia · Medium · 4★ and up</span>
+          <div style="display:flex;align-items:center;gap:8px">Sort by <span class="tag tag-outline" style="font-size:13px;padding:5px 12px">Expert rating ▾</span></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px">
+          <sc-for list="{{ oils }}" as="o" hint-placeholder-count="6">
+            <div class="card elev-sm" style="padding:0;overflow:hidden;gap:0">
+              <div style="position:relative;height:200px;background:var(--color-neutral-200)">
+                <image-slot id="{{ o.slot }}" shape="rect" placeholder="Bottle photo"></image-slot>
+                <sc-if value="{{ o.inShop }}" hint-placeholder-val="{{ false }}">
+                  <span class="tag tag-accent-2" style="position:absolute;top:12px;left:12px;background:var(--color-accent-2);color:#fff;font-weight:600">In our shop</span>
+                </sc-if>
+              </div>
+              <div style="padding:16px 18px 18px;display:flex;flex-direction:column;gap:6px">
+                <span class="card-kicker">{{ o.region }}</span>
+                <span class="card-title" style="font-size:19px">{{ o.name }}</span>
+                <span style="font-size:13px;color:var(--color-neutral-700)">{{ o.producer }} · {{ o.cultivar }}</span>
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-top:8px">
+                  <div style="display:flex;align-items:center;gap:8px"><span style="color:var(--color-accent);font-size:15px;letter-spacing:1px">{{ o.stars }}</span><span style="font-size:13px;font-weight:600">{{ o.score }}</span><span style="font-size:12px;color:var(--color-neutral-600)">{{ o.reviews }} reviews</span></div>
+                  <span class="tag tag-neutral">{{ o.intensity }}</span>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="display:flex;justify-content:center;margin-top:12px"><button class="btn btn-secondary" style="padding:10px 28px">Show 42 more</button></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ 2 · OIL DETAIL ═══════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">02 · Oil detail, reviews &amp; where to buy</div>
+<div data-screen-label="02 Oil detail" style="width:1280px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:22px 48px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#" aria-current="page">Library</a><a href="#">Producers</a><a href="#">Regions</a><a href="#">Learn</a>
+    <a href="#" class="btn btn-secondary" style="font-size:13px;padding:7px 16px">Sign in</a>
+  </nav>
+  <div style="padding:16px 48px 64px;display:flex;flex-direction:column;gap:40px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Library</a><span>/</span><a href="#" style="color:inherit">Spain · Andalusia</a><span>/</span><span>Finca La Torre Picual</span></div>
+    <!-- hero -->
+    <div style="display:grid;grid-template-columns:420px minmax(0,1fr);gap:56px;align-items:start">
+      <div style="position:relative;height:520px;background:var(--color-surface);border-radius:var(--radius-lg)">
+        <image-slot id="detail-bottle" shape="rounded" radius="28" placeholder="Bottle photo"></image-slot>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:8px"><span class="tag tag-accent-2" style="background:var(--color-accent-2);color:#fff;font-weight:600">In our shop</span><span class="tag tag-neutral">Robust</span><span class="tag tag-neutral">Organic</span><span class="tag tag-neutral">Harvest 2025</span></div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <h1 style="font-size:48px;margin:0;text-wrap:pretty">Finca La Torre Picual</h1>
+          <p style="font-size:17px;margin:0;color:var(--color-neutral-700)">by <a href="#">Finca La Torre</a> · Antequera, Andalusia, Spain</p>
+        </div>
+        <!-- ratings: expert first -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+          <div class="card" style="gap:6px;padding:18px 22px">
+            <span class="card-kicker">Expert rating</span>
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--font-heading);font-size:40px;line-height:1">4.8</span><span style="color:var(--color-accent);font-size:20px;letter-spacing:2px">★★★★★</span></div>
+            <span style="font-size:13px;color:var(--color-neutral-700)">Panel of 5 · tasted March 2026</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px;padding:18px 22px;border:1px solid var(--color-divider);border-radius:calc(var(--radius-lg) * 1.15)">
+            <span class="card-kicker" style="color:var(--color-neutral-700)">Reader rating</span>
+            <div style="display:flex;align-items:baseline;gap:10px"><span style="font-family:var(--font-heading);font-size:40px;line-height:1">4.5</span><span style="color:var(--color-accent);font-size:20px;letter-spacing:2px">★★★★<span style="color:var(--color-neutral-400)">★</span></span></div>
+            <span style="font-size:13px;color:var(--color-neutral-700)">121 reviews · <a href="#">write yours</a></span>
+          </div>
+        </div>
+        <p style="font-size:16px;line-height:1.6;margin:0;text-wrap:pretty">An early-harvest Picual with the grassy, tomato-leaf character the cultivar is loved for, backed by a clean bitterness and a peppery finish that builds. One of the most consistent oils in the library across three harvests.</p>
+        <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+          <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="height:52px;padding:0 28px;font-size:16px;gap:10px">Where to buy · olijfoliemarkt.nl <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg></a>
+          <button class="btn btn-secondary" style="height:52px;padding:0 22px;font-size:15px;gap:8px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>Save</button>
+          <span style="font-size:13px;color:var(--color-neutral-700)">500 ml · €18.50 at our shop</span>
+        </div>
+      </div>
+    </div>
+    <!-- facts + tasting -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 300px;gap:40px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <h3 style="margin:0">Tasting notes</h3>
+        <sc-for list="{{ profile }}" as="p" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:600">{{ p.label }}</span><span style="color:var(--color-neutral-700)">{{ p.desc }}</span></div>
+            <div style="height:10px;background:var(--color-neutral-300);border-radius:999px;overflow:hidden"><div style="height:100%;width:{{ p.pct }};background:var(--color-accent-2);border-radius:999px"></div></div>
+          </div>
+        </sc-for>
+        <p style="font-size:15px;line-height:1.6;margin:6px 0 0;color:var(--color-neutral-800);text-wrap:pretty">Green tomato, artichoke and cut grass on the nose. Almond and green banana mid-palate, then a long, peppery pungency. Bitterness is firm but balanced.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <h3 style="margin:0">The facts</h3>
+        <table class="table" style="font-size:14px">
+          <tbody>
+            <tr><td style="color:var(--color-neutral-700);width:45%">Cultivar</td><td style="font-weight:600">100% Picual</td></tr>
+            <tr><td style="color:var(--color-neutral-700)">Harvest</td><td style="font-weight:600">October 2025, early</td></tr>
+            <tr><td style="color:var(--color-neutral-700)">Polyphenols</td><td style="font-weight:600">612 mg/kg</td></tr>
+            <tr><td style="color:var(--color-neutral-700)">Free acidity</td><td style="font-weight:600">0.14%</td></tr>
+            <tr><td style="color:var(--color-neutral-700)">Extraction</td><td style="font-weight:600">Cold, two-phase, within 4h</td></tr>
+            <tr><td style="color:var(--color-neutral-700)">Certification</td><td style="font-weight:600">EU Organic · DOP Antequera</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <h6 style="margin:0;color:var(--color-neutral-700)">Awards</h6>
+          <div style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag tag-accent">Gold · NYIOOC 2026</span><span class="tag tag-accent">Best in class · Flos Olei</span><span class="tag tag-accent">Gold · Mario Solinas</span></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h3 style="margin:0">Where it's from</h3>
+        <div style="position:relative;width:300px;height:300px"><image-slot id="detail-map" shape="circle" placeholder="Region map · Antequera"></image-slot></div>
+        <p style="font-size:14px;line-height:1.55;margin:0;color:var(--color-neutral-800)">Antequera sits in the limestone hills between Málaga and Córdoba, 500 m up. Cool nights keep the Picual green.</p>
+        <a href="#" style="font-size:14px">About Andalusia →</a>
+      </div>
+    </div>
+    <!-- pairings -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <h3 style="margin:0">Pairs well with</h3>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <span class="tag tag-accent-2" style="font-size:14px;padding:8px 16px">Grilled red meat</span><span class="tag tag-accent-2" style="font-size:14px;padding:8px 16px">Gazpacho</span><span class="tag tag-accent-2" style="font-size:14px;padding:8px 16px">Bitter greens</span><span class="tag tag-accent-2" style="font-size:14px;padding:8px 16px">Aged manchego</span><span class="tag tag-accent-2" style="font-size:14px;padding:8px 16px">Dark chocolate</span>
+      </div>
+    </div>
+    <!-- reviews -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;align-items:baseline;justify-content:space-between"><h2 style="margin:0">Reviews</h2><span style="font-size:14px;color:var(--color-neutral-700)">1 expert · 121 readers</span></div>
+        <div class="card" style="padding:26px 28px;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px">
+            <div style="width:44px;height:44px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading);font-size:18px">M</div>
+            <div style="display:flex;flex-direction:column"><span style="font-weight:600">Marta Ruiz · Tasting panel</span><span style="font-size:13px;color:var(--color-neutral-700)">Expert review · March 2026</span></div>
+            <span class="tag tag-accent" style="margin-left:auto">Editor's pick</span>
+            <span style="color:var(--color-accent);font-size:18px;letter-spacing:2px">★★★★★</span>
+          </div>
+          <p style="font-size:15px;line-height:1.65;margin:0;text-wrap:pretty">This is the oil we reach for when we need to show someone what "robust" means without scaring them off. The bitterness is generous but never harsh, and the pepper lands late and lingers. On tomato bread it is close to perfect. If anything, wait a month after harvest before opening; it settles.</p>
+        </div>
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+          <div style="display:flex;flex-direction:column;gap:10px;padding:20px 0;border-top:1px solid var(--color-divider)">
+            <div style="display:flex;align-items:center;gap:14px">
+              <div style="width:40px;height:40px;border-radius:50%;background:var(--color-accent-2-300);color:var(--color-accent-2-900);display:grid;place-items:center;font-family:var(--font-heading);font-size:16px">{{ r.initial }}</div>
+              <div style="display:flex;flex-direction:column"><span style="font-weight:600">{{ r.name }}</span><span style="font-size:13px;color:var(--color-neutral-700)">{{ r.meta }}</span></div>
+              <span style="margin-left:auto;color:var(--color-accent);font-size:16px;letter-spacing:2px">{{ r.stars }}</span>
+            </div>
+            <p style="font-size:15px;line-height:1.6;margin:0;text-wrap:pretty">{{ r.text }}</p>
+            <div style="display:flex;gap:16px;font-size:13px;color:var(--color-neutral-700)"><a href="#" style="color:inherit">Helpful · {{ r.helpful }}</a><a href="#" style="color:inherit">Report</a></div>
+          </div>
+        </sc-for>
+        <button class="btn btn-secondary" style="align-self:flex-start;padding:10px 24px">Read all 121 reviews</button>
+      </div>
+      <!-- inline review form -->
+      <div class="card elev-md" style="padding:28px 30px;gap:18px;position:sticky;top:24px">
+        <div style="display:flex;flex-direction:column;gap:4px"><h3 style="margin:0">Write a review</h3><span style="font-size:14px;color:var(--color-neutral-700)">Tasted this oil? Tell other readers.</span></div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <span style="font-size:12px;color:var(--color-neutral-700)">Your rating</span>
+          <div style="display:flex;gap:6px;font-size:34px;line-height:1;color:var(--color-accent)"><span style="cursor:pointer">★</span><span style="cursor:pointer">★</span><span style="cursor:pointer">★</span><span style="cursor:pointer">★</span><span style="cursor:pointer;color:var(--color-neutral-400)">★</span><span style="align-self:center;font-size:14px;color:var(--color-neutral-700);margin-left:6px">Very good</span></div>
+        </div>
+        <div class="field"><label>Title</label><input class="input" placeholder="Sum it up in a line" value=""></div>
+        <div class="field"><label>Your review</label><textarea class="input" style="border-radius:var(--radius-md);min-height:120px" placeholder="How did it taste? What did you eat it with?"></textarea></div>
+        <div class="field"><label>How did you use it?</label><div style="display:flex;flex-wrap:wrap;gap:6px"><span class="tag tag-accent">Finishing</span><span class="tag tag-neutral">Cooking</span><span class="tag tag-neutral">Dipping</span><span class="tag tag-neutral">Salads</span></div></div>
+        <button class="btn btn-primary btn-block" style="height:46px;font-size:15px;margin:0">Post review</button>
+        <span style="font-size:12px;color:var(--color-neutral-700);text-align:center">You'll be asked to sign in. Reviews are moderated within a day.</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ 3 · PRODUCER ═══════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">03 · Producer page</div>
+<div data-screen-label="03 Producer" style="width:1280px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:22px 48px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Library</a><a href="#" aria-current="page">Producers</a><a href="#">Regions</a><a href="#">Learn</a>
+    <a href="#" class="btn btn-secondary" style="font-size:13px;padding:7px 16px">Sign in</a>
+  </nav>
+  <div style="padding:16px 48px 64px;display:flex;flex-direction:column;gap:44px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Producers</a><span>/</span><a href="#" style="color:inherit">Spain</a><span>/</span><span>Finca La Torre</span></div>
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 560px;gap:56px;align-items:center">
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="display:flex;gap:8px"><span class="tag tag-accent-2">Andalusia, Spain</span><span class="tag tag-neutral">Est. 1904</span><span class="tag tag-neutral">Organic since 2009</span></div>
+        <h1 style="font-size:56px;margin:0;line-height:1.05">Finca La Torre</h1>
+        <p style="font-size:18px;line-height:1.6;margin:0;color:var(--color-neutral-800);text-wrap:pretty">A 200-hectare estate in the hills above Antequera, farmed biodynamically by the Fernández family for four generations. Trees are harvested early and milled on site within four hours.</p>
+        <div style="display:flex;gap:36px">
+          <div style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-size:30px">3</span><span style="font-size:13px;color:var(--color-neutral-700)">oils in library</span></div>
+          <div style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-size:30px">4.7</span><span style="font-size:13px;color:var(--color-neutral-700)">average expert rating</span></div>
+          <div style="display:flex;flex-direction:column"><span style="font-family:var(--font-heading);font-size:30px">2</span><span style="font-size:13px;color:var(--color-neutral-700)">available in our shop</span></div>
+        </div>
+        <div style="display:flex;gap:12px"><a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="height:48px;padding:0 24px;font-size:15px">Shop this producer at olijfoliemarkt.nl</a><button class="btn btn-secondary" style="height:48px;padding:0 20px">Website</button></div>
+      </div>
+      <div class="washed" style="position:relative;height:400px"><image-slot id="producer-hero" shape="rounded" radius="40" placeholder="Estate / grove photo"></image-slot></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <h2 style="margin:0">Their oils</h2>
+      <table class="table">
+        <thead><tr><th>Oil</th><th>Cultivar</th><th>Intensity</th><th>Expert</th><th>Readers</th><th>Availability</th><th></th></tr></thead>
+        <tbody>
+          <sc-for list="{{ producerOils }}" as="o" hint-placeholder-count="3">
+            <tr>
+              <td style="font-weight:600;font-size:15px">{{ o.name }}</td>
+              <td>{{ o.cultivar }}</td>
+              <td><span class="tag tag-neutral">{{ o.intensity }}</span></td>
+              <td><span style="color:var(--color-accent);letter-spacing:1px">{{ o.stars }}</span> {{ o.score }}</td>
+              <td>{{ o.readers }}</td>
+              <td><sc-if value="{{ o.inShop }}" hint-placeholder-val="{{ true }}"><span class="tag tag-accent-2" style="background:var(--color-accent-2);color:#fff;font-weight:600">In our shop</span></sc-if><sc-if value="{{ o.notInShop }}" hint-placeholder-val="{{ false }}"><span style="color:var(--color-neutral-600);font-size:13px">Not stocked</span></sc-if></td>
+              <td style="text-align:right"><sc-if value="{{ o.inShop }}" hint-placeholder-val="{{ true }}"><a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13px;padding:7px 16px">Where to buy</a></sc-if><sc-if value="{{ o.notInShop }}" hint-placeholder-val="{{ false }}"><a href="#" class="btn btn-ghost" style="font-size:13px">Read review</a></sc-if></td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </div>
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:14px;max-width:680px">
+        <h2 style="margin:0">The estate</h2>
+        <p style="font-size:16px;line-height:1.65;margin:0;text-wrap:pretty">The groves sit between 450 and 600 m, on limestone that drains fast and holds the day's heat. Picual dominates, with older Hojiblanca and a small Arbequina block planted in 2015. Harvest starts in the first week of October, well before most of the region, which costs yield but buys the green, high-polyphenol style the estate is known for.</p>
+        <p style="font-size:16px;line-height:1.65;margin:0;text-wrap:pretty">The mill is a two-phase Pieralisi line kept below 24 °C. Oil is stored under nitrogen and bottled to order, so the harvest date on the label tells you something.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;width:300px;height:300px"><image-slot id="producer-map" shape="circle" placeholder="Map · Antequera"></image-slot></div>
+        <span style="font-size:14px;color:var(--color-neutral-800)">Antequera, Málaga · 37.02° N, 4.56° W</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════ 4 · ARTICLE ═══════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">04 · Info article</div>
+<div data-screen-label="04 Article" style="width:1280px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:22px 48px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Library</a><a href="#">Producers</a><a href="#">Regions</a><a href="#" aria-current="page">Learn</a>
+    <a href="#" class="btn btn-secondary" style="font-size:13px;padding:7px 16px">Sign in</a>
+  </nav>
+  <div style="padding:16px 48px 64px;display:flex;flex-direction:column;gap:40px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Learn</a><span>/</span><a href="#" style="color:inherit">Tasting</a><span>/</span><span>How to taste olive oil</span></div>
+    <div style="display:flex;flex-direction:column;gap:18px;max-width:760px">
+      <span class="tag tag-accent">Tasting · 6 min read</span>
+      <h1 style="font-size:56px;margin:0;line-height:1.05;text-wrap:pretty">How to taste olive oil like our panel does</h1>
+      <p style="font-size:19px;line-height:1.55;margin:0;color:var(--color-neutral-800);text-wrap:pretty">Warm the glass, cover it, sip loudly. The method is simple and it works on any oil in the library.</p>
+      <div style="display:flex;align-items:center;gap:12px;font-size:14px;color:var(--color-neutral-700)"><div style="width:36px;height:36px;border-radius:50%;background:var(--color-accent);color:var(--color-bg);display:grid;place-items:center;font-family:var(--font-heading)">M</div>Marta Ruiz · Updated 12 May 2026</div>
+    </div>
+    <div class="washed" style="position:relative;height:440px"><image-slot id="article-hero" shape="rounded" radius="40" placeholder="Tasting glasses photo"></image-slot></div>
+    <div style="display:grid;grid-template-columns:240px minmax(0,680px);gap:80px;align-items:start">
+      <aside style="position:sticky;top:24px;display:flex;flex-direction:column;gap:12px;font-size:14px">
+        <h6 style="margin:0;color:var(--color-neutral-700)">In this article</h6>
+        <a href="#" style="color:var(--color-accent-700);font-weight:600;text-decoration:none">1. Warm the glass</a>
+        <a href="#" style="color:inherit;text-decoration:none">2. Smell</a>
+        <a href="#" style="color:inherit;text-decoration:none">3. Strip and sip</a>
+        <a href="#" style="color:inherit;text-decoration:none">4. The three positives</a>
+        <a href="#" style="color:inherit;text-decoration:none">5. Common defects</a>
+        <div class="card" style="margin-top:20px;gap:10px;padding:20px">
+          <span class="card-kicker">Try it on</span>
+          <span class="card-title">Finca La Torre Picual</span>
+          <span style="font-size:13px;color:var(--color-neutral-700)">A robust oil that shows all three positives clearly.</span>
+          <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13px;padding:8px 16px;align-self:flex-start">Where to buy</a>
+        </div>
+      </aside>
+      <article style="display:flex;flex-direction:column;gap:22px;font-size:17px;line-height:1.7">
+        <h2 style="margin:0">1. Warm the glass</h2>
+        <p style="margin:0;text-wrap:pretty">Pour about a tablespoon into a small glass. Cup it in one hand and cover the top with the other for a minute. Olive oil releases its aromas at around 28 °C, roughly the temperature of your palm, so this step is not ceremony.</p>
+        <h2 style="margin:0">2. Smell</h2>
+        <p style="margin:0;text-wrap:pretty">Uncover and take a few short sniffs. You are looking for green notes first: grass, tomato leaf, artichoke, green almond. Riper oils lean to apple, banana and nuts. If the first thing you notice is crayons, cardboard or vinegar, note it and come back to it in section 5.</p>
+        <div class="card" style="padding:22px 26px;gap:8px;background:var(--color-accent-2-100)">
+          <span class="card-kicker" style="color:var(--color-accent-2-800)">Panel note</span>
+          <p style="margin:0;font-size:16px;line-height:1.6">We taste from blue glasses so colour cannot influence us. Colour tells you nothing about quality.</p>
+        </div>
+        <h2 style="margin:0">3. Strip and sip</h2>
+        <p style="margin:0;text-wrap:pretty">Take a small sip and, with lips slightly parted and teeth closed, draw air in sharply across the oil. This sprays it across the palate and pushes the aromas up into the nose. It is loud. That is the point.</p>
+        <h2 style="margin:0">4. The three positives</h2>
+        <p style="margin:0;text-wrap:pretty">Every score in the library rests on three attributes: fruitiness on the nose and palate, bitterness on the tongue, and pungency, the pepper in the throat that can make you cough. All three are signs of fresh, polyphenol-rich oil. The balance between them is what we describe when we call an oil delicate, medium or robust.</p>
+      </article>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showShopBadges&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Shop&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const showBadges = this.props.showShopBadges ?? true;
+    const stars = n => '★'.repeat(n) + '☆'.repeat(5 - n);
+    const oils = [
+      { slot: 'oil-1', name: 'Finca La Torre Picual', producer: 'Finca La Torre', cultivar: 'Picual', region: 'Andalusia · Spain', score: '4.8', reviews: 121, intensity: 'Robust', inShop: true, n: 5 },
+      { slot: 'oil-2', name: 'Laudemio Frescobaldi', producer: 'Frescobaldi', cultivar: 'Frantoio blend', region: 'Tuscany · Italy', score: '4.6', reviews: 84, intensity: 'Medium', inShop: true, n: 5 },
+      { slot: 'oil-3', name: 'Castillo de Canena Reserva Familiar', producer: 'Castillo de Canena', cultivar: 'Arbequina', region: 'Andalusia · Spain', score: '4.5', reviews: 67, intensity: 'Medium', inShop: false, n: 4 },
+      { slot: 'oil-4', name: 'Fonte di Foiano Grand Cru', producer: 'Fonte di Foiano', cultivar: 'Frantoio · Leccino', region: 'Tuscany · Italy', score: '4.4', reviews: 39, intensity: 'Medium', inShop: true, n: 4 },
+      { slot: 'oil-5', name: 'Oro Bailén Reserva', producer: 'Galgón 99', cultivar: 'Picual', region: 'Andalusia · Spain', score: '4.3', reviews: 52, intensity: 'Medium', inShop: false, n: 4 },
+      { slot: 'oil-6', name: 'Pruneti Frantoio', producer: 'Pruneti', cultivar: 'Frantoio', region: 'Tuscany · Italy', score: '4.1', reviews: 28, intensity: 'Medium', inShop: false, n: 4 },
+    ].map(o => ({ ...o, stars: stars(o.n), inShop: showBadges && o.inShop }));
+    const profile = [
+      { label: 'Fruity', desc: 'green tomato, grass', pct: '82%' },
+      { label: 'Bitter', desc: 'firm, balanced', pct: '68%' },
+      { label: 'Pungent', desc: 'late, lingering', pct: '76%' },
+    ];
+    const reviews = [
+      { initial: 'J', name: 'Jasper de Vries', meta: 'Reader · Utrecht · April 2026', stars: stars(5), text: 'Bought this on the panel\'s recommendation. Peppery enough that my kids complain, which I take as a sign of quality. Excellent on grilled bread with tomato.', helpful: 18 },
+      { initial: 'A', name: 'Anouk B.', meta: 'Reader · Ghent · March 2026', stars: stars(4), text: 'Very good, but I find it too intense for salads. It shines drizzled over a steak or bitter chicory.', helpful: 9 },
+      { initial: 'L', name: 'Lorenzo M.', meta: 'Reader · Milan · February 2026', stars: stars(5), text: 'Compared it blind against three Tuscan oils and it was the clear favourite at the table. The 2025 harvest is greener than 2024.', helpful: 24 },
+    ];
+    const producerOils = [
+      { name: 'Finca La Torre Picual', cultivar: 'Picual', intensity: 'Robust', stars: stars(5), score: '4.8', readers: '4.5 · 121', inShop: true },
+      { name: 'Finca La Torre Hojiblanca', cultivar: 'Hojiblanca', intensity: 'Medium', stars: stars(5), score: '4.7', readers: '4.4 · 63', inShop: true },
+      { name: 'Finca La Torre Arbequina', cultivar: 'Arbequina', intensity: 'Delicate', stars: stars(4), score: '4.5', readers: '4.3 · 31', inShop: false },
+    ].map(o => ({ ...o, inShop: showBadges && o.inShop, notInShop: !(showBadges && o.inShop) }));
+    const homeOils = oils.slice(0, 4).map(o => ({ ...o, slot: 'home-' + o.slot }));
+    const regions = [
+      { slot: 'reg-1', name: 'Andalusia', count: 64 }, { slot: 'reg-2', name: 'Tuscany', count: 48 }, { slot: 'reg-3', name: 'Crete', count: 31 },
+      { slot: 'reg-4', name: 'Sicily', count: 27 }, { slot: 'reg-5', name: 'Alentejo', count: 22 }, { slot: 'reg-6', name: 'Peloponnese', count: 19 },
+    ];
+    const articles = [
+      { slot: 'art-1', kicker: 'Tasting', title: 'How to taste olive oil like our panel does', meta: '6 min read' },
+      { slot: 'art-2', kicker: 'Storage', title: 'Why your oil goes flat, and how to stop it', meta: '4 min read' },
+      { slot: 'art-3', kicker: 'Buying', title: 'What the harvest date on the label really tells you', meta: '5 min read' },
+    ];
+    return { oils, profile, reviews, producerOils, homeOils, regions, articles };
+  }
+}
+</script>
+</body>
+</html>
