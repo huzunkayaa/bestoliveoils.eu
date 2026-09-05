@@ -1,0 +1,15 @@
+{
+  "name": "bestoliveoils",
+  "version": "1.0.0",
+  "private": true,
+  "description": "bestoliveoils.eu — independent olive oil reviews. Static site generated from src/ into docs/.",
+  "scripts": {
+    "build": "node build.js",
+    "check": "node build.js && node tools/seo-check.js",
+    "serve": "node build.js && node tools/serve.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "UNLICENSED"
+}
