@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Filter permutations are the same set of oils in a different order —
+# they carry a canonical back to /oils/, and are kept out of the crawl
+# budget entirely. A literal "?" here matches only the query form, so the
+# individual /oils/<slug>/ pages stay crawlable.
+Disallow: /oils/?
+
+Sitemap: https://bestoliveoils.eu/sitemap.xml
