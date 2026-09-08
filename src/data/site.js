@@ -528,40 +528,6 @@ module.exports = {
     { slug: 'harvest-date-on-label',  kicker: 'Buying',  title: 'What the harvest date on the label really tells you', meta: '5 min read', href: null,    image: null },
   ],
 
-  /* ── library filter panel ────────────────────────────────────────────── */
-  filters: {
-    regions: [
-      { label: 'Italy · Tuscany',    checked: true },
-      { label: 'Italy · Sicily',     checked: false },
-      { label: 'Spain · Andalusia',  checked: true },
-      { label: 'Greece · Crete',     checked: false },
-      { label: 'Portugal · Alentejo', checked: false },
-    ],
-    regionsTotal: 24,
-    cultivars: [
-      { label: 'Picual',     selected: true },
-      { label: 'Frantoio',   selected: false },
-      { label: 'Koroneiki',  selected: false },
-      { label: 'Arbequina',  selected: false },
-      { label: 'Coratina',   selected: false },
-      { label: 'Hojiblanca', selected: false },
-      { label: '+ 18',       selected: false },
-    ],
-    intensities: [
-      { label: 'Delicate', checked: false },
-      { label: 'Medium',   checked: true },
-      { label: 'Robust',   checked: false },
-    ],
-    minRating: 4,
-    flags: [
-      { label: 'Available in our shop', checked: true },
-      { label: 'Certified organic',     checked: false },
-    ],
-    summary: '48 oils · Tuscany, Andalusia · Medium · 4★ and up',
-    total: 48,
-    sort: 'Expert rating',
-  },
-
   /* ── producers ───────────────────────────────────────────────────────── */
   producers: [
     {

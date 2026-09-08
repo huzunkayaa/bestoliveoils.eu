@@ -131,9 +131,11 @@ record exists.
 ## `regions[]`, `filters`, `pages`, `home`
 
 - `regions[]` — `{ slug, name, count, image }`, the homepage circles.
-- `filters` — the library sidebar's rendered state (which boxes are ticked, the
-  cultivar tags, the results summary line). Presentational: the filters are drawn
-  from this, they do not actually filter.
+- The library's filters are **not** content. They are derived from the oils
+  themselves by `src/lib/facets.js` — the option lists, their counts and the
+  values each card is filtered on all come from the records, so an option can
+  never offer a value no oil has. Give an oil `organic: true` to override the
+  value `facets.js` infers from its tags and certification.
 - `pages` — `{ title, description }` for the homepage and the three hubs, plus
   `intro`/`body` prose for `/producers/` and `/learn/`.
 - `home` — the homepage's own copy: `eyebrow`, `heading`, `lede`, `popular[]`,

@@ -9,6 +9,7 @@
 
 const R = require('./render');
 const S = require('./seo');
+const { facetLists } = require('./facets');
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
 const shell = ({ site, headHtml, nav, bodyClass, main }) =>
@@ -133,53 +134,66 @@ function home(D) {
 
 function library(D) {
   const site = D.site;
-  const f = D.filters;
   const meta = D.pages.library;
+  const lists = facetLists(D.oils);
 
-  const checkbox = (item) =>
-    `<label class="radio"><input type="checkbox"${item.checked ? ' checked' : ''}>` +
-    `<span class="dot"></span>${esc(item.label)}</label>`;
+  /* Every option below is built from the oils that exist and carries its real
+     count. Nothing starts selected: the unfiltered library is the canonical
+     page, and a pre-filtered default would both hide oils from a first-time
+     visitor and disagree with the canonical URL. (The mockup drew the controls
+     mid-filter to show what a filtered view looks like.) */
+  const checkbox = (name, value, label, count) =>
+    `<label class="radio"><input type="checkbox" name="${name}" value="${esc(value)}">` +
+    `<span class="dot"></span>${esc(label)}` +
+    `<span class="filter-count">${count}</span></label>`;
 
-  // Headings run h1 → h2 → h3 with nothing skipped; the group labels only
-  // *look* like the small caps the design uses (.filter-group__title).
   const filters =
     `<h2 class="visually-hidden">Filter the library</h2>
      <div class="filter-group"><h3 class="filter-group__title">Country / region</h3>${
-      f.regions.map(checkbox).join('')}<a href="#" class="filters__more">Show all ${
-      esc(f.regionsTotal)}</a></div>
+       lists.regions.map((r) => checkbox('region', r.key, r.label, r.count)).join('')}</div>
      <div class="filter-group"><h3 class="filter-group__title">Cultivar</h3><div class="filter-tags">${
-       f.cultivars.map((c) =>
-         `<span class="tag ${c.selected ? 'tag-accent' : 'tag-neutral'}">${esc(c.label)}</span>`
+       lists.cultivars.map((c) =>
+         `<button type="button" class="tag tag-neutral filter-tag" data-cultivar="${esc(c.key)}"` +
+         ` aria-pressed="false">${esc(c.label)}<span class="filter-count">${c.count}</span></button>`
        ).join('')}</div></div>
      <div class="filter-group"><h3 class="filter-group__title">Intensity</h3><div class="seg">${
-       f.intensities.map((i) =>
-         `<label class="seg-opt"><input type="radio" name="intensity"${
-           i.checked ? ' checked' : ''}>${esc(i.label)}</label>`).join('')}</div></div>
-     <div class="filter-group"><h3 class="filter-group__title">Minimum rating</h3><div class="filter-rating">${
-       '★'.repeat(f.minRating)}<span class="stars__off">${'★'.repeat(5 - f.minRating)}</span>` +
-       `<span class="filter-rating__label">${esc(f.minRating)} &amp; up</span></div></div>
-     <div class="filter-group">${f.flags.map(checkbox).join('')}</div>
-     <a href="${url.library()}" class="btn btn-ghost">Clear filters</a>`;
+       lists.intensities.map((i) =>
+         `<label class="seg-opt"><input type="radio" name="intensity" value="${esc(i.key)}">` +
+         `${esc(i.label)}</label>`).join('')}</div></div>
+     <div class="filter-group"><h3 class="filter-group__title">Minimum rating</h3>
+       <div class="filter-rating" role="radiogroup" aria-label="Minimum rating">${
+         [1, 2, 3, 4, 5].map((n) =>
+           `<button type="button" class="filter-star" data-min-rating="${n}" role="radio"` +
+           ` aria-checked="false" aria-label="${n} ${n === 1 ? 'star' : 'stars'} and up">★</button>`
+         ).join('')}<span class="filter-rating__label" data-rating-label>Any</span></div></div>
+     <div class="filter-group">${
+       checkbox('flag', 'in-shop', 'Available in our shop', lists.inShop)}${
+       checkbox('flag', 'organic', 'Certified organic', lists.organic)}</div>
+     <button type="button" class="btn btn-ghost" data-clear-filters>Clear filters</button>`;
 
   const main =
     `<div class="library-head">
       <h1>The olive oil library</h1>
-      <p>312 extra virgin oils tasted, scored and described by our panel and by readers like you.</p>
+      <p>Every oil below has been tasted and scored by our panel. Filter by region,
+         cultivar, intensity or rating — or search by name.</p>
     </div>
     ${R.searchBar('md', 'Search oils, producers, cultivars…')}
-    <div class="library-layout">
+    <div class="library-layout" data-library>
       <aside class="filters" aria-label="Filter the library">${filters}</aside>
       <div class="results">
         <div class="results__bar">
-          <span>${esc(f.summary)}</span>
-          <div class="results__sort">Sort by <span class="tag tag-outline">${
-            esc(f.sort)} ▾</span></div>
+          <span data-results-summary>${lists.total} oils</span>
+          <div class="results__sort"><label for="sort">Sort by</label>
+            <select id="sort" class="tag tag-outline results__sort-select" data-sort>
+              <option value="score">Expert rating</option>
+              <option value="name">Name</option>
+              <option value="reviews">Most reviewed</option>
+            </select></div>
         </div>
-        <div class="oil-grid-3">${D.oils.map((o) => R.oilCard(site, o, false)).join('')}</div>
-        <div class="results__more">
-          <button class="btn btn-secondary" type="button">Show ${
-            f.total - D.oils.length} more</button>
-        </div>
+        <div class="oil-grid-3" data-oil-grid>${
+          D.oils.map((o) => R.oilCard(site, o, false)).join('')}</div>
+        <p class="results__empty" data-results-empty hidden>No oils match these filters.
+          <button type="button" class="btn btn-ghost" data-clear-filters>Clear filters</button></p>
       </div>
     </div>`;
 

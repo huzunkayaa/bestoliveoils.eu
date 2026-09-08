@@ -7,6 +7,8 @@
 
 'use strict';
 
+const { facetsFor } = require('./facets');
+
 const esc = (value) =>
   String(value == null ? '' : value).replace(/[&<>"']/g, (c) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -129,7 +131,21 @@ function oilCard(site, oil, compact) {
       '</div>' +
       `<span class="tag tag-neutral">${esc(oil.intensity)}</span></div>`;
 
-  return `<a class="card elev-sm oil-card" href="${url.oil(oil.slug)}">` +
+  /* The filter values ride on the card itself, so app.js filters the DOM it
+     already has — no second copy of the data, no extra request. */
+  const f = facetsFor(oil);
+  const data =
+    ` data-region="${esc(f.region)}"` +
+    ` data-cultivar="${esc(f.cultivars.join(' '))}"` +
+    ` data-intensity="${esc(f.intensity)}"` +
+    ` data-score="${esc(f.score)}"` +
+    ` data-reviews="${esc(oil.reviews || 0)}"` +
+    ` data-in-shop="${f.inShop ? '1' : '0'}"` +
+    ` data-organic="${f.organic ? '1' : '0'}"` +
+    ` data-name="${esc(oil.name.toLowerCase())}"` +
+    ` data-text="${esc(f.text)}"`;
+
+  return `<a class="card elev-sm oil-card" href="${url.oil(oil.slug)}"${data}>` +
     media(oil.image, 'Bottle photo',
           'oil-card__media' + (compact ? ' oil-card__media--sm' : ''),
           shopBadge(site, oil, 'oil-card__badge')) +

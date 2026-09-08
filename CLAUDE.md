@@ -58,8 +58,13 @@ and commit with `content: add <name>` — including the rebuilt `docs/`.
   styles go in `site.css`, whose values all come from the mockups' inline styles.
 - **Expert rating is shown before reader rating.** Ratings are 0–5 stars.
 - **"In our shop" badge and "Where to buy" button appear only when the oil has
-  `inShop: true`** and `site.showShopBadges` is on. The button opens
-  `site.shopUrl` in a new tab (`target="_blank" rel="noopener"`).
+  `inShop: true`** and `site.showShopBadges` is on. The button opens the oil's
+  own `shopUrl` — falling back to `site.shopUrl` — in a new tab
+  (`target="_blank" rel="noopener"`).
+- **The library's filters are derived, never hand-written.** `src/lib/facets.js`
+  builds the option lists and their counts from the oils, and emits the same
+  values as data- attributes for `app.js` to filter on. Add an oil and its
+  region, cultivar and intensity appear as options by themselves.
 - **Never link to a page that isn't built.** An oil only links to its producer if
   that producer has a record; a guide teased on the homepage is only a link once
   the guide exists (`href: null` until then). `npm run check` fails on a broken
@@ -79,7 +84,8 @@ Deliberate gaps, listed so nobody assumes they exist:
 - **Reader reviews do not submit.** The form is rendered and the star input
   works, but there is no backend. Reader scores in the data are static.
 - **No `status: draft|published`.** Every record in `site.js` is published.
-- **`shopUrl` is site-wide, not per-oil** — every "Where to buy" goes to the
-  olijfoliemarkt.nl homepage, not to that oil's product page.
 - **No admin panel.** `design/Admin Panel.dc.html` (6 screens) is unimplemented.
 - **No region pages.** Region links point at `/oils/` with a query.
+- **No "How we rate" or "Contact" page** — both are linked from every footer and
+  currently go nowhere.
+- **Sign in, Helpful and Report do nothing** — all three need a backend.

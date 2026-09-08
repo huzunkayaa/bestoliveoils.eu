@@ -59,7 +59,7 @@ Rebuild and commit `docs/` whenever you change anything in `src/`.
 | Page | URL |
 | --- | --- |
 | Homepage | `/` |
-| Library, search & filters | `/oils/` |
+| Library, search & filters | `/oils/` (filter state in `?region=`, `?cultivar=`, `?intensity=`, `?min=`, `?flag=`, `?q=`, `?sort=`) |
 | Oil review | `/oils/<slug>/` |
 | Producers hub | `/producers/` |
 | Producer profile | `/producers/<slug>/` |
@@ -72,8 +72,10 @@ Directory URLs with a trailing slash, so every host resolves them to
 ## SEO
 
 The site is pre-rendered: the markup a crawler sees is the markup a reader
-sees. Nothing on the page depends on JavaScript — `app.js` only adds the star
-rating input and the article sidebar's scroll tracking.
+sees. Nothing on the page depends on JavaScript — `app.js` adds the library's
+filters and search, the star rating input, and the article sidebar's scroll
+tracking. All of it is progressive enhancement: without JS every oil is already
+in the page and visible, and the filters simply don't filter.
 
 What the build guarantees, and what `npm run check` enforces on every build:
 
