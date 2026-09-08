@@ -51,6 +51,16 @@ and its own structured data. See `design/content-schema.md` for every field.
 When asked to add an oil, producer or guide: add the record, run `npm run check`,
 and commit with `content: add <name>` — including the rebuilt `docs/`.
 
+**Content packs** (a module exporting `{ producers, oils, guides }` in site.js's
+shape) are merged with `node tools/merge-pack.js <pack.records.js>`. It splices
+records in as source text so site.js keeps its comments, scopes slug lookups to
+the top-level arrays, and refuses to write if a block fails to parse or a
+comment goes missing. Use `--null-image=slug,slug` for records whose photos
+could not be fetched — the page then shows the labelled placeholder instead of
+referencing a file that does not exist. Do **not** use the `apply-pack.js` that
+ships inside the packs: it re-serialises site.js through JSON and drops every
+comment.
+
 ## Rules
 
 - **Design tokens come from `src/assets/css/tokens.css`** — the design system

@@ -24,6 +24,8 @@ src/                    the source
 build.js                the whole toolchain: reads src/, writes docs/
 tools/seo-check.js      validates the built output
 tools/serve.js          local preview with clean URLs and a real 404
+tools/merge-pack.js     merges a content pack into site.js, comments intact
+tools/library-test.js   browser test for the library filters, search and sort
 
 docs/                   the built site — committed, deployable as-is
 design/                 the Claude Design mockups (unchanged)

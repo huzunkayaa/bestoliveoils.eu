@@ -530,7 +530,7 @@ function producer(D, p) {
               ? '<span class="tag tag-accent-2 tag-shop">In our shop</span>'
               : '<span class="producer-oils__nostock">Not stocked</span>'}</td>` +
             `<td>${stocked
-              ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Buy ${esc(o.name)}<span class="visually-hidden"> at ${esc(site.shopName)}</span></a>`
+              ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy<span class="visually-hidden"> ${esc(o.name)} at ${esc(site.shopName)}</span></a>`
               : (href ? `<a class="btn btn-ghost" href="${href}">Read review</a>` : '')}</td>` +
           '</tr>';
         }).join('')}</tbody>
