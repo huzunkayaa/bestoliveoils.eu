@@ -85,6 +85,9 @@ function build() {
   // Stops GitHub Pages running the output through Jekyll, which would drop
   // any file or folder beginning with an underscore.
   written.push(write('.nojekyll', ''));
+  // Custom domain for GitHub Pages. Written on every build because docs/ is
+  // wiped first; derived from site.url so the two can never disagree.
+  written.push(write('CNAME', new URL(D.site.url).hostname));
 
   return { written, routes };
 }

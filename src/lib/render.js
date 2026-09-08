@@ -124,7 +124,7 @@ function oilCard(site, oil, compact) {
       '<div class="oil-card__meta"><div class="oil-card__rating">' +
         starRow(oil.stars) +
         `<span class="score">${esc(oil.score)}</span>` +
-        `<span class="review-count">${esc(oil.reviews)} reviews</span>` +
+        `<span class="review-count">${oil.reviews ? `${esc(oil.reviews)} reviews` : 'Panel score'}</span>` +
         srOnly(ratingLabel(oil.score, oil.reviews)) +
       '</div>' +
       `<span class="tag tag-neutral">${esc(oil.intensity)}</span></div>`;

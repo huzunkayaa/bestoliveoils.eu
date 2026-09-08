@@ -314,7 +314,7 @@ function oil(D, o) {
       '<a href="#write-a-review">write yours</a></span></div>'
     : '<div class="rating-box rating-box--reader"><span class="card-kicker">Reader rating</span>' +
       '<div class="rating-box__row"><span class="rating-box__value">—</span></div>' +
-      `<span class="rating-box__note">${esc(o.reviews)} reviews · ` +
+      `<span class="rating-box__note">${o.reviews ? `${esc(o.reviews)} reviews · ` : 'No reader reviews yet · '}` +
       '<a href="#write-a-review">write yours</a></span></div>';
 
   const hero =
@@ -340,7 +340,7 @@ function oil(D, o) {
           'The panel has scored this oil; the full write-up — tasting notes, the facts and pairings — is being prepared.')}</p>
         <div class="detail-actions">${
           site.showShopBadges && o.inShop
-            ? `<a class="btn btn-primary" href="${esc(site.shopUrl)}" target="_blank" rel="noopener">Where to buy · ${
+            ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy · ${
                 esc(site.shopName)} ${ICON.external}</a>`
             : ''}
           <button class="btn btn-secondary" type="button">${ICON.heart}Save</button>
@@ -386,7 +386,7 @@ function oil(D, o) {
       <div class="reviews-layout">
         <section class="reviews">
           <div class="reviews__head"><h2>Reviews</h2>
-            <span class="reviews__count">1 expert · ${esc(o.reviews)} readers</span></div>
+            <span class="reviews__count">1 expert${o.reviews ? ` · ${esc(o.reviews)} readers` : ''}</span></div>
           <article class="card review-expert">
             <div class="review__head">
               <div class="review__avatar review__avatar--expert" aria-hidden="true">${
@@ -408,8 +408,8 @@ function oil(D, o) {
             `</div><p class="review__text">${esc(r.text)}</p>` +
             `<div class="review__actions"><a href="#">Helpful · ${esc(r.helpful)}</a>` +
             '<a href="#">Report</a></div></article>').join('')}
-          <button class="btn btn-secondary" type="button">Read all ${
-            esc(o.reviews)} reviews</button>
+          ${o.reviews > d.reviews.length ? `<button class="btn btn-secondary" type="button">Read all ${
+            esc(o.reviews)} reviews</button>` : ''}
         </section>
         ${reviewForm()}
       </div>`
@@ -510,13 +510,13 @@ function producer(D, p) {
             `<td>${href ? `<a href="${href}">${esc(o.name)}</a>` : esc(o.name)}</td>` +
             `<td>${esc(o.cultivar)}</td>` +
             `<td><span class="tag tag-neutral">${esc(o.intensity)}</span></td>` +
-            `<td>${starRow(o.stars)} ${esc(o.score)}${srOnly(ratingLabel(o.score))}</td>` +
+            `<td>${o.score ? `${starRow(o.stars)} ${esc(o.score)}${srOnly(ratingLabel(o.score))}` : '<span class="producer-oils__nostock">Not yet rated</span>'}</td>` +
             `<td>${esc(o.readers)}</td>` +
             `<td>${stocked
               ? '<span class="tag tag-accent-2 tag-shop">In our shop</span>'
               : '<span class="producer-oils__nostock">Not stocked</span>'}</td>` +
             `<td>${stocked
-              ? `<a class="btn btn-primary" href="${esc(site.shopUrl)}" target="_blank" rel="noopener">Buy ${esc(o.name)}<span class="visually-hidden"> at ${esc(site.shopName)}</span></a>`
+              ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Buy ${esc(o.name)}<span class="visually-hidden"> at ${esc(site.shopName)}</span></a>`
               : (href ? `<a class="btn btn-ghost" href="${href}">Read review</a>` : '')}</td>` +
           '</tr>';
         }).join('')}</tbody>

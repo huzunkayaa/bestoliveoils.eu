@@ -179,7 +179,7 @@ function product(site, oil, path) {
       price: oil.priceAmount,
       priceCurrency: oil.priceCurrency || 'EUR',
       availability: 'https://schema.org/InStock',
-      url: site.shopUrl,
+      url: oil.shopUrl || site.shopUrl,
       seller: { '@type': 'Organization', name: site.shopName, url: site.shopUrl },
     };
   }
