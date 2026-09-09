@@ -115,19 +115,32 @@ const breadcrumb = (trail) =>
 
 /* ── oil card ─────────────────────────────────────────────────────────── */
 
+/* An oil can be in the library without a panel score: a catalogue entry we
+   have researched but not tasted. Those carry a `listing` credential (a
+   competition placing) instead of stars, and never borrow the look of a
+   score we have not given. */
+const listingChip = (oil) =>
+  oil.listing
+    ? `<span class="listing-chip">#${esc(oil.listing.rank)} ${esc(oil.listing.sourceShort)}</span>`
+    : '<span class="listing-chip listing-chip--empty">Not yet rated</span>';
+
 function oilCard(site, oil, compact) {
+  const rated = Boolean(oil.score);
   const meta = compact
     ? '<div class="oil-card__rating oil-card__rating--tight">' +
-        starRow(oil.stars) +
-        `<span class="score">${esc(oil.score)}</span>` +
-        srOnly(ratingLabel(oil.score)) +
+        (rated
+          ? starRow(oil.stars) + `<span class="score">${esc(oil.score)}</span>` +
+            srOnly(ratingLabel(oil.score))
+          : listingChip(oil)) +
       '</div>'
     : `<span class="oil-card__sub">${esc(oil.producer)} · ${esc(oil.cultivar)}</span>` +
       '<div class="oil-card__meta"><div class="oil-card__rating">' +
-        starRow(oil.stars) +
-        `<span class="score">${esc(oil.score)}</span>` +
-        `<span class="review-count">${oil.reviews ? `${esc(oil.reviews)} reviews` : 'Panel score'}</span>` +
-        srOnly(ratingLabel(oil.score, oil.reviews)) +
+        (rated
+          ? starRow(oil.stars) +
+            `<span class="score">${esc(oil.score)}</span>` +
+            `<span class="review-count">${oil.reviews ? `${esc(oil.reviews)} reviews` : 'Panel score'}</span>` +
+            srOnly(ratingLabel(oil.score, oil.reviews))
+          : listingChip(oil)) +
       '</div>' +
       `<span class="tag tag-neutral">${esc(oil.intensity)}</span></div>`;
 
@@ -159,5 +172,5 @@ function oilCard(site, oil, compact) {
 
 module.exports = {
   esc, url, absolute, starRow, ratingLabel, srOnly, media, shopBadge,
-  ICON, searchBar, nav, footer, breadcrumb, oilCard,
+  ICON, searchBar, nav, footer, breadcrumb, oilCard, listingChip,
 };

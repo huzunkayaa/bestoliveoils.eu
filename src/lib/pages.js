@@ -304,7 +304,6 @@ function learnIndex(D) {
 function oil(D, o) {
   const site = D.site;
   const d = o.detail || {};
-  const full = Boolean(o.detail);
   const path = url.oil(o.slug);
 
   const trail = [
@@ -319,6 +318,30 @@ function oil(D, o) {
 
   const tags = (d.tags || [o.intensity])
     .map((t) => `<span class="tag tag-neutral">${esc(t)}</span>`).join('');
+
+  // An oil with no panel score is a catalogue entry, not a review. It shows
+  // the credential it actually has — a competition placing, attributed and
+  // linked — and says in plain words that we have not tasted it. Inventing a
+  // score to fill the box is the one thing this site must never do.
+  const listing = o.listing;
+  const expertBox = o.score
+    ? '<div class="card rating-box rating-box--expert"><span class="card-kicker">Expert rating</span>' +
+      `<div class="rating-box__row"><span class="rating-box__value">${esc(o.score)}</span>${
+        starRow(o.stars, 'stars--lg')}${srOnly(ratingLabel(o.score))}</div>` +
+      `<span class="rating-box__note">${esc(d.panelNote || 'Scored by our tasting panel')}</span></div>`
+    : '<div class="card rating-box rating-box--credential">' +
+      `<span class="card-kicker">${esc(listing ? 'Competition ranking' : 'Expert rating')}</span>` +
+      '<div class="rating-box__row">' +
+      (listing
+        ? `<span class="rating-box__value">#${esc(listing.rank)}</span>` +
+          `<span class="rating-box__unit">${esc(listing.points)} pts</span>`
+        : '<span class="rating-box__value">—</span>') +
+      '</div><span class="rating-box__note">' +
+      (listing
+        ? `${listing.url ? `<a href="${esc(listing.url)}" target="_blank" rel="noopener">${
+            esc(listing.source)}</a>` : esc(listing.source)} · our panel has not tasted this oil yet`
+        : 'Our panel has not tasted this oil yet') +
+      '</span></div>';
 
   const readerBox = o.readerScore
     ? '<div class="rating-box rating-box--reader"><span class="card-kicker">Reader rating</span>' +
@@ -341,17 +364,12 @@ function oil(D, o) {
             hasProducerPage ? `<a href="${url.producer(o.producerSlug)}">${esc(o.producer)}</a>`
                             : esc(o.producer)} · ${esc(d.location || o.region)}</p></div>
         <div class="ratings">
-          <div class="card rating-box rating-box--expert">
-            <span class="card-kicker">Expert rating</span>
-            <div class="rating-box__row"><span class="rating-box__value">${esc(o.score)}</span>${
-              starRow(o.stars, 'stars--lg')}${srOnly(ratingLabel(o.score))}</div>
-            <span class="rating-box__note">${
-              esc(d.panelNote || 'Scored by our tasting panel')}</span>
-          </div>
+          ${expertBox}
           ${readerBox}
         </div>
-        <p class="detail-hero__desc">${esc(d.description ||
-          'The panel has scored this oil; the full write-up — tasting notes, the facts and pairings — is being prepared.')}</p>
+        <p class="detail-hero__desc">${esc(d.description || (o.score
+          ? 'The panel has scored this oil; the full write-up — tasting notes, the facts and pairings — is being prepared.'
+          : 'A catalogue entry: what the producer and the competition record say about this oil. Our panel has not tasted it, so there is no score here.'))}</p>
         <div class="detail-actions">${
           site.showShopBadges && o.inShop
             ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy · ${
@@ -363,10 +381,12 @@ function oil(D, o) {
       </div>
     </section>`;
 
-  const body = full
-    ? hero +
-      `<section class="detail-facts">
-        <div class="detail-col">
+  // Every block below is optional and rendered only from what we actually have.
+  // A catalogue entry typically has facts and an origin note but no tasting
+  // profile, no pairings and no panel review — and those sections simply do not
+  // appear, rather than appearing empty or invented.
+  const tastingCol = d.profile
+    ? `<div class="detail-col">
           <h2>Tasting notes</h2>
           ${d.profile.map((p) =>
             '<div class="profile-bar"><div class="profile-bar__row">' +
@@ -375,30 +395,44 @@ function oil(D, o) {
             `<div class="profile-bar__track" role="img" aria-label="${esc(p.label)}: ${esc(p.pct)}">` +
             `<div class="profile-bar__fill" style="width:${esc(p.pct)}"></div></div></div>`).join('')}
           <p class="profile-note">${esc(d.tastingNote)}</p>
-        </div>
-        <div class="detail-col">
+        </div>`
+    : '';
+
+  const factsCol = d.facts
+    ? `<div class="detail-col">
           <h2>The facts</h2>
           <table class="table facts-table"><tbody>${d.facts.map(([k, v]) =>
             `<tr><th scope="row">${esc(k)}</th><td>${esc(v)}</td></tr>`).join('')}</tbody></table>
-          <div class="awards"><h3>Awards</h3><div class="awards__list">${
-            d.awards.map((a) => `<span class="tag tag-accent">${esc(a)}</span>`).join('')}</div></div>
-        </div>
-        <div class="detail-col detail-col--map">
+          ${d.awards ? `<div class="awards"><h3>Awards</h3><div class="awards__list">${
+            d.awards.map((a) => `<span class="tag tag-accent">${esc(a)}</span>`).join('')}</div></div>` : ''}
+        </div>`
+    : '';
+
+  const originCol = d.origin
+    ? `<div class="detail-col detail-col--map">
           <h2>Where it's from</h2>
           ${media(d.origin.image, d.origin.mapPlaceholder, 'detail-map media--circle')}
           <p class="detail-map__note">${esc(d.origin.note)}</p>
-          <a href="${esc(d.origin.linkHref)}" class="detail-map__link">${esc(d.origin.linkLabel)}</a>
-        </div>
-      </section>
+          ${d.origin.linkHref ? `<a href="${esc(d.origin.linkHref)}" class="detail-map__link">${
+            esc(d.origin.linkLabel)}</a>` : ''}
+        </div>`
+    : '';
 
-      <section class="pairings">
+  const factsSection = (tastingCol || factsCol || originCol)
+    ? `<section class="detail-facts">${tastingCol}${factsCol}${originCol}</section>`
+    : '';
+
+  const pairingsSection = d.pairings
+    ? `<section class="pairings">
         <h2>Pairs well with</h2>
         <div class="pairings__list">${
           d.pairings.map((p) => `<span class="tag tag-accent-2">${esc(p)}</span>`).join('')}</div>
-      </section>
+      </section>`
+    : '';
 
-      <div class="reviews-layout">
-        <section class="reviews">
+  const readerReviews = d.reviews || [];
+  const reviewsSection = d.expertReview
+    ? `<section class="reviews">
           <div class="reviews__head"><h2>Reviews</h2>
             <span class="reviews__count">1 expert${o.reviews ? ` · ${esc(o.reviews)} readers` : ''}</span></div>
           <article class="card review-expert">
@@ -413,7 +447,7 @@ function oil(D, o) {
             </div>
             <p class="review__text">${esc(d.expertReview.text)}</p>
           </article>
-          ${d.reviews.map((r) =>
+          ${readerReviews.map((r) =>
             '<article class="review-item"><div class="review__head">' +
             `<div class="review__avatar" aria-hidden="true">${esc(r.initial)}</div>` +
             `<div class="review__who"><span class="review__name">${esc(r.name)}</span>` +
@@ -422,12 +456,15 @@ function oil(D, o) {
             `</div><p class="review__text">${esc(r.text)}</p>` +
             `<div class="review__actions"><a href="#">Helpful · ${esc(r.helpful)}</a>` +
             '<a href="#">Report</a></div></article>').join('')}
-          ${o.reviews > d.reviews.length ? `<button class="btn btn-secondary" type="button">Read all ${
+          ${o.reviews > readerReviews.length ? `<button class="btn btn-secondary" type="button">Read all ${
             esc(o.reviews)} reviews</button>` : ''}
-        </section>
-        ${reviewForm()}
-      </div>`
-    : hero + `<div class="reviews-layout reviews-layout--form-only">${reviewForm()}</div>`;
+        </section>`
+    : '';
+
+  const body = hero + factsSection + pairingsSection +
+    (reviewsSection
+      ? `<div class="reviews-layout">${reviewsSection}${reviewForm()}</div>`
+      : `<div class="reviews-layout reviews-layout--form-only">${reviewForm()}</div>`);
 
   const schema = [S.product(site, o, path), S.breadcrumbList(site, trail)];
 

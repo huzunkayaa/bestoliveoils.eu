@@ -563,6 +563,26 @@ body { background: #fff; }
   line-height: 1;
 }
 .rating-box__note { font-size: 13px; color: var(--color-neutral-700); }
+/* Catalogue entry: a competition placing standing in for a score we have not
+   given. Deliberately quieter than the expert box — it is a citation, not a
+   verdict. */
+.rating-box--credential { gap: 6px; }
+.rating-box--credential .rating-box__value { color: var(--color-neutral-700); }
+.rating-box__unit {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-neutral-600);
+}
+
+.listing-chip {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-neutral-700);
+  border: 1px solid var(--color-divider);
+  border-radius: 999px;
+  padding: 2px 9px;
+}
+.listing-chip--empty { font-weight: 500; color: var(--color-neutral-600); }
 
 .detail-actions {
   display: flex;
