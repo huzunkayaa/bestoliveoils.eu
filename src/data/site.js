@@ -107,7 +107,9 @@ module.exports = {
       readerStars: 4,
       intensity: 'Robust',
       inShop: true,
-      image: { src: 'assets/img/oro-bailen-picual.webp', alt: 'Bottle of Finca La Torre Picual extra virgin olive oil', fit: 'contain', w: 562, h: 562 },
+      // No photo of our own yet. It used to borrow Oro Bailén's bottle, which
+      // became a misrepresentation the moment Oro Bailén was real content.
+      image: null,
       price: '500 ml · €18.50 at our shop',
       priceAmount: 18.50,
       priceCurrency: 'EUR',
@@ -169,7 +171,8 @@ module.exports = {
         title: 'Laudemio Frescobaldi Review | bestoliveoils.eu',
         description: 'A Tuscan Frantoio blend scored 4.6/5 by our tasting panel, with 84 reader reviews. See the rating and where to buy it.',
       },
-      image: { src: 'assets/img/oro-bailen-arbequina.webp', alt: 'Bottle of Laudemio Frescobaldi extra virgin olive oil', fit: 'contain', w: 562, h: 562 },
+      // As above — this was Oro Bailén's Arbequina bottle under another label.
+      image: null,
     },
     {
       slug: 'castillo-de-canena-reserva-familiar',
