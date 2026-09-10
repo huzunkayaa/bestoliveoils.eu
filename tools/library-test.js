@@ -6,7 +6,10 @@
      node tools/library-test.js
 
    Needs playwright available (npm i -D playwright, or run it from a checkout
-   that has it). Counts below are asserted against the current site.js, so they
+   that has it) — it is deliberately not a dependency of the site, which has
+   none. Where a browser is already on the machine but not where playwright
+   looks for it, point at it: CHROMIUM_PATH=/path/to/chrome node tools/…
+   Counts below are asserted against the current site.js, so they
    move when content is added — that is deliberate: a filter test that passes
    regardless of the data is not testing the filter.
    ══════════════════════════════════════════════════════════════════════════ */

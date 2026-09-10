@@ -537,6 +537,7 @@ body { background: #fff; }
 .detail-hero__title { display: flex; flex-direction: column; gap: 6px; }
 .detail-hero__title h1 { font-size: 48px; margin: 0; text-wrap: pretty; }
 .detail-hero__byline { font-size: 17px; margin: 0; color: var(--color-neutral-700); }
+.detail-hero__cultivar { font-size: 15px; margin: 4px 0 0; color: var(--color-neutral-700); }
 .detail-hero__desc { font-size: 16px; line-height: 1.6; margin: 0; text-wrap: pretty; }
 
 .ratings {
@@ -949,6 +950,167 @@ body { background: #fff; }
 /* ══ responsive ════════════════════════════════════════════════════════════
    The artboards are desktop-only. Below 1280 the fixed columns give way, in
    the order they stop earning their width. */
+
+/* ══ cultivars ═════════════════════════════════════════════════════════════ */
+
+/* Hub: one row per variety. A variety with a reference page carries the arrow
+   the article rows use; the rest open the filtered library and don't, so the
+   two destinations are told apart before the click. */
+.cultivar-list { display: flex; flex-direction: column; gap: 10px; }
+.cultivar-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: inherit;
+}
+.cultivar-row:hover { border-color: var(--color-accent); }
+.cultivar-row__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; flex: 1; }
+.cultivar-row__name { font-size: 19px; }
+.cultivar-row__where { font-size: 13px; color: var(--color-neutral-700); }
+.cultivar-row__note { font-size: 14px; color: var(--color-neutral-800); text-wrap: pretty; }
+.cultivar-row__count {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  line-height: 1;
+  flex: none;
+  text-align: right;
+}
+.cultivar-row__count span {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  color: var(--color-neutral-700);
+}
+
+.page-body--cultivar { padding-top: 16px; gap: 44px; }
+
+/* Same reasoning as .producer-oils__table: min-width:0 lets the wrapper scroll
+   instead of widening the page, and the table keeps a floor so its five
+   columns stay readable rather than squashing to nothing. */
+.table-scroll { overflow-x: auto; min-width: 0; position: relative; }
+.table-scroll table { min-width: 680px; }
+/* The first cell of each row is a <th scope="row"> so the table reads properly,
+   but it holds a name — it should not take the uppercase, letter-spaced
+   treatment .table th gives the column headings above it. */
+.table-scroll tbody th {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  color: inherit;
+}
+
+.cultivar-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 520px;
+  gap: 56px;
+  align-items: center;
+}
+.cultivar-hero__copy { display: flex; flex-direction: column; gap: 20px; }
+.cultivar-hero__tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.cultivar-hero h1 { font-size: 62px; margin: 0; line-height: 1.02; }
+.cultivar-hero__lede {
+  font-size: 18.5px;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--color-neutral-800);
+  max-width: 620px;
+  text-wrap: pretty;
+}
+.cultivar-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.cultivar-hero__actions .btn { height: 48px; font-size: 15px; padding: 0 24px; }
+.cultivar-hero__media { height: 420px; border-radius: 48px; }
+
+.cultivar-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 52px;
+  align-items: start;
+}
+.cultivar-main { display: flex; flex-direction: column; gap: 44px; min-width: 0; }
+.cultivar-main h2 { margin: 0; }
+.cultivar-prose {
+  font-size: 16px;
+  line-height: 1.65;
+  margin: 0;
+  max-width: 720px;
+  text-wrap: pretty;
+}
+/* The row for the variety being read. A background alone would not survive a
+   high-contrast mode, so the name carries weight and colour as well. */
+.table tr.is-current { background: var(--color-accent-2-100); }
+.cultivar-current { color: var(--color-accent-700); font-weight: 700; }
+.cultivar-caveat {
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin: 0;
+  color: var(--color-neutral-700);
+  max-width: 720px;
+  text-wrap: pretty;
+}
+
+.cultivar-side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 24px;
+}
+.cultivar-card { padding: 22px 24px; gap: 12px; }
+.cultivar-card .facts-table tbody th { width: 50%; }
+
+.cultivar-aroma {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px;
+  background: var(--color-accent-2-100);
+  border-radius: var(--radius-lg);
+}
+.cultivar-aroma__row { display: flex; flex-direction: column; gap: 4px; }
+.cultivar-aroma__label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  color: var(--color-accent-2-900);
+}
+.cultivar-aroma__label span:last-child { font-weight: 600; }
+.cultivar-aroma .profile-bar { background: #fff; }
+
+.cultivar-regions { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.cultivar-regions li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+}
+.cultivar-regions li:last-child { border-bottom: 0; }
+.cultivar-regions span { color: var(--color-neutral-700); }
+
+@media (max-width: 1280px) {
+  .cultivar-hero { grid-template-columns: minmax(0, 1fr) minmax(0, 440px); }
+  .cultivar-hero h1 { font-size: clamp(40px, 5vw, 62px); }
+  .cultivar-columns { gap: 40px; }
+}
+
+@media (max-width: 1080px) {
+  .cultivar-columns { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .cultivar-side { position: static; }
+}
+
+@media (max-width: 860px) {
+  .cultivar-hero { grid-template-columns: minmax(0, 1fr); }
+  .cultivar-hero__media { height: 300px; border-radius: 36px; }
+  .cultivar-hero h1 { font-size: 40px; }
+  /* The count stays beside the name rather than wrapping under it — a wrapped
+     flex item stretches full width and reads as a centred heading of its own. */
+  .cultivar-row { gap: 14px; padding: 14px 16px; }
+  .cultivar-row__count { font-size: 20px; }
+}
 
 @media (max-width: 1280px) {
   .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: 40px; }

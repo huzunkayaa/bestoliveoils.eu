@@ -22,6 +22,7 @@ const path = require('path');
 const D = require('./src/data/site');
 const pages = require('./src/lib/pages');
 const { url, absolute } = require('./src/lib/render');
+const { cultivarPages } = require('./src/lib/cultivars');
 
 const SRC = path.join(__dirname, 'src');
 const OUT = path.join(__dirname, 'docs');
@@ -62,10 +63,16 @@ function build() {
   page(url.home(), pages.home(D), '1.0', 'weekly');
   page(url.library(), pages.library(D), '0.9', 'weekly');
   page(url.producers(), pages.producersIndex(D), '0.6', 'monthly');
+  page(url.cultivars(), pages.cultivarsIndex(D), '0.6', 'monthly');
   page(url.learn(), pages.learnIndex(D), '0.6', 'monthly');
 
   for (const oil of D.oils) {
     page(url.oil(oil.slug), pages.oil(D, oil), oil.detail ? '0.8' : '0.5', 'monthly');
+  }
+  // Only the varieties with a written-up record — the rest are counted on the
+  // hub and filter the library, which is a page that exists.
+  for (const c of cultivarPages(D)) {
+    page(url.cultivar(c.slug), pages.cultivar(D, c), '0.7', 'monthly');
   }
   for (const producer of D.producers) {
     page(url.producer(producer.slug), pages.producer(D, producer), '0.7', 'monthly');

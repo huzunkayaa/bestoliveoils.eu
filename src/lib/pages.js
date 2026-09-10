@@ -1,8 +1,10 @@
 /* ══════════════════════════════════════════════════════════════════════════
    Page templates — one function per screen, each returning a full document.
 
-   The five screens map to the artboards in the Claude Design handoff:
+   The five original screens map to the artboards in the v1 handoff:
      home → 00, library → 01, oil → 02, producer → 03, guide → 04.
+   `cultivar` is the one page type v2 adds (its screen 03), and the hubs
+   (producers, cultivars, learn) exist because the routes need a parent.
    ══════════════════════════════════════════════════════════════════════════ */
 
 'use strict';
@@ -10,6 +12,8 @@
 const R = require('./render');
 const S = require('./seo');
 const { facetLists } = require('./facets');
+const { cultivarList, comparison, pagedSlugs } = require('./cultivars');
+const { facetsFor } = require('./facets');
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
 const shell = ({ site, headHtml, nav, bodyClass, main }) =>
@@ -259,6 +263,217 @@ function producersIndex(D) {
   });
 }
 
+/* ══ cultivar hub ═══════════════════════════════════════════════════════
+   Every variety the oils mention, counted from the oils. A variety with a
+   reference page links to it; the rest open the library filtered to that
+   variety, which is a real destination rather than a page we have not written. */
+
+function cultivarsIndex(D) {
+  const site = D.site;
+  const meta = D.pages.cultivars;
+  const trail = [{ label: 'Home', href: url.home() }, { label: 'Cultivars' }];
+  const list = cultivarList(D);
+
+  const row = (c) => {
+    const where = c.regions.length <= 3
+      ? c.regions.map((r) => r.name).join(' · ')
+      : `${c.regions.slice(0, 3).map((r) => r.name).join(' · ')} + ${c.regions.length - 3} more`;
+    const inner =
+      '<div class="cultivar-row__text">' +
+        `<span class="card-title cultivar-row__name">${esc(c.name)}</span>` +
+        `<span class="cultivar-row__where">${esc(where)}</span>` +
+        (c.record && c.record.sensory
+          ? `<span class="cultivar-row__note">${esc(c.record.sensory)}</span>`
+          : '') +
+      '</div>' +
+      `<span class="cultivar-row__count">${c.count} <span>${
+        c.count === 1 ? 'oil' : 'oils'}</span></span>` +
+      (c.hasPage ? ICON.arrow : '');
+    return c.hasPage
+      ? `<a class="card cultivar-row" href="${url.cultivar(c.slug)}">${inner}</a>`
+      : `<a class="card cultivar-row cultivar-row--filter" href="${
+          url.library()}?cultivar=${encodeURIComponent(c.slug)}">${inner}</a>`;
+  };
+
+  const main = R.breadcrumb(trail) +
+    `<div class="library-head"><h1>Cultivars</h1><p>${esc(meta.intro)}</p>${
+      meta.body.map((para) => `<p class="hub-body">${esc(para)}</p>`).join('')}</div>
+     <div class="cultivar-list">${list.map(row).join('')}</div>`;
+
+  return shell({
+    site,
+    bodyClass: 'page-body--library',
+    nav: R.nav(site, 'cultivars'),
+    main,
+    headHtml: S.head({
+      site,
+      title: meta.title,
+      description: meta.description,
+      path: url.cultivars(),
+      schema: [
+        S.itemListPage(site, url.cultivars(), 'Cultivars', meta.description,
+          list.filter((c) => c.hasPage)
+            .map((c) => ({ name: c.name, url: url.cultivar(c.slug) }))),
+        S.breadcrumbList(site, trail),
+      ],
+    }),
+  });
+}
+
+/* ══ 03 · cultivar reference ════════════════════════════════════════════ */
+
+/* Which oils lead the grid. Scored oils first, best first; then the catalogue
+   entries by their competition placing. The two are never mixed into one
+   ranking — a rank in someone else's competition is not our score, and
+   sorting them together would imply it is. */
+const bestFirst = (oils) => {
+  const rank = (o) => (o.listing ? Number(o.listing.rank) : Infinity);
+  return [...oils].sort((a, b) =>
+    Number(Boolean(b.score)) - Number(Boolean(a.score)) ||
+    (a.score && b.score ? Number(b.score) - Number(a.score) : 0) ||
+    rank(a) - rank(b) ||
+    a.name.localeCompare(b.name));
+};
+
+function cultivar(D, c) {
+  const site = D.site;
+  const rec = c.record;
+  const path = url.cultivar(c.slug);
+  const filtered = `${url.library()}?cultivar=${encodeURIComponent(c.slug)}`;
+  const trail = [
+    { label: 'Home', href: url.home() },
+    { label: 'Cultivars', href: url.cultivars() },
+    { label: c.name },
+  ];
+
+  /* The stats are counts of what is here plus one published varietal range.
+     There is no "average panel score" row, which the design drew: no oil in
+     the library has a panel score yet, and an average of nothing is a lie. */
+  const stats = [
+    { value: rec.phenolRange.replace(/ mg\/kg$/, ''), label: 'mg/kg typical for the variety' },
+    { value: c.count, label: `${c.count === 1 ? 'oil' : 'oils'} in the library` },
+    { value: c.producers.length, label: c.producers.length === 1 ? 'producer' : 'producers' },
+  ];
+
+  const table = comparison(D, c.slug);
+
+  /* Sensory panel data per variety — the design's aroma wheel. Rendered only
+     when a record actually carries measurements; nothing here is estimated. */
+  const aroma = rec.aroma && rec.aroma.length
+    ? '<div class="cultivar-aroma">' +
+        '<span class="card-kicker">Aroma intensity</span>' +
+        rec.aroma.map((a) =>
+          '<div class="cultivar-aroma__row">' +
+            `<div class="cultivar-aroma__label"><span>${esc(a.label)}</span><span>${esc(a.val)}</span></div>` +
+            `<div class="profile-bar"><div class="profile-bar__fill" style="width:${esc(a.pct)}"></div></div>` +
+          '</div>').join('') +
+      '</div>'
+    : '';
+
+  const main = R.breadcrumb(trail) +
+    `<section class="cultivar-hero">
+      <div class="cultivar-hero__copy">
+        <div class="cultivar-hero__tags">${(rec.tags || []).map((t, i) =>
+          `<span class="tag ${i === 0 ? 'tag-accent-2' : 'tag-neutral'}">${esc(t)}</span>`).join('')}</div>
+        <h1>${esc(c.name)}</h1>
+        <p class="cultivar-hero__lede">${esc(rec.lede)}</p>
+        <div class="producer-stats">${stats.map((s) =>
+          `<div class="producer-stat"><span class="producer-stat__value">${esc(s.value)}</span>` +
+          `<span class="producer-stat__label">${esc(s.label)}</span></div>`).join('')}</div>
+        <div class="cultivar-hero__actions">
+          <a class="btn btn-primary" href="${esc(filtered)}">Browse ${c.count} ${
+            esc(c.name)} ${c.count === 1 ? 'oil' : 'oils'}</a>
+          <a class="btn btn-secondary" href="#compare">Compare cultivars</a>
+        </div>
+      </div>
+      ${media(rec.image, rec.imagePlaceholder, 'cultivar-hero__media washed', '', { priority: true })}
+    </section>
+
+    <div class="cultivar-columns">
+      <div class="cultivar-main">
+        <section class="section">
+          <h2>In the grove</h2>
+          ${rec.grove.map((para) => `<p class="cultivar-prose">${esc(para)}</p>`).join('')}
+        </section>
+
+        <section class="section" id="compare">
+          <h2>Compared with the other reference cultivars</h2>
+          <div class="table-scroll"><table class="table">
+            <thead><tr>
+              <th scope="col">Cultivar</th><th scope="col">Origin</th>
+              <th scope="col">Typical polyphenols</th><th scope="col">Sensory profile</th>
+              <th scope="col">Best pairing</th>
+            </tr></thead>
+            <tbody>${table.map((t) => {
+              const name = t.current
+                ? `<span class="cultivar-current">${esc(t.name)}</span>`
+                : esc(t.name);
+              return `<tr${t.current ? ' class="is-current"' : ''}>` +
+                `<th scope="row">${name}</th>` +
+                `<td>${esc(t.origin)}</td><td>${esc(t.phenolRange)}</td>` +
+                `<td>${esc(t.sensory)}</td><td>${esc(t.pairing)}</td></tr>`;
+            }).join('')}</tbody>
+          </table></div>
+          <p class="cultivar-caveat">Polyphenol figures are the ranges published for each variety, not
+            measurements of any bottle in the library. A single oil's figure depends on when it was
+            picked and how it was milled, and is shown on that oil's own page where the producer
+            states one.</p>
+        </section>
+
+        <section class="section">
+          <div class="section-head">
+            <div class="section-head__text"><h2>${esc(c.name)} oils in the library</h2>
+              <span class="section-head__sub">From ${c.producers.length} ${
+                c.producers.length === 1 ? 'producer' : 'producers'} in ${c.regions.length} ${
+                c.regions.length === 1 ? 'region' : 'regions'}</span></div>
+            <a href="${esc(filtered)}">All ${c.count} →</a>
+          </div>
+          <div class="oil-grid-3">${
+            bestFirst(c.oils).slice(0, 6).map((o) => R.oilCard(site, o, true)).join('')}</div>
+        </section>
+      </div>
+
+      <aside class="cultivar-side">
+        <div class="card cultivar-card">
+          <span class="card-kicker">Reference card</span>
+          <table class="table facts-table"><tbody>${
+            (rec.reference || []).map(([label, value]) =>
+              `<tr><th scope="row">${esc(label)}</th><td>${esc(value)}</td></tr>`).join('')}
+            <tr><th scope="row">In the library</th><td>${c.count} ${
+              c.count === 1 ? 'oil' : 'oils'}</td></tr>
+          </tbody></table>
+        </div>
+        ${aroma}
+        <div class="card cultivar-card">
+          <span class="card-kicker">Where it grows here</span>
+          <ul class="cultivar-regions">${c.regions.map((r) =>
+            `<li><a href="${url.library()}?region=${encodeURIComponent(r.slug)}">${
+              esc(r.name)}</a><span>${esc(r.country)}</span></li>`).join('')}</ul>
+        </div>
+      </aside>
+    </div>`;
+
+  return shell({
+    site,
+    bodyClass: 'page-body--cultivar',
+    nav: R.nav(site, 'cultivars'),
+    main,
+    headHtml: S.head({
+      site,
+      title: rec.seo.title,
+      ogTitle: c.name,
+      description: rec.seo.description,
+      path,
+      image: rec.image ? rec.image.src : null,
+      schema: [
+        S.itemListPage(site, path, `${c.name} olive oils`, rec.seo.description,
+          c.oils.map((o) => ({ name: o.name, url: url.oil(o.slug) }))),
+        S.breadcrumbList(site, trail),
+      ],
+    }),
+  });
+}
+
 function learnIndex(D) {
   const site = D.site;
   const meta = D.pages.learn;
@@ -316,6 +531,16 @@ function oil(D, o) {
   // a byline pointing at a 404 is worse than plain text.
   const hasProducerPage = D.producers.some((p) => p.slug === o.producerSlug);
 
+  /* The cultivar earns a link once its reference page is built. An oil can
+     name more than one variety, so each part is decided on its own and the
+     ones with nothing written yet stay plain text. */
+  const paged = pagedSlugs(D);
+  const f = facetsFor(o);
+  const cultivarLine = f.cultivarNames.map((name, i) =>
+    paged.has(f.cultivars[i])
+      ? `<a href="${url.cultivar(f.cultivars[i])}">${esc(name)}</a>`
+      : esc(name)).join(' · ');
+
   const tags = (d.tags || [o.intensity])
     .map((t) => `<span class="tag tag-neutral">${esc(t)}</span>`).join('');
 
@@ -362,7 +587,8 @@ function oil(D, o) {
         <div class="detail-hero__title"><h1>${esc(o.name)}</h1>
           <p class="detail-hero__byline">by ${
             hasProducerPage ? `<a href="${url.producer(o.producerSlug)}">${esc(o.producer)}</a>`
-                            : esc(o.producer)} · ${esc(d.location || o.region)}</p></div>
+                            : esc(o.producer)} · ${esc(d.location || o.region)}</p>
+          <p class="detail-hero__cultivar">${cultivarLine}</p></div>
         <div class="ratings">
           ${expertBox}
           ${readerBox}
@@ -664,4 +890,7 @@ function guide(D, g) {
   });
 }
 
-module.exports = { home, library, producersIndex, learnIndex, oil, producer, guide };
+module.exports = {
+  home, library, producersIndex, cultivarsIndex, learnIndex,
+  oil, cultivar, producer, guide,
+};

@@ -34,6 +34,8 @@ Directory URLs with a trailing slash, so any host resolves them without rewrites
 | 02 Oil detail | `/oils/<slug>/` |
 | Producers hub | `/producers/` |
 | 03 Producer | `/producers/<slug>/` |
+| Cultivars hub | `/cultivars/` |
+| Cultivar (v2 03) | `/cultivars/<slug>/` |
 | Guides hub | `/learn/` |
 | 04 Article | `/learn/<slug>/` |
 
@@ -79,6 +81,17 @@ comment.
   that producer has a record; a guide teased on the homepage is only a link once
   the guide exists (`href: null` until then). `npm run check` fails on a broken
   internal link.
+- **A cultivar gets a page only once someone has written one.** The list of
+  varieties is derived from the oils by `src/lib/cultivars.js`; a record in
+  site.js's `cultivars` array adds the editorial half. With `lede` + `grove` the
+  record earns `/cultivars/<slug>/`; with only the four reference columns it
+  appears in the comparison table and on the hub. Varieties with neither are
+  still counted on the hub and link to the filtered library.
+- **Varietal figures are not measurements.** `phenolRange` is the range published
+  for the *variety*; the page says so where it prints it, and no oil ever borrows
+  it as its own figure. Per-oil lab data (polyphenols, acidity, peroxide) and the
+  sensory radar the v2 design draws render only from fields on that oil — we have
+  none yet, so those modules do not appear.
 - **Schema must match the page.** No review markup on an oil with no write-up, no
   `Offer` without a real price. We are not the seller — where an offer appears it
   names olijfoliemarkt.nl as the seller.
@@ -96,6 +109,16 @@ Deliberate gaps, listed so nobody assumes they exist:
 - **No `status: draft|published`.** Every record in `site.js` is published.
 - **No admin panel.** `design/Admin Panel.dc.html` (6 screens) is unimplemented.
 - **No region pages.** Region links point at `/oils/` with a query.
+- **Only one cultivar has a page.** Picual. The other 17 varieties in the library
+  are counted on `/cultivars/` and open the filtered library; three of them
+  (Coratina, Koroneiki, Arbequina) also carry the reference row the comparison
+  table uses. The rest need a `lede` and a `grove` write-up.
+- **The rest of v2 is unbuilt.** `design/Olive Oil Library v2.dc.html` also draws
+  a taxonomy mega menu, a partner strip and EU language switcher, a "how every
+  bottle is verified" band, an HPLC/health section, a lab panel and sensory radar
+  on the oil page, a live stock-and-price module, out-of-stock alternatives, and
+  a producer award timeline. None of it is built; the nav, homepage and oil page
+  are still v1.
 - **No "How we rate" or "Contact" page** — both are linked from every footer and
   currently go nowhere.
 - **Sign in, Helpful and Report do nothing** — all three need a backend.

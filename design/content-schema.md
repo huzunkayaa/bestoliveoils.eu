@@ -128,6 +128,44 @@ Separate from `guides` so a guide can be teased before it is written:
 link instead of pointing at a 404. Give it a URL once the matching `guides`
 record exists.
 
+## `cultivars[]` — the varieties
+
+The *list* of varieties is derived from the oils, never written here:
+`src/lib/cultivars.js` reads every oil's `cultivar` field and counts what it
+finds. What lives in `cultivars[]` is the editorial half — the varietal facts a
+count cannot know.
+
+A record has two levels, and the level decides whether a page is built:
+
+```js
+// reference row — appears in the comparison table and carries the hub's note
+{ slug, name, origin, phenolRange, sensory, pairing }
+
+// full page — the above, plus enough to justify /cultivars/<slug>/
+{
+  …, tags: ['Spain · Jaén', 'Monovarietal'],
+  lede,                    // one paragraph under the h1
+  grove: ['…', '…'],       // the "In the grove" write-up
+  reference: [['Also called', 'Marteño, Lopereño'], …],
+  aroma: [{ label, val, pct }],   // optional; panel data, omit unless measured
+  image, imagePlaceholder,
+  seo: { title, description },
+}
+```
+
+`lede` + `grove` is the gate. Without both, the variety is still counted on
+`/cultivars/` and links to the filtered library — a destination that exists —
+rather than to a page nobody has written.
+
+**`phenolRange` is the range published for the variety, not a measurement.** The
+page prints that caveat under the comparison table, and no oil borrows the figure
+as its own. `aroma` is real sensory panel data: leave it off until there is some,
+and the wheel simply does not render.
+
+`notCultivars[]` lists slugs that arrive in an oil's `cultivar` field but are not
+varieties — `not-published`, `blend-varies-by-year`, `dop-baena-varieties`. They
+stay filterable, because that is what the oil says; they are kept off the hub.
+
 ## `regions[]`, `filters`, `pages`, `home`
 
 - `regions[]` — `{ slug, name, count, image }`, the homepage circles.
@@ -136,8 +174,8 @@ record exists.
   values each card is filtered on all come from the records, so an option can
   never offer a value no oil has. Give an oil `organic: true` to override the
   value `facets.js` infers from its tags and certification.
-- `pages` — `{ title, description }` for the homepage and the three hubs, plus
-  `intro`/`body` prose for `/producers/` and `/learn/`.
+- `pages` — `{ title, description }` for the homepage and the four hubs, plus
+  `intro`/`body` prose for `/producers/`, `/cultivars/` and `/learn/`.
 - `home` — the homepage's own copy: `eyebrow`, `heading`, `lede`, `popular[]`,
   `hero`, `shopBand`.
 

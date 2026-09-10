@@ -44,12 +44,14 @@ module.exports = {
     nav: [
       { label: 'Library',   href: '/oils/',  key: 'library' },
       { label: 'Producers', href: '/producers/', key: 'producers' },
+      { label: 'Cultivars', href: '/cultivars/', key: 'cultivars' },
       { label: 'Regions',   href: '/oils/',  key: 'regions' },
       { label: 'Learn',     href: '/learn/',     key: 'learn' },
     ],
     footerLinks: [
       { label: 'Library',     href: '/oils/' },
       { label: 'Producers',   href: '/producers/' },
+      { label: 'Cultivars',   href: '/cultivars/' },
       { label: 'Regions',     href: '/oils/' },
       { label: 'Learn',       href: '/learn/' },
       { label: 'How we rate', href: '#' },
@@ -87,7 +89,95 @@ module.exports = {
         'Each guide is written by a member of the tasting panel and revised as the method changes. Where a guide names an oil, it links to that oil\'s entry in the library so you can taste along with it.',
       ],
     },
+    cultivars: {
+      title: 'Olive Cultivars in the Library | bestoliveoils.eu',
+      description: 'Every olive variety in the library, with the number of oils behind it and the regions it comes from. Picual, Hojiblanca, Frantoio, Coratina and more.',
+      intro: 'The olive varieties behind the oils in the library, counted from the oils themselves.',
+      body: [
+        'A cultivar is the variety of olive the oil is pressed from, and it does more to shape how an oil tastes than any other single factor. A Picual and an Arbequina grown in the same grove, picked on the same day and milled in the same machine will not taste alike.',
+        'Every variety below is counted from the oils we hold: the number is how many oils in the library carry it, not an estimate of how much is planted. Varieties with a reference page of their own are linked; the rest open the library filtered to that variety.',
+      ],
+    },
   },
+
+  /* ── cultivars ──────────────────────────────────────────────────────────
+     Reference records for the olive varieties. These are NOT the source of
+     the library's cultivar filter — that is derived from the oils by
+     facets.js, and always will be. What lives here is editorial: the varietal
+     facts a filter cannot know.
+
+     Two levels, and the difference decides whether a page is built:
+       · a reference row (name + origin + phenolRange + sensory + pairing)
+         appears in the comparison table and on the hub;
+       · add `lede` and `grove` and the record earns /cultivars/<slug>/.
+     A variety with neither is still counted on the hub from the oils; it
+     just has nothing of its own to say yet.
+
+     `phenolRange` is the range typically published for the VARIETY. It is not
+     a measurement of any bottle in the library — the pages say so where they
+     print it, and no oil borrows it as its own figure. */
+  cultivars: [
+    {
+      slug: 'picual',
+      name: 'Picual',
+      origin: 'Jaén, Spain',
+      phenolRange: '500–800+ mg/kg',
+      sensory: 'Green tomato skin, cut grass, high bitterness and pungency',
+      pairing: 'Grilled meat, charcuterie',
+      tags: ['Spain · Jaén', 'Monovarietal', 'Very high phenolic'],
+      lede: 'The most planted olive in the world and the backbone of Andalusian oil. Naturally rich in oleic acid and polyphenols, which makes it both the most stable extra virgin on the shelf and the most assertive on the palate.',
+      grove: [
+        'Picual takes its name from the small point at the tip of the fruit. It tolerates cold, drought and limestone soils, which is why it dominates Jaén, where a single province holds more olive trees than any country outside Spain. Yield is high and ripening is late, so growers who want the green style must pick well before the fruit turns.',
+        'The trade-off is real: an early October pick can cost a third of the yield of a November one. What it buys is chlorophyll, bitterness and a phenolic load that keeps the oil alive for two years instead of one.',
+      ],
+      reference: [
+        ['Also called', 'Marteño, Lopereño'],
+        ['Main regions', 'Jaén, Córdoba, Granada'],
+        ['Oleic acid', '78–83%'],
+        ['Harvest', 'Early Oct – Dec'],
+        ['Shelf stability', 'Very high'],
+      ],
+      image: null,
+      imagePlaceholder: 'Picual olives · grove photo',
+      seo: {
+        title: 'Picual Olive Oil: Taste, Origin & Oils | bestoliveoils.eu',
+        description: 'What Picual olive oil tastes like, why Jaén grows so much of it, and every Picual oil in our library with its region, producer and competition record.',
+      },
+    },
+    /* Reference rows only — enough for the comparison table and the hub, not
+       yet enough for a page of their own. */
+    {
+      slug: 'coratina',
+      name: 'Coratina',
+      origin: 'Puglia, Italy',
+      phenolRange: '600–1000+ mg/kg',
+      sensory: 'Artichoke, rocket, intense peppery pungency',
+      pairing: 'Legume soups, roast beef',
+    },
+    {
+      slug: 'koroneiki',
+      name: 'Koroneiki',
+      origin: 'Crete & the Peloponnese',
+      phenolRange: '350–600 mg/kg',
+      sensory: 'Fresh apple, green banana, balanced herbaceous notes',
+      pairing: 'Salads, grilled fish',
+    },
+    {
+      slug: 'arbequina',
+      name: 'Arbequina',
+      origin: 'Catalonia & Andalusia',
+      phenolRange: '150–300 mg/kg',
+      sensory: 'Sweet apple, green almond, very light bitterness',
+      pairing: 'Seafood, desserts, light sauces',
+    },
+  ],
+
+  /* Values that arrive in an oil's `cultivar` field but are not varieties —
+     a producer who publishes no variety, a blend that changes each year, a
+     DOP rule standing in for the grower's own list. They stay filterable,
+     because that is what the oil says; they are kept off the cultivar hub,
+     because a reference page for "Not published" is nonsense. */
+  notCultivars: ['not-published', 'blend-varies-by-year', 'dop-baena-varieties'],
 
   /* ── oils ───────────────────────────────────────────────────────────────
      `stars` is the whole-star count the ★ row draws; `score` is the printed
