@@ -34,11 +34,17 @@ const path = require('path');
 
 const SITE = path.join(__dirname, '..', 'src', 'data', 'site.js');
 
-/* Byte range of a top-level array's contents. Anchored on two-space indentation
-   so it cannot match a nested `oils: [` inside a producer record. */
+/* Byte range of a top-level array's contents.
+   Two shapes are accepted, because packs are written both ways:
+       module.exports = { oils: [ … ] }      →  "\n  oils: ["
+       const oils = [ … ]; module.exports…   →  "\nconst oils = ["
+   Both anchors pin the match to column 0 or 2, so neither can match the
+   nested one-line `oils: [` inside a producer record — which is the whole
+   reason this is scoped rather than a plain indexOf. */
 function arrayRange(text, key) {
-  const at = text.indexOf(`\n  ${key}: [`);
-  if (at === -1) throw new Error(`cannot find top-level array "${key}"`);
+  const anchors = [`\n  ${key}: [`, `\nconst ${key} = [`];
+  const at = anchors.map((a) => text.indexOf(a)).find((i) => i !== -1);
+  if (at === undefined) throw new Error(`cannot find top-level array "${key}"`);
   const open = text.indexOf('[', at);
   let depth = 0;
   for (let i = open; i < text.length; i++) {
@@ -129,8 +135,28 @@ function main() {
   }
 
   fs.writeFileSync(SITE, site);
+
+  /* Parsing each block is not enough: a record can be valid JavaScript and
+     still reference a helper the pack defines at module level and site.js
+     does not — `listing(1, 465)` parses fine and then throws on load. So
+     actually load the merged file, and put the original back if it fails. */
+  try {
+    delete require.cache[require.resolve(SITE)];
+    require(SITE);
+  } catch (e) {
+    fs.writeFileSync(SITE, before);
+    console.error(`\nMerged site.js does not load — reverted, nothing changed.\n  ${e.message}`);
+    if (e instanceof ReferenceError) {
+      console.error('\n  A record probably calls a helper the pack declares at the top of its\n' +
+                    '  own file. Copy that declaration into site.js above module.exports,\n' +
+                    '  then run this again.');
+    }
+    process.exit(1);
+  }
+
   console.log(log.join('\n'));
   console.log(`\ncomment lines: ${commentsBefore} → ${commentsAfter}`);
+  console.log('merged site.js loads cleanly');
   console.log('Now run: npm run check');
 }
 

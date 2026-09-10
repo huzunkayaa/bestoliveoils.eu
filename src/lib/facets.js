@@ -88,10 +88,13 @@ function facetLists(oils) {
   const cultivarList = tally((f) => f.cultivars.map((c, i) => [c, f.cultivarNames[i]]))
     .sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 
-  // Fixed order — delicate to robust is a scale, not a ranking.
+  /* Fixed order — delicate to robust is a scale, not a ranking. Catalogue
+     entries whose producer states no intensity land outside that scale, so
+     they sort last rather than at the head of it. */
   const ORDER = ['delicate', 'medium', 'robust'];
+  const rank = (key) => (ORDER.indexOf(key) === -1 ? ORDER.length : ORDER.indexOf(key));
   const intensities = tally((f) => [[f.intensity, f.intensityName]])
-    .sort((a, b) => ORDER.indexOf(a.key) - ORDER.indexOf(b.key));
+    .sort((a, b) => rank(a.key) - rank(b.key) || a.label.localeCompare(b.label));
 
   return {
     regions,

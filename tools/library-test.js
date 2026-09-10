@@ -35,30 +35,30 @@ const { chromium } = require('playwright');
 
   console.log('— açılış: filtresiz hepsi görünür —');
   await go();
-  await check('16 yağ görünüyor', 16, visible);
+  await check('55 yağ görünüyor', 55, visible);
   console.log('    özet:', await summary());
 
   console.log('\n— bölge kutusu: Andalusia —');
   await p.click('label.radio:has(input[value="andalusia"])');
   await p.waitForTimeout(150);
-  await check('13 yağ', 13, visible);
+  await check('33 yağ', 33, visible);
   console.log('    özet:', await summary(), '| URL:', new URL(p.url()).search);
 
   console.log('\n— üstüne organik —');
   await p.click('label.radio:has(input[value="organic"])');
   await p.waitForTimeout(150);
-  await check('6 yağ', 6, visible);
+  await check('14 yağ', 14, visible);
 
   console.log('\n— temizle —');
   await p.click('[data-clear-filters]');
   await p.waitForTimeout(150);
-  await check('tekrar 16', 16, visible);
+  await check('tekrar 55', 55, visible);
   console.log('    URL:', p.url().endsWith('/oils/') ? '/oils/ (temiz)' : new URL(p.url()).search);
 
   console.log('\n— çeşit düğmesi: picual —');
   await p.click('[data-cultivar="picual"]');
   await p.waitForTimeout(150);
-  await check('8 yağ', 8, visible);
+  await check('20 yağ', 20, visible);
   await check('düğme basılı', 'true', () => p.$eval('[data-cultivar="picual"]', e => e.getAttribute('aria-pressed')));
 
   // Tuscany has three oils, none of them organic — a genuinely empty combination.
@@ -74,7 +74,7 @@ const { chromium } = require('playwright');
 
   console.log('\n— arama: ?q=frantoio —');
   await go('?q=frantoio');
-  await check('4 yağ', 4, visible);
+  await check('7 yağ', 7, visible);
   await check('arama kutusu dolu', 'frantoio', () => p.$eval('.searchbar input[name="q"]', e => e.value));
 
   console.log('\n— arama kutusuna yazma —');
@@ -98,15 +98,15 @@ const { chromium } = require('playwright');
   await p.waitForTimeout(150);
   await p.goBack();
   await p.waitForTimeout(200);
-  await check('geri → 16 yağ', 16, visible);
+  await check('geri → 55 yağ', 55, visible);
 
   console.log('\n— JS kapalıyken hepsi görünür mü —');
   const p2 = await b.newPage({ javaScriptEnabled: false, viewport: { width: 1440, height: 1000 } });
   await p2.route(/fonts\.(googleapis|gstatic)\.com/, r => r.fulfill({ status: 200, contentType: 'text/css', body: '' }));
   await p2.goto('http://localhost:8000/oils/', { waitUntil: 'load' });
   const noJs = await p2.$$eval('.oil-card:not([hidden])', e => e.length);
-  console.log(noJs === 16 ? '  ✓ JS olmadan 16 yağ görünür' : `  ✗ JS olmadan ${noJs} görünüyor`);
-  if (noJs !== 16) fail++;
+  console.log(noJs === 55 ? '  ✓ JS olmadan 55 yağ görünür' : `  ✗ JS olmadan ${noJs} görünüyor`);
+  if (noJs !== 55) fail++;
 
   console.log(errs.length ? '\nJS HATALARI: ' + errs.join(' | ') : '\nJS hatası yok');
   await b.close();
