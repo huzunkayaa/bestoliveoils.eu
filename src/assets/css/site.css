@@ -57,6 +57,69 @@ body { background: #fff; }
 .nav .btn { font-size: 13px; padding: 7px 16px; }
 .nav-brand--link { text-decoration: none; color: inherit; }
 
+/* ── partner strip + taxonomy panel ─────────────────────────────────────── */
+
+.nav-wrap { position: relative; z-index: 3; }
+
+/* The commercial relationship, stated above the nav on every page. The
+   "In our shop" badge leans on this being visible, not buried in a footer. */
+.partner-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  padding: 9px 48px;
+  background: var(--color-accent-2-900);
+  color: var(--color-accent-2-100);
+  font-size: 12.5px;
+}
+.partner-strip a { color: inherit; }
+.partner-strip strong { color: #fff; }
+.partner-strip__note { opacity: 0.85; }
+
+.nav-item--mega { display: inline-flex; align-items: center; gap: 2px; }
+.nav-caret {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.nav-caret:hover { color: var(--color-accent); }
+.nav-caret svg { transition: transform 120ms ease; }
+.nav-caret[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.mega {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  padding: 30px 36px;
+  background: var(--color-surface);
+  border-radius: 0 0 calc(var(--radius-lg) * 1.4) calc(var(--radius-lg) * 1.4);
+  box-shadow: var(--shadow-md);
+  z-index: 2;
+}
+.mega__inner {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 32px;
+}
+.mega__col { display: flex; flex-direction: column; gap: 10px; }
+.mega__col a {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 14px;
+  text-decoration: none;
+  color: inherit;
+}
+.mega__col a:hover { color: var(--color-accent); }
+.mega__count { color: var(--color-neutral-600); font-variant-numeric: tabular-nums; }
+
 /* ── heading levels vs. heading looks ─────────────────────────────────────
    The document outline runs h1 → h2 → h3 with nothing skipped, because that
    is what a crawler and a screen reader read. These rules give those headings
@@ -951,6 +1014,102 @@ body { background: #fff; }
    The artboards are desktop-only. Below 1280 the fixed columns give way, in
    the order they stop earning their width. */
 
+/* ══ homepage: method + polyphenol band ════════════════════════════════════ */
+
+.method__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.method__step { padding: 24px 26px; gap: 10px; }
+.method__n {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-heading);
+  font-size: 20px;
+}
+.method__title { font-size: 19px; }
+.method__body {
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+  color: var(--color-neutral-800);
+  text-wrap: pretty;
+}
+
+.phenol {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 56px;
+  align-items: center;
+  background: var(--color-accent-2-100);
+  border-radius: calc(var(--radius-lg) * 1.6);
+  padding: 52px 56px;
+}
+.phenol__copy { display: flex; flex-direction: column; gap: 16px; }
+.phenol__kicker { color: var(--color-accent-2-800); }
+.phenol h2 { margin: 0; font-size: 38px; text-wrap: pretty; }
+.phenol p {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--color-accent-2-900);
+  max-width: 600px;
+  text-wrap: pretty;
+}
+.phenol__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2px; }
+.phenol__actions .btn { height: 48px; font-size: 15px; padding: 0 24px; }
+.phenol__bands { display: flex; flex-direction: column; gap: 12px; }
+.phenol__band {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #fff;
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+}
+.phenol__band-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-weight: 600;
+  font-size: 14.5px;
+}
+.phenol__range { font-family: var(--font-heading); font-size: 19px; font-weight: 400; }
+.phenol__band .profile-bar { height: 9px; background: var(--color-neutral-200); }
+.phenol__fill--accent { background: var(--color-accent); }
+.phenol__fill--accent-2 { background: var(--color-accent-2); }
+.phenol__fill--neutral { background: var(--color-neutral-400); }
+.phenol__note { font-size: 12.5px; color: var(--color-neutral-700); }
+
+@media (max-width: 1280px) {
+  .phenol { grid-template-columns: minmax(0, 1fr) minmax(0, 360px); gap: 40px; }
+}
+
+@media (max-width: 1080px) {
+  .method__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mega__inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  /* The bands column is a fixed 420px up to here, which is wider than a phone.
+     It has to become a row of the same single column, not a second one. */
+  .phenol { grid-template-columns: minmax(0, 1fr); padding: 36px 28px; }
+  .phenol h2 { font-size: 30px; }
+  .mega { left: 20px; right: 20px; padding: 24px 24px; }
+}
+
+@media (max-width: 620px) {
+  .method__grid { grid-template-columns: minmax(0, 1fr); }
+  .mega__inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .phenol__actions .btn { width: 100%; }
+}
+
 /* ══ cultivars ═════════════════════════════════════════════════════════════ */
 
 /* Hub: one row per variety. A variety with a reference page carries the arrow
@@ -959,6 +1118,9 @@ body { background: #fff; }
 .cultivar-list { display: flex; flex-direction: column; gap: 10px; }
 .cultivar-row {
   display: flex;
+  /* .card sets column; this row is horizontal, and saying so explicitly keeps
+     it from depending on which stylesheet happens to load last. */
+  flex-direction: row;
   align-items: center;
   gap: 20px;
   padding: 16px 20px;

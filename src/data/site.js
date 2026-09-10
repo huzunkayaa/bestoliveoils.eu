@@ -63,13 +63,16 @@ module.exports = {
      Titles aim for 50-60 characters, descriptions for 120-160, so neither is
      truncated in results. */
   pages: {
+    /* {oils}, {producers}, {regions} and {cultivars} are filled in from the
+       records at build time — a hard-coded count goes stale the next time
+       content lands, and these two said 312 when the library held 55. */
     home: {
-      title: 'Olive Oil Reviews & Tasting Notes | bestoliveoils.eu',
-      description: 'Independent reviews of 312 extra virgin olive oils, tasted and scored by our panel. Find an oil, learn what makes it good, and see where to buy it.',
+      title: 'European Olive Oil Reference | bestoliveoils.eu',
+      description: 'An independent library of {oils} European extra virgin olive oils from {producers} mills: cultivar, region, harvest and competition record, with every source named.',
     },
     library: {
-      title: 'The Olive Oil Library — 312 Oils Rated | bestoliveoils.eu',
-      description: 'Browse 312 extra virgin olive oils by region, cultivar, intensity and rating. Every oil tasted and scored by our panel, with reader reviews alongside.',
+      title: 'The Olive Oil Library — {oils} Oils | bestoliveoils.eu',
+      description: 'Browse {oils} extra virgin olive oils by region, cultivar, intensity and rating. Filter by what you want, and see plainly which oils our panel has tasted.',
     },
     producers: {
       title: 'Olive Oil Producers & Estates | bestoliveoils.eu',
@@ -3576,17 +3579,80 @@ module.exports = {
 
   /* ── homepage-only copy ──────────────────────────────────────────────── */
   home: {
-    eyebrow: '312 oils tasted · 24 regions',
-    heading: 'Every good olive oil in Europe, tasted and explained.',
-    lede: 'Independent reviews from our tasting panel and thousands of readers. Find an oil, learn what makes it good, and see where to buy it.',
-    searchPlaceholder: 'Search an oil, producer or region…',
+    /* {oils}, {producers}, {regions} and {cultivars} are filled in at build
+       time from the records, so no number on this page can drift from what is
+       actually published. The mockup's "312 oils" was never true. */
+    eyebrow: '{oils} oils · {producers} mills · {regions} regions',
+    heading: 'The European reference for extra virgin olive oil.',
+    lede: 'An independent library of European extra virgin olive oil. Every entry names its producer, cultivar, region and harvest, says where the information came from, and says plainly when our panel has not tasted it.',
+    searchPlaceholder: 'Search an oil, cultivar, mill or region…',
+    /* Every one of these resolves to a real filtered view — the library reads
+       these exact parameters. "Under €15" used to point at ?max=15, which no
+       filter has ever read, so it quietly returned the whole library. */
     popular: [
-      { label: 'Picual',      href: '/oils/?cultivar=picual' },
-      { label: 'Tuscany',     href: '/oils/?region=tuscany' },
-      { label: 'Robust oils', href: '/oils/?intensity=robust' },
-      { label: 'Under €15',   href: '/oils/?max=15' },
+      { label: 'Picual',        href: '/cultivars/picual/' },
+      { label: 'Andalusia',     href: '/oils/?region=andalusia' },
+      { label: 'Robust oils',   href: '/oils/?intensity=robust' },
+      { label: 'Organic',       href: '/oils/?flag=organic' },
+      { label: 'In our shop',   href: '/oils/?flag=in-shop' },
     ],
     hero: { src: 'assets/img/dipping-bread.webp', alt: 'Bread being dipped into a dish of extra virgin olive oil', w: 1040, h: 1040 },
+
+    /* ── how the library works ────────────────────────────────────────────
+       The v2 design draws this band as "How every bottle is verified", with
+       four steps claiming blind retail purchase, independent HPLC analysis, a
+       five-panellist tasting and a mill visit for every oil. None of that is
+       true of this site today, and a homepage is the last place to claim a
+       method you do not have. What is written below is what the code actually
+       does — each step is enforced somewhere in src/, not aspirational. */
+    method: {
+      heading: 'How the library works',
+      sub: 'What a listing here does and does not claim',
+      steps: [
+        {
+          n: '1',
+          title: 'Nothing here is paid for',
+          body: 'We do not charge a producer to be listed and we do not take submissions in exchange for coverage. An oil is here because we bought it, or because it placed in a competition we follow.',
+        },
+        {
+          n: '2',
+          title: 'Every claim names its source',
+          body: 'A competition placing links to the competition. A polyphenol figure says who published it — the producer, an importer, or nobody. Where a number has no source, the page says so instead of printing one.',
+        },
+        {
+          n: '3',
+          title: 'A score means the panel tasted it',
+          body: 'Most oils here are catalogue entries carrying a competition record and no score at all. Those pages say "our panel has not tasted this oil yet" and show no stars. We never fill the box with a guess.',
+        },
+        {
+          n: '4',
+          title: 'The shop is disclosed, not hidden',
+          body: 'Some oils are stocked at olijfoliemarkt.nl and carry an "In our shop" badge. It is a disclosure, not a recommendation — nothing about a rating changes because an oil is or is not on the shelf.',
+        },
+      ],
+    },
+
+    /* ── HPLC & health ────────────────────────────────────────────────────
+       The regulation and the threshold are facts worth explaining. What the
+       design's copy adds — "we publish the measured figure from independent
+       HPLC testing for every oil" — is not, so it is not here. */
+    phenol: {
+      kicker: 'Polyphenols & health',
+      heading: 'Why 250 mg/kg is the number that matters',
+      body: [
+        'EU Regulation 432/2012 permits an antioxidant health claim on an olive oil only where it carries at least 250 mg/kg of hydroxytyrosol and its derivatives. Below that figure the claim is not allowed, whatever else the label says.',
+        'We do not yet commission our own laboratory analysis. Where a producer or importer publishes a measured figure we print it and name who measured it; where nobody publishes one, the oil\'s page says exactly that rather than estimating.',
+      ],
+      bands: [
+        { label: 'High-phenolic', range: '500+', pct: '100%', tone: 'accent', note: 'Assertive, and keeps its character for about two years' },
+        { label: 'Claim threshold', range: '250', pct: '50%', tone: 'accent-2', note: 'The EU 432/2012 minimum for an antioxidant claim' },
+        { label: 'Gentle', range: 'under 250', pct: '24%', tone: 'neutral', note: 'Softer on the palate, and no antioxidant claim' },
+      ],
+      actions: [
+        { label: 'Browse the library', href: '/oils/', primary: true },
+        { label: 'Read the cultivar profiles', href: '/cultivars/' },
+      ],
+    },
     shopBand: {
       kicker: 'Where to buy',
       heading: 'Oils marked "In our shop" ship from olijfoliemarkt.nl',

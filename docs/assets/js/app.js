@@ -313,7 +313,51 @@
     update();
   }
 
+  /* ── nav: the "Olive oils" taxonomy panel ─────────────────────────────
+     The panel ships closed and the caret opens it. Without JavaScript it
+     stays closed and the nav item beside it is still a plain link to the
+     library, which is where the panel leads anyway — so nothing is lost,
+     and no reader is left with a permanently open block of links. */
+  function initMegaMenu() {
+    var caret = document.querySelector('.nav-caret');
+    var panel = caret && document.getElementById(caret.getAttribute('aria-controls'));
+    if (!panel) return;
+
+    function setOpen(open) {
+      caret.setAttribute('aria-expanded', open ? 'true' : 'false');
+      panel.hidden = !open;
+    }
+
+    caret.addEventListener('click', function () {
+      setOpen(caret.getAttribute('aria-expanded') !== 'true');
+    });
+
+    // Escape closes and returns focus to the control that opened it.
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape' || panel.hidden) return;
+      setOpen(false);
+      caret.focus();
+    });
+
+    // A click outside closes it. Clicks inside the panel are links, and
+    // navigating away closes it by definition.
+    document.addEventListener('click', function (e) {
+      if (panel.hidden) return;
+      if (panel.contains(e.target) || caret.contains(e.target)) return;
+      setOpen(false);
+    });
+
+    // Tabbing out of the panel closes it too, so keyboard users are not
+    // dragged through the rest of the page with it still open behind them.
+    document.addEventListener('focusin', function (e) {
+      if (panel.hidden) return;
+      if (panel.contains(e.target) || caret.contains(e.target)) return;
+      setOpen(false);
+    });
+  }
+
   initLibrary();
   initStarPicker();
   initTocHighlight();
+  initMegaMenu();
 })();

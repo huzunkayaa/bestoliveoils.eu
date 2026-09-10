@@ -96,6 +96,14 @@ comment.
   `Offer` without a real price. We are not the seller — where an offer appears it
   names olijfoliemarkt.nl as the seller.
 - **Do not rewrite screens that already exist**; extend them to match the mockups.
+- **Counts in copy are interpolated, never typed.** Write `{oils}`,
+  `{producers}`, `{regions}` or `{cultivars}` and `R.fillCounts` fills them from
+  the records at build time. The homepage and library descriptions claimed 312
+  oils for as long as the library held 55.
+- **Every nav and mega-menu row's count must match what its link returns.** The
+  taxonomy panel is built from `facets.js`, so an option can only offer a view
+  that has something in it. There is no "competition ranked" filter, so there is
+  no row for one.
 - `npm run check` must pass before committing. It enforces canonicals, title and
   description lengths, heading levels, valid JSON-LD, internal links, image
   dimensions, and a sitemap that matches what was built.
@@ -113,12 +121,15 @@ Deliberate gaps, listed so nobody assumes they exist:
   are counted on `/cultivars/` and open the filtered library; three of them
   (Coratina, Koroneiki, Arbequina) also carry the reference row the comparison
   table uses. The rest need a `lede` and a `grove` write-up.
-- **The rest of v2 is unbuilt.** `design/Olive Oil Library v2.dc.html` also draws
-  a taxonomy mega menu, a partner strip and EU language switcher, a "how every
-  bottle is verified" band, an HPLC/health section, a lab panel and sensory radar
-  on the oil page, a live stock-and-price module, out-of-stock alternatives, and
-  a producer award timeline. None of it is built; the nav, homepage and oil page
-  are still v1.
+- **No EU language switcher and no B2B/Horeca page.** v2's partner strip carries
+  EN/NL/DE/FR/IT and a trade link. There are no translations and no trade page,
+  so the strip ships with the partner disclosure only.
+- **The v2 oil and producer pages are unbuilt.** Still to come from
+  `design/Olive Oil Library v2.dc.html`: the per-oil lab panel and sensory radar,
+  the live stock-and-price conversion module, out-of-stock alternatives, the
+  producer terroir grid and award timeline, and the faceted-search restyle. The
+  footer is also still v1 — v2 draws a five-column one whose Method and Trade
+  columns point at pages that do not exist.
 - **No "How we rate" or "Contact" page** — both are linked from every footer and
   currently go nowhere.
 - **Sign in, Helpful and Report do nothing** — all three need a backend.

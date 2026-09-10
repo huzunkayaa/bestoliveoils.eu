@@ -38,54 +38,157 @@ ${R.footer(site)}
 
 /* ══ 00 · homepage ══════════════════════════════════════════════════════ */
 
+/* Counts every page's copy can interpolate, derived from the records. */
+function counts(D) {
+  const lists = facetLists(D.oils);
+  return {
+    oils: D.oils.length,
+    producers: D.producers.length,
+    regions: lists.regions.length,
+    cultivars: cultivarList(D).length,
+  };
+}
+
+/* The taxonomy behind the nav's "Olive oils" panel. Built from the data, so
+   every link lands on a view that has something in it. */
+function megaGroups(D) {
+  const lists = facetLists(D.oils);
+  const cults = cultivarList(D);
+  const rated = D.oils.filter((o) => o.score).length;
+
+  return [
+    {
+      title: 'By cultivar',
+      links: cults.slice(0, 5).map((c) => ({
+        label: c.name,
+        href: c.hasPage ? url.cultivar(c.slug) : `${url.library()}?cultivar=${encodeURIComponent(c.slug)}`,
+        count: c.count,
+      })).concat([{ label: `All ${cults.length} cultivars →`, href: url.cultivars() }]),
+    },
+    {
+      title: 'By region',
+      links: lists.regions.slice(0, 5).map((r) => ({
+        label: r.label, href: `${url.library()}?region=${encodeURIComponent(r.key)}`, count: r.count,
+      })).concat([{ label: 'All regions →', href: url.library() }]),
+    },
+    {
+      title: 'By intensity',
+      links: lists.intensities.map((i) => ({
+        label: i.label, href: `${url.library()}?intensity=${encodeURIComponent(i.key)}`, count: i.count,
+      })),
+    },
+    {
+      title: 'By what we know',
+      links: [
+        /* Each row's count has to be what its link actually returns. There is
+           no "competition ranked" filter, so there is no row for it — a count
+           of 39 above a view showing all 55 is worse than a missing option. */
+        { label: 'Scored by our panel', href: `${url.library()}?min=1`, count: rated },
+        { label: 'Organic', href: `${url.library()}?flag=organic`, count: lists.organic },
+        { label: 'In our shop', href: `${url.library()}?flag=in-shop`, count: lists.inShop },
+        { label: 'Producers & mills →', href: url.producers() },
+      ],
+    },
+  ];
+}
+
 function home(D) {
   const site = D.site;
   const h = D.home;
+  const n = counts(D);
+  const fill = (t) => R.fillCounts(t, n);
   const meta = D.pages.home;
 
   const heroImg = h.hero.src;
 
+  const cults = cultivarList(D).slice(0, 4);
+
+  /* Ranked oils first — the ones the panel actually scored. An oil with no
+     score is not silently mixed in behind them as though it placed lower. */
+  const featured = bestFirst(D.oils).slice(0, 4);
+
   const main =
     `<section class="hero">
       <div class="hero__copy">
-        <span class="tag tag-accent-2">${esc(h.eyebrow)}</span>
+        <span class="tag tag-accent-2">${esc(fill(h.eyebrow))}</span>
         <h1>${esc(h.heading)}</h1>
         <p class="hero__lede">${esc(h.lede)}</p>
         ${R.searchBar('lg', h.searchPlaceholder)}
-        <div class="hero__popular">Popular: ${
+        <div class="hero__popular">Trending: ${
           h.popular.map((p) => `<a href="${esc(p.href)}">${esc(p.label)}</a>`).join('')}</div>
       </div>
       ${media(h.hero, 'Hero photo · grove or bottles', 'hero__media', '', { priority: true })}
     </section>
 
+    <section class="section method">
+      <div class="section-head"><div class="section-head__text">
+        <h2>${esc(h.method.heading)}</h2>
+        <span class="section-head__sub">${esc(h.method.sub)}</span>
+      </div></div>
+      <div class="method__grid">${h.method.steps.map((s) =>
+        '<div class="card method__step">' +
+          `<span class="method__n" aria-hidden="true">${esc(s.n)}</span>` +
+          `<span class="card-title method__title">${esc(s.title)}</span>` +
+          `<p class="method__body">${esc(s.body)}</p>` +
+        '</div>').join('')}</div>
+    </section>
+
     <section class="section">
       <div class="section-head">
         <div class="section-head__text">
-          <h2>Top rated this month</h2>
-          <span class="section-head__sub">Highest expert scores from the latest tasting round</span>
+          <h2>Highest scoring in the library</h2>
+          <span class="section-head__sub">Ranked by panel score. Oils we have not tasted are not ranked here.</span>
         </div>
-        <a href="${url.library()}">Browse the library →</a>
+        <a href="${url.library()}">Browse all ${n.oils} oils →</a>
       </div>
-      <div class="oil-grid-4">${
-        D.oils.slice(0, 4).map((o) => R.oilCard(site, o, true)).join('')}</div>
+      <div class="oil-grid-4">${featured.map((o) => R.oilCard(site, o, true)).join('')}</div>
+    </section>
+
+    <section class="phenol">
+      <div class="phenol__copy">
+        <span class="card-kicker phenol__kicker">${esc(h.phenol.kicker)}</span>
+        <h2>${esc(h.phenol.heading)}</h2>
+        ${h.phenol.body.map((p) => `<p>${esc(p)}</p>`).join('')}
+        <div class="phenol__actions">${h.phenol.actions.map((a) =>
+          `<a class="btn ${a.primary ? 'btn-primary' : 'btn-secondary'}" href="${
+            esc(a.href)}">${esc(a.label)}</a>`).join('')}</div>
+      </div>
+      <div class="phenol__bands">${h.phenol.bands.map((b) =>
+        '<div class="phenol__band">' +
+          `<div class="phenol__band-head"><span>${esc(b.label)}</span><span class="phenol__range">${
+            esc(b.range)}</span></div>` +
+          `<div class="profile-bar"><div class="profile-bar__fill phenol__fill--${esc(b.tone)}" style="width:${
+            esc(b.pct)}"></div></div>` +
+          `<span class="phenol__note">${esc(b.note)}</span>` +
+        '</div>').join('')}</div>
     </section>
 
     <div class="home-columns">
       <section class="section">
         <div class="section-head"><div class="section-head__text">
-          <h2>Explore by region</h2>
-          <span class="section-head__sub">Terroir, cultivars and the producers we trust</span>
-        </div></div>
-        <div class="region-grid">${D.regions.map((r) =>
-          `<a class="region" href="${url.library()}?region=${encodeURIComponent(r.slug)}">` +
-          media(r.image, r.name, 'region__media media--circle') +
-          `<span class="region__name">${esc(r.name)}</span>` +
-          `<span class="region__count">${esc(r.count)} oils</span></a>`).join('')}</div>
+          <h2>Cultivars</h2>
+          <span class="section-head__sub">The varieties behind the library, counted from the oils</span>
+        </div>
+        <a href="${url.cultivars()}">All ${n.cultivars} →</a></div>
+        <div class="cultivar-list">${cults.map((c) => {
+          const href = c.hasPage
+            ? url.cultivar(c.slug)
+            : `${url.library()}?cultivar=${encodeURIComponent(c.slug)}`;
+          return `<a class="card cultivar-row" href="${href}">` +
+            '<div class="cultivar-row__text">' +
+              `<span class="card-title cultivar-row__name">${esc(c.name)}</span>` +
+              `<span class="cultivar-row__where">${esc(
+                c.regions.slice(0, 2).map((r) => r.name).join(' · '))}</span>` +
+            '</div>' +
+            `<span class="cultivar-row__count">${c.count} <span>${
+              c.count === 1 ? 'oil' : 'oils'}</span></span>` +
+            (c.hasPage ? ICON.arrow : '') + '</a>';
+        }).join('')}</div>
       </section>
 
       <section class="section">
         <div class="section-head"><div class="section-head__text">
-          <h2>Learn</h2>
+          <h2>Harvest &amp; terroir</h2>
           <span class="section-head__sub">Short guides from the tasting panel</span>
         </div></div>
         <div class="article-list">${D.articles.map((a) => {
@@ -119,13 +222,13 @@ function home(D) {
   return shell({
     site,
     bodyClass: 'page-body--home',
-    nav: R.nav(site, ''),
+    nav: R.nav(site, '', megaGroups(D)),
     main,
     headHtml: S.head({
       site,
-      title: meta.title,
+      title: fill(meta.title),
       ogTitle: h.heading,
-      description: meta.description,
+      description: fill(meta.description),
       path: url.home(),
       image: heroImg,
       preload: heroImg,
@@ -206,12 +309,12 @@ function library(D) {
   return shell({
     site,
     bodyClass: 'page-body--library',
-    nav: R.nav(site, 'library'),
+    nav: R.nav(site, 'library', megaGroups(D)),
     main,
     headHtml: S.head({
       site,
-      title: meta.title,
-      description: meta.description,
+      title: R.fillCounts(meta.title, counts(D)),
+      description: R.fillCounts(meta.description, counts(D)),
       path: url.library(),
       schema: [
         S.collectionPage(site, url.library(), 'The olive oil library', meta.description, D.oils),

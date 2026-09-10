@@ -75,6 +75,8 @@ const ICON = {
   search: '<svg class="searchbar__icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>',
   arrow: '<svg class="article-row__arrow" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>',
   external: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path></svg>',
+  caret: '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"></path></svg>',
+  check: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"></path></svg>',
   heart: '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></svg>',
 };
 
@@ -85,16 +87,64 @@ const searchBar = (size, placeholder) =>
   ` aria-label="Search the olive oil library"></div>` +
   '<button class="btn btn-primary" type="submit">Search</button></form>';
 
-/* ── chrome ───────────────────────────────────────────────────────────── */
+/* ── counts ───────────────────────────────────────────────────────────────
+   Copy writes {oils} / {producers} / {regions} / {cultivars} and the build
+   fills them from the records. A number typed into a string is a number that
+   will be wrong later — these two page descriptions claimed 312 oils for as
+   long as the library held 55. */
+const fillCounts = (text, counts) =>
+  String(text).replace(/\{(oils|producers|regions|cultivars)\}/g,
+    (whole, key) => (counts[key] == null ? whole : String(counts[key])));
 
-function nav(site, current) {
-  const links = site.nav.map((item) =>
-    `<a href="${esc(item.href)}"${item.key === current ? ' aria-current="page"' : ''}>${
-      esc(item.label)}</a>`).join('');
-  return '<nav class="nav" aria-label="Main">' +
-    `<a class="nav-brand nav-brand--link" href="${url.home()}">${esc(site.brand)}</a>` +
-    links +
-    '<a href="#" class="btn btn-secondary">Sign in</a></nav>';
+/* ── chrome ───────────────────────────────────────────────────────────────
+   The partner strip states the commercial relationship on every page. It is
+   the disclosure the "In our shop" badge relies on, so it belongs above the
+   nav rather than buried in the footer.
+
+   v2 also draws a language switcher (EN/NL/DE/FR/IT) and a B2B link up here.
+   Neither is built — there are no translations and no trade page — and five
+   dead language links are worse than none, so the strip carries what is real. */
+const partnerStrip = (site) =>
+  '<div class="partner-strip">' +
+    `<span>Official supply &amp; retail partner: <a href="${esc(site.shopUrl)}" target="_blank" rel="noopener"><strong>${
+      esc(site.shopName)}</strong></a></span>` +
+    '<span class="partner-strip__note">Ratings are independent of what is stocked</span>' +
+  '</div>';
+
+/* The taxonomy panel behind "Olive oils". Every entry is a filtered library
+   view or a page that exists — the design's polyphenol, certification, sensory
+   and pairing axes are not built, so they are not offered. app.js opens it;
+   with no JavaScript it stays closed and the nav item is still a link to the
+   library, which is where the panel would have taken you. */
+function megaMenu(site, groups) {
+  const col = (g) =>
+    '<div class="mega__col">' +
+      `<span class="card-kicker">${esc(g.title)}</span>` +
+      g.links.map((l) => `<a href="${esc(l.href)}">${esc(l.label)}${
+        l.count == null ? '' : `<span class="mega__count">${esc(l.count)}</span>`}</a>`).join('') +
+    '</div>';
+  return '<div class="mega" id="mega-oils" hidden>' +
+    `<div class="mega__inner">${groups.map(col).join('')}</div></div>`;
+}
+
+function nav(site, current, mega) {
+  const links = site.nav.map((item) => {
+    const here = item.key === current ? ' aria-current="page"' : '';
+    // The one item that owns the panel is a link first and a toggle second:
+    // the label still navigates, the caret is a separate control.
+    return mega && item.key === 'library'
+      ? `<span class="nav-item nav-item--mega"><a href="${esc(item.href)}"${here}>${esc(item.label)}</a>` +
+        '<button class="nav-caret" type="button" aria-expanded="false" aria-controls="mega-oils">' +
+        `<span class="visually-hidden">Browse by category</span>${ICON.caret}</button></span>`
+      : `<a href="${esc(item.href)}"${here}>${esc(item.label)}</a>`;
+  }).join('');
+  return '<div class="nav-wrap">' + partnerStrip(site) +
+    '<nav class="nav" aria-label="Main">' +
+      `<a class="nav-brand nav-brand--link" href="${url.home()}">${esc(site.brand)}</a>` +
+      links +
+      `<a class="btn btn-primary nav-cta" href="${esc(site.shopUrl)}" target="_blank" rel="noopener">Buy at ${
+        esc(site.shopName)} ${ICON.external}</a>` +
+    '</nav>' + (mega ? megaMenu(site, mega) : '') + '</div>';
 }
 
 const footer = (site) =>
@@ -174,5 +224,6 @@ function oilCard(site, oil, compact) {
 
 module.exports = {
   esc, url, absolute, starRow, ratingLabel, srOnly, media, shopBadge,
-  ICON, searchBar, nav, footer, breadcrumb, oilCard, listingChip,
+  ICON, searchBar, nav, partnerStrip, footer, breadcrumb, oilCard, listingChip,
+  fillCounts,
 };
