@@ -94,7 +94,7 @@ const searchBar = (size, placeholder) =>
    will be wrong later — these two page descriptions claimed 312 oils for as
    long as the library held 55. */
 const fillCounts = (text, counts) =>
-  String(text).replace(/\{(oils|producers|regions|cultivars)\}/g,
+  String(text).replace(/\{(oils|producers|regions|cultivarPages|cultivars)\}/g,
     (whole, key) => (counts[key] == null ? whole : String(counts[key])));
 
 /* ── chrome ───────────────────────────────────────────────────────────────

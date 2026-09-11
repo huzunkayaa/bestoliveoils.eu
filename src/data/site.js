@@ -93,12 +93,12 @@ module.exports = {
       ],
     },
     cultivars: {
-      title: 'Olive Cultivars in the Library | bestoliveoils.eu',
-      description: 'Every olive variety in the library, with the number of oils behind it and the regions it comes from. Picual, Hojiblanca, Frantoio, Coratina and more.',
-      intro: 'The olive varieties behind the oils in the library, counted from the oils themselves.',
+      title: 'Olive Cultivars of Europe & Türkiye | bestoliveoils.eu',
+      description: 'Reference pages for {cultivarPages} olive varieties across Europe and Türkiye: origin, oleic acid, harvest window and what each one tastes like, every figure sourced.',
+      intro: 'Reference pages for {cultivarPages} varieties, and the {cultivars} of them the library currently holds an oil of.',
       body: [
         'A cultivar is the variety of olive the oil is pressed from, and it does more to shape how an oil tastes than any other single factor. A Picual and an Arbequina grown in the same grove, picked on the same day and milled in the same machine will not taste alike.',
-        'Every variety below is counted from the oils we hold: the number is how many oils in the library carry it, not an estimate of how much is planted. Varieties with a reference page of their own are linked; the rest open the library filtered to that variety.',
+        'Two different things are counted below. A number is how many oils in the library carry that variety — never an estimate of how much is planted. A variety marked "Reference" is one we have written up but hold no oil of yet; its page is the reference, and the shelf is what waits. Varieties with no page open the library filtered to them.',
       ],
     },
   },
@@ -119,67 +119,3734 @@ module.exports = {
      `phenolRange` is the range typically published for the VARIETY. It is not
      a measurement of any bottle in the library — the pages say so where they
      print it, and no oil borrows it as its own figure. */
+  /* ── cultivars ──────────────────────────────────────────────────────────
+     40 varieties covering the great majority of European and Turkish
+     commercial plantings. Each record is editorial: the oils decide which
+     varieties the library *has* (facets.js derives that from their `cultivar`
+     field), and a record decides what there is to read about one.
+
+     Three fields the v2 mockup drew are deliberately not here, because they
+     cannot be filled honestly:
+
+       - No numeric aroma wheel. The mockup shows "Green tomato 9.1"; IOC-method
+         panel medians simply do not exist for most of these varieties, so
+         `aroma` is a list of documented descriptors and `aromaNote` says where
+         they came from.
+       - No smoke point. It is a property of a lot — acidity, filtration — not
+         of a variety; two oils off the same grove can differ by 20 °C. The
+         reference card carries shelf stability instead.
+       - Two stats, not three. "N oils in the library" is computed at build
+         time and injected only when N > 0; an average panel score is not
+         offered at all.
+
+     Every record carries its own `sources`. Figures are not always comparable
+     between varieties — different phenol calibrations, different Rancimat
+     temperatures — and where that matters the record says so rather than
+     inviting a ranking. */
   cultivars: [
     {
-      slug: 'picual',
-      name: 'Picual',
-      origin: 'Jaén, Spain',
-      phenolRange: '500–800+ mg/kg',
-      sensory: 'Green tomato skin, cut grass, high bitterness and pungency',
-      pairing: 'Grilled meat, charcuterie',
-      tags: ['Spain · Jaén', 'Monovarietal', 'Very high phenolic'],
-      lede: 'The most planted olive in the world and the backbone of Andalusian oil. Naturally rich in oleic acid and polyphenols, which makes it both the most stable extra virgin on the shelf and the most assertive on the palate.',
-      grove: [
-        'Picual takes its name from the small point at the tip of the fruit. It tolerates cold, drought and limestone soils, which is why it dominates Jaén, where a single province holds more olive trees than any country outside Spain. Yield is high and ripening is late, so growers who want the green style must pick well before the fruit turns.',
-        'The trade-off is real: an early October pick can cost a third of the yield of a November one. What it buys is chlorophyll, bitterness and a phenolic load that keeps the oil alive for two years instead of one.',
+      "slug": "picual",
+      "name": "Picual",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Jaén, Andalusia",
+      "purpose": "Oil",
+      "tags": [
+        "Spain · Jaén",
+        "Monovarietal",
+        "Very high phenolic"
       ],
-      reference: [
-        ['Also called', 'Marteño, Lopereño'],
-        ['Main regions', 'Jaén, Córdoba, Granada'],
-        ['Oleic acid', '78–83%'],
-        ['Harvest', 'Early Oct – Dec'],
-        ['Shelf stability', 'Very high'],
+      "lede": "The most planted olive variety on earth and the backbone of Andalusian oil. Naturally rich in oleic acid and polyphenols, which makes it both the most stable extra virgin on the shelf and one of the most assertive on the palate.",
+      "image": null,
+      "imagePlaceholder": "Picual olives / grove photo",
+      "stats": [
+        {
+          "value": "300–700",
+          "label": "mg/kg typical polyphenols"
+        },
+        {
+          "value": "78–81%",
+          "label": "oleic acid"
+        }
       ],
-      image: null,
-      imagePlaceholder: 'Picual olives · grove photo',
-      seo: {
-        title: 'Picual Olive Oil: Taste, Origin & Oils | bestoliveoils.eu',
-        description: 'What Picual olive oil tastes like, why Jaén grows so much of it, and every Picual oil in our library with its region, producer and competition record.',
+      "grove": [
+        "Picual takes its name from the small point at the tip of the fruit. It tolerates cold, salt and waterlogged ground, which is why it dominates Jaén — a single province holding more olive trees than any country outside Spain. Spain’s official 2024 survey puts it at 1,132,856 hectares, 42.4% of the country’s commercial olive area. It is also its own worst enemy agronomically: very susceptible to Verticillium wilt and peacock spot, and poor at handling drought.",
+        "The trade-off is real. Yield is high and ripening late, so growers who want the green, high-polyphenol style must pick well before the fruit turns. Most Picual is not picked that way. A variety capable of the most stable oil in the world routinely ends up as anonymous bulk oil because the fruit was left on the tree for weight."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Marteño, Lopereño, Nevadillo Blanco"
+        ],
+        [
+          "Main regions",
+          "Jaén, Córdoba, Granada"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "78–81%"
+        ],
+        [
+          "Harvest",
+          "Early ripening · Nov–Dec"
+        ],
+        [
+          "Shelf stability",
+          "Very high — over 55 h Rancimat"
+        ],
+        [
+          "Watch out for",
+          "Verticillium wilt, peacock spot, drought"
+        ]
+      ],
+      "aroma": [
+        "Green tomato",
+        "Cut grass",
+        "Green almond",
+        "Artichoke",
+        "Fig leaf"
+      ],
+      "aromaNote": "Descriptors as published in variety catalogues and DOP specifications. Our panel has not scored this cultivar, so there are no intensity numbers here.",
+      "compare": {
+        "origin": "Jaén, Spain",
+        "polyphenols": "300–700 mg/kg",
+        "sensory": "Intensely green, clean bitterness, late-building pungency",
+        "pairing": "Tomato salad, grilled vegetables, bread and salt"
       },
+      "map": {
+        "placeholder": "Map · Jaén, Andalusia",
+        "caption": "Jaén, Andalusia · 37.8° N, 3.8° W"
+      },
+      "seo": {
+        "title": "Picual — Spain’s Most Planted Olive | bestoliveoils.eu",
+        "description": "Picual covers 42% of Spain’s olive area and gives the most oxidatively stable oil in commerce. Polyphenols, oleic acid, harvest window and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/spain/picual"
+        },
+        {
+          "label": "ESYRCE 2024, Spanish Ministry of Agriculture",
+          "url": "https://www.mapa.gob.es/dam/mapa/contenido/estadisticas/temas/estadisticas-agrarias/2.agricultura/1.-encuesta-sobre-superficies-y-rendimientos-de-cultivos--esyrce/informes-sectoriales/olivar2024.pdf"
+        },
+        {
+          "label": "Monovarietal oils from Extremadura, Int. J. Mol. Sci. 17(11):1960",
+          "url": "https://www.mdpi.com/1422-0067/17/11/1960"
+        }
+      ]
     },
-    /* Reference rows only — enough for the comparison table and the hub, not
-       yet enough for a page of their own. */
     {
-      slug: 'coratina',
-      name: 'Coratina',
-      origin: 'Puglia, Italy',
-      phenolRange: '600–1000+ mg/kg',
-      sensory: 'Artichoke, rocket, intense peppery pungency',
-      pairing: 'Legume soups, roast beef',
+      "slug": "arbequina",
+      "name": "Arbequina",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Les Garrigues, Lleida, Catalonia",
+      "purpose": "Oil",
+      "tags": [
+        "Spain · Catalonia",
+        "Monovarietal",
+        "Low phenolic"
+      ],
+      "lede": "The variety that made modern hedgerow olive growing possible. Weak-growing, easy to root, quick to bear and self-fertile — and now planted on three continents, though it gives the least stable and lowest-phenol oil of the major Spanish cultivars.",
+      "image": null,
+      "imagePlaceholder": "Arbequina olives / grove photo",
+      "stats": [
+        {
+          "value": "200–230",
+          "label": "mg/kg typical polyphenols"
+        },
+        {
+          "value": "70–75%",
+          "label": "oleic acid in Spain"
+        }
+      ],
+      "grove": [
+        "Named for the village of Arbeca in Les Garrigues, Arbequina covers 236,692 hectares in Spain and dominates new plantings almost everywhere else: roughly half of Chile’s production area, a main cultivar in Argentina and Australia, and the default in California. Its agronomy explains that entirely — weak vigour, high rooting capacity, early bearing and self-compatibility are exactly what a super-high-density hedgerow needs. A fourteen-year Córdoba trial recorded 2.3 tonnes of oil per hectare per year with the steadiest yields of any cultivar tested.",
+        "What travels less well is the oil. Arbequina is environmentally plastic in the wrong direction: oleic acid falls roughly 0.7% for every degree of warming during oil accumulation, and in northwestern Argentina it has been measured at 51.8% against 70–75% in Catalonia. Phenols are low wherever it grows, and it is the one major Spanish variety whose oil is genuinely fragile — measured at 29.8 hours Rancimat against Picual’s 55-plus."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Arbequí, Blancal"
+        ],
+        [
+          "Main regions",
+          "Catalonia, Aragón, Andalusia"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "70–75% in Spain, far lower in warm climates"
+        ],
+        [
+          "Harvest",
+          "From the first half of November"
+        ],
+        [
+          "Shelf stability",
+          "Low — 29.8 h Rancimat"
+        ],
+        [
+          "Why it spread",
+          "Weak vigour, roots easily, bears early, self-fertile"
+        ]
+      ],
+      "aroma": [
+        "Green apple",
+        "Sweet almond",
+        "Artichoke",
+        "Fresh herbs",
+        "Banana"
+      ],
+      "aromaNote": "Descriptors as published by the DOP Siurana regulatory council and variety catalogues. Our panel has not scored this cultivar, so there are no intensity numbers here.",
+      "compare": {
+        "origin": "Lleida, Spain",
+        "polyphenols": "200–230 mg/kg",
+        "sensory": "Soft, sweet entry, barely bitter, light pungency",
+        "pairing": "Fish, salads, baking, mayonnaise"
+      },
+      "map": {
+        "placeholder": "Map · Les Garrigues, Lleida",
+        "caption": "Les Garrigues, Lleida, Catalonia · 41.5° N, 0.9° E"
+      },
+      "seo": {
+        "title": "Arbequina — The Hedgerow Olive | bestoliveoils.eu",
+        "description": "Arbequina made super-high-density olive growing work, and it pays for that in stability. Polyphenols, oleic acid, why warm climates change its oil."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/spain/arbequina"
+        },
+        {
+          "label": "Cultivar and tree density in super-high-density orchards, Front. Plant Sci. 7:1226",
+          "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2016.01226/full"
+        },
+        {
+          "label": "Olive cultivation in the southern hemisphere, Front. Plant Sci. 8:1830",
+          "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2017.01830/full"
+        }
+      ]
     },
     {
-      slug: 'koroneiki',
-      name: 'Koroneiki',
-      origin: 'Crete & the Peloponnese',
-      phenolRange: '350–600 mg/kg',
-      sensory: 'Fresh apple, green banana, balanced herbaceous notes',
-      pairing: 'Salads, grilled fish',
+      "slug": "hojiblanca",
+      "name": "Hojiblanca",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Lucena, Córdoba, Andalusia",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Spain · Córdoba",
+        "Dual-purpose",
+        "High phenolic"
+      ],
+      "lede": "Spain’s second variety by area and the only one that is genuinely dual-purpose at commercial scale. Its firm, large fruit is the basis of the Spanish black table olive industry; its early-harvest oil is the classic green-almond and bitter-herb Andalusian profile.",
+      "image": null,
+      "imagePlaceholder": "Hojiblanca olives / grove photo",
+      "stats": [
+        {
+          "value": "280–820",
+          "label": "mg/kg, falling through the season"
+        },
+        {
+          "value": "70–79%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Hojiblanca — \"white leaf\", for the pale underside — covers 362,232 hectares, concentrated in Córdoba, Málaga and Seville. It handles chalky soils, drought and winter cold better than Picual, and it yields well, though in alternating years. The catch is the fruit: it clings so hard to the branch that mechanical shaking struggles, which is one reason growers accept its lower oil content. The other reason is that the fruit has a second market.",
+        "Harvest date matters here more than in almost any other variety. A three-year ripening study tracked total phenols falling from 819 ppm early in the season to 282 ppm late, from the same groves. Early-harvest Hojiblanca can carry three times the phenolic load of late-harvest fruit, which is why the DOP Estepa specification sets a floor of 405 ppm rather than trusting the variety alone."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Casta de Lucena, Lucentino"
+        ],
+        [
+          "Main regions",
+          "Córdoba, Málaga, Seville, Granada"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and black table olives"
+        ],
+        [
+          "Oleic acid",
+          "70–79%"
+        ],
+        [
+          "Harvest",
+          "Late ripening · through to mid-January"
+        ],
+        [
+          "Shelf stability",
+          "High — Rancimat mean 73 h, falling with ripeness"
+        ],
+        [
+          "Panel thresholds",
+          "DOP Estepa: fruity ≥4.5, bitter 3–6, pungent 3–6"
+        ]
+      ],
+      "aroma": [
+        "Green olive",
+        "Green almond",
+        "Tomato plant",
+        "Artichoke",
+        "Green banana"
+      ],
+      "aromaNote": "The numeric thresholds above are DOP Estepa certification minima on the IOC 0–10 scale, not a measured varietal median. Our panel has not scored this cultivar.",
+      "compare": {
+        "origin": "Córdoba, Spain",
+        "polyphenols": "280–820 mg/kg",
+        "sensory": "Green-fruity, firm bitterness, peppery finish when picked early",
+        "pairing": "Roast vegetables, pulses, aged cheese"
+      },
+      "map": {
+        "placeholder": "Map · Lucena, Córdoba",
+        "caption": "Lucena, Córdoba, Andalusia · 37.4° N, 4.5° W"
+      },
+      "seo": {
+        "title": "Hojiblanca — Oil and Table Olive | bestoliveoils.eu",
+        "description": "Spain’s second variety by area, and the one behind its black table olives. Why harvest date triples its polyphenol content, plus oleic acid and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/spain/hojiblanca"
+        },
+        {
+          "label": "DOP Estepa product specification",
+          "url": "https://www.juntadeandalucia.es/export/drupaljda/PliegoEstepamodificado.pdf"
+        },
+        {
+          "label": "Fruit ripening and natural antioxidants in Hojiblanca oils, Gutiérrez et al.",
+          "url": "https://www.academia.edu/4422569/Influence_of_fruit_ripening_process_on_the_natural_antioxidant_content_of_Hojiblanca_virgin_olive_oils"
+        }
+      ]
     },
     {
-      slug: 'arbequina',
-      name: 'Arbequina',
-      origin: 'Catalonia & Andalusia',
-      phenolRange: '150–300 mg/kg',
-      sensory: 'Sweet apple, green almond, very light bitterness',
-      pairing: 'Seafood, desserts, light sauces',
+      "slug": "cornicabra",
+      "name": "Cornicabra",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Toledo, Castilla-La Mancha",
+      "purpose": "Oil",
+      "tags": [
+        "Spain · Castilla-La Mancha",
+        "Monovarietal",
+        "Very high phenolic"
+      ],
+      "lede": "The variety of the central Spanish plateau, and the highest-phenol of the big four Spanish cultivars in the one study that measured them side by side. It has stayed home: adapted to cold, dry, poor soils, it has essentially no commercial presence outside Spain.",
+      "image": null,
+      "imagePlaceholder": "Cornicabra olives / grove photo",
+      "stats": [
+        {
+          "value": "~630",
+          "label": "mg/kg total phenols, measured"
+        },
+        {
+          "value": "~79%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Cornicabra — \"goat horn\", for the curved fruit — covers 225,799 hectares across Toledo, Ciudad Real, Madrid and Extremadura. It is built for the meseta: excellent adaptation to poor soils and to dry, cold environments, where Picual would struggle. Flowering is late and ovary abortion high, but fruit set is adequate even under self-pollination.",
+        "In a single Extremadura experiment that measured eight monovarietals under the same conditions, Cornicabra came out at 633 mg/kg total phenols against Picual’s 381 and Arbequina’s 200 — while still carrying near-Picual oleic acid at 78.7%. That combination is unusually good for shelf life. Its one practical handicap is that the fruit resists detachment so strongly that mechanical harvesting remains genuinely difficult."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Cornezuelo, Ornal, Cornicabra Negra"
+        ],
+        [
+          "Main regions",
+          "Toledo, Ciudad Real, Madrid, Badajoz, Cáceres"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "~79%"
+        ],
+        [
+          "Harvest",
+          "Late flowering and late ripening"
+        ],
+        [
+          "Shelf stability",
+          "Very high — over 55 h Rancimat"
+        ],
+        [
+          "Watch out for",
+          "Fruit clings hard; mechanical harvest is difficult"
+        ]
+      ],
+      "aroma": [
+        "Green apple",
+        "Kiwi",
+        "Avocado",
+        "Fresh herbs",
+        "Green almond"
+      ],
+      "aromaNote": "The DOP Montes de Toledo specification states only \"medium to intense\" for fruity, bitter and pungent, with no medians. The descriptors above are the regulatory council’s own. Our panel has not scored this cultivar.",
+      "compare": {
+        "origin": "Toledo, Spain",
+        "polyphenols": "~630 mg/kg",
+        "sensory": "Intensely fruity, elegant moderate bitterness, measured pungency",
+        "pairing": "Game, stews, hard cheese, toast"
+      },
+      "map": {
+        "placeholder": "Map · Montes de Toledo",
+        "caption": "Montes de Toledo, Castilla-La Mancha · 39.6° N, 4.2° W"
+      },
+      "seo": {
+        "title": "Cornicabra — Spain’s Meseta Olive | bestoliveoils.eu",
+        "description": "The highest-phenol of Spain’s big four in a like-for-like study: 633 mg/kg with 79% oleic acid. Where it grows, why it never left, and how it tastes."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/spain/cornicabra"
+        },
+        {
+          "label": "DOP Aceite Montes de Toledo specification",
+          "url": "https://www.mapa.gob.es/dam/mapa/contenido/alimentacion/temas/calidad-agroalimentaria/2017-calidad-diferenciada/nuevo_denominaciones/pliegos-de-condiciones/pliego-condiciones-agroalimentarios/aceite_montes_toledo_2015_09_24.pdf"
+        },
+        {
+          "label": "Monovarietal oils from Extremadura, Int. J. Mol. Sci. 17(11):1960",
+          "url": "https://www.mdpi.com/1422-0067/17/11/1960"
+        }
+      ]
+    },
+    {
+      "slug": "picudo",
+      "name": "Picudo",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Córdoba, Andalusia",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Spain · Córdoba",
+        "Dual-purpose",
+        "Low bitterness"
+      ],
+      "lede": "The soft, aromatic counterweight in the great Córdoba blends. Picudo is what gives DOP Priego de Córdoba and DOP Baena their sweet entry — and its pollen quality makes it a standard pollinator in mixed Andalusian orchards.",
+      "image": null,
+      "imagePlaceholder": "Picudo olives / grove photo",
+      "stats": [
+        {
+          "value": "Not published",
+          "label": "typical polyphenols"
+        },
+        {
+          "value": "Low",
+          "label": "oxidative stability"
+        }
+      ],
+      "grove": [
+        "Picudo is the characteristic variety of the Subbética — the Priego de Córdoba and Baena country — and is also grown in Jaén, Granada and Málaga. Official Spanish figures put it at 21,023 hectares, though nursery sources give a considerably higher number across those four provinces; the discrepancy is unresolved. It ripens late and holds onto its fruit, which complicates mechanical harvest.",
+        "Two things make it valuable. Its oil is aromatic and notably low in bitterness, which is why it is almost always blended with the firmer Hojiblanca and Picual rather than bottled alone. And its pollen has high germinative capacity, so it earns its place in an orchard twice over. The published data stops there: no institutional source gives a polyphenol range or an oleic acid figure for Picudo, and we will not borrow one from marketing copy."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Picuda, Picuo"
+        ],
+        [
+          "Main regions",
+          "Córdoba, Jaén, Granada, Málaga"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and table"
+        ],
+        [
+          "Oleic acid",
+          "Not published"
+        ],
+        [
+          "Harvest",
+          "Late ripening, strong fruit retention"
+        ],
+        [
+          "Shelf stability",
+          "Low (nursery-level assessment; no Rancimat figure published)"
+        ],
+        [
+          "Role in the orchard",
+          "Valued as a pollinator — pollen of high germinability"
+        ]
+      ],
+      "aroma": [
+        "Fruity",
+        "Aromatic",
+        "Sweet entry",
+        "Almond"
+      ],
+      "aromaNote": "From the DOP Priego de Córdoba specification, which requires Picuda oils to be \"fruity, aromatic, pleasant, with a sweet entry\". That is a regulatory descriptor, not a panel result.",
+      "compare": {
+        "origin": "Córdoba, Spain",
+        "polyphenols": "Not published",
+        "sensory": "Aromatic and sweet, very little bitterness",
+        "pairing": "Desserts, fresh cheese, delicate fish"
+      },
+      "map": {
+        "placeholder": "Map · Subbética, Córdoba",
+        "caption": "Subbética, Córdoba, Andalusia · 37.4° N, 4.2° W"
+      },
+      "seo": {
+        "title": "Picudo — The Soft Side of Córdoba | bestoliveoils.eu",
+        "description": "The low-bitterness Andalusian variety behind the sweet entry in Priego de Córdoba and Baena blends, and a standard pollinator in mixed orchards."
+      },
+      "sources": [
+        {
+          "label": "DOP Priego de Córdoba specification",
+          "url": "https://www.mapa.gob.es/dam/mapa/contenido/alimentacion/temas/calidad-agroalimentaria/2017-calidad-diferenciada/nuevo_denominaciones/pliegos-de-condiciones/pliego-condiciones-agroalimentarios/priego_cordoba_2022_12_01.pdf"
+        },
+        {
+          "label": "ESYRCE 2024, Spanish Ministry of Agriculture",
+          "url": "https://www.mapa.gob.es/dam/mapa/contenido/estadisticas/temas/estadisticas-agrarias/2.agricultura/1.-encuesta-sobre-superficies-y-rendimientos-de-cultivos--esyrce/informes-sectoriales/olivar2024.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "manzanilla-de-sevilla",
+      "name": "Manzanilla de Sevilla",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Guadalquivir valley, Seville",
+      "purpose": "Table",
+      "tags": [
+        "Spain · Seville",
+        "Table olive",
+        "Oil is secondary"
+      ],
+      "lede": "The most widely planted table olive in the world, and the fruit behind Sevillian-style green olives. Thin skin, firm and non-fibrous flesh, and a stone that releases cleanly — bred by centuries of selection for the brine barrel, not the mill.",
+      "image": null,
+      "imagePlaceholder": "Manzanilla olives / grove photo",
+      "stats": [
+        {
+          "value": "Table first",
+          "label": "oil is a secondary product"
+        },
+        {
+          "value": "~62,000",
+          "label": "hectares in Spain"
+        }
+      ],
+      "grove": [
+        "Manzanilla is grown across the Guadalquivir valley — Seville, Badajoz and Huelva — and, unusually for a Spanish variety, well beyond: Portugal, the United States, Israel, Argentina and Australia. It ripens early and is picked green, at the straw-yellow stage before colour change, then lye-treated and fermented in brine.",
+        "Its IGP dossier makes an unusual admission: the variety loses its qualities when grown outside the delimited area, and cites failed Californian plantings as evidence. It needs a mild climate and loose alluvial ground, and it is very sensitive to Verticillium wilt. The oil it does make is described by the IOC as of high quality and stability, but no polyphenol or oleic figure is published — because almost nobody presses it."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Manzanilla Sevillana, Manzanilla Fina, Manzanilla Común"
+        ],
+        [
+          "Main regions",
+          "Seville, Badajoz, Huelva; also Portugal, USA, Israel, Argentina"
+        ],
+        [
+          "Purpose",
+          "Table olive; oil secondary"
+        ],
+        [
+          "Oleic acid",
+          "Not published"
+        ],
+        [
+          "Harvest",
+          "Early, picked green before colour change"
+        ],
+        [
+          "Oil stability",
+          "Described as high by the IOC; no figure published"
+        ],
+        [
+          "Watch out for",
+          "Very sensitive to Verticillium wilt and to winter cold"
+        ]
+      ],
+      "aroma": [
+        "Fine and delicate",
+        "Lactic notes from fermentation",
+        "Balanced salt and acidity"
+      ],
+      "aromaNote": "These describe the cured table olive, from the IGP specification. Published sensory descriptors for Manzanilla oil: none found.",
+      "compare": {
+        "origin": "Seville, Spain",
+        "polyphenols": "Not published",
+        "sensory": "Grown for the table; oil rarely bottled monovarietal",
+        "pairing": "The olive itself — vermouth, tapas"
+      },
+      "map": {
+        "placeholder": "Map · Guadalquivir valley",
+        "caption": "Guadalquivir valley, Seville · 37.4° N, 6.0° W"
+      },
+      "seo": {
+        "title": "Manzanilla de Sevilla — The Table Olive | bestoliveoils.eu",
+        "description": "The world’s most widely planted table olive, and why the IGP itself admits the variety loses its qualities when grown outside the Guadalquivir."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/spain/manzanilla-de-sevilla"
+        },
+        {
+          "label": "IGP Aceituna Manzanilla de Sevilla specification",
+          "url": "https://www.juntadeandalucia.es/export/drupaljda/PLIEGO_IGP_ACEITUNA_MANZANILLA_SEVILLANA.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "empeltre",
+      "name": "Empeltre",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Bajo Aragón, Ebro valley",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Spain · Aragón",
+        "Dual-purpose",
+        "Sweet, no bitterness"
+      ],
+      "lede": "The olive of the Ebro valley, and the one whose name is an agronomic fact: empeltre means \"grafted\" in Aragonese, because the variety will not root from cuttings in any practical way. Its oil is yellow, smooth and almost without bitterness.",
+      "image": null,
+      "imagePlaceholder": "Empeltre olives / grove photo",
+      "stats": [
+        {
+          "value": "~18%",
+          "label": "oil content of the fruit"
+        },
+        {
+          "value": "Sweet",
+          "label": "style — no bitterness"
+        }
+      ],
+      "grove": [
+        "Empeltre runs along the Ebro basin — Teruel, Zaragoza, Huesca, La Rioja, Navarra, southern Catalonia and Castellón — and out to the Balearics, where it is called Mallorquina. It is also grown in Mendoza and Córdoba in Argentina. It is the principal variety of DOP Aceite del Bajo Aragón, and it is used both for oil and for naturally processed black table olives.",
+        "Two things are worth knowing. First, propagation: rooting capacity is so low that the variety is grafted rather than struck, which is where the name comes from and why it has never spread the way Arbequina has. Second, an authenticity quirk — an Aragonese clonal selection produces Δ7-stigmastenol at up to 0.76%, which can push a genuine extra virgin past the EU sterol limits. It is a documented analytical trap, not an adulteration."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Aragonesa, Injerto, Terra Alta, Mallorquina"
+        ],
+        [
+          "Main regions",
+          "Bajo Aragón, La Rioja, Navarra, Terra Alta, Balearics"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and black table olives"
+        ],
+        [
+          "Oil yield",
+          "~18.3% of fruit weight"
+        ],
+        [
+          "Harvest",
+          "October to mid-December in Aragón"
+        ],
+        [
+          "Propagation",
+          "Grafted — rooting from cuttings is very poor"
+        ],
+        [
+          "Analytical note",
+          "Δ7-stigmastenol can exceed EU sterol limits in genuine oil"
+        ]
+      ],
+      "aroma": [
+        "Sweet",
+        "Aromatic",
+        "Ripe fruit",
+        "No bitterness"
+      ],
+      "aromaNote": "General catalogue description. No published panel medians exist for monovarietal Empeltre.",
+      "compare": {
+        "origin": "Aragón, Spain",
+        "polyphenols": "Not published",
+        "sensory": "Yellow and smooth, sweet and aromatic, no bitterness",
+        "pairing": "Cured fish, tomato bread, mild cheese"
+      },
+      "map": {
+        "placeholder": "Map · Bajo Aragón",
+        "caption": "Bajo Aragón, Ebro valley · 41.0° N, 0.2° W"
+      },
+      "seo": {
+        "title": "Empeltre — The Grafted Olive of the Ebro | bestoliveoils.eu",
+        "description": "Its name means \"grafted\", because it will not root from cuttings. The sweet, bitterness-free oil of Bajo Aragón — and its documented sterol quirk."
+      },
+      "sources": [
+        {
+          "label": "Empeltre clonal selection and sterols, Foods 11(17):2587",
+          "url": "https://www.mdpi.com/2304-8158/11/17/2587"
+        },
+        {
+          "label": "ESYRCE 2024, Spanish Ministry of Agriculture",
+          "url": "https://www.mapa.gob.es/dam/mapa/contenido/estadisticas/temas/estadisticas-agrarias/2.agricultura/1.-encuesta-sobre-superficies-y-rendimientos-de-cultivos--esyrce/informes-sectoriales/olivar2024.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "royal-de-cazorla",
+      "name": "Royal de Cazorla",
+      "country": "Spain",
+      "countryCode": "ES",
+      "originRegion": "Sierra de Cazorla, Jaén",
+      "purpose": "Oil",
+      "tags": [
+        "Spain · Jaén",
+        "Rare",
+        "Aromatic, low bitterness"
+      ],
+      "lede": "A mountain variety that survives as a six per cent minority inside a Picual monoculture, kept alive by its aroma rather than its yield. Royal gives less oil than Picual and measures higher in volatile compounds than any of the major Spanish cultivars.",
+      "image": null,
+      "imagePlaceholder": "Royal olives / grove photo",
+      "stats": [
+        {
+          "value": "~6%",
+          "label": "of the Cazorla grove area"
+        },
+        {
+          "value": "~75%",
+          "label": "oleic acid (single study)"
+        }
+      ],
+      "grove": [
+        "Royal grows in the Sierra de Cazorla and the natural park of Sierras de Cazorla, Segura y Las Villas — some 70,000 hectares of mountain country where Picual takes 94% of the ground and Royal about 6%. Five cooperatives certify roughly 400,000 kilos of Royal oil a year. The tree flowers earlier than its neighbours but ripens later, is vigorous and consistently productive, and has notably brittle wood.",
+        "One peer-reviewed study measured mill-extracted Royal at 74.9% oleic acid and 156 mg/kg total phenols under specified processing conditions, with volatile compounds at 18.98 mg/kg — higher than Picual, Arbequina, Koroneiki or Arbosana in the same work, dominated by C6 aldehydes. That is the trade in one line: less oil, less bitterness, more aroma."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Royal (do not confuse with Royal de Calatayud)"
+        ],
+        [
+          "Main regions",
+          "Sierra de Cazorla, Jaén"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "~74.9% (single published study)"
+        ],
+        [
+          "Harvest",
+          "Flowers early, ripens late"
+        ],
+        [
+          "Shelf stability",
+          "Not published"
+        ],
+        [
+          "Watch out for",
+          "Brittle wood; lower extraction efficiency than Picual"
+        ]
+      ],
+      "aroma": [
+        "Fresh green grass",
+        "Apple",
+        "Almond",
+        "Fig"
+      ],
+      "aromaNote": "Descriptors from the Slow Food Ark of Taste entry and a peer-reviewed volatile study, which describes the oil as very fruity with very low bitterness. No panel medians published.",
+      "compare": {
+        "origin": "Jaén, Spain",
+        "polyphenols": "~156 mg/kg (single study)",
+        "sensory": "Very fruity and aromatic, lightly bitter, gently spicy",
+        "pairing": "Raw over salads, fresh cheese, ripe tomato"
+      },
+      "map": {
+        "placeholder": "Map · Sierra de Cazorla",
+        "caption": "Sierra de Cazorla, Jaén · 37.9° N, 3.0° W"
+      },
+      "seo": {
+        "title": "Royal de Cazorla — A Mountain Rarity | bestoliveoils.eu",
+        "description": "Six per cent of a Picual monoculture, kept alive by aroma rather than yield. The Jaén mountain variety with the highest measured volatile content."
+      },
+      "sources": [
+        {
+          "label": "Royal cultivar oil, Foods 13(16):2588",
+          "url": "https://www.mdpi.com/2304-8158/13/16/2588"
+        },
+        {
+          "label": "Slow Food Ark of Taste — Royal extra virgin olive oil",
+          "url": "https://www.fondazioneslowfood.com/en/ark-of-taste-slow-food/royal-extra-virgin-olive-oil/"
+        }
+      ]
+    },
+    {
+      "slug": "coratina",
+      "name": "Coratina",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Corato, Bari, Puglia",
+      "purpose": "Oil",
+      "tags": [
+        "Italy · Puglia",
+        "Monovarietal",
+        "Very high phenolic"
+      ],
+      "lede": "The reference high-phenol Italian variety, and the one whose phenol load has been shown to translate directly into shelf life. In a same-site, same-mill comparison of eleven cultivars, Coratina measured 29.5 hours of oxidative stability against Leccino’s 17.5.",
+      "image": null,
+      "imagePlaceholder": "Coratina olives / grove photo",
+      "stats": [
+        {
+          "value": "330–410",
+          "label": "mg/kg measured at bottling"
+        },
+        {
+          "value": "~77%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Coratina occupies some 70,000 hectares in Puglia, 60,000 of them in the province of Bari around the town of Corato that gave it its name. The IOC suggests it descends from Frantoio and Lezze. It has weak to medium vigour, enters production early, tolerates cold, and detaches easily enough for mechanical harvesting — but it is highly susceptible to olive fruit fly and only weakly self-fertile.",
+        "The remarkable finding about Coratina is longevity. A peer-reviewed study followed monovarietal Coratina kept in tins, in the dark, at ambient temperature, and found it still met the legal extra virgin limits after six years, with K270 the first parameter to fail. The other side of the same coin is bitterness: the variety produces so much of it that harvest date, not processing, is the lever growers use to keep it drinkable."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Cima di Corato, Coratese, Racemo di Corato"
+        ],
+        [
+          "Main regions",
+          "Bari and Foggia, Puglia"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "~77–78%"
+        ],
+        [
+          "Harvest",
+          "Late veraison, late oil accumulation"
+        ],
+        [
+          "Shelf stability",
+          "29.5 h Rancimat at 110 °C — highest of eleven cultivars tested"
+        ],
+        [
+          "Watch out for",
+          "Very susceptible to olive fruit fly; low self-fertility"
+        ]
+      ],
+      "aroma": [
+        "Green olive",
+        "Cut grass",
+        "Green almond",
+        "Artichoke",
+        "Herbaceous"
+      ],
+      "aromaNote": "Published panel work places Coratina in the high-bitterness, high-pungency group but reports statistical groupings rather than 0–10 medians. Our panel has not scored this cultivar.",
+      "compare": {
+        "origin": "Puglia, Italy",
+        "polyphenols": "330–410 mg/kg",
+        "sensory": "Powerfully green and herbaceous, strong bitterness and pungency",
+        "pairing": "Bean soups, grilled meat, bitter greens"
+      },
+      "map": {
+        "placeholder": "Map · Corato, Puglia",
+        "caption": "Corato, Bari, Puglia · 41.2° N, 16.4° E"
+      },
+      "seo": {
+        "title": "Coratina — Italy’s High-Phenol Olive | bestoliveoils.eu",
+        "description": "The Puglian variety documented to stay within extra virgin limits for six years in the tin. Polyphenols, oleic acid, oxidative stability and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/italy/coratina"
+        },
+        {
+          "label": "Eleven monovarietal EVOOs grown and processed alike, Foods 9(7):904",
+          "url": "https://www.mdpi.com/2304-8158/9/7/904"
+        },
+        {
+          "label": "Long-term durability of Coratina monovarietal EVOO, OCL 2022",
+          "url": "https://www.ocl-journal.org/articles/ocl/full_html/2022/01/ocl220002/ocl220002.html"
+        }
+      ]
+    },
+    {
+      "slug": "frantoio",
+      "name": "Frantoio",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Tuscany",
+      "purpose": "Oil",
+      "tags": [
+        "Italy · Tuscany",
+        "Monovarietal",
+        "The standard pollinator"
+      ],
+      "lede": "The genetic backbone of Italian oil growing. The same genotype circulates as Frantoio in Tuscany, Correggiolo in Romagna, Razza in the Veneto and Casaliva on Lake Garda — and at roughly 28% self-fertility it is the default pollinator for everything that cannot pollinate itself.",
+      "image": null,
+      "imagePlaceholder": "Frantoio olives / grove photo",
+      "stats": [
+        {
+          "value": "~230",
+          "label": "mg/kg in a like-for-like trial"
+        },
+        {
+          "value": "~76%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Frantoio is grown across Tuscany, Umbria, Liguria and Puglia under a dozen regional names, and has been exported to essentially every new olive-growing country — Australia and the United States know it as Oblonga. It is strongly vigorous with a spreading habit, high and constant productivity, and fruit that detaches readily. It is cold-sensitive and highly susceptible to peacock spot, olive knot and fly, but partially resistant to Verticillium.",
+        "Its real significance is reproductive. At around 28% self-fertility and only 3% ovary abortion, it is the most reliable pollen source among the classic Italian cultivars, which is why it turns up as a minority planting in orchards whose main variety is self-sterile. The IOC also suggests it is one parent of Coratina."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Correggiolo, Razza, Razzo, Oblonga, Frantoiano"
+        ],
+        [
+          "Main regions",
+          "Tuscany, Umbria, Liguria, Puglia; worldwide"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "~75–78%"
+        ],
+        [
+          "Harvest",
+          "Medium-late veraison"
+        ],
+        [
+          "Self-fertility",
+          "~28% — the highest among the classic Italian cultivars"
+        ],
+        [
+          "Watch out for",
+          "Cold-sensitive; susceptible to peacock spot, knot and fly"
+        ]
+      ],
+      "aroma": [
+        "Cut grass",
+        "Green almond",
+        "Artichoke",
+        "Herbaceous"
+      ],
+      "aromaNote": "Descriptors as published in variety catalogues and reference literature, which describe a strong, aromatic, grassy fruitiness with marked pungency when picked green. No panel medians published.",
+      "compare": {
+        "origin": "Tuscany, Italy",
+        "polyphenols": "~230 mg/kg",
+        "sensory": "Aromatic and grassy, bright green, firmly pungent when early",
+        "pairing": "Ribollita, grilled bread, white beans"
+      },
+      "map": {
+        "placeholder": "Map · Tuscany",
+        "caption": "Tuscany, Italy · 43.4° N, 11.2° E"
+      },
+      "seo": {
+        "title": "Frantoio — Italy’s Reference Olive | bestoliveoils.eu",
+        "description": "One genotype under many names — Correggiolo, Razza, Casaliva — and the pollinator that makes self-sterile Italian orchards work. Chemistry and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/italy/frantoio"
+        },
+        {
+          "label": "Genetic resources of Olea europaea in the Garda Trentino, Genes 11(10):1171",
+          "url": "https://www.mdpi.com/2073-4425/11/10/1171"
+        },
+        {
+          "label": "Eleven monovarietal EVOOs grown and processed alike, Foods 9(7):904",
+          "url": "https://www.mdpi.com/2304-8158/9/7/904"
+        }
+      ]
+    },
+    {
+      "slug": "leccino",
+      "name": "Leccino",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Tuscany",
+      "purpose": "Oil",
+      "tags": [
+        "Italy · Tuscany",
+        "Monovarietal",
+        "Low phenolic"
+      ],
+      "lede": "The mild, early-ripening blending partner of Tuscan oil — deliberately low in phenols — and, right now, the most agronomically important olive in Italy, because it is one of only two cultivars approved for replanting the Xylella-devastated groves of Salento.",
+      "image": null,
+      "imagePlaceholder": "Leccino olives / grove photo",
+      "stats": [
+        {
+          "value": "~150",
+          "label": "mg/kg in a like-for-like trial"
+        },
+        {
+          "value": "17.5 h",
+          "label": "Rancimat — lowest of eleven cultivars"
+        }
+      ],
+      "grove": [
+        "Leccino is widespread in Tuscany and has spread to Umbria, Puglia and new olive countries. It is strongly vigorous with a dense spreading canopy, comes into production early, and yields high and constant crops. It is totally self-sterile — Frantoio and Pendolino are the conventional pollinators — yet its own abundant, viable flowering makes it an excellent pollen donor in return.",
+        "Then there is Xylella fastidiosa. Screening under high inoculum pressure found Leccino showed the lowest bacterial colonisation and the lowest level of symptoms of the cultivars tested, and it is one of only two varieties permitted for olive reconversion in infected areas. That is resistance, not immunity: the same work notes Leccino still supports colonisation and can show symptoms."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Leccio, Silvestrone, Premice, Toscano"
+        ],
+        [
+          "Main regions",
+          "Tuscany, Umbria, Puglia"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "~76–77%"
+        ],
+        [
+          "Harvest",
+          "Early ripening, staggered oil accumulation"
+        ],
+        [
+          "Shelf stability",
+          "Low — 17.5 h Rancimat at 110 °C"
+        ],
+        [
+          "Xylella fastidiosa",
+          "Lowest colonisation of cultivars screened; one of two approved for replanting"
+        ]
+      ],
+      "aroma": [
+        "Mild fruitiness",
+        "Soft herbs",
+        "Light spice"
+      ],
+      "aromaNote": "The IOC describes Leccino as a medium-quality oil, and published panel work groups it low on fruitiness, bitterness and pungency. No medians published. Our panel has not scored this cultivar.",
+      "compare": {
+        "origin": "Tuscany, Italy",
+        "polyphenols": "~150 mg/kg",
+        "sensory": "Mild and soft, light spice, low bitterness",
+        "pairing": "Fish, delicate vegetables, blending with Frantoio"
+      },
+      "map": {
+        "placeholder": "Map · Tuscany",
+        "caption": "Tuscany, Italy · 43.4° N, 11.2° E"
+      },
+      "seo": {
+        "title": "Leccino — Mild, and Xylella-Tolerant | bestoliveoils.eu",
+        "description": "The deliberately gentle Tuscan blending variety, and one of only two cultivars approved for replanting Puglia’s Xylella-hit groves. Chemistry and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/italy/leccino"
+        },
+        {
+          "label": "Olive genotypes potentially resistant to Xylella fastidiosa, Front. Plant Sci. 2021",
+          "url": "https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2021.723879/full"
+        },
+        {
+          "label": "Eleven monovarietal EVOOs grown and processed alike, Foods 9(7):904",
+          "url": "https://www.mdpi.com/2304-8158/9/7/904"
+        }
+      ]
+    },
+    {
+      "slug": "moraiolo",
+      "name": "Moraiolo",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Tuscany and Umbria",
+      "purpose": "Oil",
+      "tags": [
+        "Italy · Umbria",
+        "Monovarietal",
+        "High phenolic"
+      ],
+      "lede": "The hillside variety of central Italy: low-growing, upright, drought-tolerant and distinctly cold-sensitive — a combination that keeps it in the Umbrian and Tuscan hills and out of the flat coastal plantings. Its oil sits at the opposite end of the intensity scale from Leccino.",
+      "image": null,
+      "imagePlaceholder": "Moraiolo olives / grove photo",
+      "stats": [
+        {
+          "value": "~270",
+          "label": "mg/kg in a like-for-like trial"
+        },
+        {
+          "value": "~75%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Umbria’s regional register counts 2,373,500 Moraiolo trees — 42% of the region’s olives — and at least 90% of the historic groves in the Assisi to Spoleto belt. Oil content runs 14.9 to 21.7% on fresh fruit. The tree has low vigour and an upright habit, tolerates drought well and olive fly reasonably, but is highly sensitive to cold and highly susceptible to peacock spot, olive knot and Verticillium.",
+        "It is self-sterile and pollinated by Maremmano, Mignolo, Pendolino or Morchiaio. Harvest runs mid-October to mid-December, with slow, concurrent ripening — and phenols decline only slightly as it ripens, which is unusual and gives growers a wider window than Hojiblanca or Chalkidiki allow."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Assisano, Morello, Morellino, Fosco"
+        ],
+        [
+          "Main regions",
+          "Umbria, Tuscany, Marche"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "~75%"
+        ],
+        [
+          "Harvest",
+          "Mid-October to mid-December"
+        ],
+        [
+          "Tolerances",
+          "Drought tolerant, highly cold-sensitive"
+        ],
+        [
+          "Watch out for",
+          "Peacock spot, olive knot, Verticillium"
+        ]
+      ],
+      "aroma": [
+        "Green olive",
+        "Artichoke",
+        "Bitter herbs",
+        "Almond"
+      ],
+      "aromaNote": "Published panel work groups Moraiolo high on fruitiness, bitterness and pungency but reports statistical groupings rather than medians. Our panel has not scored this cultivar.",
+      "compare": {
+        "origin": "Umbria, Italy",
+        "polyphenols": "~270 mg/kg",
+        "sensory": "Intense and structured, pronounced bitterness and pungency",
+        "pairing": "Legume soups, grilled meat, bruschetta"
+      },
+      "map": {
+        "placeholder": "Map · Colli Martani, Umbria",
+        "caption": "Umbria, Italy · 43.0° N, 12.5° E"
+      },
+      "seo": {
+        "title": "Moraiolo — The Umbrian Hill Olive | bestoliveoils.eu",
+        "description": "42% of Umbria’s olive trees. Low vigour, upright, drought-tolerant and cold-sensitive — the agronomy that keeps it on the hillsides. Chemistry and taste."
+      },
+      "sources": [
+        {
+          "label": "Regione Umbria regional variety register — Moraiolo",
+          "url": "https://biodiversita.umbria.parco3a.org/wp-content/uploads/2020/04/Scheda_Iscrizione_Registro_-Regionale_Olivo_Moraiolo.pdf"
+        },
+        {
+          "label": "Eleven monovarietal EVOOs grown and processed alike, Foods 9(7):904",
+          "url": "https://www.mdpi.com/2304-8158/9/7/904"
+        }
+      ]
+    },
+    {
+      "slug": "taggiasca",
+      "name": "Taggiasca",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Taggia, Imperia, Liguria",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Italy · Liguria",
+        "Dual-purpose",
+        "Delicate by regulation"
+      ],
+      "lede": "The rare cultivar whose protected designation requires its oil to be gentle. The Riviera dei Fiori DOP caps bitterness at \"barely perceptible\" and fruitiness at light-to-medium — the inverse of how almost every other quality specification is written.",
+      "image": null,
+      "imagePlaceholder": "Taggiasca olives / grove photo",
+      "stats": [
+        {
+          "value": "~24–27%",
+          "label": "oil content of the fruit"
+        },
+        {
+          "value": "≥90%",
+          "label": "required in Riviera dei Fiori DOP"
+        }
+      ],
+      "grove": [
+        "Taggiasca is the olive of western Liguria — Imperia province and parts of Savona — and it is grown for both oil and table use, as brined olives and as paste. The tree reaches 15 or 16 metres with a heavily ramified, pendulous canopy, is only partially self-fertile, roots poorly, and is described as markedly sensitive to both cold and drought. It is also very susceptible to the main pests and diseases.",
+        "Its ripening is late and conspicuously non-simultaneous, extending into January, which is why Ligurian harvesting has traditionally been done with nets over weeks rather than in a single pass. Between the tree’s size, its weeping habit and the staggered ripening, it is one of the least mechanisable major Italian cultivars — and one of the most expensive to pick."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Gentile, Giuggiolina"
+        ],
+        [
+          "Main regions",
+          "Imperia and Savona, Liguria"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil, brined olives, paste"
+        ],
+        [
+          "Oil yield",
+          "~24–27% of fruit weight"
+        ],
+        [
+          "Harvest",
+          "Late and staggered, extending into January"
+        ],
+        [
+          "DOP sensory limits",
+          "Light to medium fruity; bitterness barely perceptible"
+        ],
+        [
+          "Watch out for",
+          "Sensitive to cold and drought; hard to mechanise"
+        ]
+      ],
+      "aroma": [
+        "Pine nut",
+        "Sweet almond",
+        "Raw artichoke",
+        "Light fruit"
+      ],
+      "aromaNote": "The Riviera dei Fiori DOP specification is itself a published sensory definition: fruity of light or medium intensity, decidedly sweet, with at most a light pungency and barely perceptible bitterness.",
+      "compare": {
+        "origin": "Liguria, Italy",
+        "polyphenols": "Low (no measured range published)",
+        "sensory": "Delicate and sweet, almond and pine nut, almost no bitterness",
+        "pairing": "Pesto, fish, shellfish, steamed vegetables"
+      },
+      "map": {
+        "placeholder": "Map · Riviera di Ponente",
+        "caption": "Taggia, Imperia, Liguria · 43.9° N, 7.9° E"
+      },
+      "seo": {
+        "title": "Taggiasca — Liguria’s Delicate Olive | bestoliveoils.eu",
+        "description": "The DOP that legally requires low intensity: bitterness barely perceptible, fruitiness light to medium. Why Taggiasca is the hardest classic olive to pick."
+      },
+      "sources": [
+        {
+          "label": "Consorzio di Tutela Olio DOP Riviera Ligure — cultivars",
+          "url": "https://www.oliorivieraligure.it/en/le-cultivar/"
+        },
+        {
+          "label": "Riviera Ligure DOP specification parameters",
+          "url": "https://www.agraria.org/prodottitipici/oliorivieraligure.htm"
+        },
+        {
+          "label": "Regione Liguria — Agriligurianet, Olivo",
+          "url": "https://www.agriligurianet.it/en/vetrina/prodotti-e-produzioni/olio-e-olive/prodotti-tipiciolio/item/201-olivo.html"
+        }
+      ]
+    },
+    {
+      "slug": "casaliva",
+      "name": "Casaliva",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Lake Garda — Trentino, Brescia, Verona",
+      "purpose": "Oil",
+      "tags": [
+        "Italy · Lake Garda",
+        "Monovarietal",
+        "Northern limit"
+      ],
+      "lede": "The northernmost commercially significant Italian oil variety, grown at the thermal limit of olive cultivation. Genetic fingerprinting shows it is the Garda name for the Frantoio genotype — and its oils are measurably lower in phenols than the same genotype grown further south.",
+      "image": null,
+      "imagePlaceholder": "Casaliva olives / grove photo",
+      "stats": [
+        {
+          "value": "110–200",
+          "label": "mg/kg in a Garda survey"
+        },
+        {
+          "value": "~19.5%",
+          "label": "oil content of the fruit"
+        }
+      ],
+      "grove": [
+        "Casaliva is the dominant variety of the Garda DOP, grown around the lake across Trentino, Brescia and Verona, and recorded under the names Casaliva, Drizzar, Casalì and Nostran since the beginning of the nineteenth century. The tree is vigorous, first upright then weeping — explicitly compared to Frantoio in the catalogues — productive and constant, sensitive to low temperatures and susceptible to peacock spot and olive knot.",
+        "SSR genotyping of ancient Garda trees concluded that Casaliva and Razza are synonyms of Frantoio, an old genotype carrying wide intra-varietal variability. That is the honest framing: a locally selected population maintained for two centuries, genetically Frantoio at the marker level, legally and commercially a distinct Garda cultivar. Its phenol figures — 111 to 197 mg/kg in a multi-year Brescia survey — are a clean demonstration that cultivar alone does not set phenol content. The environment does much of the work."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Drizzar, Zentil, Casalì, Nostran"
+        ],
+        [
+          "Main regions",
+          "Lake Garda — Trentino, Brescia, Verona"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Genetics",
+          "A synonym of Frantoio at SSR marker level"
+        ],
+        [
+          "Harvest",
+          "Late maturation; picked early in practice, for frost risk"
+        ],
+        [
+          "Shelf stability",
+          "Not published"
+        ],
+        [
+          "Watch out for",
+          "Cold-sensitive at the northern limit of the crop"
+        ]
+      ],
+      "aroma": [
+        "Not published"
+      ],
+      "aromaNote": "No catalogue descriptor from a primary source could be verified for Casaliva. Descriptions circulate, but we are not repeating them without a source.",
+      "compare": {
+        "origin": "Lake Garda, Italy",
+        "polyphenols": "110–200 mg/kg",
+        "sensory": "Not published from a primary source",
+        "pairing": "Lake fish, risotto, delicate preparations"
+      },
+      "map": {
+        "placeholder": "Map · Lake Garda",
+        "caption": "Lake Garda, northern Italy · 45.6° N, 10.6° E"
+      },
+      "seo": {
+        "title": "Casaliva — Olive Oil at the Northern Limit | bestoliveoils.eu",
+        "description": "The Garda variety that is genetically Frantoio, and whose low phenol figures show how much of a cultivar’s chemistry is really set by climate."
+      },
+      "sources": [
+        {
+          "label": "Genetic resources of Olea europaea in the Garda Trentino, Genes 11(10):1171",
+          "url": "https://www.mdpi.com/2073-4425/11/10/1171"
+        },
+        {
+          "label": "Ripening stage and quality indices of Garda monovarietal oils, L’Informatore Agrario",
+          "url": "https://air.unimi.it/retrieve/handle/2434/213243/258101/Stadio%20di%20maturazione%20e%20indici%20qualitativi%20e%20compositivi%20di%20oli%20monovarietali%20(Iinformatore%20Agrario%2014-2003).pdf"
+        }
+      ]
+    },
+    {
+      "slug": "nocellara-del-belice",
+      "name": "Nocellara del Belice",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Valle del Belìce, Sicily",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Italy · Sicily",
+        "Dual-purpose",
+        "DOP in two categories"
+      ],
+      "lede": "The variety sold worldwide as the Castelvetrano table olive — and the reason those olives are green rather than black is simply that the fruit stays green at full ripeness. It is one of very few olives that is a first-rank table variety and a serious oil variety at the same time.",
+      "image": null,
+      "imagePlaceholder": "Nocellara del Belice olives / grove photo",
+      "stats": [
+        {
+          "value": "~330",
+          "label": "mg/kg mean, 125 samples"
+        },
+        {
+          "value": "~73%",
+          "label": "mean oleic acid"
+        }
+      ],
+      "grove": [
+        "Nocellara del Belice comes from the Belìce valley straddling Trapani and Agrigento, and is overwhelmingly Sicilian: 98 of 125 samples in Italy’s national monovarietal database came from the island. The tree is of medium vigour, self-sterile, and only moderately productive, but its fruit detaches easily, which makes it genuinely mechanisable. It is susceptible to drought and very susceptible to olive fly, peacock spot and olive knot.",
+        "It is the only variety here holding protected status in both product categories: Valle del Belìce DOP for the oil, which requires at least 70% Nocellara, and Nocellara del Belice DOP for the table olives. Do not confuse it with Nocellara Etnea or Nocellara Messinese, which are separate varieties despite the shared name."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Tunna, Oliva di Castelvetrano, Nocellara di Castelvetrano"
+        ],
+        [
+          "Main regions",
+          "Trapani and Agrigento, Sicily"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — green table olives and oil"
+        ],
+        [
+          "Oil yield",
+          "18–19% of fruit weight"
+        ],
+        [
+          "Harvest",
+          "Late ripening"
+        ],
+        [
+          "Designations",
+          "Valle del Belìce DOP (oil, ≥70%); Nocellara del Belice DOP (table)"
+        ],
+        [
+          "Watch out for",
+          "Self-sterile; susceptible to drought, fly, peacock spot, knot"
+        ]
+      ],
+      "aroma": [
+        "Cut grass",
+        "Tomato",
+        "Fresh almond",
+        "Artichoke"
+      ],
+      "aromaNote": "From the sensory typology assigned by Italy’s national monovarietal database: medium to high olive fruitiness with grassy notes and tomato scent, medium bitterness and pungency. A database typology, not a single panel median.",
+      "compare": {
+        "origin": "Sicily, Italy",
+        "polyphenols": "~330 mg/kg mean",
+        "sensory": "Green and grassy with tomato, medium bitterness and pungency",
+        "pairing": "Caponata, grilled fish, tomato dishes"
+      },
+      "map": {
+        "placeholder": "Map · Valle del Belìce",
+        "caption": "Valle del Belìce, Sicily · 37.7° N, 12.9° E"
+      },
+      "seo": {
+        "title": "Nocellara del Belice — Castelvetrano | bestoliveoils.eu",
+        "description": "The Sicilian variety behind Castelvetrano table olives, protected in both oil and table categories. Why the fruit stays green, plus chemistry and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/italy/nocellara-del-belice"
+        },
+        {
+          "label": "Banca dati nazionale degli oli monovarietali italiani",
+          "url": "https://www.olimonovarietali.it/en/database/cultivar/?id=NOCELLARA+DEL+BELICE"
+        }
+      ]
+    },
+    {
+      "slug": "tonda-iblea",
+      "name": "Tonda Iblea",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Monti Iblei, Ragusa and Siracusa, Sicily",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Italy · Sicily",
+        "Dual-purpose",
+        "Tomato character"
+      ],
+      "lede": "The reference Sicilian variety for the tomato-leaf aroma type, and the one with the highest pulp-to-stone ratio in this whole set — about 88% flesh. That makes a superb table olive and, inconveniently, a poor oil yield for the size of the fruit.",
+      "image": null,
+      "imagePlaceholder": "Tonda Iblea olives / grove photo",
+      "stats": [
+        {
+          "value": "~285",
+          "label": "mg/kg mean, 69 samples"
+        },
+        {
+          "value": "5.1",
+          "label": "pulp-to-stone ratio"
+        }
+      ],
+      "grove": [
+        "Tonda Iblea is native to the Hyblaean uplands of south-eastern Sicily, concentrated in Ragusa and Siracusa. Mean drupe weight is 5.64 grams at a pulp-to-stone ratio of 5.1 — roughly 88% flesh. It is practically self-sterile, with Calatina, Moresca and Zaituna used as pollinators, reported as cold-tolerant, and susceptible to scale, Verticillium, anthracnose and peacock spot. It is also prone to acinellatura, the clustering of undersized fruit in some seasons.",
+        "Its tomato character is famous and repeatedly documented in catalogues and trade-technical sources, which give a medium-intense fruitiness with medium bitterness and medium-intense pungency over green tomato and tomato leaf. We should be straight about the limit of that evidence: we could not find a peer-reviewed volatile study isolating the compounds responsible in this specific cultivar."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Cetrala"
+        ],
+        [
+          "Main regions",
+          "Ragusa and Siracusa, Sicily"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — table and oil"
+        ],
+        [
+          "Oleic acid",
+          "~70.5% mean"
+        ],
+        [
+          "Oil yield",
+          "Sources disagree: 16–20%, or around 11–15%"
+        ],
+        [
+          "Designations",
+          "Monti Iblei DOP, Sicilia IGP"
+        ],
+        [
+          "Watch out for",
+          "Self-sterile; low oil yield for the fruit size"
+        ]
+      ],
+      "aroma": [
+        "Green tomato",
+        "Tomato leaf",
+        "Cut grass",
+        "Artichoke",
+        "Almond"
+      ],
+      "aromaNote": "Descriptors from Sicilian variety catalogues and the national monovarietal database typology. No peer-reviewed volatile study isolating the tomato note in this cultivar was found.",
+      "compare": {
+        "origin": "Sicily, Italy",
+        "polyphenols": "~285 mg/kg mean",
+        "sensory": "Unmistakable green tomato, medium bitterness, medium-intense pungency",
+        "pairing": "Tomato and bread, ricotta, raw over pasta"
+      },
+      "map": {
+        "placeholder": "Map · Monti Iblei",
+        "caption": "Monti Iblei, Sicily · 37.0° N, 14.7° E"
+      },
+      "seo": {
+        "title": "Tonda Iblea — Sicily’s Tomato-Leaf Olive | bestoliveoils.eu",
+        "description": "About 88% flesh, and the reference variety for the tomato aroma type. What the sensory evidence actually supports, plus chemistry and harvest."
+      },
+      "sources": [
+        {
+          "label": "Banca dati nazionale degli oli monovarietali italiani",
+          "url": "https://www.olimonovarietali.it/en/database/cultivar/?id=TONDA%20IBLEA"
+        },
+        {
+          "label": "Plantgest variety sheet — Tonda Iblea",
+          "url": "https://plantgest.imagelinenetwork.com/it/varieta/frutticole/olivo-da-mensa/tonda-iblea/8016"
+        },
+        {
+          "label": "Cronache di Gusto — Tonda Iblea",
+          "url": "https://www.cronachedigusto.it/scenari/olio-oliva-tonda-iblea-olive-mensa/"
+        }
+      ]
+    },
+    {
+      "slug": "itrana",
+      "name": "Itrana",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Itri, Latina, Lazio",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Italy · Lazio",
+        "Dual-purpose",
+        "High oleic"
+      ],
+      "lede": "One variety, two harvests months apart: picked green in autumn it gives a high-oleic, green-tomato oil, and left to turn fully black it becomes the Oliva di Gaeta. It also carries real winter cold tolerance, which is rare in this company.",
+      "image": null,
+      "imagePlaceholder": "Itrana olives / grove photo",
+      "stats": [
+        {
+          "value": "~381",
+          "label": "mg/kg mean, 211 samples"
+        },
+        {
+          "value": "~76.5%",
+          "label": "mean oleic acid — the highest here"
+        }
+      ],
+      "grove": [
+        "Itrana takes its name from Itri in the province of Latina and accounts for around 70% of the olive plants there; 208 of 211 samples in the national database came from Lazio. The tree is highly vigorous with an upright habit and dense canopy, roots readily, and is self-incompatible — Leccino, Pendolino and Olivastro are used as pollinators. It tolerates the main fungal diseases but is susceptible to olive fly.",
+        "Its mean oleic acid of 76.47% across 211 commercial samples is the highest of the Italian varieties in this set, and the DOP Colline Pontine sets a floor of 72% along with a phenol minimum above 100 mg/kg. Ripening is late and staggered, which is exactly what makes the two-crop strategy possible."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Gaetana, Oliva di Gaeta, Oliva di Esperia, Trana"
+        ],
+        [
+          "Main regions",
+          "Latina province, Lazio"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and black table olives"
+        ],
+        [
+          "Oleic acid",
+          "~76.5% mean, range 70–83%"
+        ],
+        [
+          "Harvest",
+          "Late and staggered"
+        ],
+        [
+          "Designations",
+          "Colline Pontine DOP (50–100%); Oliva di Gaeta DOP (table)"
+        ],
+        [
+          "Tolerances",
+          "Notable winter cold tolerance"
+        ]
+      ],
+      "aroma": [
+        "Green tomato",
+        "Cut grass",
+        "Green almond",
+        "Artichoke"
+      ],
+      "aromaNote": "From the national monovarietal database typology and the Colline Pontine DOP specification, which describes a medium to intense fruity aroma of green olives with an almond aftertaste. No panel medians published.",
+      "compare": {
+        "origin": "Lazio, Italy",
+        "polyphenols": "~381 mg/kg mean",
+        "sensory": "Green tomato and almond, medium bitterness and pungency",
+        "pairing": "Buffalo mozzarella, bruschetta, braised greens"
+      },
+      "map": {
+        "placeholder": "Map · Colline Pontine",
+        "caption": "Itri, Latina, Lazio · 41.3° N, 13.5° E"
+      },
+      "seo": {
+        "title": "Itrana — Green Oil and the Gaeta Olive | bestoliveoils.eu",
+        "description": "The Lazio variety that yields two crops months apart, and the highest mean oleic acid of the Italian cultivars in our set. Chemistry, DOPs and taste."
+      },
+      "sources": [
+        {
+          "label": "Banca dati nazionale degli oli monovarietali italiani",
+          "url": "https://www.olimonovarietali.it/en/database/cultivar/?id=ITRANA"
+        },
+        {
+          "label": "Colline Pontine DOP and Oliva di Gaeta DOP",
+          "url": "https://www.oliocentrica.it/en/itrana-extra-virgin-olive-oil-and-the-pontine-pdo-hills/"
+        }
+      ]
+    },
+    {
+      "slug": "peranzana",
+      "name": "Peranzana",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Alto Tavoliere, Foggia, Puglia",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Italy · Puglia",
+        "Dual-purpose",
+        "Needs pollinators"
+      ],
+      "lede": "Puglia has always told a story about this variety arriving from Provence — the local names Provenzale and Francese preserve it. The molecular evidence points somewhere else entirely: Peranzana is the same genotype as Sardinia’s Bosana.",
+      "image": null,
+      "imagePlaceholder": "Peranzana olives / grove photo",
+      "stats": [
+        {
+          "value": "~396",
+          "label": "mg/kg mean, 223 samples"
+        },
+        {
+          "value": "~4%",
+          "label": "self-fertility"
+        }
+      ],
+      "grove": [
+        "Peranzana is grown in the Alto Tavoliere north-west of Foggia, around Torremaggiore, with smaller plantings in Molise and Marche. Estimates of its area range from 5,000–6,000 hectares to about 10,000, depending on whether table-only groves are counted. It is medium in vigour, roots poorly, comes into bearing late, and yields modestly in the early years.",
+        "Its reproductive biology is the planting constraint that matters: self-fertility around 4% and ovary abortion around 40% mean an orchard depends heavily on cross-pollination. And despite the IOC classifying its phenol content as low, two decades of panel-tested Apulian monovarietals give a mean of 396 mg/kg — among the higher figures in this set."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Provenzale, Francese; genetically the same as Bosana"
+        ],
+        [
+          "Main regions",
+          "Alto Tavoliere, Foggia; Molise, Marche"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose, oil dominant"
+        ],
+        [
+          "Oleic acid",
+          "~71.7% mean"
+        ],
+        [
+          "Oil yield",
+          "Medium-low, around 15%"
+        ],
+        [
+          "Designations",
+          "Dauno DOP, Alto Tavoliere mention (≥80%)"
+        ],
+        [
+          "Watch out for",
+          "Self-fertility ~4% — pollinators are essential"
+        ]
+      ],
+      "aroma": [
+        "Cut grass",
+        "Artichoke",
+        "Fresh almond",
+        "Tomato"
+      ],
+      "aromaNote": "From the national monovarietal database typology: medium to high olive fruitiness with grass, artichoke, almond and tomato, medium bitterness and pungency. No panel medians published.",
+      "compare": {
+        "origin": "Puglia, Italy",
+        "polyphenols": "~396 mg/kg mean",
+        "sensory": "Balanced — sweet, bitter and pungent at once, almond finish",
+        "pairing": "Grilled vegetables, orecchiette, fresh cheese"
+      },
+      "map": {
+        "placeholder": "Map · Alto Tavoliere",
+        "caption": "Torremaggiore, Foggia, Puglia · 41.7° N, 15.3° E"
+      },
+      "seo": {
+        "title": "Peranzana — Puglia’s Provençal Myth | bestoliveoils.eu",
+        "description": "Local names say it came from Provence; SSR fingerprinting says it is Sardinia’s Bosana. Chemistry, the 4% self-fertility problem, and how it tastes."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/italy/peranzana"
+        },
+        {
+          "label": "Banca dati nazionale degli oli monovarietali italiani",
+          "url": "https://www.olimonovarietali.it/en/database/cultivar/?id=PERANZANA"
+        },
+        {
+          "label": "Genetic and cyto-histological analyses in Olea europaea, Int. J. Mol. Sci. 27(1):94",
+          "url": "https://www.mdpi.com/1422-0067/27/1/94"
+        }
+      ]
+    },
+    {
+      "slug": "bosana",
+      "name": "Bosana",
+      "country": "Italy",
+      "countryCode": "IT",
+      "originRegion": "Sardinia",
+      "purpose": "Oil",
+      "tags": [
+        "Italy · Sardinia",
+        "Monovarietal",
+        "High phenolic"
+      ],
+      "lede": "The cultivar of an entire island — over half of Sardinian production — and the highest mean phenol content in Italy’s national monovarietal dataset. It is also, genetically, the same variety as Puglia’s Peranzana.",
+      "image": null,
+      "imagePlaceholder": "Bosana olives / grove photo",
+      "stats": [
+        {
+          "value": "~415",
+          "label": "mg/kg mean, 260 samples"
+        },
+        {
+          "value": "~71.7%",
+          "label": "mean oleic acid"
+        }
+      ],
+      "grove": [
+        "Bosana dominates the centre-north of Sardinia — Sassari, the Nurra, Marghine and Planargia — and is present across the rest of the island. All 260 samples in twenty-one years of the national database came from Sardinia. Ripening is late and staggered with harvest in November and December, and the sources are explicit that early picking gives the better oil.",
+        "It is one of the few traditional varieties expressly studied as a cultivar for intensive olive growing, and it is reported as highly resistant to heat and to olive knot. Its practical weakness is nursery propagation: rooting from cuttings is very low. Sources also disagree on whether it is partially self-compatible or outright self-sterile, so pollinators are the safe assumption."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Sassarese, Tondo di Sassari, Algherese, Palma"
+        ],
+        [
+          "Main regions",
+          "Sassari, Nurra, Marghine, Planargia, Sardinia"
+        ],
+        [
+          "Purpose",
+          "Oil, with larger fruit used for the table"
+        ],
+        [
+          "Oleic acid",
+          "~71.7% mean"
+        ],
+        [
+          "Harvest",
+          "November–December, late and staggered"
+        ],
+        [
+          "Designations",
+          "Sardegna DOP"
+        ],
+        [
+          "Watch out for",
+          "Very low rooting from cuttings; fertility disputed"
+        ]
+      ],
+      "aroma": [
+        "Cut grass",
+        "Artichoke",
+        "Fresh almond",
+        "Tomato"
+      ],
+      "aromaNote": "The national database assigns Bosana the same sensory typology as Peranzana — consistent with their shared genotype. No panel medians published.",
+      "compare": {
+        "origin": "Sardinia, Italy",
+        "polyphenols": "~415 mg/kg mean",
+        "sensory": "Fruity, firmly bitter and pungent",
+        "pairing": "Pane carasau, lamb, pecorino, fish stew"
+      },
+      "map": {
+        "placeholder": "Map · northern Sardinia",
+        "caption": "Sassari, Sardinia · 40.7° N, 8.6° E"
+      },
+      "seo": {
+        "title": "Bosana — Sardinia’s Own Olive | bestoliveoils.eu",
+        "description": "Over half of Sardinian production and the highest mean phenol content in Italy’s national monovarietal dataset. Chemistry, harvest and how it tastes."
+      },
+      "sources": [
+        {
+          "label": "Banca dati nazionale degli oli monovarietali italiani",
+          "url": "https://www.olimonovarietali.it/en/database/cultivar/?id=BOSANA"
+        },
+        {
+          "label": "Genetic and cyto-histological analyses in Olea europaea, Int. J. Mol. Sci. 27(1):94",
+          "url": "https://www.mdpi.com/1422-0067/27/1/94"
+        }
+      ]
+    },
+    {
+      "slug": "ayvalik",
+      "name": "Ayvalık",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Edremit Gulf, Balıkesir",
+      "purpose": "Oil",
+      "tags": [
+        "Türkiye · Balıkesir",
+        "Monovarietal",
+        "High pigment"
+      ],
+      "lede": "Türkiye’s second oil variety, from the Edremit Gulf on the north Aegean coast. Among the major Turkish cultivars it is the low-phenol, high-pigment one — a greener-looking oil with a gentler bitter and pungent load than Memecik.",
+      "image": null,
+      "imagePlaceholder": "Ayvalık olives / grove photo",
+      "stats": [
+        {
+          "value": "~24%",
+          "label": "oil content of the fruit"
+        },
+        {
+          "value": "70–72%",
+          "label": "oleic acid, typical"
+        }
+      ],
+      "grove": [
+        "Ayvalık — also called Edremit Yağlık — grows along the Edremit Gulf in Balıkesir province, through Ayvalık, Gömeç and Burhaniye, extending into Çanakkale and northern İzmir. The tree is of medium vigour with small round fruit and a low tendency to alternate bearing, but it is sensitive both to drought and to frost, which narrows where it can be planted.",
+        "It is the only one of Türkiye’s four leading cultivars with no entry in the IOC World Catalogue, so its published agronomic description rests almost entirely on Turkish ministry and institute material. Its measured phenol figures scatter widely across studies — from 46 to 235 mg/kg — which reflects ripeness and site rather than a stable varietal value, so no single typical number should be quoted. What is consistent is the pigment: the highest chlorophyll and carotenoid content of the Turkish cultivars tested."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Edremit Yağlık, Ayvalık Yağlık"
+        ],
+        [
+          "Main regions",
+          "Balıkesir (Edremit, Ayvalık, Gömeç, Burhaniye), Çanakkale, İzmir"
+        ],
+        [
+          "Purpose",
+          "Oil; also green cracked table olives locally"
+        ],
+        [
+          "Oleic acid",
+          "Roughly 65–76%, centring near 70–72%"
+        ],
+        [
+          "Harvest",
+          "Late ripening; fruit holds on the tree"
+        ],
+        [
+          "Designations",
+          "Ayvalık Zeytinyağı (Turkish PDO no. 88)"
+        ],
+        [
+          "Watch out for",
+          "Sensitive to both drought and frost"
+        ]
+      ],
+      "aroma": [
+        "Artichoke",
+        "Green almond",
+        "Green apple",
+        "Grass",
+        "Olive leaf"
+      ],
+      "aromaNote": "Descriptors from the Ayvalık Zeytinyağı PDO specification — a registration document, not a panel result. A published Turkish panel study did record one of its highest fruitiness medians for an Ayvalık sample.",
+      "compare": {
+        "origin": "Balıkesir, Türkiye",
+        "polyphenols": "Reported 46–235 mg/kg; no stable typical value",
+        "sensory": "Green and aromatic, moderate bitterness, gentle pungency",
+        "pairing": "Mezze, white cheese, raw vegetables, fish"
+      },
+      "map": {
+        "placeholder": "Map · Edremit Gulf",
+        "caption": "Edremit Gulf, Balıkesir · 39.4° N, 26.9° E"
+      },
+      "seo": {
+        "title": "Ayvalık — Türkiye’s North Aegean Olive | bestoliveoils.eu",
+        "description": "The Edremit Gulf variety behind Türkiye’s best-known PDO oil: low in phenols, highest in pigment, and absent from the IOC world catalogue entirely."
+      },
+      "sources": [
+        {
+          "label": "Ayvalık Zeytinyağı geographical indication record, Türk Patent",
+          "url": "https://ci.turkpatent.gov.tr/cografi-isaretler/detay/37940"
+        },
+        {
+          "label": "Ministry of Agriculture and Forestry, Edremit olive extension sheet",
+          "url": "https://www.tarimorman.gov.tr/BUGEM/edremitzeytin/Belgeler/Fidan_Secim_Bakim_Oneri/Zuim_Fidan.pdf"
+        },
+        {
+          "label": "Minor components of Turkish monovarietal oils, Zeytin Bilimi",
+          "url": "https://dergipark.org.tr/tr/download/article-file/298723"
+        }
+      ]
+    },
+    {
+      "slug": "memecik",
+      "name": "Memecik",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Muğla, southern Aegean",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Türkiye · Muğla",
+        "Dual-purpose",
+        "Robust"
+      ],
+      "lede": "Türkiye’s leading oil cultivar and the most assertive of them on the palate — published Turkish panel work puts it at the top of both the bitterness and the pungency scale. It is also highly drought resistant, which matters more every year in the southern Aegean.",
+      "image": null,
+      "imagePlaceholder": "Memecik olives / grove photo",
+      "stats": [
+        {
+          "value": "296–407",
+          "label": "mg/kg total phenols"
+        },
+        {
+          "value": "73–76%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Memecik is the variety of the southern Aegean — Aydın, Muğla, İzmir, Manisa and Denizli — and accounts for roughly 19% of Türkiye’s olive trees. The tree is strongly vigorous with a spreading, dense canopy, highly resistant to drought and moderately resistant to cold, partially self-fertile with Ayvalık, Gemlik and Erkence among its recommended pollinators. Oil content is high, above 22%. It shows periodicity, but yields stay satisfactory.",
+        "Fruit matures mid-November to mid-December. In a multi-region Turkish panel study, Memecik samples recorded the highest bitterness — 5.5 in Muğla, 4.8 in Aydın on a 10 cm scale — and the highest pungency at 6.1, of every cultivar and region tested. The EU-recognised Aydın Memecik PDO description says the same thing in words: intense fruity aroma, high bitterness and pungency."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Aşı Yeli, Gülümbe, Şehir, Tekir, Yağlık"
+        ],
+        [
+          "Main regions",
+          "Aydın, Muğla, İzmir, Manisa, Denizli"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — mainly oil, also green and black table"
+        ],
+        [
+          "Oleic acid",
+          "73–76%"
+        ],
+        [
+          "Oil yield",
+          "High, above 22%"
+        ],
+        [
+          "Harvest",
+          "Mid-November to mid-December, late"
+        ],
+        [
+          "Designations",
+          "Aydın Memecik Zeytinyağı (EU PDO, 2024); Milas Zeytinyağı"
+        ]
+      ],
+      "aroma": [
+        "Green fruit",
+        "Bitter herbs",
+        "Fresh almond",
+        "Pepper"
+      ],
+      "aromaNote": "Published panel medians on a 10 cm scale (multi-region Turkish study): bitterness up to 5.5, pungency up to 6.1 — the highest recorded in that work. The IOC describes a balanced profile of fruity, bitter and pungent attributes.",
+      "compare": {
+        "origin": "Muğla, Türkiye",
+        "polyphenols": "296–407 mg/kg",
+        "sensory": "The most bitter and pungent of the Turkish cultivars measured",
+        "pairing": "Bean dishes, lamb, grilled meat, strong greens"
+      },
+      "map": {
+        "placeholder": "Map · southern Aegean",
+        "caption": "Muğla, southern Aegean · 37.2° N, 28.4° E"
+      },
+      "seo": {
+        "title": "Memecik — Türkiye’s Robust Aegean Olive | bestoliveoils.eu",
+        "description": "The country’s leading oil cultivar, and the one Turkish panel work rates highest for bitterness and pungency. Chemistry, drought tolerance, PDOs."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/turkey/memecik"
+        },
+        {
+          "label": "Olive variety and region in Turkish olive oils, Molecules 31(5):913",
+          "url": "https://www.mdpi.com/1420-3049/31/5/913"
+        },
+        {
+          "label": "Aydın Memecik Zeytinyağı recognised by the EU",
+          "url": "https://www.eeas.europa.eu/delegations/t%C3%BCrkiye/ayd%C4%B1n-memecik-zeytinya%C4%9F%C4%B1-ab-taraf%C4%B1ndan-tan%C4%B1nd%C4%B1_tr"
+        }
+      ]
+    },
+    {
+      "slug": "gemlik",
+      "name": "Gemlik",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Gemlik, Bursa, southern Marmara",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Türkiye · Bursa",
+        "Dual-purpose",
+        "Mild"
+      ],
+      "lede": "The most widely planted olive in Türkiye — 48.7% of the country’s trees — and it got there on agronomy, not on oil. Easy rooting, cold hardiness, early bearing and low alternate bearing are why it spread; as an oil it is the mildest of the major Turkish varieties.",
+      "image": null,
+      "imagePlaceholder": "Gemlik olives / grove photo",
+      "stats": [
+        {
+          "value": "244–491",
+          "label": "mg/kg total phenols"
+        },
+        {
+          "value": "48.7%",
+          "label": "of Türkiye’s olive trees"
+        }
+      ],
+      "grove": [
+        "Gemlik comes from the southern shore of the Marmara — Gemlik, Mudanya, Erdek and Trilye — where it makes up 75 to 80% of the groves. Since the 2000s it has been planted across the whole country, and the IOC now records it as Türkiye’s most widely cultivated variety. It is of medium vigour, roots easily from cuttings, adapts well to cold areas but is sensitive to drought, and prefers clay soils and irrigation.",
+        "It is overwhelmingly a black table olive — Turkish extension literature calls it the country’s best brine-curing variety — but oil content is above 22% and it is pressed at scale. In panel work its oils span the widest range of any Turkish cultivar tested, with the lowest pungency ever recorded in that study at 2.0. One variety producing both the delicate and the dilute."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Trilye, Kara, Kaplık, Kıvırcık"
+        ],
+        [
+          "Main regions",
+          "Bursa and southern Marmara; now nationwide"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — predominantly black table olives"
+        ],
+        [
+          "Oleic acid",
+          "70–75%"
+        ],
+        [
+          "Oil yield",
+          "22–23%"
+        ],
+        [
+          "Harvest",
+          "Mid to late October — earlier than Memecik or Ayvalık"
+        ],
+        [
+          "Designations",
+          "Gemlik Zeytini (Turkish PDO no. 76)"
+        ]
+      ],
+      "aroma": [
+        "Mild fruitiness",
+        "Almond",
+        "Soft green notes"
+      ],
+      "aromaNote": "The IOC gives medium fruitiness, delicate bitterness and medium pungency. Published Turkish panel medians for Gemlik range from 3.0 to 5.3 fruitiness and down to 2.0 pungency depending on origin.",
+      "compare": {
+        "origin": "Bursa, Türkiye",
+        "polyphenols": "244–491 mg/kg",
+        "sensory": "Mild and approachable, delicate bitterness, low pungency",
+        "pairing": "Breakfast table, soft cheese, eggs, salads"
+      },
+      "map": {
+        "placeholder": "Map · southern Marmara",
+        "caption": "Gemlik, Bursa · 40.4° N, 29.2° E"
+      },
+      "seo": {
+        "title": "Gemlik — Türkiye’s Most Planted Olive | bestoliveoils.eu",
+        "description": "Nearly half of Türkiye’s olive trees, and the country’s classic black table olive. Why its agronomy, not its oil, explains the spread."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/turkey/gemlik"
+        },
+        {
+          "label": "Gemlik Zeytini geographical indication record, Türk Patent",
+          "url": "https://ci.turkpatent.gov.tr/cografi-isaretler/detay/37924"
+        },
+        {
+          "label": "Olive variety and region in Turkish olive oils, Molecules 31(5):913",
+          "url": "https://www.mdpi.com/1420-3049/31/5/913"
+        }
+      ]
+    },
+    {
+      "slug": "domat",
+      "name": "Domat",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Akhisar, Manisa",
+      "purpose": "Table",
+      "tags": [
+        "Türkiye · Manisa",
+        "Table olive",
+        "Surprisingly phenolic"
+      ],
+      "lede": "Catalogued as Türkiye’s leading green table variety — and yet in the one peer-reviewed head-to-head comparison, its oil came out the most phenol-rich, most bitter and most pungent of the Turkish cultivars tested. The largest gap in this set between a variety’s commercial role and its oil.",
+      "image": null,
+      "imagePlaceholder": "Domat olives / grove photo",
+      "stats": [
+        {
+          "value": "~351",
+          "label": "mg/kg — highest of five Turkish cultivars"
+        },
+        {
+          "value": "~140",
+          "label": "fruits per kilo — the largest fruit here"
+        }
+      ],
+      "grove": [
+        "Domat is the variety of Akhisar in Manisa and the surrounding Aegean, at about 7.6% of Türkiye’s olive trees. It is strongly vigorous with a dense spreading canopy, medium in both cold and drought tolerance, partially self-fertile, and productive regularly rather than in alternate years. The fruit is the largest of the Turkish cultivars here — around 140 fruits per kilo, flesh-to-stone 7.3 — with a high moisture requirement.",
+        "Almost all of the crop goes to green table processing, so very little Domat oil reaches the market. That is worth knowing before reading its analysis: the phenol and sensory figures below come from a single peer-reviewed comparison of five cultivars picked in the last week of October, not from a body of commercial samples."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Köşeli Domat, Uzun Domat"
+        ],
+        [
+          "Main regions",
+          "Manisa (Akhisar) and the wider Aegean"
+        ],
+        [
+          "Purpose",
+          "Table olive, green; oil is a by-product"
+        ],
+        [
+          "Oleic acid",
+          "Around 62% in one trial — no home-region range published"
+        ],
+        [
+          "Oil yield",
+          "18–22%"
+        ],
+        [
+          "Harvest",
+          "Mid-October"
+        ],
+        [
+          "Designations",
+          "Akhisar Domat Zeytini (Turkish geographical indication)"
+        ]
+      ],
+      "aroma": [
+        "Green fruit",
+        "Bitter herbs",
+        "Pepper"
+      ],
+      "aromaNote": "The IOC gives medium fruitiness, medium bitterness and medium pungency with high persistence. A peer-reviewed comparison found Domat oil the most bitter and pungent of five Turkish cultivars, without stating medians.",
+      "compare": {
+        "origin": "Manisa, Türkiye",
+        "polyphenols": "~351 mg/kg (single study)",
+        "sensory": "Bitter and pungent, persistent — unusual for a table variety",
+        "pairing": "The olive itself; the oil suits robust dishes"
+      },
+      "map": {
+        "placeholder": "Map · Akhisar, Manisa",
+        "caption": "Akhisar, Manisa · 38.9° N, 27.8° E"
+      },
+      "seo": {
+        "title": "Domat — Türkiye’s Green Table Olive | bestoliveoils.eu",
+        "description": "Grown for the jar, yet its oil measured the most phenol-rich and most bitter of five Turkish cultivars in the one head-to-head study. The evidence."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/turkey/domat"
+        },
+        {
+          "label": "EVOOs of Turkish olive cultivars, Molecules 28(3):1483",
+          "url": "https://www.mdpi.com/1420-3049/28/3/1483"
+        }
+      ]
+    },
+    {
+      "slug": "uslu",
+      "name": "Uslu",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Akhisar, Manisa",
+      "purpose": "Table",
+      "tags": [
+        "Türkiye · Manisa",
+        "Table olive",
+        "Tree-ripened black"
+      ],
+      "lede": "One of the few Turkish varieties whose reputation rests on the fully black, tree-ripened table olive rather than on oil. Its protected designation is written entirely around that use — harvested in November, at a brilliant dark black.",
+      "image": null,
+      "imagePlaceholder": "Uslu olives / grove photo",
+      "stats": [
+        {
+          "value": "~163",
+          "label": "mg/kg in a single study"
+        },
+        {
+          "value": "44.6%",
+          "label": "seed germination — highest of 13 cultivars"
+        }
+      ],
+      "grove": [
+        "Uslu is the other Akhisar variety alongside Domat, and is grown across the Aegean with reports of secondary plantings elsewhere. Its geographical indication designates it a black table olive and names November as the optimal harvest. It is sensitive to Verticillium wilt, and Turkish extension literature uses it as a pollinator for Manzanilla.",
+        "It has one distinctly practical quality: the highest seed germination rate of thirteen Turkish cultivars tested for rootstock potential, at 44.6%, which makes it one of the better choices for raising seedling rootstocks. Beyond that the published record is thin — no oil yield, no oleic acid range and no Rancimat figure could be found, and the single phenol value below is one sample from one study."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Sold as Akhisar Uslu Zeytini"
+        ],
+        [
+          "Main regions",
+          "Manisa (Akhisar), Aegean"
+        ],
+        [
+          "Purpose",
+          "Black table olive; oil secondary"
+        ],
+        [
+          "Oleic acid",
+          "Not published"
+        ],
+        [
+          "Harvest",
+          "November, for black table use"
+        ],
+        [
+          "Designations",
+          "Akhisar Uslu Zeytini (Turkish PDO no. 165)"
+        ],
+        [
+          "Watch out for",
+          "Sensitive to Verticillium wilt"
+        ]
+      ],
+      "aroma": [
+        "Not published"
+      ],
+      "aromaNote": "The geographical indication describes only the appearance and general quality of the cured olive. No sensory descriptors for Uslu oil are published.",
+      "compare": {
+        "origin": "Manisa, Türkiye",
+        "polyphenols": "~163 mg/kg (single study)",
+        "sensory": "Not published",
+        "pairing": "The olive itself — Turkish breakfast"
+      },
+      "map": {
+        "placeholder": "Map · Akhisar, Manisa",
+        "caption": "Akhisar, Manisa · 38.9° N, 27.8° E"
+      },
+      "seo": {
+        "title": "Uslu — Türkiye’s Tree-Ripened Black Olive | bestoliveoils.eu",
+        "description": "The Akhisar variety built around the fully black, tree-ripened table olive, and one of the best Turkish cultivars for raising seedling rootstocks."
+      },
+      "sources": [
+        {
+          "label": "Akhisar Uslu Zeytini geographical indication record",
+          "url": "https://www.kulturportali.gov.tr/portal/akhisar-uslu-zeytini"
+        },
+        {
+          "label": "Minor components of Turkish monovarietal oils, Zeytin Bilimi",
+          "url": "https://dergipark.org.tr/tr/download/article-file/298723"
+        },
+        {
+          "label": "Olive cultivars as seedling rootstocks, Horticultural Studies",
+          "url": "https://www.horticulturalstudies.org/uploads/pdf_10.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "nizip-yaglik",
+      "name": "Nizip Yağlık",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Nizip, Gaziantep, southeastern Anatolia",
+      "purpose": "Oil",
+      "tags": [
+        "Türkiye · Gaziantep",
+        "Monovarietal",
+        "High oleic"
+      ],
+      "lede": "The oil variety of southeastern Anatolia, and one of a group there that stands out for oleic acid above 75% — high by Turkish standards. Its harvest window is unusually long, running from November into the first week of February.",
+      "image": null,
+      "imagePlaceholder": "Nizip Yağlık olives / grove photo",
+      "stats": [
+        {
+          "value": ">75%",
+          "label": "oleic acid"
+        },
+        {
+          "value": "326–421",
+          "label": "fruits per kilo — small fruit"
+        }
+      ],
+      "grove": [
+        "Nizip Yağlık is grown around Nizip in Gaziantep, and across Kilis and Adıyaman. It sits alongside Kilis Yağlık, Halhalı and Eğriburun as the established oil varieties of the region — separate cultivars, not synonyms, despite being grouped together in the literature. The fruit is small, in the 326 to 421 per kilo class.",
+        "A study of 28 varieties in the Gaziantep collection named Nizip Yağlık among ten that stood out for oleic acid above 75%. Beyond that the published record is thin: no total phenol figure, no Rancimat value and no sensory descriptors specific to this cultivar could be found. The regional oil carries a protected designation, Nizip Zeytinyağı, which requires the variety."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "No verified synonyms"
+        ],
+        [
+          "Main regions",
+          "Gaziantep, Kilis, Adıyaman"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "Above 75%"
+        ],
+        [
+          "Polyphenols",
+          "Not published"
+        ],
+        [
+          "Harvest",
+          "November into the first week of February"
+        ],
+        [
+          "Designations",
+          "Nizip Zeytinyağı (Turkish PGI no. 158)"
+        ]
+      ],
+      "aroma": [
+        "Not published"
+      ],
+      "aromaNote": "Nizip Yağlık was included in a published aroma-profile study of ten Turkish cultivars, but the accessible text gives no cultivar-specific descriptors. No panel medians published.",
+      "compare": {
+        "origin": "Gaziantep, Türkiye",
+        "polyphenols": "Not published",
+        "sensory": "Not published",
+        "pairing": "Regional cuisine — kebab, bulgur, mezze"
+      },
+      "map": {
+        "placeholder": "Map · Nizip, Gaziantep",
+        "caption": "Nizip, Gaziantep · 37.0° N, 37.8° E"
+      },
+      "seo": {
+        "title": "Nizip Yağlık — Gaziantep’s Oil Olive | bestoliveoils.eu",
+        "description": "Oleic acid above 75%, small fruit, and a harvest window running from November into February. The Gaziantep variety behind the Nizip Zeytinyağı PGI."
+      },
+      "sources": [
+        {
+          "label": "Turkish olive varieties of southeastern Anatolia, Applied Fruit Science 2023",
+          "url": "https://link.springer.com/article/10.1007/s10341-023-00843-6"
+        },
+        {
+          "label": "Nizip Zeytinyağı geographical indication specification",
+          "url": "https://ci.gaziantep.bel.tr/Urunler/nizip-zeytinyagi-1006"
+        }
+      ]
+    },
+    {
+      "slug": "sariulak",
+      "name": "Sarıulak",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "Tarsus, Mersin",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Türkiye · Mersin",
+        "Dual-purpose",
+        "High phenolic"
+      ],
+      "lede": "The one Turkish variety here with a full protected-designation specification giving hard numbers — and they make an unusual pair: comparatively low oleic acid at 65–70%, alongside total phenols of 600 to 836 mg/kg.",
+      "image": null,
+      "imagePlaceholder": "Sarıulak olives / grove photo",
+      "stats": [
+        {
+          "value": "602–836",
+          "label": "mg/kg total phenols (PDO spec)"
+        },
+        {
+          "value": "65.6–70.1%",
+          "label": "oleic acid (PDO spec)"
+        }
+      ],
+      "grove": [
+        "Sarıulak is the olive of Tarsus in Mersin province, on the eastern Mediterranean coast, with plantings across the region alongside Büyük Topak Ulak, Halhalı, Gemlik and Ayvalık. Oil content runs 18.7 to 19.6% of fruit weight, and harvest can continue through to late January. It has the lowest seed germination rate of thirteen Turkish cultivars tested, so it is a poor choice for raising seedling rootstocks.",
+        "The chemistry is the interesting part. Low oleic acid normally predicts poor keeping, while high phenols predict the opposite, and no Rancimat measurement has been published to settle which wins. That makes Sarıulak’s shelf life a genuinely open question rather than a known quantity — and one worth flagging rather than guessing at."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Sarı Ulak (open spelling used in academic work)"
+        ],
+        [
+          "Main regions",
+          "Mersin (Tarsus, Silifke), eastern Mediterranean"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose, oil-leaning"
+        ],
+        [
+          "Oleic acid",
+          "65.6–70.1%"
+        ],
+        [
+          "Oil yield",
+          "18.7–19.6% of fruit weight"
+        ],
+        [
+          "Harvest",
+          "Through to late January"
+        ],
+        [
+          "Designations",
+          "Tarsus Sarıulak Zeytinyağı (Turkish PDO no. 767); Tarsus Sarıulak Zeytini"
+        ]
+      ],
+      "aroma": [
+        "Not published"
+      ],
+      "aromaNote": "The PDO specification describes only a bright yellow colour and omits formal fruity, bitter and pungent descriptors. No panel medians published.",
+      "compare": {
+        "origin": "Mersin, Türkiye",
+        "polyphenols": "602–836 mg/kg",
+        "sensory": "Not published",
+        "pairing": "Eastern Mediterranean cooking — vegetables in oil, pulses"
+      },
+      "map": {
+        "placeholder": "Map · Tarsus, Mersin",
+        "caption": "Tarsus, Mersin · 36.9° N, 34.9° E"
+      },
+      "seo": {
+        "title": "Sarıulak — High Phenols, Low Oleic | bestoliveoils.eu",
+        "description": "The Tarsus variety whose PDO publishes real numbers: 602–836 mg/kg polyphenols with only 65–70% oleic acid. Why its shelf life is an open question."
+      },
+      "sources": [
+        {
+          "label": "Tarsus Sarıulak Zeytinyağı PDO specification, Türk Patent",
+          "url": "https://ci.turkpatent.gov.tr/Files/GeographicalSigns/9b293c95-3c0c-43c8-b29a-b11e84191e11.pdf"
+        },
+        {
+          "label": "Olive cultivars as seedling rootstocks, Horticultural Studies",
+          "url": "https://www.horticulturalstudies.org/uploads/pdf_10.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "erkence",
+      "name": "Erkence",
+      "country": "Türkiye",
+      "countryCode": "TR",
+      "originRegion": "İzmir — Karaburun, Urla, Seferihisar",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Türkiye · İzmir",
+        "Dual-purpose",
+        "The hurma olive"
+      ],
+      "lede": "On certain trees of İzmir’s western peninsula, Erkence fruit loses its bitterness while still hanging on the branch and becomes edible with no brine, no lye and no curing at all. The olives are called hurma, and why it happens is still not settled.",
+      "image": null,
+      "imagePlaceholder": "Erkence olives / grove photo",
+      "stats": [
+        {
+          "value": "~87",
+          "label": "mg/kg — very low for an oil variety"
+        },
+        {
+          "value": "<2,000",
+          "label": "mg/kg oleuropein in hurma fruit"
+        }
+      ],
+      "grove": [
+        "Erkence — from erken, \"early\" — is grown on İzmir’s western peninsula around Karaburun, Urla and Seferihisar. It is early ripening, as the name says, and dual-purpose: pressed for oil and eaten green, pink-scratched, black, or as hurma. It is highly resistant to Verticillium wilt, which is a real advantage in Turkish groves, and is used as a pollinator for Ayvalık and Gemlik. Its measured phenol content, at 87 mg CAE/kg, is very low.",
+        "The hurma effect is dramatic and documented: oleuropein, the bitter secoiridoid, measures under 2,000 mg/kg in hurma fruit against up to 35,000 mg/kg in ordinary Erkence from the same area. The cause is not settled. One peer-reviewed study concludes enzymatic oxidation of oleuropein could be responsible; the fungus Phoma oleae has long been implicated, and a microbiological survey did recover it — while stating plainly that the exact reason is unknown. Anyone writing that a fungus causes it is going further than the evidence does. It is also site-specific: particular trees, particular aspects, and the same variety planted elsewhere does not reliably produce hurma."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Hurma zeytin (the debittered fruit, not a separate variety); furma in Karaburun"
+        ],
+        [
+          "Main regions",
+          "İzmir — Karaburun, Urla, Seferihisar"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and table, including hurma"
+        ],
+        [
+          "Oleic acid",
+          "~61% in a non-native trial; no home-region figure published"
+        ],
+        [
+          "Harvest",
+          "Early ripening"
+        ],
+        [
+          "Disease",
+          "Highly resistant to Verticillium wilt"
+        ],
+        [
+          "Hurma",
+          "Oleuropein under 2,000 mg/kg, against up to 35,000 in ordinary fruit"
+        ]
+      ],
+      "aroma": [
+        "Olive leaf",
+        "Apple",
+        "Tomato"
+      ],
+      "aromaNote": "These three are the only documented Erkence descriptors we could verify, and they come from a study’s attribute list rather than a reported panel median.",
+      "compare": {
+        "origin": "İzmir, Türkiye",
+        "polyphenols": "~87 mg/kg",
+        "sensory": "Gentle; documented descriptors are leaf, apple and tomato",
+        "pairing": "Hurma olives eaten as they are; the oil suits mild dishes"
+      },
+      "map": {
+        "placeholder": "Map · Karaburun peninsula",
+        "caption": "Karaburun, İzmir · 38.6° N, 26.5° E"
+      },
+      "seo": {
+        "title": "Erkence and the Hurma Olive | bestoliveoils.eu",
+        "description": "An olive that debitters itself on the tree, no curing required. What the peer-reviewed evidence actually says about why — and what it does not."
+      },
+      "sources": [
+        {
+          "label": "Natural de-bittering of Hurma olives on the tree, Grasas y Aceites",
+          "url": "https://grasasyaceites.revistas.csic.es/index.php/grasasyaceites/article/view/1649"
+        },
+        {
+          "label": "Microbial profile of naturally debittered Hurma olives, Int. J. Food Sci. Technol. 51(9):2099",
+          "url": "https://academic.oup.com/ijfst/article/51/9/2099/7774781"
+        },
+        {
+          "label": "Erkence oil quality, phenolics and antioxidant capacity, Gıda",
+          "url": "https://dergipark.org.tr/en/pub/gida/article/92712"
+        }
+      ]
+    },
+    {
+      "slug": "koroneiki",
+      "name": "Koroneiki",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Koroni, Messinia, Peloponnese",
+      "purpose": "Oil",
+      "tags": [
+        "Greece · Messinia",
+        "Monovarietal",
+        "High oleic"
+      ],
+      "lede": "A very small fruit with a disproportionately high and stable oil yield — the combination that made Koroneiki the only Greek variety adopted at scale in mechanised hedgerow orchards around the world. It covers 50 to 60% of Greece’s olive area.",
+      "image": null,
+      "imagePlaceholder": "Koroneiki olives / grove photo",
+      "stats": [
+        {
+          "value": "74–77%",
+          "label": "oleic acid"
+        },
+        {
+          "value": "50–60%",
+          "label": "of Greece’s olive area"
+        }
+      ],
+      "grove": [
+        "Koroneiki is concentrated in Crete and the Peloponnese and forms the basis of most new Greek plantings. It is of medium vigour with a sparse, spreading canopy, roots readily, flowers early, produces abundant pollen and yields high and constant crops with little alternance. It is drought tolerant but cold sensitive, resistant to leaf spot and Verticillium, and very susceptible to olive knot.",
+        "Outside Greece it is now one of the three cultivars used in super-high-density orchards worldwide, after Arbequina and Arbosana, and is planted in more than twenty countries. In the largest Greek phenolic dataset — 5,764 oils analysed by qNMR — Koroneiki accounted for 53% of all samples, sitting slightly below the national mean."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Koroni, Kritikia, Ladolia, Psilolia"
+        ],
+        [
+          "Main regions",
+          "Crete, Peloponnese; and 20+ countries worldwide"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "74–77%"
+        ],
+        [
+          "Harvest",
+          "Late October to January; early to intermediate ripening"
+        ],
+        [
+          "Tolerances",
+          "Drought tolerant, cold sensitive"
+        ],
+        [
+          "Watch out for",
+          "Very susceptible to olive knot"
+        ]
+      ],
+      "aroma": [
+        "Fresh green herbs",
+        "Grass",
+        "Citrus",
+        "Floral"
+      ],
+      "aromaNote": "Descriptors from variety catalogues and regional descriptions. No certified panel medians for monovarietal Koroneiki were found. Our panel has not scored this cultivar.",
+      "compare": {
+        "origin": "Messinia, Greece",
+        "polyphenols": "Around the Greek mean; Cretan surveys 138–441 mg/kg",
+        "sensory": "Green and aromatic, balanced bitterness and pungency",
+        "pairing": "Greek salad, feta, grilled fish, horta"
+      },
+      "map": {
+        "placeholder": "Map · Messinia and Crete",
+        "caption": "Messinia, Peloponnese · 36.8° N, 21.9° E"
+      },
+      "seo": {
+        "title": "Koroneiki — Greece’s Export Olive | bestoliveoils.eu",
+        "description": "Half of Greece’s olive area and the only Greek variety planted at scale in hedgerow orchards worldwide. Oleic acid, phenols, agronomy and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/greece/koroneiki"
+        },
+        {
+          "label": "High-phenolic olive oil defined from Greek qNMR data, Molecules 26(4):1115",
+          "url": "https://www.mdpi.com/1420-3049/26/4/1115"
+        },
+        {
+          "label": "Fatty acid composition of four Greek cultivars, Molecules 26(14):4151",
+          "url": "https://www.mdpi.com/1420-3049/26/14/4151/htm"
+        }
+      ]
+    },
+    {
+      "slug": "kalamon",
+      "name": "Kalamon",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Messinia, southern Peloponnese",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Greece · Messinia",
+        "Table olive",
+        "Name confusion"
+      ],
+      "lede": "The large, elongated, freestone olive sold everywhere as \"Kalamata\". Worth getting straight: Kalamon is the variety, while Kalamata PDO olive oil is made from Koroneiki — so a bottle of Kalamata PDO oil contains no Kalamon at all.",
+      "image": null,
+      "imagePlaceholder": "Kalamon olives / grove photo",
+      "stats": [
+        {
+          "value": "24%",
+          "label": "of Greece’s table-olive area"
+        },
+        {
+          "value": "4,003",
+          "label": "mg/kg — highest phenol value recorded in Greece"
+        }
+      ],
+      "grove": [
+        "Kalamon is grown across mainland Greece — Aetoloakarnania, Laconia, Fthiotida, Messinia, Arkadia and Ilia — and has recently expanded into Thessaly, Macedonia, Epirus, Samos and Crete. It is strongly vigorous with a spreading habit, roots poorly, and yields high but alternate crops. It is salt resistant and moderately cold resistant but sensitive to excessive heat, and comparatively untroubled by knot, Verticillium and fly.",
+        "Its fruit is what it is grown for: large, elongated, with a high flesh-to-stone ratio and a stone that releases cleanly, and a colour that survives natural black fermentation. Its oil is a minor product but not a negligible one — in the Greek national phenolic dataset Kalamon sits among the highest-mean varieties and produced the single highest value recorded in the country, 4,003 mg/kg."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Kalamata, Kalamatiani, Aetonychi, Chondrolia"
+        ],
+        [
+          "Main regions",
+          "Messinia, Laconia, Aetoloakarnania and mainland Greece"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — primarily natural black table olives"
+        ],
+        [
+          "Oleic acid",
+          "Not published"
+        ],
+        [
+          "Harvest",
+          "Late ripening, November–December, at full colour change"
+        ],
+        [
+          "Designations",
+          "Elia Kalamatas PDO (table olives)"
+        ],
+        [
+          "Name warning",
+          "Kalamata PDO olive oil is made from Koroneiki, not Kalamon"
+        ]
+      ],
+      "aroma": [
+        "Not published for the oil"
+      ],
+      "aromaNote": "The IOC calls the oil excellent and rich in polyphenols but publishes no descriptors, and no panel data for monovarietal Kalamon oil could be found.",
+      "compare": {
+        "origin": "Messinia, Greece",
+        "polyphenols": "Among the highest-mean Greek varieties",
+        "sensory": "Not published for the oil",
+        "pairing": "The olive itself — salads, tapenade, bread"
+      },
+      "map": {
+        "placeholder": "Map · Messinia",
+        "caption": "Messinia, Peloponnese · 37.0° N, 22.1° E"
+      },
+      "seo": {
+        "title": "Kalamon — The Olive Behind \"Kalamata\" | bestoliveoils.eu",
+        "description": "Kalamon is the variety; Kalamata is a place. And Kalamata PDO olive oil is pressed from Koroneiki, not from Kalamon. Untangling the most common mix-up."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/greece/kalamon"
+        },
+        {
+          "label": "High-phenolic olive oil defined from Greek qNMR data, Molecules 26(4):1115",
+          "url": "https://www.mdpi.com/1420-3049/26/4/1115"
+        },
+        {
+          "label": "Kalamata PDO oil in Messinia, Foods 8(12):610",
+          "url": "https://www.mdpi.com/2304-8158/8/12/610"
+        }
+      ]
+    },
+    {
+      "slug": "manaki",
+      "name": "Manaki",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Central Greece and the northeastern Peloponnese",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Greece · Central Greece",
+        "Dual-purpose",
+        "Low oleic"
+      ],
+      "lede": "Chemically the opposite pole from Koroneiki: the lowest oleic acid and the highest linoleic of the four widely studied Greek cultivars. It is also a high-altitude variety, hardy to cold and wind, grown up to a thousand metres.",
+      "image": null,
+      "imagePlaceholder": "Manaki olives / grove photo",
+      "stats": [
+        {
+          "value": "~70%",
+          "label": "oleic acid — lowest of the four studied"
+        },
+        {
+          "value": "13.4%",
+          "label": "linoleic acid — the highest"
+        }
+      ],
+      "grove": [
+        "Manaki is grown around Amfissa, Delphi, Itea, Arachova, Lamia, Kynouria, Ermioni and Poros, on ground rising to a thousand metres. The tree is hardy to cold and wind, carries small fruit of 2.2 to 2.9 grams, and is reported to bear in alternate years. It is often paired in Greek sources with Kothreiki, and whether those are one variety or two is not settled.",
+        "The chemistry is what distinguishes it. At around 70% oleic acid with 13.35% linoleic, Manaki sits at the soft end of the Greek spectrum — a profile that would normally predict lower oxidative stability, though no Rancimat measurement has been published to confirm it. Its harvest window is also disputed between Greek sources, which give anything from late October to early February."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Manaky; often paired with Kothreiki"
+        ],
+        [
+          "Main regions",
+          "Fokida, Argolida, Corinthia, Fthiotida"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — principally oil, also table"
+        ],
+        [
+          "Oleic acid",
+          "~70.2%"
+        ],
+        [
+          "Altitude",
+          "Grown up to 1,000 m"
+        ],
+        [
+          "Harvest",
+          "Late ripening; sources disagree on the months"
+        ],
+        [
+          "Shelf stability",
+          "Not published"
+        ]
+      ],
+      "aroma": [
+        "Apple",
+        "Tomato",
+        "Mild fruitiness"
+      ],
+      "aromaNote": "General descriptions from Greek trade sources. No published panel medians for monovarietal Manaki were found.",
+      "compare": {
+        "origin": "Central Greece",
+        "polyphenols": "Not published",
+        "sensory": "Mild and fruity, apple and tomato",
+        "pairing": "Steamed greens, fresh cheese, delicate fish"
+      },
+      "map": {
+        "placeholder": "Map · Fokida and Argolida",
+        "caption": "Central Greece · 38.5° N, 22.4° E"
+      },
+      "seo": {
+        "title": "Manaki — Greece’s High-Altitude Olive | bestoliveoils.eu",
+        "description": "The lowest oleic and highest linoleic of the widely studied Greek cultivars, grown up to 1,000 m and hardy to cold and wind. Chemistry and taste."
+      },
+      "sources": [
+        {
+          "label": "Fatty acid composition of four Greek cultivars, Molecules 26(14):4151",
+          "url": "https://www.mdpi.com/1420-3049/26/14/4151/htm"
+        },
+        {
+          "label": "Greek olive varieties, Agrovim olive encyclopedia",
+          "url": "https://www.agrovim.gr/el/olive-encyclopedia/greek-olive-varieties/"
+        }
+      ]
+    },
+    {
+      "slug": "tsounati",
+      "name": "Tsounati",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Western Crete and the southern Peloponnese",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Greece · Crete",
+        "Dual-purpose",
+        "Cold-hardy"
+      ],
+      "lede": "The cold-hardy upland counterweight to Koroneiki, and an ancient variety in the literal sense — the IOC notes thousand-year-old Tsounati trees on Crete that are still in production. It holds 15 to 20% of Greece’s olive area.",
+      "image": null,
+      "imagePlaceholder": "Tsounati olives / grove photo",
+      "stats": [
+        {
+          "value": "173–641",
+          "label": "mg/kg in Cretan surveys"
+        },
+        {
+          "value": "15–20%",
+          "label": "of Greece’s olive area"
+        }
+      ],
+      "grove": [
+        "Tsounati is known as Athinolia in Laconia and the southern Peloponnese and as Mastoidis on Crete — three names for one variety. It grows at altitude, up to around a thousand metres, and is dual-purpose: oil, plus green-pickled and salted black table olives. Oil content is described as high, with a Greek agronomic source giving 20 to 30%.",
+        "The tree is of medium vigour with an upright habit, roots moderately, and yields medium crops in alternate years. Its strength is cold resistance; it is moderate on drought and salinity. It is susceptible to leaf spot, olive fly and Verticillium. Despite receiving far less commercial attention than Koroneiki, its phenolic range in Cretan surveys runs to the top of the Greek distribution."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Athinolia, Mastoidis, Matsolia"
+        ],
+        [
+          "Main regions",
+          "Western Crete, southern Peloponnese"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and table"
+        ],
+        [
+          "Oleic acid",
+          "Not published"
+        ],
+        [
+          "Harvest",
+          "December–January; earlier where frost threatens"
+        ],
+        [
+          "Tolerances",
+          "Strong cold resistance; moderate on drought and salt"
+        ],
+        [
+          "Watch out for",
+          "Leaf spot, olive fly, Verticillium"
+        ]
+      ],
+      "aroma": [
+        "Not published"
+      ],
+      "aromaNote": "The IOC records only \"oil quality: excellent\". Greek sources describe a refined oil that blends well with Koroneiki, but no descriptor set or panel median is published.",
+      "compare": {
+        "origin": "Crete and the Peloponnese, Greece",
+        "polyphenols": "173–641 mg/kg",
+        "sensory": "Not published from a primary source",
+        "pairing": "Cretan cooking — pulses, wild greens, rusks"
+      },
+      "map": {
+        "placeholder": "Map · western Crete",
+        "caption": "Western Crete · 35.4° N, 24.0° E"
+      },
+      "seo": {
+        "title": "Tsounati — Crete’s Ancient Upland Olive | bestoliveoils.eu",
+        "description": "Also called Athinolia and Mastoidis. Cold-hardy, grown at altitude, on trees a thousand years old — and phenolic figures at the top of the Greek range."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/greece/tsounati"
+        },
+        {
+          "label": "Antioxidants in Greek virgin olive oils, Antioxidants 3(2):387",
+          "url": "https://www.mdpi.com/2076-3921/3/2/387"
+        }
+      ]
+    },
+    {
+      "slug": "megaritiki",
+      "name": "Megaritiki",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Megara, Attica",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Greece · Attica",
+        "Dual-purpose",
+        "Chemical outlier"
+      ],
+      "lede": "The chemical outlier among widespread Greek oil varieties — markedly lower in oleic acid and higher in palmitic than Koroneiki or Konservolia. Its oils do not simply taste less intense; they age differently.",
+      "image": null,
+      "imagePlaceholder": "Megaritiki olives / grove photo",
+      "stats": [
+        {
+          "value": "~66%",
+          "label": "oleic acid — lowest of the four studied"
+        },
+        {
+          "value": "~25–30%",
+          "label": "oil content of the fruit"
+        }
+      ],
+      "grove": [
+        "Named for Megara in Attica, Megaritiki is grown across Attica, Boeotia, Corinthia and Achaia, out into Argolida, Arcadia, Euboea and Fthiotida, and northwards into Drama, Kavala, Kozani, Xanthi, Pella, Pieria, Serres and Chalkidiki. It is a medium-sized tree that adapts to poor soils and is described as cold- and drought-hardy and exceptionally adaptable — which is exactly why it turns up across such a latitude range.",
+        "Its fatty acid profile is where it separates from the pack: 65.8% oleic against 15.5% palmitic and 12.5% linoleic, the lowest oleic and highest palmitic of the four widely studied Greek cultivars. A Greek olive-oil specialist publication reports panel-style intensities for premium Megaritiki of fruitiness 5.0–5.5, bitterness 4.0–4.5 and pungency 4.5–5.0 — indicative figures from a tasting source, not an accredited panel."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Megareitiki, Perachoritiki, Athinaiki, Elia Megaron"
+        ],
+        [
+          "Main regions",
+          "Attica, Boeotia, Corinthia, Achaia; also northern Greece"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and green cracked table olives"
+        ],
+        [
+          "Oleic acid",
+          "~65.8% — with 15.5% palmitic"
+        ],
+        [
+          "Oil yield",
+          "~25%, up to ~30% under intensive cultivation"
+        ],
+        [
+          "Harvest",
+          "Not published with confidence"
+        ],
+        [
+          "Notable tree",
+          "The ~2,500-year-old \"Olive of Orsa\" on Salamis is of this variety"
+        ]
+      ],
+      "aroma": [
+        "Harmonious sweet fruity",
+        "Complex aroma",
+        "Balanced"
+      ],
+      "aromaNote": "Indicative intensities on a 10-point scale from a Greek specialist publication — fruitiness 5.0–5.5, bitterness 4.0–4.5, pungency 4.5–5.0. Not a certified IOC panel median.",
+      "compare": {
+        "origin": "Attica, Greece",
+        "polyphenols": "Not published",
+        "sensory": "Harmonious and sweet-fruity, medium-high bitterness and pungency",
+        "pairing": "Everyday cooking, vegetables, pulses"
+      },
+      "map": {
+        "placeholder": "Map · Megara, Attica",
+        "caption": "Megara, Attica · 38.0° N, 23.3° E"
+      },
+      "seo": {
+        "title": "Megaritiki — Greece’s Chemical Outlier | bestoliveoils.eu",
+        "description": "Lowest oleic and highest palmitic of the widely studied Greek varieties, and one of the most adaptable. Why its oils age differently, plus taste."
+      },
+      "sources": [
+        {
+          "label": "Fatty acid composition of four Greek cultivars, Molecules 26(14):4151",
+          "url": "https://www.mdpi.com/1420-3049/26/14/4151/htm"
+        },
+        {
+          "label": "Ελαίας Καρπός — Megaritiki variety profile",
+          "url": "https://elaiaskarpos.gr/μεγαρείτικη-ποικιλία-μια-ελιά-χίλια-π/7606/"
+        }
+      ]
+    },
+    {
+      "slug": "konservolia",
+      "name": "Konservolia",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Amfissa and Fthiotida, central Greece",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Greece · Central Greece",
+        "Table olive",
+        "High oleic"
+      ],
+      "lede": "Grown almost entirely as a table olive, yet its oil carries the highest mean oleic acid of the four widely planted Greek cultivars measured side by side. The fruit’s commercial role and its oil chemistry point in opposite directions.",
+      "image": null,
+      "imagePlaceholder": "Konservolia olives / grove photo",
+      "stats": [
+        {
+          "value": "~75.4%",
+          "label": "oleic acid — highest of the four studied"
+        },
+        {
+          "value": "5–8 g",
+          "label": "fruit weight"
+        }
+      ],
+      "grove": [
+        "Konservolia — a coined commercial name, from \"conserve\" — is the variety of Agrinio, Amfissa, Arta, Lamia, Stylida and the Pelion, and appears across central and western Greece under a string of local names: Amfissis, Agriniou, Artas, Voliotiki, Patrinia, Chondrolia. It is a large tree, seven to ten metres, with fruit of five to eight grams and crunchy flesh that detaches cleanly from the stone.",
+        "It is processed green, blonde and as natural black olives, hand-harvested in November and December under its PDO specifications. Its oil is a secondary product, and while the fatty acid profile is the best of the group, no oil polyphenol range has been published for the variety at all."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Amfissis, Agriniou, Artas, Voliotiki, Chondrolia"
+        ],
+        [
+          "Main regions",
+          "Amfissa, Agrinio, Arta, Lamia, Pelion"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — predominantly table olives"
+        ],
+        [
+          "Oleic acid",
+          "~75.4%"
+        ],
+        [
+          "Harvest",
+          "November–December, hand-harvested"
+        ],
+        [
+          "Designations",
+          "Konservolia Amfissis PDO; Konservolia Stylidas PDO (both 1996)"
+        ],
+        [
+          "Polyphenols",
+          "Not published for the oil"
+        ]
+      ],
+      "aroma": [
+        "Crunchy, fruity (table olive)"
+      ],
+      "aromaNote": "The PDO descriptions cover the cured table olive. No sensory descriptors for Konservolia oil are published.",
+      "compare": {
+        "origin": "Central Greece",
+        "polyphenols": "Not published",
+        "sensory": "Not published for the oil",
+        "pairing": "The olive itself — meze, salads"
+      },
+      "map": {
+        "placeholder": "Map · Amfissa and Fthiotida",
+        "caption": "Amfissa, central Greece · 38.5° N, 22.4° E"
+      },
+      "seo": {
+        "title": "Konservolia — Greece’s Table Olive | bestoliveoils.eu",
+        "description": "Grown for the jar, yet its oil carries the highest oleic acid of the widely planted Greek cultivars. Two PDOs, and what the literature does not cover."
+      },
+      "sources": [
+        {
+          "label": "Fatty acid composition of four Greek cultivars, Molecules 26(14):4151",
+          "url": "https://www.mdpi.com/1420-3049/26/14/4151/htm"
+        },
+        {
+          "label": "Konservolia Amfissis PDO",
+          "url": "https://www.qualigeo.eu/en/product/konservolia-amfissis-pdo//"
+        }
+      ]
+    },
+    {
+      "slug": "chalkidiki",
+      "name": "Chalkidiki",
+      "country": "Greece",
+      "countryCode": "GR",
+      "originRegion": "Chalkidiki, Central Macedonia",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Greece · Macedonia",
+        "Table olive",
+        "Measured stability"
+      ],
+      "lede": "A very large green table olive — six to twelve grams — whose early-harvest oil turns out to be among the more stable Greek monovarietals actually measured: 76 to 78% oleic acid with a Rancimat induction period up to 36 hours.",
+      "image": null,
+      "imagePlaceholder": "Chalkidiki olives / grove photo",
+      "stats": [
+        {
+          "value": "290–606",
+          "label": "mg/kg, falling through the season"
+        },
+        {
+          "value": "36 h",
+          "label": "Rancimat, early harvest"
+        }
+      ],
+      "grove": [
+        "Chalkidiki is grown across northern Greece — the Chalkidiki peninsula, Thessaloniki, Serres, Kavala, Xanthi and Thessaly — and holds 27% of the country’s table-olive area. The fruit is very large, around 120 to 140 per kilo, and is picked green because the variety does not reach complete black maturity. The tree is cold-resistant and moderately drought-resistant but sensitive to salinity, and it is the least disease-tolerant variety in this set: susceptible to Verticillium, leaf spot, knot and fly alike.",
+        "A peer-reviewed ripening series tracked its oil across six harvest dates: total phenols fell from 606 to 290 mg/kg and oxidative stability from 36 hours downward as the fruit ripened, while oleic acid held at 76 to 78% throughout. It is the only Greek variety in this set with a published Rancimat figure at all."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Chalkidikis, Chondrolia Chalkidikis, Gaidourelia, Prasinolia"
+        ],
+        [
+          "Main regions",
+          "Chalkidiki, Thessaloniki, Serres, Kavala, Xanthi, Thessaly"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — overwhelmingly green table olives"
+        ],
+        [
+          "Oleic acid",
+          "76–78%"
+        ],
+        [
+          "Harvest",
+          "Early, picked green"
+        ],
+        [
+          "Shelf stability",
+          "Up to 36 h Rancimat in early-harvest oil"
+        ],
+        [
+          "Designations",
+          "Prasines Elies Chalkidikis PDO (2012)"
+        ]
+      ],
+      "aroma": [
+        "Not enumerated in the published study"
+      ],
+      "aromaNote": "A peer-reviewed volatile study found harvest time strongly determined the aroma fingerprint, with the best profiles at intermediate ripening, but did not enumerate descriptors. No panel medians published.",
+      "compare": {
+        "origin": "Macedonia, Greece",
+        "polyphenols": "290–606 mg/kg",
+        "sensory": "Not published; the variety is grown mainly for the table",
+        "pairing": "The olive itself — stuffed, or with ouzo"
+      },
+      "map": {
+        "placeholder": "Map · Chalkidiki",
+        "caption": "Chalkidiki, Central Macedonia · 40.3° N, 23.3° E"
+      },
+      "seo": {
+        "title": "Chalkidiki — Greece’s Giant Green Olive | bestoliveoils.eu",
+        "description": "The big stuffed olive of northern Greece, and the only Greek variety here with a published Rancimat figure: up to 36 hours from early-harvest fruit."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/greece/chalkidikis"
+        },
+        {
+          "label": "Volatile profile and quality of Chondrolia Chalkidikis oils, Eur. Food Res. Technol. 2022",
+          "url": "https://link.springer.com/article/10.1007/s00217-022-04020-z"
+        },
+        {
+          "label": "Prasines Elies Chalkidikis PDO, Regulation (EU) No 426/2012",
+          "url": "https://eur-lex.europa.eu/legal-content/en/TXT/?uri=CELEX:32012R0426"
+        }
+      ]
+    },
+    {
+      "slug": "galega-vulgar",
+      "name": "Galega Vulgar",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "originRegion": "Portugal — polyclonal origin",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Portugal",
+        "Dual-purpose",
+        "Being displaced"
+      ],
+      "lede": "Portugal’s dominant traditional variety by tree count — about 60% of the country’s olives — and one of its lowest yielding. Under 18% oil from fruit weighing less than two grams is precisely why it is being replaced in new intensive plantings.",
+      "image": null,
+      "imagePlaceholder": "Galega olives / grove photo",
+      "stats": [
+        {
+          "value": "~416",
+          "label": "mg/kg from healthy fruit"
+        },
+        {
+          "value": "75–77%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Galega grows across Beira Interior, Ribatejo, Alentejo and the Algarve, and is also reported in Spain. It is rustic and drought tolerant with marked alternate bearing, but sensitive to cold, salinity and active limestone. It is resistant to Verticillium and very susceptible to anthracnose — the disease Portuguese growers call gafa — as well as to olive fly and olive knot.",
+        "Its agronomic problem is compound. Fruit under two grams, a poor flesh-to-stone ratio, oil yield below 18%, and a tree poorly suited to both trunk-shaker harvesting and high-density systems, giving 3 to 5 tonnes per hectare where foreign varieties in intensive orchards give 8 to 13. There is a quality consequence too: research shows anthracnose-infested Galega fruit loses phenolic content, so the oil’s compliance with the EU health claim depends on disease control, not on the variety alone."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Galega, Galega miúda, Molar, Negrucha"
+        ],
+        [
+          "Main regions",
+          "Beira Interior, Ribatejo, Alentejo, Algarve"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and black table olives"
+        ],
+        [
+          "Oleic acid",
+          "75.0–77.3%"
+        ],
+        [
+          "Oil yield",
+          "Below 18% of fruit weight"
+        ],
+        [
+          "Harvest",
+          "Medium and strongly staggered ripening, Oct–Nov"
+        ],
+        [
+          "Watch out for",
+          "Very susceptible to anthracnose; unsuited to high density"
+        ]
+      ],
+      "aroma": [
+        "Not published"
+      ],
+      "aromaNote": "No published panel medians or catalogue descriptor list for monovarietal Galega could be found in agronomic or academic sources. Retailer descriptions were excluded.",
+      "compare": {
+        "origin": "Portugal",
+        "polyphenols": "~416 mg/kg",
+        "sensory": "Not published from a primary source",
+        "pairing": "Portuguese cooking — bacalhau, migas, caldo verde"
+      },
+      "map": {
+        "placeholder": "Map · Beira Interior and Alentejo",
+        "caption": "Central and southern Portugal · 39.5° N, 7.9° W"
+      },
+      "seo": {
+        "title": "Galega Vulgar — Portugal’s Old Olive | bestoliveoils.eu",
+        "description": "Sixty per cent of Portugal’s olive trees and under 18% oil from sub-two-gram fruit. Why it is being displaced, and how anthracnose costs it phenols."
+      },
+      "sources": [
+        {
+          "label": "Conservation and use of Galega vulgar, Agronomy 10(10):1467",
+          "url": "https://www.mdpi.com/2073-4395/10/10/1467"
+        },
+        {
+          "label": "Health claim, anthracnose and olive fly, Foods 13(11):1734",
+          "url": "https://www.mdpi.com/2304-8158/13/11/1734"
+        },
+        {
+          "label": "CCDR Centro — Cultura do Olival e Produção de Azeite",
+          "url": "https://www.ccdrc.pt/wp-content/uploads/2025/02/caderno_tematico-Olival_final.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "cobrancosa",
+      "name": "Cobrançosa",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "originRegion": "Trás-os-Montes and Beira Alta",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "Portugal · Trás-os-Montes",
+        "Dual-purpose",
+        "Very high phenolic"
+      ],
+      "lede": "In a same-orchard, same-season comparison it produced roughly twice the total phenols of Galega — 803 against 416 mg/kg — at a lower oleic acid. It also roots easily and takes a trunk shaker, which is why it spread out of Trás-os-Montes into the Alentejo.",
+      "image": null,
+      "imagePlaceholder": "Cobrançosa olives / grove photo",
+      "stats": [
+        {
+          "value": "~803",
+          "label": "mg/kg from healthy fruit"
+        },
+        {
+          "value": "70–73%",
+          "label": "oleic acid"
+        }
+      ],
+      "grove": [
+        "Cobrançosa is one of the main varieties of Trás-os-Montes and is widely disseminated in Beira Alta, with plantings in Beira Baixa, Ribatejo and Alentejo. It has weak to medium vigour and a spreading habit, tolerates cold and calcareous soils, and is susceptible to drought and salinity. It is tolerant of anthracnose and less troubled by olive fly than Galega.",
+        "Two practical traits explain its spread. Rooting from semi-hardwood cuttings exceeds 70%, so it propagates easily, and it is adapted to mechanical trunk-shaker harvesting. Oil yield runs 18 to 22%, ripening is medium, and harvest falls in the second half of November. It features in four Portuguese protected designations, among them Azeite de Trás-os-Montes DOP."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Quebrançosa, Salgueira, Verdeal Cobrançosa"
+        ],
+        [
+          "Main regions",
+          "Trás-os-Montes, Beira Alta, Beira Baixa, Ribatejo, Alentejo"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — oil and green table olives"
+        ],
+        [
+          "Oleic acid",
+          "70.0–73.1%"
+        ],
+        [
+          "Oil yield",
+          "18–22% of fruit weight"
+        ],
+        [
+          "Harvest",
+          "Second half of November, medium ripening"
+        ],
+        [
+          "Designations",
+          "Named in four Portuguese DOPs, incl. Trás-os-Montes"
+        ]
+      ],
+      "aroma": [
+        "Green herbs",
+        "Cut grass",
+        "Olive leaf",
+        "Dried fruit"
+      ],
+      "aromaNote": "General variety descriptions from regional producer associations, which describe aromatic complexity and a bitterness tendentially lower than Verdeal’s. No published panel medians for monovarietal Cobrançosa.",
+      "compare": {
+        "origin": "Trás-os-Montes, Portugal",
+        "polyphenols": "~803 mg/kg",
+        "sensory": "Herbaceous and complex, balanced spiciness, moderate bitterness",
+        "pairing": "Grilled sardines, roasted peppers, cornbread"
+      },
+      "map": {
+        "placeholder": "Map · Trás-os-Montes",
+        "caption": "Trás-os-Montes, northern Portugal · 41.5° N, 7.2° W"
+      },
+      "seo": {
+        "title": "Cobrançosa — Portugal’s High-Phenol Olive | bestoliveoils.eu",
+        "description": "Double Galega’s polyphenols in the same orchards and seasons, plus over 70% rooting from cuttings and trunk-shaker compatibility. Chemistry and taste."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/portugal/cobrancosa"
+        },
+        {
+          "label": "Health claim, anthracnose and olive fly, Foods 13(11):1734",
+          "url": "https://www.mdpi.com/2304-8158/13/11/1734"
+        },
+        {
+          "label": "Vida Rural / ITQB cultivar factsheet — Cobrançosa",
+          "url": "https://www.itqb.unl.pt/science-and-society/Media/cultivares-de-oliveira-cobrancosa-vida-rural.pdf"
+        }
+      ]
+    },
+    {
+      "slug": "verdeal-transmontana",
+      "name": "Verdeal Transmontana",
+      "country": "Portugal",
+      "countryCode": "PT",
+      "originRegion": "Trás-os-Montes",
+      "purpose": "Oil",
+      "tags": [
+        "Portugal · Trás-os-Montes",
+        "Monovarietal",
+        "Measured stability"
+      ],
+      "lede": "The bitterness-and-pungency backbone of Trás-os-Montes blends, and the one Portuguese variety here with a directly measured Rancimat figure — 23 to 27 hours, roughly double a Madural from the same orchards and harvests.",
+      "image": null,
+      "imagePlaceholder": "Verdeal Transmontana olives / grove photo",
+      "stats": [
+        {
+          "value": "23–27 h",
+          "label": "Rancimat induction time"
+        },
+        {
+          "value": "108–202",
+          "label": "mg/kg in centenarian-tree oils"
+        }
+      ],
+      "grove": [
+        "Verdeal Transmontana is the emblematic oil variety of Trás-os-Montes in northeastern Portugal. It is of medium vigour, productive but alternate-bearing, resistant to anthracnose, and susceptible to olive knot, peacock spot and olive fly. It ripens late, with research harvests documented in mid-November, and is suited to vibrator harvesting only at complete maturity.",
+        "What is striking in the published data is that its stability does not track its bulk phenol content. In a two-season study of oils from centenarian trees, total phenols measured only 108 and 202 mg CAE/kg, yet Rancimat came out at 23.2 and 26.6 hours — about twice the Madural from the same groves. Something beyond phenol quantity is doing the work, and the published record does not say what."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Verdeal de Trás-os-Montes (distinct from plain \"Verdeal\")"
+        ],
+        [
+          "Main regions",
+          "Trás-os-Montes, northeastern Portugal"
+        ],
+        [
+          "Purpose",
+          "Oil"
+        ],
+        [
+          "Oleic acid",
+          "Not published for the monovarietal"
+        ],
+        [
+          "Harvest",
+          "Late ripening, mid-November"
+        ],
+        [
+          "Shelf stability",
+          "23.2 h and 26.6 h Rancimat in two consecutive seasons"
+        ],
+        [
+          "Designations",
+          "Named in Azeite de Trás-os-Montes DOP"
+        ]
+      ],
+      "aroma": [
+        "Fresh herbs",
+        "Cabbage",
+        "Tomato leaves",
+        "Cut grass"
+      ],
+      "aromaNote": "Published panel data, means of two seasons: fruity intensity around 5.8, pungency in the higher-intensity group, bitterness not significantly different from comparison cultivars. Descriptor intensities: fresh herbs 4.0, cabbage 3.8, tomato leaves 2.6.",
+      "compare": {
+        "origin": "Trás-os-Montes, Portugal",
+        "polyphenols": "108–202 mg/kg in the published study",
+        "sensory": "Markedly bitter and pungent, strongly vegetal, persistent",
+        "pairing": "Kale soup, roast pork, chestnuts, hard cheese"
+      },
+      "map": {
+        "placeholder": "Map · Trás-os-Montes",
+        "caption": "Trás-os-Montes, northern Portugal · 41.5° N, 7.2° W"
+      },
+      "seo": {
+        "title": "Verdeal Transmontana — Measured Stability | bestoliveoils.eu",
+        "description": "Twenty-three to twenty-seven hours Rancimat on modest phenol figures — a Portuguese variety whose keeping quality is not explained by bulk phenols."
+      },
+      "sources": [
+        {
+          "label": "Minor cultivars of northeast Portugal, Food Research International",
+          "url": "https://bibliotecadigital.unipb.pt/server/api/core/bitstreams/93deed12-e64a-49c1-ba7f-18f77ffd6b38/content"
+        },
+        {
+          "label": "Azeite de Trás-os-Montes DOP, DGADR",
+          "url": "https://tradicional.dgadr.gov.pt/en/categories/olive-oils-and-olives/351-azeite-de-tras-os-montes-dop-en"
+        }
+      ]
+    },
+    {
+      "slug": "aglandau",
+      "name": "Aglandau",
+      "country": "France",
+      "countryCode": "FR",
+      "originRegion": "Provence",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "France · Provence",
+        "Dual-purpose",
+        "Self-sterile"
+      ],
+      "lede": "The backbone of Provençal AOP oil, accounting for around a fifth of French production, and one of the few French cultivars documented as self-sterile — so an orchard has to be planted with pollinators. Its oils are aggressive when young and soften with time.",
+      "image": null,
+      "imagePlaceholder": "Aglandau olives / grove photo",
+      "stats": [
+        {
+          "value": "~20%",
+          "label": "of French olive oil production"
+        },
+        {
+          "value": "19–23%",
+          "label": "oil content of the fruit"
+        }
+      ],
+      "grove": [
+        "Aglandau — the name comes from gland, acorn, for the fruit shape — is grown across Alpes-de-Haute-Provence, Bouches-du-Rhône, Gard, Var and Vaucluse. It is the principal variety of AOP Haute-Provence and a principal variety of AOP Aix-en-Provence, AOP Provence and AOP Vallée des Baux-de-Provence. It also has a table life, sold green as Berruguette.",
+        "The tree is medium to weak in vigour with a spreading, dense canopy, self-sterile and so dependent on pollinators, and inclined to alternate bearing unless pruned for it. It resists Verticillium and Pseudomonas well but is susceptible to black scale, sooty mould and peacock spot. On cold and drought tolerance the French sources directly contradict each other, and no institutional data settled it, so we are not asserting either."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Verdale de Carpentras, Berruguette, Blanquette, Plant d’Aix"
+        ],
+        [
+          "Main regions",
+          "Alpes-de-Haute-Provence, Bouches-du-Rhône, Gard, Var, Vaucluse"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — mainly oil, also green table"
+        ],
+        [
+          "Oil yield",
+          "19–23%"
+        ],
+        [
+          "Harvest",
+          "November–December, before frost, fruit still green"
+        ],
+        [
+          "Fertility",
+          "Self-sterile — pollinators required"
+        ],
+        [
+          "Contested",
+          "Sources disagree on cold and drought tolerance"
+        ]
+      ],
+      "aroma": [
+        "Almond",
+        "Green apple",
+        "Artichoke",
+        "Stone fruit"
+      ],
+      "aromaNote": "Descriptors from French variety references, which note that bitterness and pungency are fairly marked when the oil is young. No published panel medians.",
+      "compare": {
+        "origin": "Provence, France",
+        "polyphenols": "Not published",
+        "sensory": "Fruity and unctuous, marked bitterness and pungency when young",
+        "pairing": "Aïoli, tapenade, ratatouille, goat cheese"
+      },
+      "map": {
+        "placeholder": "Map · Haute-Provence",
+        "caption": "Provence, France · 43.8° N, 5.8° E"
+      },
+      "seo": {
+        "title": "Aglandau — The Olive of Provence | bestoliveoils.eu",
+        "description": "Around a fifth of French olive oil, and the principal variety of AOP Haute-Provence. Self-sterile, sharp when young, softening with time."
+      },
+      "sources": [
+        {
+          "label": "France Olive — French varieties and AOP composition",
+          "url": "https://www.franceolive.fr/categorie/connaissance-de-l-arbre/les-varietes-francaises"
+        },
+        {
+          "label": "OLEA Databases via Wikipedia — Aglandau",
+          "url": "https://en.wikipedia.org/wiki/Aglandau"
+        }
+      ]
+    },
+    {
+      "slug": "picholine",
+      "name": "Picholine",
+      "country": "France",
+      "countryCode": "FR",
+      "originRegion": "Collias, Gard, Languedoc",
+      "purpose": "Dual-purpose",
+      "tags": [
+        "France · Gard",
+        "Table olive",
+        "Name confusion"
+      ],
+      "lede": "The reference French cocktail olive — lye-treated then brine-fermented for up to a year — and the sole principal variety of AOP Nîmes. Its name has been borrowed by an unrelated Moroccan cultivar that now dominates an entire national industry.",
+      "image": null,
+      "imagePlaceholder": "Picholine olives / grove photo",
+      "stats": [
+        {
+          "value": "20–22%",
+          "label": "oil content, less under irrigation"
+        },
+        {
+          "value": "~858,400 ha",
+          "label": "of the unrelated Picholine Marocaine"
+        }
+      ],
+      "grove": [
+        "Picholine comes from Collias in the Gard, between Uzès and Remoulins, and is the principal variety of AOP Nîmes. It is of medium vigour with a spreading habit, partially self-fertile, and grown for both green table olives — picked October to November — and oil from later, blacker fruit. Oil yield is 20 to 22%, falling to 15 to 18% under irrigation.",
+        "The identity question is worth spelling out, because it is the single most common confusion in olive-oil reference material. Picholine Marocaine is a different cultivar: the IOC catalogue lists the two separately with different SSR profiles at all five published loci, and Moroccan breeding programmes cross them as two distinct parents. Picholine Marocaine covers around 858,400 hectares and 74 million trees — roughly 80% of Morocco’s orchard — so the name carries far more weight abroad than at home."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Picholine du Languedoc, Coiasse, Collias, Olive de Nîmes"
+        ],
+        [
+          "Main regions",
+          "Gard, France; reported in Italy, Israel, Chile, Tunisia, USA"
+        ],
+        [
+          "Purpose",
+          "Dual-purpose — best known as a green cocktail olive"
+        ],
+        [
+          "Oil yield",
+          "20–22%, falling to 15–18% under irrigation"
+        ],
+        [
+          "Harvest",
+          "October–November green for the table; later and black for oil"
+        ],
+        [
+          "Designations",
+          "AOP Nîmes"
+        ],
+        [
+          "Not the same as",
+          "Picholine Marocaine — a genetically distinct cultivar"
+        ]
+      ],
+      "aroma": [
+        "Green apple",
+        "Pear",
+        "Grass",
+        "Hay"
+      ],
+      "aromaNote": "Descriptors from French variety references, which give a very green fruitiness with light bitterness and pungency. No published panel medians.",
+      "compare": {
+        "origin": "Gard, France",
+        "polyphenols": "Not published",
+        "sensory": "Very green and fruity, light bitterness and pungency",
+        "pairing": "The olive itself — apéritif; the oil suits salads"
+      },
+      "map": {
+        "placeholder": "Map · Gard, Languedoc",
+        "caption": "Collias, Gard · 43.9° N, 4.5° E"
+      },
+      "seo": {
+        "title": "Picholine — France’s Cocktail Olive | bestoliveoils.eu",
+        "description": "The green olive of the Gard and the only principal variety of AOP Nîmes — and why Picholine Marocaine is a genetically different cultivar entirely."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue — Picholine du Languedoc",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/france/picholine-du-languedoc"
+        },
+        {
+          "label": "IOC World Catalogue — Picholine Marocaine",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/marocco/picholine-marocaine"
+        },
+        {
+          "label": "France Olive — French varieties",
+          "url": "https://www.franceolive.fr/categorie/connaissance-de-l-arbre/les-varietes-francaises"
+        }
+      ]
+    },
+    {
+      "slug": "istarska-bjelica",
+      "name": "Istarska Bjelica",
+      "country": "Croatia and Slovenia",
+      "countryCode": "HR",
+      "originRegion": "Istria",
+      "purpose": "Oil",
+      "tags": [
+        "Istria · Croatia & Slovenia",
+        "Monovarietal",
+        "Very high phenolic"
+      ],
+      "lede": "One of the highest-phenol commercial cultivars documented in the northern Adriatic: 642 mg/kg against Leccino’s 199 in the same trial. The phenol fraction is unusually rich in oleocanthal, which is exactly what produces its hallmark throat burn.",
+      "image": null,
+      "imagePlaceholder": "Istarska Bjelica olives / grove photo",
+      "stats": [
+        {
+          "value": "~642",
+          "label": "mg/kg total phenols"
+        },
+        {
+          "value": "~50%",
+          "label": "of secoiridoids as oleocanthal"
+        }
+      ],
+      "grove": [
+        "One cultivar, three national names: Istarska bjelica in Croatia, Istrska belica in Slovenia and Bianchera in Italy, where it is grown around Muggia and San Dorligo della Valle. It is the most widely planted variety in Slovenian olive orchards and is found throughout Istria and Kvarner. Its origin is contested — the IOC records an oral tradition placing it near Trieste, while Croatian and Slovenian sources treat it as an Istrian native.",
+        "The tree is vigorous and erect with dense foliage, inclined to grow tall, which makes crown shaping difficult. It bears cold well and is notably resistant to the bora, which is how it came to dominate after the 1956 frost killed off more tender plantings. It is assumed self-fertile but preferentially cross-pollinated, with Leccino and Frantoio as pollinators, and is very sensitive to olive fly, olive moth and peacock spot. Historically harvested mid-November to mid-December, it is now picked from mid-October under current climate conditions."
+      ],
+      "reference": [
+        [
+          "Also called",
+          "Istrska belica (SI), Bianchera (IT), Bijelica, Plemenita belica"
+        ],
+        [
+          "Main regions",
+          "Istria and Kvarner (HR), coastal Slovenia, Trieste province (IT)"
+        ],
+        [
+          "Purpose",
+          "Oil only"
+        ],
+        [
+          "Oleic acid",
+          "Described as high; no numeric range published"
+        ],
+        [
+          "Oil yield",
+          "16.5% at a very early harvest"
+        ],
+        [
+          "Harvest",
+          "Now from mid-October; historically Nov–Dec"
+        ],
+        [
+          "Tolerances",
+          "Cold- and bora-hardy; very sensitive to fly, moth, peacock spot"
+        ]
+      ],
+      "aroma": [
+        "Freshly mown grass",
+        "Ripe olive fruit",
+        "Green apple",
+        "Bitter almond"
+      ],
+      "aromaNote": "Catalogue descriptors plus instrumental volatile data: the compounds above the odour threshold in this cultivar are 1-penten-3-one, E-2-hexenal, hexanal and Z-2-penten-1-ol. Notably its C6 volatiles are lower than Leccino’s — the intensity comes from phenols, not green volatiles.",
+      "compare": {
+        "origin": "Istria, Croatia and Slovenia",
+        "polyphenols": "~642 mg/kg",
+        "sensory": "Distinctly bitter and pungent, with a strong oleocanthal throat catch",
+        "pairing": "Adriatic fish, truffle dishes, beans, boiled greens"
+      },
+      "map": {
+        "placeholder": "Map · Istria",
+        "caption": "Istria, northern Adriatic · 45.2° N, 13.9° E"
+      },
+      "seo": {
+        "title": "Istarska Bjelica — The Adriatic Phenol King | bestoliveoils.eu",
+        "description": "Triple Leccino’s polyphenols in the same trial, with half the secoiridoid fraction as oleocanthal. The cold-hardy Istrian variety behind that throat burn."
+      },
+      "sources": [
+        {
+          "label": "IOC World Catalogue of Olive Varieties",
+          "url": "https://worldolivecatalogue.internationaloliveoil.org/en/variety/slovenia/istarska-bjelica"
+        },
+        {
+          "label": "Phenolic and volatile compounds in Leccino and Istarska Bjelica oils, Food Technol. Biotechnol.",
+          "url": "https://hrcak.srce.hr/file/124878"
+        },
+        {
+          "label": "Oleocanthal quantification in Bianchera/Belica oil, Molecules 26(1):242",
+          "url": "https://www.mdpi.com/1420-3049/26/1/242"
+        }
+      ]
     },
   ],
 
-  /* Values that arrive in an oil's `cultivar` field but are not varieties —
-     a producer who publishes no variety, a blend that changes each year, a
-     DOP rule standing in for the grower's own list. They stay filterable,
-     because that is what the oil says; they are kept off the cultivar hub,
-     because a reference page for "Not published" is nonsense. */
   notCultivars: ['not-published', 'blend-varies-by-year', 'dop-baena-varieties'],
 
   /* ── oils ───────────────────────────────────────────────────────────────

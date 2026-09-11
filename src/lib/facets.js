@@ -26,6 +26,22 @@ function splitRegion(region) {
   return { name, country: country || '', slug: slug(name) };
 }
 
+/* Spelling variants that are the same variety. An oil's label is left exactly
+   as the producer writes it — six oils say "Picuda" — but the slug behind it
+   has to be the one the cultivar record uses, or those oils never reach the
+   page written about them and the page reports zero oils. The record's "Also
+   called" row is where a reader sees the other name. */
+const CULTIVAR_SYNONYMS = {
+  picuda: 'picudo',
+  picuo: 'picudo',
+  marteno: 'picual',
+};
+
+const cultivarSlug = (name) => {
+  const s = slug(name);
+  return CULTIVAR_SYNONYMS[s] || s;
+};
+
 /* `cultivar` may be one name, a "A · B" pair, or "<name> blend". */
 function cultivars(oil) {
   return String(oil.cultivar)
@@ -52,7 +68,7 @@ function facetsFor(oil) {
     region: region.slug,
     regionName: region.name,
     country: region.country,
-    cultivars: cvs.map(slug),
+    cultivars: cvs.map(cultivarSlug),
     cultivarNames: cvs,
     intensity: slug(oil.intensity),
     intensityName: oil.intensity,

@@ -46,7 +46,11 @@ function counts(D) {
     oils: D.oils.length,
     producers: D.producers.length,
     regions: lists.regions.length,
-    cultivars: cultivarList(D).length,
+    // Varieties the library's oils actually carry — what this count has always
+    // meant, and what the library page's copy is describing.
+    cultivars: cultivarList(D).filter((c) => c.count > 0).length,
+    // Varieties with a reference page, whether or not we hold an oil of one.
+    cultivarPages: cultivarList(D).filter((c) => c.hasPage).length,
   };
 }
 
@@ -379,19 +383,27 @@ function cultivarsIndex(D) {
   const list = cultivarList(D);
 
   const row = (c) => {
-    const where = c.regions.length <= 3
-      ? c.regions.map((r) => r.name).join(' · ')
-      : `${c.regions.slice(0, 3).map((r) => r.name).join(' · ')} + ${c.regions.length - 3} more`;
+    /* Where it grows: the regions the library's own oils come from, or — for a
+       variety we have written up but not yet bought — where the record says it
+       is grown. The two are different claims, and the second is the record's. */
+    const where = c.regions.length
+      ? (c.regions.length <= 3
+          ? c.regions.map((r) => r.name).join(' · ')
+          : `${c.regions.slice(0, 3).map((r) => r.name).join(' · ')} + ${c.regions.length - 3} more`)
+      : (c.record ? `${c.record.originRegion || ''}${
+          c.record.country ? ` · ${c.record.country}` : ''}`.replace(/^ · /, '') : '');
+    const note = c.record && c.record.compare ? c.record.compare.sensory : '';
     const inner =
       '<div class="cultivar-row__text">' +
         `<span class="card-title cultivar-row__name">${esc(c.name)}</span>` +
         `<span class="cultivar-row__where">${esc(where)}</span>` +
-        (c.record && c.record.sensory
-          ? `<span class="cultivar-row__note">${esc(c.record.sensory)}</span>`
-          : '') +
+        (note ? `<span class="cultivar-row__note">${esc(note)}</span>` : '') +
       '</div>' +
-      `<span class="cultivar-row__count">${c.count} <span>${
-        c.count === 1 ? 'oil' : 'oils'}</span></span>` +
+      // A variety with no oils yet says so in words rather than showing a 0.
+      (c.count > 0
+        ? `<span class="cultivar-row__count">${c.count} <span>${
+            c.count === 1 ? 'oil' : 'oils'}</span></span>`
+        : '<span class="cultivar-row__count cultivar-row__count--none"><span>Reference</span></span>') +
       (c.hasPage ? ICON.arrow : '');
     return c.hasPage
       ? `<a class="card cultivar-row" href="${url.cultivar(c.slug)}">${inner}</a>`
@@ -399,9 +411,12 @@ function cultivarsIndex(D) {
           url.library()}?cultivar=${encodeURIComponent(c.slug)}">${inner}</a>`;
   };
 
+  const n = counts(D);
+  const fill = (t) => R.fillCounts(t, n);
+
   const main = R.breadcrumb(trail) +
-    `<div class="library-head"><h1>Cultivars</h1><p>${esc(meta.intro)}</p>${
-      meta.body.map((para) => `<p class="hub-body">${esc(para)}</p>`).join('')}</div>
+    `<div class="library-head"><h1>Cultivars</h1><p>${esc(fill(meta.intro))}</p>${
+      meta.body.map((para) => `<p class="hub-body">${esc(fill(para))}</p>`).join('')}</div>
      <div class="cultivar-list">${list.map(row).join('')}</div>`;
 
   return shell({
@@ -411,8 +426,8 @@ function cultivarsIndex(D) {
     main,
     headHtml: S.head({
       site,
-      title: meta.title,
-      description: meta.description,
+      title: fill(meta.title),
+      description: fill(meta.description),
       path: url.cultivars(),
       schema: [
         S.itemListPage(site, url.cultivars(), 'Cultivars', meta.description,
@@ -450,27 +465,51 @@ function cultivar(D, c) {
     { label: c.name },
   ];
 
-  /* The stats are counts of what is here plus one published varietal range.
-     There is no "average panel score" row, which the design drew: no oil in
-     the library has a panel score yet, and an average of nothing is a lie. */
+  /* Two stats come from the record — things true of the variety whether or not
+     we stock it — and the library count is injected as a third only when there
+     is something to count. The design drew an average panel score as well; it
+     is not offered, because for most of these varieties we have tasted nothing
+     and an average of nothing is a lie. */
   const stats = [
-    { value: rec.phenolRange.replace(/ mg\/kg$/, ''), label: 'mg/kg typical for the variety' },
-    { value: c.count, label: `${c.count === 1 ? 'oil' : 'oils'} in the library` },
-    { value: c.producers.length, label: c.producers.length === 1 ? 'producer' : 'producers' },
+    ...(rec.stats || []),
+    ...(c.count > 0
+      ? [{ value: c.count, label: `${c.count === 1 ? 'oil' : 'oils'} in the library` }]
+      : []),
   ];
 
   const table = comparison(D, c.slug);
 
-  /* Sensory panel data per variety — the design's aroma wheel. Rendered only
-     when a record actually carries measurements; nothing here is estimated. */
+  /* The design's aroma wheel, without its numbers.
+     It drew "Green tomato 9.1", which implies a panel scored this variety on a
+     scale. IOC-method medians do not exist for most of these forty, so the
+     record carries documented descriptors and a note saying where they came
+     from. Descriptors are ordered, so they are numbered by rank — which is a
+     claim we can stand behind — and never by intensity. */
   const aroma = rec.aroma && rec.aroma.length
-    ? '<div class="cultivar-aroma">' +
-        '<span class="card-kicker">Aroma intensity</span>' +
-        rec.aroma.map((a) =>
-          '<div class="cultivar-aroma__row">' +
-            `<div class="cultivar-aroma__label"><span>${esc(a.label)}</span><span>${esc(a.val)}</span></div>` +
-            `<div class="profile-bar"><div class="profile-bar__fill" style="width:${esc(a.pct)}"></div></div>` +
-          '</div>').join('') +
+    ? '<div class="card cultivar-card cultivar-aroma">' +
+        '<span class="card-kicker">Aroma descriptors</span>' +
+        '<ol class="cultivar-aroma__list">' +
+        rec.aroma.map((a) => `<li>${esc(a)}</li>`).join('') +
+        '</ol>' +
+        (rec.aromaNote ? `<p class="cultivar-aroma__note">${esc(rec.aromaNote)}</p>` : '') +
+      '</div>'
+    : '';
+
+  /* Where the record's figures came from. This site's whole claim is that a
+     number can be traced, so the trail is on the page, not in a commit. */
+  const sources = rec.sources && rec.sources.length
+    ? '<div class="card cultivar-card cultivar-sources">' +
+        '<span class="card-kicker">Sources</span><ul>' +
+        rec.sources.map((src) => '<li>' + (src.url
+          ? `<a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.label)}</a>`
+          : esc(src.label)) + '</li>').join('') +
+      '</ul></div>'
+    : '';
+
+  const mapCard = rec.map
+    ? '<div class="cultivar-map">' +
+        media(null, rec.map.placeholder, 'cultivar-map__media media--circle') +
+        (rec.map.caption ? `<span class="cultivar-map__caption">${esc(rec.map.caption)}</span>` : '') +
       '</div>'
     : '';
 
@@ -485,9 +524,11 @@ function cultivar(D, c) {
           `<div class="producer-stat"><span class="producer-stat__value">${esc(s.value)}</span>` +
           `<span class="producer-stat__label">${esc(s.label)}</span></div>`).join('')}</div>
         <div class="cultivar-hero__actions">
-          <a class="btn btn-primary" href="${esc(filtered)}">Browse ${c.count} ${
-            esc(c.name)} ${c.count === 1 ? 'oil' : 'oils'}</a>
-          <a class="btn btn-secondary" href="#compare">Compare cultivars</a>
+          ${c.count > 0
+            ? `<a class="btn btn-primary" href="${esc(filtered)}">Browse ${c.count} ${
+                esc(c.name)} ${c.count === 1 ? 'oil' : 'oils'}</a>`
+            : ''}
+          <a class="btn ${c.count > 0 ? 'btn-secondary' : 'btn-primary'}" href="#compare">Compare cultivars</a>
         </div>
       </div>
       ${media(rec.image, rec.imagePlaceholder, 'cultivar-hero__media washed', '', { priority: true })}
@@ -524,7 +565,7 @@ function cultivar(D, c) {
             states one.</p>
         </section>
 
-        <section class="section">
+        ${c.count > 0 ? `<section class="section">
           <div class="section-head">
             <div class="section-head__text"><h2>${esc(c.name)} oils in the library</h2>
               <span class="section-head__sub">From ${c.producers.length} ${
@@ -534,7 +575,7 @@ function cultivar(D, c) {
           </div>
           <div class="oil-grid-3">${
             bestFirst(c.oils).slice(0, 6).map((o) => R.oilCard(site, o, true)).join('')}</div>
-        </section>
+        </section>` : ''}
       </div>
 
       <aside class="cultivar-side">
@@ -542,18 +583,22 @@ function cultivar(D, c) {
           <span class="card-kicker">Reference card</span>
           <table class="table facts-table"><tbody>${
             (rec.reference || []).map(([label, value]) =>
-              `<tr><th scope="row">${esc(label)}</th><td>${esc(value)}</td></tr>`).join('')}
-            <tr><th scope="row">In the library</th><td>${c.count} ${
-              c.count === 1 ? 'oil' : 'oils'}</td></tr>
+              `<tr><th scope="row">${esc(label)}</th><td>${esc(value)}</td></tr>`).join('')}${
+            c.count > 0
+              ? `<tr><th scope="row">In the library</th><td>${c.count} ${
+                  c.count === 1 ? 'oil' : 'oils'}</td></tr>`
+              : ''}
           </tbody></table>
         </div>
         ${aroma}
-        <div class="card cultivar-card">
+        ${c.regions.length ? `<div class="card cultivar-card">
           <span class="card-kicker">Where it grows here</span>
           <ul class="cultivar-regions">${c.regions.map((r) =>
             `<li><a href="${url.library()}?region=${encodeURIComponent(r.slug)}">${
               esc(r.name)}</a><span>${esc(r.country)}</span></li>`).join('')}</ul>
-        </div>
+        </div>` : ''}
+        ${mapCard}
+        ${sources}
       </aside>
     </div>`;
 

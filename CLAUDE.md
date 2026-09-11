@@ -81,12 +81,27 @@ comment.
   that producer has a record; a guide teased on the homepage is only a link once
   the guide exists (`href: null` until then). `npm run check` fails on a broken
   internal link.
-- **A cultivar gets a page only once someone has written one.** The list of
-  varieties is derived from the oils by `src/lib/cultivars.js`; a record in
-  site.js's `cultivars` array adds the editorial half. With `lede` + `grove` the
-  record earns `/cultivars/<slug>/`; with only the four reference columns it
-  appears in the comparison table and on the hub. Varieties with neither are
-  still counted on the hub and link to the filtered library.
+- **A cultivar gets a page only once someone has written one.** A record in
+  site.js's `cultivars` array with `lede` + `grove` earns `/cultivars/<slug>/`,
+  whether or not the library holds an oil of it — 40 records, 18 varieties
+  currently on the shelf. `src/lib/cultivars.js` unions the two: varieties the
+  oils name, and varieties someone wrote up. A variety the oils name with no
+  record is still a hub row, linking to the filtered library.
+- **Three fields the v2 mockup drew are deliberately not built**, and putting
+  them back would be a regression:
+  - *No numeric aroma wheel.* The mockup shows "Green tomato 9.1". IOC-method
+    panel medians do not exist for most of these varieties, so `aroma` is an
+    ordered list of documented descriptors and `aromaNote` says where they came
+    from. Number them by rank if you must; never by intensity.
+  - *No smoke point.* It is a property of a lot, not a variety — two oils off
+    one grove can differ by 20 °C. The reference card carries shelf stability.
+  - *Two stats, not three.* "N oils in the library" is injected as a third only
+    when N > 0, and the shelf of oils, the regions card and the "Browse N oils"
+    button all disappear at zero. No average panel score is offered.
+- **Cultivar spelling variants live in `facets.js`.** Six oils say "Picuda";
+  the record is `picudo`. `CULTIVAR_SYNONYMS` maps the slug so those oils reach
+  the page written about them, while the oil's own label stays exactly as the
+  producer writes it.
 - **Varietal figures are not measurements.** `phenolRange` is the range published
   for the *variety*; the page says so where it prints it, and no oil ever borrows
   it as its own figure. Per-oil lab data and the sensory radar render only from
@@ -123,10 +138,13 @@ Deliberate gaps, listed so nobody assumes they exist:
 - **No `status: draft|published`.** Every record in `site.js` is published.
 - **No admin panel.** `design/Admin Panel.dc.html` (6 screens) is unimplemented.
 - **No region pages.** Region links point at `/oils/` with a query.
-- **Only one cultivar has a page.** Picual. The other 17 varieties in the library
-  are counted on `/cultivars/` and open the filtered library; three of them
-  (Coratina, Koroneiki, Arbequina) also carry the reference row the comparison
-  table uses. The rest need a `lede` and a `grove` write-up.
+- **Six varieties in the library have no record.** Biancolilla, Cerasuola,
+  Cariasina, Crognalegno, San Felice and the "Royal / Hojiblanca" label — one
+  oil each. They are hub rows that open the filtered library, and need a `lede`
+  and a `grove` write-up to earn a page.
+- **No grove or map photography for any of the 40.** Each record carries an
+  `imagePlaceholder` and a `map.placeholder`, and the labelled block renders
+  until a file exists.
 - **No EU language switcher and no B2B/Horeca page.** v2's partner strip carries
   EN/NL/DE/FR/IT and a trade link. There are no translations and no trade page,
   so the strip ships with the partner disclosure only.
