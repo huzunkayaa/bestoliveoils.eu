@@ -89,9 +89,15 @@ comment.
   still counted on the hub and link to the filtered library.
 - **Varietal figures are not measurements.** `phenolRange` is the range published
   for the *variety*; the page says so where it prints it, and no oil ever borrows
-  it as its own figure. Per-oil lab data (polyphenols, acidity, peroxide) and the
-  sensory radar the v2 design draws render only from fields on that oil — we have
-  none yet, so those modules do not appear.
+  it as its own figure. Per-oil lab data and the sensory radar render only from
+  that oil's own record: `src/lib/lab.js` reads them back out of its `facts`
+  rows and `detail.profile`, so there is one copy of each number.
+- **A meter means a measurement.** `lab.js` gives a bar only to a definite
+  figure. A bound or a specification ("≥ 500 mg/kg", "≤ 0.25%") prints as text,
+  and the EU 432/2012 callout appears only above a measured number. Most
+  polyphenol figures in the library are the producer's own, so every lab card
+  names its source — the panel is headed "Laboratory figures", never
+  "independent verification", because for most oils it is not ours.
 - **Schema must match the page.** No review markup on an oil with no write-up, no
   `Offer` without a real price. We are not the seller — where an offer appears it
   names olijfoliemarkt.nl as the seller.
@@ -124,10 +130,14 @@ Deliberate gaps, listed so nobody assumes they exist:
 - **No EU language switcher and no B2B/Horeca page.** v2's partner strip carries
   EN/NL/DE/FR/IT and a trade link. There are no translations and no trade page,
   so the strip ships with the partner disclosure only.
-- **The v2 oil and producer pages are unbuilt.** Still to come from
-  `design/Olive Oil Library v2.dc.html`: the per-oil lab panel and sensory radar,
-  the live stock-and-price conversion module, out-of-stock alternatives, the
-  producer terroir grid and award timeline, and the faceted-search restyle. The
+- **The v2 producer page is unbuilt**, and the oil page is part-way. Built from
+  `design/Olive Oil Library v2.dc.html`: the sensory radar, the laboratory
+  panel with its EU 432/2012 callout, and the alternatives row (v2 shows it when
+  an oil sells out; ours shows it whenever the partner does not carry the oil,
+  which is most of the library). Still to come: the live stock-and-price
+  conversion module — there is no live stock feed, and prices are a static
+  string — the producer terroir grid and award timeline, and the
+  faceted-search restyle. The
   footer is also still v1 — v2 draws a five-column one whose Method and Trade
   columns point at pages that do not exist.
 - **No "How we rate" or "Contact" page** — both are linked from every footer and

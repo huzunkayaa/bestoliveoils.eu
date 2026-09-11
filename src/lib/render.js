@@ -8,6 +8,7 @@
 'use strict';
 
 const { facetsFor } = require('./facets');
+const LAB = require('./lab');
 
 const esc = (value) =>
   String(value == null ? '' : value).replace(/[&<>"']/g, (c) =>
@@ -222,8 +223,89 @@ function oilCard(site, oil, compact) {
     '</div></a>';
 }
 
+
+/* ── v2 · sensory radar ───────────────────────────────────────────────────
+   The triangle from screen 02, drawn from the oil's own three axis scores.
+   The shape is the reading, so the same numbers ride alongside as text for
+   anyone the SVG does not reach. */
+function sensoryRadar(axes) {
+  const { R, point, ring } = LAB.radarGeometry;
+  const vertex = (a) => point(a.angle, (a.pct / 100) * R);
+  const shape = axes.map((a) => vertex(a).map((n) => n.toFixed(1)).join(',')).join(' ');
+  const label = axes.map((a) => `${a.label} ${a.score}`).join(', ');
+
+  const grid = [R, R * 0.75, R * 0.5, R * 0.25]
+    .map((r, i) => `<polygon points="${ring(r)}" fill="none" stroke="var(--color-neutral-300)"` +
+      ` stroke-width="${i === 0 ? 1.5 : 1}"></polygon>`).join('');
+
+  const spokes = axes.map((a) => {
+    const [x, y] = point(a.angle, R);
+    return `<line x1="140" y1="140" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}"` +
+      ' stroke="var(--color-neutral-300)" stroke-width="1"></line>';
+  }).join('');
+
+  const dots = axes.map((a) => {
+    const [x, y] = vertex(a);
+    return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="5" fill="var(--color-accent)"></circle>`;
+  }).join('');
+
+  const labels = axes.map((a) => {
+    const [x, y] = point(a.angle, R + 28);
+    return `<text x="${x.toFixed(1)}" y="${(y + 4).toFixed(1)}" text-anchor="middle"` +
+      ` class="radar__label">${esc(a.label)} ${esc(a.score)}</text>`;
+  }).join('');
+
+  return '<figure class="radar">' +
+    `<svg viewBox="0 0 280 250" width="280" height="250" role="img" aria-label="${
+      esc(`Sensory profile on the IOC 0–10 scale: ${label}`)}">` +
+    `<g transform="translate(0,10)">${grid}${spokes}` +
+    `<polygon points="${shape}" fill="var(--color-accent)" fill-opacity="0.24"` +
+    ' stroke="var(--color-accent)" stroke-width="2.75" stroke-linejoin="round"></polygon>' +
+    `${dots}${labels}</g></svg>` +
+    '<figcaption class="radar__caption">Median of the panel, IOC scale 0–10</figcaption>' +
+    '</figure>';
+}
+
+/* ── v2 · laboratory figures ──────────────────────────────────────────────
+   A reading gets a meter only when the record publishes a measured number;
+   a specification or a bound prints as text. Whoever produced the figure is
+   named on the card, because most of them are not ours. */
+function labPanel(lab) {
+  const card = (r) => {
+    const f = r.figure;
+    const value = f.measured && f.value != null
+      ? `<span class="lab-card__value">${esc(f.value)}</span><span class="lab-card__unit">${esc(r.unit)}</span>`
+      : `<span class="lab-card__value lab-card__value--text">${esc(f.display)}</span>`;
+    const meter = r.pct
+      ? `<div class="meter meter--${esc(r.tone)}"><span style="width:${esc(r.pct)}"></span></div>`
+      : '<p class="lab-card__nomeasure">No measured figure published</p>';
+    return '<div class="card lab-card">' +
+      `<span class="card-kicker">${esc(r.label)}</span>` +
+      `<div class="lab-card__row">${value}</div>${meter}` +
+      `<span class="lab-card__note">${esc(r.note)}</span>` +
+      (f.source ? `<span class="lab-card__source">Source: ${esc(f.source)}</span>` : '') +
+      '</div>';
+  };
+
+  const claim = lab.claim
+    ? '<div class="claim">' +
+      '<div class="claim__seal" aria-hidden="true">EU<br>432/<br>2012</div>' +
+      '<div class="claim__body">' +
+      '<h3 class="claim__title">Qualifies for the EU antioxidant health claim</h3>' +
+      `<p>At ${esc(lab.claim.value)} mg/kg this oil is above the ${esc(LAB.CLAIM_THRESHOLD)} mg/kg` +
+      ' threshold Regulation 432/2012 sets for hydroxytyrosol and its derivatives' +
+      (lab.claim.source ? `, as reported by the ${esc(lab.claim.source)}` : '') +
+      '.</p></div></div>'
+    : '';
+
+  return '<section class="lab">' +
+    '<div class="lab__head"><h2>Laboratory figures</h2>' +
+    '<p class="lab__sub">What has been measured on this oil, and who measured it</p></div>' +
+    `<div class="lab__cards">${lab.readings.map(card).join('')}</div>${claim}</section>`;
+}
+
 module.exports = {
   esc, url, absolute, starRow, ratingLabel, srOnly, media, shopBadge,
   ICON, searchBar, nav, partnerStrip, footer, breadcrumb, oilCard, listingChip,
-  fillCounts,
+  fillCounts, sensoryRadar, labPanel,
 };

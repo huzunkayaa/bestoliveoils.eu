@@ -13,6 +13,7 @@ const R = require('./render');
 const S = require('./seo');
 const { facetLists } = require('./facets');
 const { cultivarList, comparison, pagedSlugs } = require('./cultivars');
+const LAB = require('./lab');
 const { facetsFor } = require('./facets');
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
@@ -714,15 +715,27 @@ function oil(D, o) {
   // A catalogue entry typically has facts and an origin note but no tasting
   // profile, no pairings and no panel review — and those sections simply do not
   // appear, rather than appearing empty or invented.
+  /* v2 replaces v1's three bars with a radar. The bars carried a short
+     descriptor per axis ("green tomato, grass") that the triangle has no room
+     for, so those ride underneath it rather than being lost. An oil whose
+     profile is missing an axis keeps the bars — half a triangle is not a
+     reading. */
+  const radar = d.profile ? LAB.radarAxes(d.profile) : null;
+  const profileBars = (rows) => rows.map((p) =>
+    '<div class="profile-bar"><div class="profile-bar__row">' +
+    `<span class="profile-bar__label">${esc(p.label)}</span>` +
+    `<span class="profile-bar__desc">${esc(p.desc)}</span></div>` +
+    `<div class="profile-bar__track" role="img" aria-label="${esc(p.label)}: ${esc(p.pct)}">` +
+    `<div class="profile-bar__fill" style="width:${esc(p.pct)}"></div></div></div>`).join('');
+
   const tastingCol = d.profile
     ? `<div class="detail-col">
           <h2>Tasting notes</h2>
-          ${d.profile.map((p) =>
-            '<div class="profile-bar"><div class="profile-bar__row">' +
-            `<span class="profile-bar__label">${esc(p.label)}</span>` +
-            `<span class="profile-bar__desc">${esc(p.desc)}</span></div>` +
-            `<div class="profile-bar__track" role="img" aria-label="${esc(p.label)}: ${esc(p.pct)}">` +
-            `<div class="profile-bar__fill" style="width:${esc(p.pct)}"></div></div></div>`).join('')}
+          ${radar
+            ? R.sensoryRadar(radar) +
+              '<dl class="radar__axes">' + radar.map((a) =>
+                `<div><dt>${esc(a.label)}</dt><dd>${esc(a.desc)}</dd></div>`).join('') + '</dl>'
+            : profileBars(d.profile)}
           <p class="profile-note">${esc(d.tastingNote)}</p>
         </div>`
     : '';
@@ -790,7 +803,41 @@ function oil(D, o) {
         </section>`
     : '';
 
-  const body = hero + factsSection + pairingsSection +
+  const lab = LAB.labFor(o);
+  const labSection = lab ? R.labPanel(lab) : '';
+
+  /* v2 puts a row of comparable bottles where an out-of-stock oil's buy module
+     would be. Our version of "out of stock" is an oil the partner never
+     carried, which is most of the library — so the row appears on every oil we
+     cannot sell, and picks the nearest neighbours we can: same cultivar first,
+     then the rest of the shop, closest panel score wins. A reader who came for
+     a bottle they cannot have leaves with one they can. */
+  const alternatives = site.showShopBadges && !o.inShop
+    ? D.oils
+        .filter((x) => x.inShop && x.slug !== o.slug)
+        .map((x) => {
+          const sameCultivar = facetsFor(x).cultivars
+            .some((c) => facetsFor(o).cultivars.includes(c));
+          const gap = Math.abs(Number(x.score || 0) - Number(o.score || 0));
+          return { oil: x, rank: (sameCultivar ? 0 : 1) * 10 + gap };
+        })
+        .sort((a, b) => a.rank - b.rank)
+        .slice(0, 3)
+        .map((entry) => entry.oil)
+    : [];
+
+  const alternativesSection = alternatives.length
+    ? `<section class="alternatives">
+        <div class="alternatives__head">
+          <h2>In our shop instead</h2>
+          <p>We do not stock ${esc(o.name)}. These are the closest bottles our retail partner carries.</p>
+        </div>
+        <div class="alternatives__list">${
+          alternatives.map((x) => R.oilCard(site, x, true)).join('')}</div>
+      </section>`
+    : '';
+
+  const body = hero + factsSection + labSection + pairingsSection + alternativesSection +
     (reviewsSection
       ? `<div class="reviews-layout">${reviewsSection}${reviewForm()}</div>`
       : `<div class="reviews-layout reviews-layout--form-only">${reviewForm()}</div>`);
