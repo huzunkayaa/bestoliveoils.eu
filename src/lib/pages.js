@@ -14,6 +14,7 @@ const S = require('./seo');
 const { facetLists } = require('./facets');
 const { cultivarList, comparison, pagedSlugs } = require('./cultivars');
 const LAB = require('./lab');
+const LEARN = require('./learn');
 const { facetsFor } = require('./facets');
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
@@ -628,21 +629,70 @@ function learnIndex(D) {
   const meta = D.pages.learn;
   const trail = [{ label: 'Home', href: url.home() }, { label: 'Learn' }];
 
+  const cats = LEARN.categoriesWithContent(D);
+  const featured = LEARN.featuredGuide(D);
+  const rows = LEARN.hubRows(D);
+
+  /* v2 leads the hub with a six-card category grid. One card is not a grid —
+     it is the same link twice — so the strip waits until the writing has
+     spread across at least two shelves. */
+  const categoryStrip = cats.length >= 2
+    ? `<section class="section learn-cats">
+        <div class="section-head"><div class="section-head__text"><h2>Categories</h2>
+          <span class="section-head__sub">${cats.length} ${
+            cats.length === 1 ? 'category' : 'categories'} · ${
+            D.guides.length} ${D.guides.length === 1 ? 'guide' : 'guides'}</span></div></div>
+        <div class="learn-cats__grid">${cats.map((c) =>
+          `<div class="card learn-cat"><span class="card-kicker">${esc(c.name)}</span>` +
+          `<p>${esc(c.body)}</p>` +
+          `<span class="learn-cat__count">${c.count} ${
+            c.count === 1 ? 'guide' : 'guides'}</span></div>`).join('')}</div>
+      </section>`
+    : '';
+
+  /* The editor's feature from v2: the newest guide, given the room to sell
+     itself. With one guide it is simply that guide — which is honest, and the
+     list below it carries what is still being written. */
+  const feature = featured
+    ? `<section class="learn-feature">
+        <div class="learn-feature__copy">
+          <span class="tag tag-accent">${esc(LEARN.categoryName(D, featured.category) || 'Guide')}</span>
+          <h2><a href="${url.guide(featured.slug)}">${esc(featured.title)}</a></h2>
+          <p class="learn-feature__lede">${esc(featured.lede)}</p>
+          <div class="article-byline">
+            <div class="article-byline__avatar" aria-hidden="true">${esc(featured.author.initial)}</div>
+            <span>${esc(featured.author.name)} · <time datetime="${esc(featured.dateModified)}">${
+              esc(featured.author.updated)}</time></span>
+          </div>
+          <a class="btn btn-primary" href="${url.guide(featured.slug)}">Read the guide</a>
+        </div>
+        ${media(featured.image, 'Feature photo', 'learn-feature__media washed')}
+      </section>`
+    : '';
+
+  const list = rows.length
+    ? `<section class="section">
+        <div class="section-head"><div class="section-head__text"><h2>More guides</h2>
+          <span class="section-head__sub">What the panel is writing next</span></div></div>
+        <div class="article-list article-list--wide">${rows.map((a) => {
+          const inner =
+            media(a.image, 'Photo', 'article-row__media') +
+            '<div class="article-row__text">' +
+              `<span class="card-kicker">${esc(a.kicker)}</span>` +
+              `<span class="card-title article-row__title">${esc(a.title)}</span>` +
+              `<span class="article-row__meta">${esc(a.meta)}${a.href ? '' : ' · coming soon'}</span>` +
+            '</div>' + (a.href ? ICON.arrow : '');
+          return a.href
+            ? `<a class="card article-row" href="${esc(a.href)}">${inner}</a>`
+            : `<div class="card article-row article-row--pending">${inner}</div>`;
+        }).join('')}</div>
+      </section>`
+    : '';
+
   const main = R.breadcrumb(trail) +
     `<div class="library-head"><h1>Learn</h1><p>${esc(meta.intro)}</p>${
-      meta.body.map((para) => `<p class="hub-body">${esc(para)}</p>`).join('')}</div>
-     <div class="article-list article-list--wide">${D.articles.map((a) => {
-      const inner =
-        media(a.image, 'Photo', 'article-row__media') +
-        '<div class="article-row__text">' +
-          `<span class="card-kicker">${esc(a.kicker)}</span>` +
-          `<span class="card-title article-row__title">${esc(a.title)}</span>` +
-          `<span class="article-row__meta">${esc(a.meta)}${a.href ? '' : ' · coming soon'}</span>` +
-        '</div>' + (a.href ? ICON.arrow : '');
-      return a.href
-        ? `<a class="card article-row" href="${esc(a.href)}">${inner}</a>`
-        : `<div class="card article-row article-row--pending">${inner}</div>`;
-    }).join('')}</div>`;
+      meta.body.map((para) => `<p class="hub-body">${esc(para)}</p>`).join('')}</div>` +
+    categoryStrip + feature + list;
 
   return shell({
     site,
@@ -1022,15 +1072,109 @@ function producer(D, p) {
 
 /* ══ 04 · guide ═════════════════════════════════════════════════════════ */
 
+/* One body block. v2's article adds a pull quote, a data table with inline
+   share bars, an embedded oil card and a sourcing note to the paragraphs and
+   callouts v1 had. Each is a typed block rather than raw HTML in a string, so
+   a guide cannot smuggle markup into the page. */
+function guideBlock(D, site, b) {
+  switch (b.type) {
+    case 'pull':
+      return `<blockquote class="article-pull"><p>${esc(b.text)}</p></blockquote>`;
+
+    case 'callout':
+      return '<aside class="card article-callout">' +
+        `<span class="card-kicker">${esc(b.kicker)}</span><p>${esc(b.text)}</p></aside>`;
+
+    case 'sources':
+      return '<aside class="article-sources">' +
+        `<span class="card-kicker">${esc(b.kicker || 'How we sourced this')}</span>` +
+        (b.text ? `<p>${esc(b.text)}</p>` : '') +
+        (b.items && b.items.length
+          ? '<ul>' + b.items.map((i) => '<li>' + (i.url
+              ? `<a href="${esc(i.url)}" target="_blank" rel="noopener">${esc(i.label)}</a>`
+              : esc(i.label)) + '</li>').join('') + '</ul>'
+          : '') +
+        '</aside>';
+
+    case 'table': {
+      /* A share column is drawn as a bar against the biggest value in it, so
+         the scale comes from the data rather than from a number typed here. */
+      const max = b.barColumn == null ? 0 : Math.max(...b.rows
+        .map((r) => Number(String(r[b.barColumn]).replace(/[^0-9.]/g, '')))
+        .filter((n) => Number.isFinite(n)));
+      const cell = (value, i) => {
+        if (i !== b.barColumn) return `<td>${esc(value)}</td>`;
+        const n = Number(String(value).replace(/[^0-9.]/g, ''));
+        const width = Number.isFinite(n) && max > 0 ? `${((n / max) * 100).toFixed(0)}%` : '0%';
+        return '<td><div class="article-share">' +
+          `<div class="meter"><span style="width:${width}"></span></div>` +
+          `<span>${esc(value)}</span></div></td>`;
+      };
+      return '<div class="table-scroll"><table class="table article-table">' +
+        `<thead><tr>${b.columns.map((c) => `<th scope="col">${esc(c)}</th>`).join('')}</tr></thead>` +
+        `<tbody>${b.rows.map((r) =>
+          `<tr>${r.map((v, i) => (i === 0
+            ? `<th scope="row">${esc(v)}</th>`
+            : cell(v, i))).join('')}</tr>`).join('')}</tbody></table></div>` +
+        (b.caption ? `<p class="article-table__caption">${esc(b.caption)}</p>` : '');
+    }
+
+    case 'oil': {
+      const o = D.oils.find((x) => x.slug === b.slug);
+      if (!o) return '';
+      const buyable = site.showShopBadges && o.inShop;
+      return '<aside class="article-oil">' +
+        media(o.image, 'Bottle photo', 'article-oil__media') +
+        '<div class="article-oil__text">' +
+          `<span class="card-kicker">${esc(b.kicker || 'Mentioned in this guide')}</span>` +
+          `<span class="card-title">${esc(o.name)}</span>` +
+          `<span class="article-oil__meta">${esc(o.region)} · ${esc(o.cultivar)}${
+            o.score ? ` · ${esc(o.score)}/5` : ''}</span>` +
+        '</div>' +
+        '<div class="article-oil__actions">' +
+          (buyable
+            ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy</a>`
+            : '') +
+          `<a class="btn btn-secondary" href="${url.oil(o.slug)}">Full report</a>` +
+        '</div></aside>';
+    }
+
+    case 'p':
+    default:
+      return `<p>${esc(b.text)}</p>`;
+  }
+}
+
 function guide(D, g) {
   const site = D.site;
   const path = url.guide(g.slug);
-  const promoOil = D.oils.find((o) => o.slug === g.promo.oilSlug);
+  const promoOil = g.promo ? D.oils.find((o) => o.slug === g.promo.oilSlug) : null;
+  const catName = LEARN.categoryName(D, g.category);
+  const related = LEARN.relatedGuides(D, g);
   const trail = [
     { label: 'Home', href: url.home() },
     { label: 'Learn', href: url.learn() },
     { label: g.title },
   ];
+
+  /* v2 hangs a rail off the right of the body: key figures, then more from the
+     same shelf. Both are omitted when the guide has neither, and the layout
+     falls back to the two columns v1 drew. */
+  const rail = [
+    g.keyFigures && g.keyFigures.length
+      ? '<div class="card article-rail__card"><span class="card-kicker">Key figures</span>' +
+        g.keyFigures.map((f) =>
+          '<div class="article-figure">' +
+          `<span class="article-figure__value">${esc(f.value)}</span>` +
+          `<span class="article-figure__label">${esc(f.label)}</span></div>`).join('') +
+        '</div>'
+      : '',
+    related.length
+      ? `<div class="article-rail__card"><span class="card-kicker">More in ${esc(catName)}</span>` +
+        '<ul class="article-rail__list">' + related.map((r) =>
+          `<li><a href="${url.guide(r.slug)}">${esc(r.title)}</a></li>`).join('') + '</ul></div>'
+      : '',
+  ].filter(Boolean).join('');
 
   const main = R.breadcrumb(trail) +
     `<header class="article-head">
@@ -1044,7 +1188,7 @@ function guide(D, g) {
       </div>
     </header>
     ${media(g.image, 'Tasting glasses photo', 'article-hero washed', '', { priority: true })}
-    <div class="article-layout">
+    <div class="article-layout${rail ? ' article-layout--rail' : ''}">
       <aside class="article-toc" aria-label="In this article">
         <h2 class="article-toc__title">In this article</h2>
         ${g.toc.map((t, i) =>
@@ -1058,12 +1202,10 @@ function guide(D, g) {
         </div>` : ''}
       </aside>
       <article class="article-body">${g.sections.map((s) =>
-        `<h2 id="${esc(s.id)}">${esc(s.heading)}</h2>` + s.blocks.map((b) =>
-          b.type === 'callout'
-            ? `<aside class="card article-callout"><span class="card-kicker">${
-                esc(b.kicker)}</span><p>${esc(b.text)}</p></aside>`
-            : `<p>${esc(b.text)}</p>`).join('')).join('')}
+        `<h2 id="${esc(s.id)}">${esc(s.heading)}</h2>` +
+        s.blocks.map((b) => guideBlock(D, site, b)).join('')).join('')}
       </article>
+      ${rail ? `<aside class="article-rail">${rail}</aside>` : ''}
     </div>`;
 
   return shell({

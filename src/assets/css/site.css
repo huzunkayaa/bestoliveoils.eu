@@ -1540,3 +1540,161 @@ body { background: #fff; }
   .alternatives__list { grid-template-columns: minmax(0, 1fr); }
   .radar__axes { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* ══ 05 · learn hub — v2 ═══════════════════════════════════════════════════
+   The category strip and the editor's feature from "Olive Oil Library
+   v2.dc.html" screen 05. The most-read rail and the newsletter card it also
+   draws are not here: one needs analytics we do not collect, the other a
+   backend we do not have.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.learn-cats__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+.learn-cat { gap: 8px; }
+.learn-cat p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--color-neutral-800);
+}
+.learn-cat__count {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-700);
+  font-weight: 600;
+}
+
+.learn-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 48px;
+  align-items: center;
+  padding: 44px 48px;
+  background: var(--color-surface);
+  border-radius: calc(var(--radius-lg) * 1.6);
+}
+.learn-feature__copy { display: flex; flex-direction: column; gap: 18px; align-items: flex-start; }
+.learn-feature__copy h2 { margin: 0; font-size: 40px; line-height: 1.08; text-wrap: pretty; }
+.learn-feature__copy h2 a { color: inherit; text-decoration: none; }
+.learn-feature__copy h2 a:hover { color: var(--color-accent-700); }
+.learn-feature__lede {
+  margin: 0;
+  font-size: 16.5px;
+  line-height: 1.6;
+  color: var(--color-neutral-800);
+  max-width: 560px;
+  text-wrap: pretty;
+}
+.learn-feature__media { width: 100%; aspect-ratio: 4 / 3; border-radius: calc(var(--radius-lg) * 1.2); }
+
+/* ══ 06 · article — v2 blocks ══════════════════════════════════════════════ */
+
+.article-layout--rail { grid-template-columns: 220px minmax(0, 640px) 300px; gap: 56px; }
+.article-rail { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; }
+.article-rail__card { display: flex; flex-direction: column; gap: 12px; }
+.article-rail__list {
+  margin: 0;
+  padding-left: 1.1em;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.article-figure { display: flex; flex-direction: column; }
+.article-figure__value {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 30px;
+  line-height: 1;
+}
+.article-figure__label { font-size: 12.5px; color: var(--color-neutral-700); }
+
+.article-pull {
+  margin: 0;
+  padding: 26px 30px;
+  border-left: 4px solid var(--color-accent);
+  background: var(--color-accent-100);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+.article-pull p {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 23px;
+  line-height: 1.3;
+  color: var(--color-accent-900);
+  text-wrap: pretty;
+}
+
+.article-sources {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 24px 28px;
+  background: var(--color-accent-2-100);
+  border-radius: calc(var(--radius-lg) * 1.2);
+}
+.article-sources p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--color-accent-2-900);
+  text-wrap: pretty;
+}
+.article-sources ul {
+  margin: 0;
+  padding-left: 1.1em;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.article-table__caption {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--color-neutral-700);
+}
+/* A share cell is the bar and its number on one line; the bar is scaled
+   against the column's own maximum, not against a hand-typed ceiling. */
+.article-share { display: flex; align-items: center; gap: 10px; }
+.article-share .meter { flex: 1; min-width: 52px; height: 7px; }
+.article-share > span { font-size: 12.5px; color: var(--color-neutral-700); white-space: nowrap; }
+
+.article-oil {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 22px;
+  border: 2px solid var(--color-accent-300);
+  border-radius: calc(var(--radius-lg) * 1.2);
+  background: var(--color-surface);
+}
+.article-oil__media { width: 92px; height: 112px; flex: none; border-radius: var(--radius-md); }
+.article-oil__text { display: flex; flex-direction: column; gap: 5px; flex: 1; min-width: 0; }
+.article-oil__meta { font-size: 13px; color: var(--color-neutral-700); }
+.article-oil__actions { display: flex; flex-direction: column; gap: 8px; flex: none; }
+
+@media (max-width: 1080px) {
+  .article-layout--rail { grid-template-columns: 220px minmax(0, 1fr); }
+  .article-rail { grid-column: 1 / -1; position: static; flex-direction: row; flex-wrap: wrap; }
+  .article-rail__card { flex: 1 1 260px; }
+  .learn-feature { grid-template-columns: minmax(0, 1fr); gap: 28px; padding: 32px 28px; }
+}
+@media (max-width: 860px) {
+  .article-layout--rail { grid-template-columns: minmax(0, 1fr); }
+  .article-oil { flex-direction: column; align-items: flex-start; }
+  .article-oil__actions { flex-direction: row; width: 100%; }
+}
+@media (max-width: 620px) {
+  .learn-feature { padding: 24px 20px; }
+  .learn-feature__copy h2 { font-size: 30px; }
+  .article-pull { padding: 20px 22px; }
+  .article-pull p { font-size: 19px; }
+}

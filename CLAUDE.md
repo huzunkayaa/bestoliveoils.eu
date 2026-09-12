@@ -10,7 +10,7 @@ entire toolchain.
 
 ```
 npm run build     # src/ → docs/
-npm run check     # build, then tools/seo-check.js
+npm run check     # build, then tools/seo-check.js and tools/learn-test.js
 npm run serve     # build, then preview at localhost:8000
 ```
 
@@ -125,9 +125,21 @@ comment.
   taxonomy panel is built from `facets.js`, so an option can only offer a view
   that has something in it. There is no "competition ranked" filter, so there is
   no row for one.
-- `npm run check` must pass before committing. It enforces canonicals, title and
-  description lengths, heading levels, valid JSON-LD, internal links, image
-  dimensions, and a sitemap that matches what was built.
+- **A guide's body is typed blocks, never raw HTML.** `p`, `callout`, `pull`,
+  `table` (with an optional `barColumn`, scaled against that column's own
+  maximum), `oil` (an embedded card that reads live stock like any other) and
+  `sources`. Block text is escaped, so a record cannot smuggle markup onto the
+  page. `tools/learn-test.js` renders one of each and asserts the output —
+  which is how the blocks no published guide uses yet are known to work,
+  rather than by writing an article to show them off.
+- **A Learn shelf appears when it has something on it.** `learnCategories`
+  defines only categories that have a guide or a teased one; the hub's category
+  strip waits until two of them carry published writing, and an article's rail
+  is dropped when it has neither key figures nor a sibling guide.
+- `npm run check` must pass before committing. It builds, runs the SEO checks —
+  canonicals, title and description lengths, heading levels, valid JSON-LD,
+  internal links, image dimensions, a sitemap matching what was built — and
+  then the Learn template tests.
 
 ## Not built
 

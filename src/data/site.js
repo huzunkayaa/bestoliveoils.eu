@@ -6119,10 +6119,24 @@ module.exports = {
      `href: null` means the guide is not written yet: the card renders without
      a link rather than pointing at a 404. Give it a URL once the matching
      record exists in `guides` below. */
+  /* ── learn categories ───────────────────────────────────────────────────
+     The v2 hub draws a six-card category grid. Only the categories that have
+     something in them are defined here: a card promising "Competitions &
+     awards" that opens onto nothing is worse than no card. The rest arrive
+     with their first guide. */
+  learnCategories: [
+    { slug: 'tasting', name: 'Tasting & judging',
+      body: 'How the panel scores fruitiness, bitterness and pungency, and how to taste at home.' },
+    { slug: 'kitchen', name: 'Kitchen & storage',
+      body: 'Decanting, dark glass, heat, and how long an open bottle really lasts.' },
+    { slug: 'buying', name: 'Buying & labels',
+      body: 'Harvest dates, designations and the small print that tells you what is in the bottle.' },
+  ],
+
   articles: [
-    { slug: 'how-to-taste-olive-oil', kicker: 'Tasting', title: 'How to taste olive oil like our panel does', meta: '6 min read', href: '/learn/how-to-taste-olive-oil/', image: null },
-    { slug: 'why-your-oil-goes-flat', kicker: 'Storage', title: 'Why your oil goes flat, and how to stop it',  meta: '4 min read', href: null,            image: null },
-    { slug: 'harvest-date-on-label',  kicker: 'Buying',  title: 'What the harvest date on the label really tells you', meta: '5 min read', href: null,    image: null },
+    { slug: 'how-to-taste-olive-oil', category: 'tasting', kicker: 'Tasting', title: 'How to taste olive oil like our panel does', meta: '6 min read', href: '/learn/how-to-taste-olive-oil/', image: null },
+    { slug: 'why-your-oil-goes-flat', category: 'kitchen', kicker: 'Storage', title: 'Why your oil goes flat, and how to stop it',  meta: '4 min read', href: null,            image: null },
+    { slug: 'harvest-date-on-label',  category: 'buying', kicker: 'Buying',  title: 'What the harvest date on the label really tells you', meta: '5 min read', href: null,    image: null },
   ],
 
   /* ── producers ───────────────────────────────────────────────────────── */
@@ -7185,6 +7199,7 @@ module.exports = {
   guides: [
     {
       slug: 'how-to-taste-olive-oil',
+      category: 'tasting',
       kicker: 'Tasting · 6 min read',
       seo: {
         title: 'How to Taste Olive Oil: The Panel Method | bestoliveoils.eu',
