@@ -177,6 +177,24 @@ const listingChip = (oil) =>
     ? `<span class="listing-chip">#${esc(oil.listing.rank)} ${esc(oil.listing.sourceShort)}</span>`
     : '<span class="listing-chip listing-chip--empty">Not yet rated</span>';
 
+
+/* The filter values ride on the element itself, so app.js filters the DOM it
+   already has — no second copy of the data, no extra request. The card and the
+   v2 row share this, because a row that filtered differently from a card would
+   be a bug nobody would see until the counts disagreed. */
+function facetData(oil) {
+  const f = facetsFor(oil);
+  return ` data-region="${esc(f.region)}"` +
+    ` data-cultivar="${esc(f.cultivars.join(' '))}"` +
+    ` data-intensity="${esc(f.intensity)}"` +
+    ` data-score="${esc(f.score)}"` +
+    ` data-reviews="${esc(oil.reviews || 0)}"` +
+    ` data-in-shop="${f.inShop ? '1' : '0'}"` +
+    ` data-organic="${f.organic ? '1' : '0'}"` +
+    ` data-name="${esc(oil.name.toLowerCase())}"` +
+    ` data-text="${esc(f.text)}"`;
+}
+
 function oilCard(site, oil, compact) {
   const rated = Boolean(oil.score);
   const meta = compact
@@ -197,21 +215,7 @@ function oilCard(site, oil, compact) {
       '</div>' +
       `<span class="tag tag-neutral">${esc(oil.intensity)}</span></div>`;
 
-  /* The filter values ride on the card itself, so app.js filters the DOM it
-     already has — no second copy of the data, no extra request. */
-  const f = facetsFor(oil);
-  const data =
-    ` data-region="${esc(f.region)}"` +
-    ` data-cultivar="${esc(f.cultivars.join(' '))}"` +
-    ` data-intensity="${esc(f.intensity)}"` +
-    ` data-score="${esc(f.score)}"` +
-    ` data-reviews="${esc(oil.reviews || 0)}"` +
-    ` data-in-shop="${f.inShop ? '1' : '0'}"` +
-    ` data-organic="${f.organic ? '1' : '0'}"` +
-    ` data-name="${esc(oil.name.toLowerCase())}"` +
-    ` data-text="${esc(f.text)}"`;
-
-  return `<a class="card elev-sm oil-card" href="${url.oil(oil.slug)}"${data}>` +
+  return `<a class="card elev-sm oil-card" href="${url.oil(oil.slug)}"${facetData(oil)}>` +
     media(oil.image, 'Bottle photo',
           'oil-card__media' + (compact ? ' oil-card__media--sm' : ''),
           shopBadge(site, oil, 'oil-card__badge')) +
@@ -304,8 +308,71 @@ function labPanel(lab) {
     `<div class="lab__cards">${lab.readings.map(card).join('')}</div>${claim}</section>`;
 }
 
+
+/* ── v2 · result row ──────────────────────────────────────────────────────
+   Screen 01 replaces the card grid with a row: bottle, then what the oil
+   measures, then whether you can buy it. Each part is drawn only from what the
+   record has — an oil with no lab figures and no panel profile is a title, a
+   producer and a link, which is honest for a catalogue entry.
+
+   It keeps the `oil-card` class and the facet data attributes so the filters,
+   the sort and the count treat it exactly as they treated the card. */
+function oilRow(site, oil) {
+  const lab = LAB.labFor(oil);
+  const axes = oil.detail ? LAB.radarAxes(oil.detail.profile) : null;
+  const stocked = site.showShopBadges && oil.inShop;
+
+  const figure = (value, label) =>
+    `<div class="oil-row__figure"><b>${esc(value)}</b><span>${esc(label)}</span></div>`;
+
+  const figures = [];
+  if (lab) {
+    for (const r of lab.readings) {
+      // Only a measured number earns the display size; a specification is not
+      // a figure you can line up against another oil's.
+      if (!r.figure.measured || r.figure.value == null) continue;
+      if (r.key === 'polyphenols') figures.push(figure(r.figure.value, 'mg/kg polyphenols'));
+      if (r.key === 'acidity') figures.push(figure(`${r.figure.value}%`, 'free acidity'));
+    }
+  }
+  if (oil.score) figures.push(figure(oil.score, 'panel score'));
+
+  const bars = axes
+    ? '<div class="oil-row__axes">' + axes.map((a) =>
+        '<div class="oil-row__axis">' +
+        `<span>${esc(a.label)} ${esc(a.score)}</span>` +
+        `<div class="meter meter--accent-2"><span style="width:${esc(a.pct)}%"></span></div>` +
+        '</div>').join('') + '</div>'
+    : '';
+
+  const side = stocked
+    ? '<div class="oil-row__side">' +
+        '<span class="oil-row__stock"><span class="dot" aria-hidden="true"></span>In our shop</span>' +
+        (oil.price ? `<span class="oil-row__price">${esc(oil.price)}</span>` : '') +
+        `<a class="btn btn-primary btn-block" href="${esc(oil.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy${
+          srOnly(` ${oil.name} at ${site.shopName}`)}</a>` +
+      '</div>'
+    : '<div class="oil-row__side oil-row__side--none">' +
+        '<span class="oil-row__stock oil-row__stock--none">Not stocked</span>' +
+        '<span class="oil-row__note">Reviewed independently of what our partner carries.</span>' +
+      '</div>';
+
+  return `<article class="card elev-sm oil-card oil-row"${facetData(oil)}>` +
+    media(oil.image, 'Bottle photo', 'oil-row__media') +
+    '<div class="oil-row__main">' +
+      `<span class="card-kicker">${esc(oil.region)}</span>` +
+      `<a class="card-title oil-row__title" href="${url.oil(oil.slug)}">${esc(oil.name)}</a>` +
+      `<span class="oil-row__sub">${esc(oil.producer)} · ${esc(oil.cultivar)}</span>` +
+      (oil.score
+        ? `<span class="oil-row__stars">${starRow(oil.stars)}${srOnly(ratingLabel(oil.score, oil.reviews))}</span>`
+        : `<span class="oil-row__stars">${listingChip(oil)}</span>`) +
+      (figures.length ? `<div class="oil-row__figures">${figures.join('')}</div>` : '') +
+      bars +
+    '</div>' + side + '</article>';
+}
+
 module.exports = {
   esc, url, absolute, starRow, ratingLabel, srOnly, media, shopBadge,
   ICON, searchBar, nav, partnerStrip, footer, breadcrumb, oilCard, listingChip,
-  fillCounts, sensoryRadar, labPanel,
+  fillCounts, sensoryRadar, labPanel, oilRow, facetData,
 };

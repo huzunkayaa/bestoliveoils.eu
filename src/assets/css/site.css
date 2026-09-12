@@ -1698,3 +1698,199 @@ body { background: #fff; }
   .article-pull { padding: 20px 22px; }
   .article-pull p { font-size: 19px; }
 }
+
+/* ══ 04 · producer — award timeline (v2) ══════════════════════════════════
+   v2 draws this as a horizontal axis with a dot per year. Ours runs vertically:
+   a producer can win eight awards in one year, and eight labels stacked under a
+   dot on a horizontal rail is unreadable at any width we support.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.producer-awards { display: flex; flex-direction: column; gap: 20px; }
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  border-left: 3px solid var(--color-neutral-200);
+}
+.timeline__year { position: relative; display: flex; flex-direction: column; gap: 10px; }
+.timeline__label {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 21px;
+  line-height: 1;
+}
+.timeline__dot {
+  position: absolute;
+  left: -36px;
+  top: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  border: 3px solid var(--color-bg);
+  box-shadow: 0 0 0 2px var(--color-neutral-200);
+}
+.timeline__awards {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 8px 24px;
+}
+.timeline__awards li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 0;
+  border-top: 1px solid var(--color-divider);
+}
+.timeline__award { font-size: 14px; font-weight: 600; }
+.timeline__oil { font-size: 12.5px; color: var(--color-neutral-700); }
+
+@media (max-width: 620px) {
+  .timeline { padding-left: 22px; }
+  .timeline__dot { left: -30px; }
+}
+
+/* ══ 01 · faceted search — v2 result row ══════════════════════════════════
+   Screen 01 trades the card grid for a row: bottle, what the oil measures,
+   and whether it can be bought. It keeps the .oil-card class so app.js filters
+   and sorts it exactly as it did the card.
+   ════════════════════════════════════════════════════════════════════════ */
+
+.results__list { display: flex; flex-direction: column; gap: 14px; }
+
+.oil-row {
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+  gap: 0;
+  overflow: hidden;
+}
+.oil-row__media { width: 170px; flex: none; align-self: stretch; }
+.oil-row__main {
+  flex: 1;
+  min-width: 0;
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.oil-row__title {
+  font-size: 21px;
+  line-height: 1.2;
+  color: inherit;
+  text-decoration: none;
+}
+.oil-row__title:hover { color: var(--color-accent-700); }
+.oil-row__sub { font-size: 13.5px; color: var(--color-neutral-700); }
+.oil-row__stars { display: flex; align-items: center; gap: 8px; }
+
+.oil-row__figures { display: flex; gap: 26px; flex-wrap: wrap; margin-top: 4px; }
+.oil-row__figure { display: flex; flex-direction: column; }
+.oil-row__figure b {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 22px;
+  line-height: 1.1;
+}
+.oil-row__figure span { font-size: 11.5px; color: var(--color-neutral-700); }
+
+.oil-row__axes { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 6px; }
+.oil-row__axis { display: flex; flex-direction: column; gap: 4px; width: 88px; }
+.oil-row__axis > span { font-size: 11.5px; color: var(--color-neutral-700); }
+.oil-row__axis .meter { height: 6px; }
+
+.oil-row__side {
+  width: 210px;
+  flex: none;
+  padding: 20px 22px;
+  background: var(--color-bg);
+  border-left: 1px solid var(--color-divider);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+.oil-row__stock {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-accent-2-800);
+}
+.oil-row__stock .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent-2); }
+.oil-row__stock--none { color: var(--color-neutral-700); }
+.oil-row__price {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 17px;
+  line-height: 1.25;
+}
+.oil-row__note { font-size: 12px; line-height: 1.45; color: var(--color-neutral-700); }
+
+@media (max-width: 1080px) {
+  .oil-row__side { width: 180px; }
+}
+@media (max-width: 760px) {
+  .oil-row { flex-direction: column; }
+  .oil-row__media { width: 100%; height: 200px; }
+  .oil-row__side {
+    width: 100%;
+    border-left: 0;
+    border-top: 1px solid var(--color-divider);
+  }
+}
+
+/* ══ 02 · oil detail — conversion module (v2) ═════════════════════════════ */
+
+.detail-hero--buy { grid-template-columns: 360px minmax(0, 1fr) 300px; gap: 44px; }
+
+.buybox {
+  position: sticky;
+  top: 24px;
+  gap: 14px;
+  padding: 24px 26px;
+  border: 2px solid var(--color-accent-300);
+}
+.buybox__stock {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-accent-2-800);
+}
+.buybox__stock .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--color-accent-2); }
+.buybox__price {
+  font-family: var(--font-heading);
+  font-weight: var(--font-heading-weight);
+  font-size: 22px;
+  line-height: 1.25;
+}
+.buybox__assurances {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--color-neutral-800);
+}
+.buybox__assurances li { display: flex; gap: 8px; align-items: flex-start; }
+.buybox__assurances svg { color: var(--color-accent-2); flex: none; margin-top: 3px; }
+
+@media (max-width: 1280px) {
+  .detail-hero--buy { grid-template-columns: 320px minmax(0, 1fr); }
+  .detail-hero--buy .buybox { grid-column: 1 / -1; position: static; }
+}
+@media (max-width: 860px) {
+  .detail-hero--buy { grid-template-columns: minmax(0, 1fr); }
+}

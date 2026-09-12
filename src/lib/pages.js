@@ -15,6 +15,7 @@ const { facetLists } = require('./facets');
 const { cultivarList, comparison, pagedSlugs } = require('./cultivars');
 const LAB = require('./lab');
 const LEARN = require('./learn');
+const AWARDS = require('./awards');
 const { facetsFor } = require('./facets');
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
@@ -303,8 +304,8 @@ function library(D) {
               <option value="reviews">Most reviewed</option>
             </select></div>
         </div>
-        <div class="oil-grid-3" data-oil-grid>${
-          D.oils.map((o) => R.oilCard(site, o, false)).join('')}</div>
+        <div class="results__list" data-oil-grid>${
+          D.oils.map((o) => R.oilRow(site, o)).join('')}</div>
         <p class="results__empty" data-results-empty hidden>No oils match these filters.
           <button type="button" class="btn btn-ghost" data-clear-filters>Clear filters</button></p>
       </div>
@@ -778,8 +779,30 @@ function oil(D, o) {
       `<span class="rating-box__note">${o.reviews ? `${esc(o.reviews)} reviews · ` : 'No reader reviews yet · '}` +
       '<a href="#write-a-review">write yours</a></span></div>';
 
+  /* v2's conversion module. It draws "In stock · 34 bottles", a size switcher
+     and a live price; we have none of that — no stock feed, one price string,
+     no pack sizes — so the card carries what is true: that our partner lists
+     it, what it costs there, and that they are the seller, not us. A bottle
+     count nobody is counting would be the easiest lie on the page. */
+  const stockedHere = site.showShopBadges && o.inShop;
+  const buyBox = stockedHere
+    ? `<aside class="buybox card elev-md">
+        <span class="buybox__stock"><span class="dot" aria-hidden="true"></span>In our shop</span>
+        ${o.price ? `<span class="buybox__price">${esc(o.price)}</span>` : ''}
+        <a class="btn btn-primary btn-block" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy ${
+          ICON.external}<span class="visually-hidden"> ${esc(o.name)} at ${esc(site.shopName)}</span></a>
+        <ul class="buybox__assurances">
+          <li>${ICON.check}Sold by ${esc(site.shopName)}, our retail partner — not by us</li>
+          <li>${ICON.check}The score above is independent of what they stock</li>
+          ${d.facts && d.facts.some(([k]) => /harvest/i.test(k))
+            ? `<li>${ICON.check}Harvest published on this page, from the bottle we tested</li>`
+            : ''}
+        </ul>
+      </aside>`
+    : '';
+
   const hero =
-    `<section class="detail-hero">
+    `<section class="detail-hero${buyBox ? ' detail-hero--buy' : ''}">
       ${media(o.image, 'Bottle photo', 'detail-hero__frame', '', { priority: true })}
       <div class="detail-hero__info">
         <div class="detail-hero__tags">${shopBadge(site, o, 'tag-shop')}${tags}</div>
@@ -795,15 +818,12 @@ function oil(D, o) {
         <p class="detail-hero__desc">${esc(d.description || (o.score
           ? 'The panel has scored this oil; the full write-up — tasting notes, the facts and pairings — is being prepared.'
           : 'A catalogue entry: what the producer and the competition record say about this oil. Our panel has not tasted it, so there is no score here.'))}</p>
-        <div class="detail-actions">${
-          site.showShopBadges && o.inShop
-            ? `<a class="btn btn-primary" href="${esc(o.shopUrl || site.shopUrl)}" target="_blank" rel="noopener">Where to buy · ${
-                esc(site.shopName)} ${ICON.external}</a>`
-            : ''}
+        <div class="detail-actions">
           <button class="btn btn-secondary" type="button">${ICON.heart}Save</button>
-          ${o.price ? `<span class="detail-actions__price">${esc(o.price)}</span>` : ''}
+          ${!buyBox && o.price ? `<span class="detail-actions__price">${esc(o.price)}</span>` : ''}
         </div>
       </div>
+      ${buyBox}
     </section>`;
 
   // Every block below is optional and rendered only from what we actually have.
@@ -989,6 +1009,31 @@ const reviewForm = () =>
 function producer(D, p) {
   const site = D.site;
   const path = url.producer(p.slug);
+
+  /* v2's award timeline. No producer record carries one, so it is read back
+     out of their oils' `detail.awards` — the same strings those oil pages
+     already show. Awards whose string has no year stay on the oil page and out
+     of the timeline, and the caption says how many that is rather than quietly
+     showing fewer than the table below. */
+  const record = AWARDS.awardTimeline(D, p);
+  const awardsSection = record.timeline.length
+    ? `<section class="producer-awards">
+        <div class="section-head"><div class="section-head__text"><h2>Award record</h2>
+          <span class="section-head__sub">${record.total} dated ${
+            record.total === 1 ? 'award' : 'awards'} across ${record.timeline.length} ${
+            record.timeline.length === 1 ? 'year' : 'years'}, from the oils in the library${
+            record.undated ? ` · ${record.undated} more carry no year` : ''}</span></div></div>
+        <ol class="timeline">${record.timeline.map((y) =>
+          '<li class="timeline__year">' +
+            `<span class="timeline__label">${esc(y.year)}</span>` +
+            '<span class="timeline__dot" aria-hidden="true"></span>' +
+            '<ul class="timeline__awards">' + y.awards.map((a) =>
+              `<li><span class="timeline__award">${esc(a.label)}</span>` +
+              `<a class="timeline__oil" href="${url.oil(a.slug)}">${esc(a.oil)}</a></li>`).join('') +
+            '</ul>' +
+          '</li>').join('')}</ol>
+      </section>`
+    : '';
   const trail = [
     { label: 'Home', href: url.home() },
     { label: 'Producers', href: url.producers() },
@@ -1044,6 +1089,8 @@ function producer(D, p) {
         }).join('')}</tbody>
       </table></div>
     </section>
+
+    ${awardsSection}
 
     <section class="producer-estate">
       <div class="producer-estate__text"><h2>The estate</h2>${
