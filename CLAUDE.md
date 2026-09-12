@@ -10,7 +10,7 @@ entire toolchain.
 
 ```
 npm run build     # src/ → docs/
-npm run check     # build, then tools/seo-check.js and tools/learn-test.js
+npm run check     # build, then seo-check, learn-test and cultivar-test
 npm run serve     # build, then preview at localhost:8000
 ```
 
@@ -136,6 +136,17 @@ comment.
   defines only categories that have a guide or a teased one; the hub's category
   strip waits until two of them carry published writing, and an article's rail
   is dropped when it has neither key figures nor a sibling guide.
+- **A band is only ever derived, never decided.** `src/lib/cultivar-index.js`
+  computes the polyphenol band from whatever a record publishes: the midpoint of
+  a range, a single figure, or a band stated in words. A source that publishes
+  numbers while refusing to call them typical ("no stable typical value") has
+  not published a band, and neither has prose with no figure in it. The 250
+  boundary is the EU 432/2012 claim threshold, which is the only externally
+  defined line on that scale. `tools/cultivar-test.js` pins all four shapes.
+- **Intensity is not offered.** The Cultivars design filters by Delicate /
+  Medium / Robust; no record carries it, classifying forty varieties by
+  mouthfeel is a panel's job, and reading it out of the sensory prose would be
+  a guess. The field is read if it is ever added and the facet appears then.
 - `npm run check` must pass before committing. It builds, runs the SEO checks —
   canonicals, title and description lengths, heading levels, valid JSON-LD,
   internal links, image dimensions, a sitemap matching what was built — and

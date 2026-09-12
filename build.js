@@ -64,6 +64,7 @@ function build() {
   page(url.library(), pages.library(D), '0.9', 'weekly');
   page(url.producers(), pages.producersIndex(D), '0.6', 'monthly');
   page(url.cultivars(), pages.cultivarsIndex(D), '0.6', 'monthly');
+  page(url.cultivarCompare(), pages.cultivarCompare(D), '0.5', 'monthly');
   page(url.learn(), pages.learnIndex(D), '0.6', 'monthly');
 
   for (const oil of D.oils) {

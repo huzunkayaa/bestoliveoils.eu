@@ -16,6 +16,7 @@ const { cultivarList, comparison, pagedSlugs } = require('./cultivars');
 const LAB = require('./lab');
 const LEARN = require('./learn');
 const AWARDS = require('./awards');
+const CI = require('./cultivar-index');
 const { facetsFor } = require('./facets');
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
@@ -378,48 +379,193 @@ function producersIndex(D) {
    reference page links to it; the rest open the library filtered to that
    variety, which is a real destination rather than a page we have not written. */
 
+/* The chip a card wears for a band it may or may not have. An unpublished
+   value is never blank and never guessed — it says so, in the muted, italic
+   treatment the design reserves for it. */
+function bandChip(value, kind) {
+  const PH = {
+    'Very high': ['var(--color-accent-300)', 'var(--color-accent-900)'],
+    High: ['var(--color-accent-200)', 'var(--color-accent-900)'],
+    Medium: ['var(--color-accent-2-200)', 'var(--color-accent-2-900)'],
+    Low: ['var(--color-accent-2-100)', 'var(--color-accent-2-800)'],
+  };
+  const INT = {
+    Robust: ['var(--color-accent-200)', 'var(--color-accent-900)'],
+    Medium: ['var(--color-accent-2-200)', 'var(--color-accent-2-900)'],
+    Delicate: ['var(--color-accent-2-100)', 'var(--color-accent-2-800)'],
+  };
+  const map = kind === 'phenol' ? PH : INT;
+  const label = value
+    ? (kind === 'phenol' ? `${value} polyphenols` : value)
+    : (kind === 'phenol' ? 'Polyphenols not published' : 'Intensity not published');
+  const tone = value && map[value];
+  return `<span class="cv-chip${tone ? '' : ' cv-chip--none'}"${
+    tone ? ` style="background:${tone[0]};color:${tone[1]}"` : ''}>${esc(label)}</span>`;
+}
+
+function cultivarCard(row) {
+  const stat = (value, label, muted) =>
+    '<div class="cv-card__stat">' +
+    `<span class="cv-card__statvalue${muted ? ' is-muted' : ''}">${esc(value)}</span>` +
+    `<span class="cv-card__statlabel">${esc(label)}</span></div>`;
+
+  return `<a class="card elev-sm cv-card" href="${url.cultivar(row.slug)}"` +
+    ` data-country="${esc(row.country)}"` +
+    ` data-purpose="${esc(row.purpose || CI.NOT_PUBLISHED)}"` +
+    ` data-phenol="${esc(row.phenolBand || CI.NOT_PUBLISHED)}"` +
+    ` data-intensity="${esc(row.intensity || CI.NOT_PUBLISHED)}"` +
+    ` data-name="${esc(row.name.toLowerCase())}"` +
+    ` data-oils="${row.oils}"` +
+    ` data-terms="${esc([row.name, ...row.synonyms].join(' · ').toLowerCase())}"` +
+    // The same names with their capitals intact, for display in the typeahead.
+    ` data-synonyms="${esc(row.synonyms.join(' · '))}">` +
+    media(null, `${row.name} — fruit or leaf`, 'cv-card__media') +
+    '<div class="cv-card__body">' +
+      '<div class="cv-card__head">' +
+        `<span class="card-kicker">${esc(row.country)}${row.region ? ` · ${esc(row.region)}` : ''}</span>` +
+        `<span class="cv-card__name">${esc(row.name)}</span>` +
+        (row.synonyms.length
+          ? `<span class="cv-card__also">also called ${esc(row.synonyms.slice(0, 3).join(', '))}</span>`
+          : '') +
+      '</div>' +
+      `<div class="cv-card__chips">${bandChip(row.intensity, 'intensity')}${
+        bandChip(row.phenolBand, 'phenol')}</div>` +
+      '<div class="cv-card__stats">' +
+        stat(row.purpose || CI.NOT_PUBLISHED, 'primary use', !row.purpose) +
+        stat(row.shelf || CI.NOT_PUBLISHED, 'shelf stability', !row.shelf) +
+      '</div>' +
+      (row.pairings.length
+        ? `<div class="cv-card__pairings">${row.pairings.slice(0, 3).map((pairing) =>
+            `<span class="tag tag-outline">${esc(pairing)}</span>`).join('')}</div>`
+        : '') +
+    '</div></a>';
+}
+
 function cultivarsIndex(D) {
   const site = D.site;
   const meta = D.pages.cultivars;
-  const trail = [{ label: 'Home', href: url.home() }, { label: 'Cultivars' }];
-  const list = cultivarList(D);
-
-  const row = (c) => {
-    /* Where it grows: the regions the library's own oils come from, or — for a
-       variety we have written up but not yet bought — where the record says it
-       is grown. The two are different claims, and the second is the record's. */
-    const where = c.regions.length
-      ? (c.regions.length <= 3
-          ? c.regions.map((r) => r.name).join(' · ')
-          : `${c.regions.slice(0, 3).map((r) => r.name).join(' · ')} + ${c.regions.length - 3} more`)
-      : (c.record ? `${c.record.originRegion || ''}${
-          c.record.country ? ` · ${c.record.country}` : ''}`.replace(/^ · /, '') : '');
-    const note = c.record && c.record.compare ? c.record.compare.sensory : '';
-    const inner =
-      '<div class="cultivar-row__text">' +
-        `<span class="card-title cultivar-row__name">${esc(c.name)}</span>` +
-        `<span class="cultivar-row__where">${esc(where)}</span>` +
-        (note ? `<span class="cultivar-row__note">${esc(note)}</span>` : '') +
-      '</div>' +
-      // A variety with no oils yet says so in words rather than showing a 0.
-      (c.count > 0
-        ? `<span class="cultivar-row__count">${c.count} <span>${
-            c.count === 1 ? 'oil' : 'oils'}</span></span>`
-        : '<span class="cultivar-row__count cultivar-row__count--none"><span>Reference</span></span>') +
-      (c.hasPage ? ICON.arrow : '');
-    return c.hasPage
-      ? `<a class="card cultivar-row" href="${url.cultivar(c.slug)}">${inner}</a>`
-      : `<a class="card cultivar-row cultivar-row--filter" href="${
-          url.library()}?cultivar=${encodeURIComponent(c.slug)}">${inner}</a>`;
-  };
-
   const n = counts(D);
   const fill = (t) => R.fillCounts(t, n);
+  const trail = [{ label: 'Home', href: url.home() }, { label: 'Cultivars' }];
+
+  const joined = cultivarList(D);
+  const rows = CI.indexRows(D, joined);
+  const facets = CI.buildFacets(rows);
+  const withOils = rows.filter((r) => r.oils > 0).length;
+
+  /* "Start here" — four ways in, each one a filter that returns something.
+     Built from the rows so a shortcut cannot promise a count it will not
+     deliver, and dropped entirely if it would land on an empty shelf. */
+  const shortcut = (title, body, key, value, bg) => {
+    const count = rows.filter((r) => (r[key] || CI.NOT_PUBLISHED) === value).length;
+    if (!count) return '';
+    return `<a class="card cv-shortcut" style="background:${bg}"` +
+      ` href="${url.cultivars()}?${key}=${encodeURIComponent(value)}">` +
+      `<span class="cv-shortcut__title">${esc(title)}</span>` +
+      `<span class="cv-shortcut__body">${esc(body)}</span>` +
+      `<span class="cv-shortcut__count">${count} varieties →</span></a>`;
+  };
+
+  const shortcuts = [
+    shortcut('Pressed for oil', 'Varieties grown mainly to be milled, not cured.',
+      'purpose', 'Oil', 'var(--color-accent-100)'),
+    shortcut('Table olives', 'Grown to be cured and eaten whole.',
+      'purpose', 'Table', 'var(--color-accent-2-100)'),
+    shortcut('High polyphenol', 'The assertive end of the published range.',
+      'phenolBand', 'High', 'var(--color-surface)'),
+    shortcut('Nothing published yet', 'Varieties whose oil the literature has not measured.',
+      'phenolBand', CI.NOT_PUBLISHED, 'var(--color-neutral-100)'),
+  ].filter(Boolean).join('');
+
+  const facetRail = facets.map((f) =>
+    '<div class="cv-facet" data-facet="' + esc(f.key) + '">' +
+      `<span class="cv-facet__label">${esc(f.label)}</span>` +
+      '<div class="cv-facet__values">' + f.values.map((v) =>
+        `<button type="button" class="cv-chipbtn" data-value="${esc(v.value)}"` +
+        ` aria-pressed="false"${v.count ? '' : ' data-zero="1"'}>${esc(v.value)}` +
+        `<span class="cv-chipbtn__count">${v.count}</span></button>`).join('') +
+    '</div></div>').join('');
 
   const main = R.breadcrumb(trail) +
-    `<div class="library-head"><h1>Cultivars</h1><p>${esc(fill(meta.intro))}</p>${
-      meta.body.map((para) => `<p class="hub-body">${esc(fill(para))}</p>`).join('')}</div>
-     <div class="cultivar-list">${list.map(row).join('')}</div>`;
+    `<div class="cv-index" data-cultivar-index>
+      <div class="cv-hero">
+        <h1>${esc(fill(meta.heading || 'Olive varieties'))}</h1>
+        <p class="cv-hero__lede">${esc(meta.intro)}</p>
+        <div class="cv-search">
+          <form class="cv-search__form" role="search" action="${url.cultivars()}">
+            <div class="cv-search__field">${ICON.search}
+              <input class="input" type="search" name="q" autocomplete="off"
+                placeholder="Search a variety or a name on a label — Kalamata, Edremit, Bianchera…"
+                aria-label="Search the varieties" data-cv-search>
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+          <div class="cv-typeahead" data-cv-typeahead hidden></div>
+        </div>
+        <span class="cv-hero__note">${CI.synonymCount(rows)} alternative names are indexed,
+          so a regional synonym finds the right variety.</span>
+      </div>
+
+      ${shortcuts ? `<div class="cv-section">
+        <span class="card-kicker">Start here</span>
+        <div class="cv-shortcuts">${shortcuts}</div>
+      </div>` : ''}
+
+      <div class="cv-facets" data-cv-facets>${facetRail}</div>
+
+      <!-- Narrow screens get the same chips in a bottom sheet (artboard 4b).
+           It is the same markup moved, not a second copy of the facets: the
+           sheet is populated from the rail above at runtime, so the two can
+           never fall out of step. -->
+      <button type="button" class="cv-fab" data-cv-fab hidden>
+        Filter<span class="cv-fab__count" data-cv-fabcount hidden>0</span>
+      </button>
+      <div class="cv-sheet" data-cv-sheet hidden>
+        <div class="cv-sheet__scrim" data-cv-sheetclose></div>
+        <div class="cv-sheet__panel" role="dialog" aria-modal="true" aria-label="Filter varieties">
+          <div class="cv-sheet__grip"></div>
+          <div class="cv-sheet__head">
+            <span class="cv-sheet__title">Filter</span>
+            <button type="button" class="btn btn-ghost" data-cv-sheetclear>Clear all</button>
+          </div>
+          <div class="cv-sheet__body" data-cv-sheetbody></div>
+          <div class="cv-sheet__foot">
+            <button type="button" class="btn btn-secondary" data-cv-sheetreset>Reset</button>
+            <button type="button" class="btn btn-primary" data-cv-sheetapply>Show varieties</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-active" data-cv-active hidden></div>
+
+      <div class="cv-resultbar">
+        <div class="cv-resultbar__count">
+          <h2 data-cv-count>${rows.length} varieties</h2>
+          <span data-cv-filterstate>${withOils} of them have an oil in the library</span>
+        </div>
+        <div class="cv-sort">Sort
+          <div class="seg" role="radiogroup" aria-label="Sort varieties">
+            <label class="seg-opt"><input type="radio" name="cvsort" value="az" checked>A–Z</label>
+            <label class="seg-opt"><input type="radio" name="cvsort" value="country">By country</label>
+            <label class="seg-opt"><input type="radio" name="cvsort" value="oils">Oils in library</label>
+          </div>
+        </div>
+      </div>
+
+      <div class="cv-grid" data-cv-grid>${rows.map(cultivarCard).join('')}</div>
+
+      <div class="cv-more" data-cv-more hidden>
+        <span data-cv-showing></span>
+        <button type="button" class="btn btn-secondary" data-cv-showmore>Show more</button>
+      </div>
+
+      <div class="cv-empty" data-cv-empty hidden>
+        <div class="cv-empty__icon">${ICON.search}</div>
+        <h2>No varieties match every filter</h2>
+        <p data-cv-empty-text></p>
+        <div class="cv-empty__actions" data-cv-empty-actions></div>
+      </div>
+    </div>`;
 
   return shell({
     site,
@@ -433,10 +579,130 @@ function cultivarsIndex(D) {
       path: url.cultivars(),
       schema: [
         S.itemListPage(site, url.cultivars(), 'Cultivars', meta.description,
-          list.filter((c) => c.hasPage)
+          joined.filter((c) => c.hasPage)
             .map((c) => ({ name: c.name, url: url.cultivar(c.slug) }))),
         S.breadcrumbList(site, trail),
       ],
+    }),
+  });
+}
+
+/* ══ cultivars · compare ════════════════════════════════════════════════ */
+
+/* The rows the comparison offers, in the order the design lists them. Each
+   reads one field off an index row, so a row can report honestly that none of
+   the chosen varieties publishes it. */
+const COMPARE_ROWS = [
+  { key: 'region', label: 'Origin region' },
+  { key: 'purpose', label: 'Used for' },
+  { key: 'intensity', label: 'Intensity' },
+  { key: 'phenolRange', label: 'Polyphenols' },
+  { key: 'shelf', label: 'Shelf stability' },
+  { key: 'sensory', label: 'Sensory profile' },
+  { key: 'pairing', label: 'Best pairing' },
+  { key: 'also', label: 'Also called' },
+];
+
+const compareValue = (row, key) => {
+  if (key === 'pairing') return row.pairings.join(', ') || null;
+  if (key === 'also') return row.synonyms.join(', ') || null;
+  if (key === 'phenolRange') return CI.isUnpublished(row.phenolRange) ? null : row.phenolRange;
+  if (key === 'sensory') return CI.isUnpublished(row.sensory) ? null : row.sensory;
+  return row[key] || null;
+};
+
+function cultivarCompare(D) {
+  const site = D.site;
+  const trail = [
+    { label: 'Home', href: url.home() },
+    { label: 'Cultivars', href: url.cultivars() },
+    { label: 'Compare' },
+  ];
+
+  const rows = CI.indexRows(D, cultivarList(D));
+  /* The default three are the varieties the rest of the site already
+     benchmarks against, so the page is useful before anything is picked — and
+     it works with no JavaScript at all. */
+  const defaults = ['picual', 'coratina', 'koroneiki']
+    .map((slug) => rows.find((r) => r.slug === slug))
+    .filter(Boolean);
+
+  /* Every variety's comparable fields, embedded once. The picker re-renders
+     the table from this, so the client and the build can never disagree. */
+  const payload = JSON.stringify(rows.map((r) => ({
+    slug: r.slug, name: r.name, country: r.country,
+    cells: COMPARE_ROWS.map((def) => compareValue(r, def.key)),
+  }))).replace(/</g, '\\u003c');
+
+  const header = defaults.map((r) =>
+    `<div class="cv-cmp__col"><span class="cv-cmp__name">${esc(r.name)}</span>` +
+    `<span class="cv-cmp__country">${esc(r.country)}</span></div>`).join('');
+
+  const body = COMPARE_ROWS.map((def) => {
+    const values = defaults.map((r) => compareValue(r, def.key));
+    // A row none of the chosen varieties publishes is collapsed rather than
+    // filled with four copies of "Not published".
+    if (values.every((v) => v == null)) {
+      return `<div class="cv-cmp__collapsed" data-row="${esc(def.key)}">` +
+        `<span><strong>Row hidden</strong> — ${esc(def.label.toLowerCase())} is not published for ` +
+        'any of these varieties.</span></div>';
+    }
+    return `<div class="cv-cmp__row" data-row="${esc(def.key)}">` +
+      `<div class="cv-cmp__label">${esc(def.label)}</div>` +
+      values.map((v) => v == null
+        ? `<div class="cv-cmp__cell cv-none">${CI.NOT_PUBLISHED}</div>`
+        : `<div class="cv-cmp__cell">${esc(v)}</div>`).join('') +
+      '</div>';
+  }).join('');
+
+  const main = R.breadcrumb(trail) +
+    `<div class="cv-cmp" data-cv-compare data-cols="${defaults.length}">
+      <div class="cv-cmp__head">
+        <h1>Compare varieties</h1>
+        <p>Two to four at a time. Rows where none of the chosen varieties has a published value are
+          collapsed rather than filled with nothing.</p>
+      </div>
+
+      <div class="cv-cmp__picker" data-cv-picker>
+        <span class="cv-cmp__pickerlabel">Comparing</span>
+        <div class="cv-cmp__picks" data-cv-picks></div>
+        <label class="cv-cmp__add">
+          <span class="visually-hidden">Add a variety</span>
+          <select data-cv-add>
+            <option value="">Add a variety…</option>
+            ${rows.map((r) => `<option value="${esc(r.slug)}">${esc(r.name)}</option>`).join('')}
+          </select>
+        </label>
+        <span class="cv-cmp__slots" data-cv-slots>${defaults.length} of 4 slots used</span>
+      </div>
+
+      <div class="cv-cmp__table" data-cv-table style="--cv-cols:${defaults.length}">
+        <div class="cv-cmp__header">
+          <div class="cv-cmp__label"></div>
+          ${header}
+        </div>
+        ${body}
+      </div>
+
+      <span class="cv-cmp__note">The label column stays put while the variety columns scroll
+        sideways on a narrow screen.</span>
+      <script type="application/json" data-cv-data>${payload}</script>
+      <script type="application/json" data-cv-rows>${
+        JSON.stringify(COMPARE_ROWS).replace(/</g, '\\u003c')}</script>
+    </div>`;
+
+  return shell({
+    site,
+    bodyClass: 'page-body--library',
+    nav: R.nav(site, 'cultivars'),
+    main,
+    headHtml: S.head({
+      site,
+      title: 'Compare Olive Varieties Side by Side | bestoliveoils.eu',
+      description:
+        'Put two to four olive varieties side by side: origin, what the fruit is used for, polyphenol band, shelf stability and pairings. Unpublished values say so.',
+      path: url.cultivarCompare(),
+      schema: [S.breadcrumbList(site, trail)],
     }),
   });
 }
@@ -461,147 +727,197 @@ function cultivar(D, c) {
   const rec = c.record;
   const path = url.cultivar(c.slug);
   const filtered = `${url.library()}?cultivar=${encodeURIComponent(c.slug)}`;
+
+  const joined = cultivarList(D);
+  const rows = CI.indexRows(D, joined);
+  const row = rows.find((r) => r.slug === c.slug) || CI.indexRows(D, [])[0];
+  const unreviewed = rows.filter((r) => r.oils === 0).length;
+  const unscored = rows.filter((r) => !r.intensity).length;
+
   const trail = [
-    { label: 'Home', href: url.home() },
     { label: 'Cultivars', href: url.cultivars() },
+    { label: row.country, href: `${url.cultivars()}?country=${encodeURIComponent(row.country)}` },
     { label: c.name },
   ];
 
-  /* Two stats come from the record — things true of the variety whether or not
-     we stock it — and the library count is injected as a third only when there
-     is something to count. The design drew an average panel score as well; it
-     is not offered, because for most of these varieties we have tasted nothing
-     and an average of nothing is a lie. */
-  const stats = [
-    ...(rec.stats || []),
-    ...(c.count > 0
-      ? [{ value: c.count, label: `${c.count === 1 ? 'oil' : 'oils'} in the library` }]
-      : []),
-  ];
+  /* The stat row. Two facts about the variety, then a third that is computed
+     rather than authored — and while the library holds none of its oils the
+     slot says so instead of printing a zero. */
+  const stat = (value, label, muted) =>
+    '<div class="cv-stat">' +
+    `<span class="cv-stat__value${muted ? ' is-muted' : ''}">${esc(value)}</span>` +
+    `<span class="cv-stat__label">${esc(label)}</span></div>`;
 
-  const table = comparison(D, c.slug);
+  const statRow =
+    stat(row.purpose || CI.NOT_PUBLISHED, 'primary use of the fruit', !row.purpose) +
+    stat(row.phenolBand || CI.NOT_PUBLISHED, 'typical polyphenol band', !row.phenolBand) +
+    (c.count > 0
+      ? stat(String(c.count), c.count === 1 ? 'oil in the library' : 'oils in the library', false)
+      : '<div class="cv-stat cv-stat--pending">' +
+        '<span class="cv-stat__value is-muted">Fills when the library holds an oil</span>' +
+        '<span class="cv-stat__label">computed, not authored</span></div>');
 
-  /* The design's aroma wheel, without its numbers.
-     It drew "Green tomato 9.1", which implies a panel scored this variety on a
-     scale. IOC-method medians do not exist for most of these forty, so the
-     record carries documented descriptors and a note saying where they came
-     from. Descriptors are ordered, so they are numbered by rank — which is a
-     claim we can stand behind — and never by intensity. */
-  const aroma = rec.aroma && rec.aroma.length
-    ? '<div class="card cultivar-card cultivar-aroma">' +
-        '<span class="card-kicker">Aroma descriptors</span>' +
-        '<ol class="cultivar-aroma__list">' +
-        rec.aroma.map((a) => `<li>${esc(a)}</li>`).join('') +
-        '</ol>' +
-        (rec.aromaNote ? `<p class="cultivar-aroma__note">${esc(rec.aromaNote)}</p>` : '') +
-      '</div>'
+  /* The single most useful thing on the page for a reader who arrived holding
+     the wrong name. Five of the forty records carry a row that exists purely
+     to stop a misidentification. */
+  const confused = row.confusion
+    ? `<div class="cv-confused">
+        <div class="cv-confused__body">
+          <span class="cv-confused__kicker">${esc(row.confusion.label)}</span>
+          <p>${esc(row.confusion.text)}</p>
+        </div>
+      </div>`
     : '';
 
-  /* Where the record's figures came from. This site's whole claim is that a
-     number can be traced, so the trail is on the page, not in a commit. */
-  const sources = rec.sources && rec.sources.length
-    ? '<div class="card cultivar-card cultivar-sources">' +
-        '<span class="card-kicker">Sources</span><ul>' +
-        rec.sources.map((src) => '<li>' + (src.url
-          ? `<a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.label)}</a>`
-          : esc(src.label)) + '</li>').join('') +
-      '</ul></div>'
+  /* Descriptors, ordered by how often they recur in the literature — not
+     measured intensities. The type size follows the rank, which is a claim we
+     can stand behind; a number next to each one would not be. */
+  const SIZES = ['21px', '19px', '17.5px', '16px', '15px'];
+  /* Seven records carry a single "Not published" in place of descriptors.
+     Ranking that would put the words "Not published" at the top of a list in
+     the largest type, as though it were the dominant aroma — so an empty set
+     drops the ranked list and keeps only the note that explains it. */
+  const aroma = (rec.aroma || []).filter((a) => !CI.isUnpublished(a));
+  const descriptors = aroma.length
+    ? `<div class="cv-descriptors">
+        <h3>Aroma and flavour descriptors</h3>
+        <ol class="cv-descriptors__list">${aroma.map((a, i) =>
+          '<li><span class="cv-descriptors__rank">' + (i + 1) + '</span>' +
+          `<span class="cv-descriptors__label" style="font-size:${SIZES[Math.min(i, 4)]}">${
+            esc(a)}</span></li>`).join('')}</ol>
+        ${rec.aromaNote ? `<p class="cv-descriptors__note">${esc(rec.aromaNote)}</p>` : ''}
+        ${row.intensity ? '' : `<p class="cv-descriptors__note">Ordered by how often each recurs in
+          the published varietal literature, not by measured intensity. Our panel has not scored a
+          monovarietal ${esc(c.name)} oil, and no sensory panel data for it is published.
+          ${unscored} of the ${rows.length} varieties here read the same way.</p>`}
+      </div>`
+    : `<div class="cv-descriptors">
+        <h3>Aroma and flavour descriptors</h3>
+        <p class="cv-descriptors__note">No descriptors are published for
+          ${esc(c.name)} oil.${rec.aromaNote ? ` ${esc(rec.aromaNote)}` : ''} We do not infer them
+          from the fruit or from related varieties — ${unscored} of the ${rows.length} varieties
+          here are in the same position.</p>
+      </div>`;
+
+  const shelf = c.count > 0
+    ? `<div class="cv-shelf">
+        <div class="section-head"><div class="section-head__text">
+          <h3>${esc(c.name)} oils in the library</h3>
+          <span class="section-head__sub">From ${c.producers.length} ${
+            c.producers.length === 1 ? 'producer' : 'producers'}</span></div>
+          <a href="${esc(filtered)}">All ${c.count} →</a></div>
+        <div class="oil-grid-3">${
+          bestFirst(c.oils).slice(0, 3).map((o) => R.oilCard(site, o, true)).join('')}</div>
+      </div>`
+    : `<div class="cv-shelf cv-shelf--empty">
+        <span class="card-kicker">Oils in the library</span>
+        <span class="cv-shelf__title">No ${esc(c.name)} oils reviewed yet</span>
+        <p>This shelf fills when the panel scores an oil made from this variety.
+          ${unreviewed} of the ${rows.length} varieties here are in the same state today.</p>
+      </div>`;
+
+  /* Scoped to the variety's own country, because that is the comparison a
+     reader on this page is actually making. */
+  const table = CI.filterRows(rows, { country: [row.country] });
+  const cell = (value) => value
+    ? `<td>${esc(value)}</td>`
+    : `<td class="cv-none">${CI.NOT_PUBLISHED}</td>`;
+
+  const comparison = table.length > 1
+    ? `<section class="cv-compare-block">
+        <div class="section-head"><div class="section-head__text">
+          <h2>${esc(c.name)} against the other ${esc(row.country)} varieties</h2></div>
+          <a class="btn btn-secondary" href="${url.cultivarCompare()}?pick=${
+            encodeURIComponent(table.slice(0, 3).map((r) => r.slug).join(','))}">Open in compare</a></div>
+        <div class="table-scroll"><table class="table">
+          <thead><tr><th scope="col">Variety</th><th scope="col">Origin region</th>
+            <th scope="col">Used for</th><th scope="col">Polyphenols</th>
+            <th scope="col">Shelf stability</th></tr></thead>
+          <tbody>${table.map((r) => {
+            const here = r.slug === c.slug;
+            return `<tr${here ? ' class="is-current"' : ''}>` +
+              '<th scope="row">' + (here
+                ? `<span class="cultivar-current">${esc(r.name)}</span>`
+                : `<a href="${url.cultivar(r.slug)}">${esc(r.name)}</a>`) + '</th>' +
+              `<td class="text-muted">${esc(r.region)}</td>` +
+              cell(r.purpose) + cell(r.phenolBand && r.phenolRange) + cell(r.shelf) +
+            '</tr>';
+          }).join('')}</tbody>
+        </table></div>
+      </section>`
     : '';
 
-  const mapCard = rec.map
-    ? '<div class="cultivar-map">' +
-        media(null, rec.map.placeholder, 'cultivar-map__media media--circle') +
-        (rec.map.caption ? `<span class="cultivar-map__caption">${esc(rec.map.caption)}</span>` : '') +
-      '</div>'
+  const sources = (rec.sources || []).length
+    ? `<div class="cv-sources">
+        <h3>Sources</h3>
+        <ol class="cv-sources__list">${(rec.sources || []).map((src) =>
+          '<li>' + (src.url
+            ? `<a href="${esc(src.url)}" target="_blank" rel="noopener">${esc(src.label)}</a>`
+            : `<span>${esc(src.label)}</span>`) + '</li>').join('')}</ol>
+        <p class="cv-sources__note">Every figure on this page carries a source. Where we could not
+          find one we say so rather than estimating. Corrections are welcome and credited.</p>
+      </div>`
     : '';
 
   const main = R.breadcrumb(trail) +
-    `<section class="cultivar-hero">
-      <div class="cultivar-hero__copy">
-        <div class="cultivar-hero__tags">${(rec.tags || []).map((t, i) =>
-          `<span class="tag ${i === 0 ? 'tag-accent-2' : 'tag-neutral'}">${esc(t)}</span>`).join('')}</div>
-        <h1>${esc(c.name)}</h1>
-        <p class="cultivar-hero__lede">${esc(rec.lede)}</p>
-        <div class="producer-stats">${stats.map((s) =>
-          `<div class="producer-stat"><span class="producer-stat__value">${esc(s.value)}</span>` +
-          `<span class="producer-stat__label">${esc(s.label)}</span></div>`).join('')}</div>
-        <div class="cultivar-hero__actions">
-          ${c.count > 0
-            ? `<a class="btn btn-primary" href="${esc(filtered)}">Browse ${c.count} ${
-                esc(c.name)} ${c.count === 1 ? 'oil' : 'oils'}</a>`
-            : ''}
-          <a class="btn ${c.count > 0 ? 'btn-secondary' : 'btn-primary'}" href="#compare">Compare cultivars</a>
-        </div>
-      </div>
-      ${media(rec.image, rec.imagePlaceholder, 'cultivar-hero__media washed', '', { priority: true })}
-    </section>
-
-    <div class="cultivar-columns">
-      <div class="cultivar-main">
-        <section class="section">
-          <h2>In the grove</h2>
-          ${rec.grove.map((para) => `<p class="cultivar-prose">${esc(para)}</p>`).join('')}
-        </section>
-
-        <section class="section" id="compare">
-          <h2>Compared with the other reference cultivars</h2>
-          <div class="table-scroll"><table class="table">
-            <thead><tr>
-              <th scope="col">Cultivar</th><th scope="col">Origin</th>
-              <th scope="col">Typical polyphenols</th><th scope="col">Sensory profile</th>
-              <th scope="col">Best pairing</th>
-            </tr></thead>
-            <tbody>${table.map((t) => {
-              const name = t.current
-                ? `<span class="cultivar-current">${esc(t.name)}</span>`
-                : esc(t.name);
-              return `<tr${t.current ? ' class="is-current"' : ''}>` +
-                `<th scope="row">${name}</th>` +
-                `<td>${esc(t.origin)}</td><td>${esc(t.phenolRange)}</td>` +
-                `<td>${esc(t.sensory)}</td><td>${esc(t.pairing)}</td></tr>`;
-            }).join('')}</tbody>
-          </table></div>
-          <p class="cultivar-caveat">Polyphenol figures are the ranges published for each variety, not
-            measurements of any bottle in the library. A single oil's figure depends on when it was
-            picked and how it was milled, and is shown on that oil's own page where the producer
-            states one.</p>
-        </section>
-
-        ${c.count > 0 ? `<section class="section">
-          <div class="section-head">
-            <div class="section-head__text"><h2>${esc(c.name)} oils in the library</h2>
-              <span class="section-head__sub">From ${c.producers.length} ${
-                c.producers.length === 1 ? 'producer' : 'producers'} in ${c.regions.length} ${
-                c.regions.length === 1 ? 'region' : 'regions'}</span></div>
-            <a href="${esc(filtered)}">All ${c.count} →</a>
+    `<div class="cv-detail">
+      <section class="cv-detail__hero">
+        <div class="cv-detail__copy">
+          <div class="cv-detail__tags">
+            <span class="tag tag-accent-2">${esc(row.country)}${
+              row.region ? ` · ${esc(row.region)}` : ''}</span>
+            ${row.purpose ? `<span class="tag tag-neutral">${esc(row.purpose)}</span>` : ''}
+            ${bandChip(row.intensity, 'intensity')}
           </div>
-          <div class="oil-grid-3">${
-            bestFirst(c.oils).slice(0, 6).map((o) => R.oilCard(site, o, true)).join('')}</div>
-        </section>` : ''}
-      </div>
-
-      <aside class="cultivar-side">
-        <div class="card cultivar-card">
-          <span class="card-kicker">Reference card</span>
-          <table class="table facts-table"><tbody>${
-            (rec.reference || []).map(([label, value]) =>
-              `<tr><th scope="row">${esc(label)}</th><td>${esc(value)}</td></tr>`).join('')}${
-            c.count > 0
-              ? `<tr><th scope="row">In the library</th><td>${c.count} ${
-                  c.count === 1 ? 'oil' : 'oils'}</td></tr>`
+          <div class="cv-detail__title">
+            <h1>${esc(c.name)}</h1>
+            ${row.synonyms.length
+              ? `<span class="cv-detail__also">also called ${esc(row.synonyms.join(', '))}</span>`
               : ''}
-          </tbody></table>
+          </div>
+          <p class="cv-detail__lede">${esc(rec.lede)}</p>
+          ${confused}
+          <div class="cv-stats">${statRow}</div>
         </div>
-        ${aroma}
-        ${c.regions.length ? `<div class="card cultivar-card">
-          <span class="card-kicker">Where it grows here</span>
-          <ul class="cultivar-regions">${c.regions.map((r) =>
-            `<li><a href="${url.library()}?region=${encodeURIComponent(r.slug)}">${
-              esc(r.name)}</a><span>${esc(r.country)}</span></li>`).join('')}</ul>
-        </div>` : ''}
-        ${mapCard}
+        <div class="cv-detail__side">
+          ${media(rec.image, rec.imagePlaceholder, 'cv-detail__media', '', { priority: true })}
+          <div class="card cv-refcard">
+            <span class="card-kicker">Reference card</span>
+            <table class="table facts-table"><tbody>${(rec.reference || []).map(([label, value]) =>
+              `<tr><th scope="row">${esc(label)}</th>` +
+              (CI.isUnpublished(value)
+                ? `<td class="cv-none">${CI.NOT_PUBLISHED}</td>`
+                : `<td>${esc(value)}</td>`) + '</tr>').join('')}
+            </tbody></table>
+            <span class="cv-refcard__note">Shelf stability is the published Rancimat induction time
+              where one exists. It is measured per variety; smoke point is not, so it is not listed.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="cv-detail__grove">
+        <div class="cv-grove">
+          <h2>In the grove</h2>
+          ${(rec.body || []).map((para) => `<p>${esc(para)}</p>`).join('')}
+          <div class="cv-grove__photos">
+            ${media(null, 'Grove — placeholder', 'cv-grove__photo washed')}
+            ${media(null, 'Fruit at harvest — placeholder', 'cv-grove__photo washed')}
+          </div>
+        </div>
+        <div class="cv-detail__rail">${descriptors}${shelf}</div>
+      </section>
+
+      ${comparison}
+
+      <section class="cv-detail__foot">
         ${sources}
-      </aside>
+        <div class="cv-detail__map">
+          ${media(null, (rec.map && rec.map.placeholder) || `Map — ${row.region}`, 'cv-map media--circle')}
+          ${rec.map && rec.map.caption
+            ? `<span class="cv-map__caption">${esc(rec.map.caption)}</span>`
+            : ''}
+        </div>
+      </section>
     </div>`;
 
   return shell({
@@ -619,11 +935,12 @@ function cultivar(D, c) {
       schema: [
         S.itemListPage(site, path, `${c.name} olive oils`, rec.seo.description,
           c.oils.map((o) => ({ name: o.name, url: url.oil(o.slug) }))),
-        S.breadcrumbList(site, trail),
+        S.breadcrumbList(site, [{ label: 'Home', href: url.home() }, ...trail]),
       ],
     }),
   });
 }
+
 
 function learnIndex(D) {
   const site = D.site;
@@ -1275,6 +1592,7 @@ function guide(D, g) {
 }
 
 module.exports = {
+  cultivarCompare,
   home, library, producersIndex, cultivarsIndex, learnIndex,
   oil, cultivar, producer, guide,
 };

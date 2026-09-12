@@ -25,6 +25,7 @@ const url = {
   learn: () => '/learn/',
   oil: (slug) => `/oils/${slug}/`,
   cultivar: (slug) => `/cultivars/${slug}/`,
+  cultivarCompare: () => '/cultivars/compare/',
   producer: (slug) => `/producers/${slug}/`,
   guide: (slug) => `/learn/${slug}/`,
 };

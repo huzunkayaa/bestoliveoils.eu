@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/organic-cde7ec0e-c043-4bea-b643-ce6e55b8c953/styles.css">
+<script src="_ds/organic-cde7ec0e-c043-4bea-b643-ce6e55b8c953/_ds_bundle.js"></script>
+<script src="./image-slot.js"></script>
+<style>body{margin:0;background:var(--color-neutral-100);padding:40px} a{color:var(--color-accent-700)} a:hover{color:var(--color-accent-800)}</style>
+</helmet>
+
+<div style="display:flex;flex-direction:column;gap:64px;align-items:flex-start">
+
+<div style="display:flex;flex-direction:column;gap:8px;max-width:920px;font-family:var(--font-body)">
+  <h2 style="margin:0">Cultivars section · four artboards</h2>
+  <p style="margin:0;color:var(--color-neutral-700);font-size:15px;text-wrap:pretty">Forty varieties across seven country groups. Every chip count, card and table cell below is derived from the same record set, so the numbers agree with each other. No sensory scores, no star ratings, and no polyphenol figures beyond the four published shelf-stability measurements — anything unpublished reads "Not published".</p>
+</div>
+
+<!-- ══════════════════ 1a · INDEX, DEFAULT ══════════════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">Artboard 1a · Cultivars index — default</div>
+<div data-screen-label="1a Index default" style="width:1360px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:20px 52px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Olive oils</a><a href="#">Producers &amp; mills</a><a href="#" aria-current="page">Cultivars</a><a href="#">Learn</a><a href="#">HPLC &amp; health</a>
+    <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13.5px;padding:9px 20px">Buy verified bottles</a>
+  </nav>
+  <div style="padding:24px 52px 64px;display:flex;flex-direction:column;gap:38px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Home</a><span>/</span><span>Cultivars</span></div>
+
+    <!-- hero + search -->
+    <div style="display:flex;flex-direction:column;gap:20px;max-width:840px">
+      <h1 style="font-size:58px;margin:0;line-height:1.02;text-wrap:pretty">Forty olive varieties, from Portugal to Türkiye</h1>
+      <p style="font-size:18.5px;line-height:1.5;margin:0;color:var(--color-neutral-800);max-width:700px">Look up the name on your label, or filter by how the oil tastes and what you are cooking.</p>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div style="position:relative;flex:1">
+          <svg style="position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--color-neutral-600)" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input class="input" style="height:64px;padding-left:56px;padding-right:20px;font-size:17px" placeholder="Search a variety or a name on a label — Kalamata, Edremit, Bianchera…" value="">
+        </div>
+        <button class="btn btn-primary" style="height:64px;padding:0 34px;font-size:16px">Search</button>
+      </div>
+      <span style="font-size:13.5px;color:var(--color-neutral-700)">117 alternative names are indexed, so regional synonyms find the right variety.</span>
+    </div>
+
+    <!-- shortcuts -->
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <span class="card-kicker">Start here</span>
+      <div style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px">
+        <sc-for list="{{ shortcuts }}" as="s" hint-placeholder-count="4">
+          <a href="#" class="card" style="padding:22px 24px;gap:7px;text-decoration:none;color:inherit;background:{{ s.bg }}">
+            <span style="font-family:var(--font-heading);font-size:21px;line-height:1.15">{{ s.title }}</span>
+            <span style="font-size:13.5px;line-height:1.5;color:var(--color-neutral-800)">{{ s.body }}</span>
+            <span style="font-size:13px;font-weight:600;color:var(--color-accent-700);margin-top:4px">{{ s.count }} varieties →</span>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+
+    <!-- facets -->
+    <div style="display:flex;flex-direction:column;gap:22px;padding:28px 32px;background:var(--color-surface);border-radius:calc(var(--radius-lg) * 1.4)">
+      <sc-for list="{{ facets }}" as="f" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:center">
+          <span style="font:600 12px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">{{ f.label }}</span>
+          <div style="display:flex;gap:9px;flex-wrap:wrap">
+            <sc-for list="{{ f.values }}" as="v" hint-placeholder-count="5">
+              <button style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid {{ v.border }};background:{{ v.bg }};color:{{ v.fg }};font:{{ v.weight }} 13.5px var(--font-body);cursor:pointer;opacity:{{ v.opacity }}">
+                {{ v.name }}<span style="font-size:11.5px;color:{{ v.countColor }}">{{ v.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <!-- active filters + count + sort -->
+    <div style="display:flex;flex-direction:column;gap:18px">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <h2 style="margin:0;font-size:30px">40 varieties</h2>
+          <span style="font-size:14px;color:var(--color-neutral-700)">no filters applied</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:9px;font-size:13px;color:var(--color-neutral-700)">
+          Sort
+          <div class="seg"><label class="seg-opt"><input type="radio" name="sort1" defaultChecked="{{ true }}">A–Z</label><label class="seg-opt"><input type="radio" name="sort1">By country</label><label class="seg-opt"><input type="radio" name="sort1">Most planted</label><label class="seg-opt"><input type="radio" name="sort1">Highest polyphenols</label></div>
+        </div>
+      </div>
+
+      <!-- grid -->
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px">
+        <sc-for list="{{ gridA }}" as="c" hint-placeholder-count="9">
+          <a href="#" class="card elev-sm" style="padding:0;overflow:hidden;gap:0;text-decoration:none;color:inherit">
+            <div style="position:relative;height:150px;background:var(--color-neutral-200)"><image-slot id="{{ c.slot }}" shape="rect" placeholder="{{ c.name }} — fruit or leaf"></image-slot></div>
+            <div style="padding:20px 22px 22px;display:flex;flex-direction:column;gap:11px">
+              <div style="display:flex;flex-direction:column;gap:3px">
+                <span class="card-kicker">{{ c.country }} · {{ c.region }}</span>
+                <span style="font-family:var(--font-heading);font-size:26px;line-height:1.1">{{ c.name }}</span>
+                <sc-if value="{{ c.hasAlso }}" hint-placeholder-val="{{ true }}"><span style="font-size:12.5px;color:var(--color-neutral-700);font-style:italic">also called {{ c.also }}</span></sc-if>
+              </div>
+              <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <span class="tag" style="background:{{ c.intBg }};color:{{ c.intFg }};font-size:11.5px;padding:4px 11px;font-weight:600">{{ c.intensity }}</span>
+                <span class="tag" style="background:{{ c.phBg }};color:{{ c.phFg }};font-size:11.5px;padding:4px 11px;font-weight:600">{{ c.phenolLabel }}</span>
+              </div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:13px 0;border-top:1px solid var(--color-divider);border-bottom:1px solid var(--color-divider)">
+                <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-heading);font-size:17px;line-height:1.2;color:{{ c.statAColor }}">{{ c.statAValue }}</span><span style="font-size:11px;color:var(--color-neutral-700);line-height:1.35">{{ c.statALabel }}</span></div>
+                <div style="display:flex;flex-direction:column;gap:2px"><span style="font-family:var(--font-heading);font-size:17px;line-height:1.2;color:{{ c.statBColor }}">{{ c.statBValue }}</span><span style="font-size:11px;color:var(--color-neutral-700);line-height:1.35">{{ c.statBLabel }}</span></div>
+              </div>
+              <div style="display:flex;gap:6px;flex-wrap:wrap">
+                <sc-for list="{{ c.pairings }}" as="p" hint-placeholder-count="3">
+                  <span class="tag tag-outline" style="font-size:11px;padding:3px 10px">{{ p }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
+        <span style="font-size:13.5px;color:var(--color-neutral-700)">Showing 9 of 40 varieties</span>
+        <button class="btn btn-secondary" style="padding:11px 28px">Show 31 more</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════ 1b · TYPEAHEAD ══════════════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">Artboard 1b · Index — typeahead open, synonym match</div>
+<div data-screen-label="1b Index typeahead" style="width:1360px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:20px 52px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Olive oils</a><a href="#">Producers &amp; mills</a><a href="#" aria-current="page">Cultivars</a><a href="#">Learn</a><a href="#">HPLC &amp; health</a>
+    <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13.5px;padding:9px 20px">Buy verified bottles</a>
+  </nav>
+  <div style="padding:24px 52px 56px;display:flex;flex-direction:column;gap:24px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Home</a><span>/</span><span>Cultivars</span></div>
+    <div style="display:flex;flex-direction:column;gap:20px;max-width:840px">
+      <h1 style="font-size:58px;margin:0;line-height:1.02;text-wrap:pretty">Forty olive varieties, from Portugal to Türkiye</h1>
+      <p style="font-size:18.5px;line-height:1.5;margin:0;color:var(--color-neutral-800);max-width:700px">Look up the name on your label, or filter by how the oil tastes and what you are cooking.</p>
+      <!-- search with panel -->
+      <div style="position:relative">
+        <div style="display:flex;gap:12px;align-items:center">
+          <div style="position:relative;flex:1">
+            <svg style="position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--color-accent)" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+            <input class="input" style="height:64px;padding-left:56px;padding-right:20px;font-size:17px;border-color:var(--color-accent);outline:2px solid var(--color-accent);outline-offset:2px" value="kalamata">
+          </div>
+          <button class="btn btn-primary" style="height:64px;padding:0 34px;font-size:16px">Search</button>
+        </div>
+        <!-- panel -->
+        <div style="margin-top:10px;background:#fff;border:1px solid var(--color-divider);border-radius:calc(var(--radius-lg) * 1.2);box-shadow:var(--shadow-lg);overflow:hidden">
+          <div style="padding:12px 24px;background:var(--color-surface);font:600 11.5px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">3 matches for “kalamata”</div>
+          <sc-for list="{{ typeahead }}" as="t" hint-placeholder-count="3">
+            <div style="display:flex;gap:18px;align-items:flex-start;padding:18px 24px;border-top:1px solid var(--color-divider);background:{{ t.bg }}">
+              <div style="width:44px;height:44px;border-radius:50%;background:var(--color-accent-2-100);color:var(--color-accent-2-900);display:grid;place-items:center;font-family:var(--font-heading);font-size:18px;flex:none">{{ t.initial }}</div>
+              <div style="display:flex;flex-direction:column;gap:6px;flex:1;min-width:0">
+                <div style="display:flex;align-items:baseline;gap:10px;flex-wrap:wrap">
+                  <span style="font-family:var(--font-heading);font-size:20px">{{ t.name }}</span>
+                  <span style="font-size:13px;color:var(--color-neutral-700)">{{ t.country }}</span>
+                  <sc-if value="{{ t.hasAlso }}" hint-placeholder-val="{{ true }}"><span style="font-size:13px;color:var(--color-neutral-700);font-style:italic">also called {{ t.also }}</span></sc-if>
+                </div>
+                <sc-if value="{{ t.hasNote }}" hint-placeholder-val="{{ true }}">
+                  <div style="display:flex;gap:10px;align-items:flex-start;padding:11px 14px;background:var(--color-accent-2-100);border-radius:var(--radius-md)">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent-2-800);flex:none;margin-top:1px"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+                    <div style="display:flex;flex-direction:column;gap:2px">
+                      <span style="font:600 11px var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--color-accent-2-800)">Clears up a common mix-up</span>
+                      <span style="font-size:13.5px;line-height:1.5;color:var(--color-accent-2-900)">{{ t.note }}</span>
+                    </div>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="display:flex;gap:7px;flex:none;align-items:center">
+                <span class="tag" style="background:{{ t.intBg }};color:{{ t.intFg }};font-size:11.5px;padding:4px 11px;font-weight:600">{{ t.intensity }}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent)"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+              </div>
+            </div>
+          </sc-for>
+          <a href="#" style="display:block;padding:14px 24px;border-top:1px solid var(--color-divider);font-size:13.5px;font-weight:600;text-decoration:none">See all 40 varieties</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════ 1c · EMPTY STATE ══════════════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">Artboard 1c · Index — active filters, no matches</div>
+<div data-screen-label="1c Index empty" style="width:1360px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:20px 52px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Olive oils</a><a href="#">Producers &amp; mills</a><a href="#" aria-current="page">Cultivars</a><a href="#">Learn</a><a href="#">HPLC &amp; health</a>
+    <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13.5px;padding:9px 20px">Buy verified bottles</a>
+  </nav>
+  <div style="padding:24px 52px 64px;display:flex;flex-direction:column;gap:30px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Home</a><span>/</span><span>Cultivars</span></div>
+    <div style="position:relative;max-width:840px">
+      <svg style="position:absolute;left:22px;top:50%;transform:translateY(-50%);color:var(--color-neutral-600)" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+      <input class="input" style="height:60px;padding-left:56px;font-size:16px" placeholder="Search a variety or a name on a label — Kalamata, Edremit, Bianchera…" value="">
+    </div>
+    <!-- facets, constrained -->
+    <div style="display:flex;flex-direction:column;gap:22px;padding:28px 32px;background:var(--color-surface);border-radius:calc(var(--radius-lg) * 1.4)">
+      <sc-for list="{{ facetsEmpty }}" as="f" hint-placeholder-count="4">
+        <div style="display:grid;grid-template-columns:132px minmax(0,1fr);gap:22px;align-items:center">
+          <span style="font:600 12px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">{{ f.label }}</span>
+          <div style="display:flex;gap:9px;flex-wrap:wrap">
+            <sc-for list="{{ f.values }}" as="v" hint-placeholder-count="5">
+              <button style="display:flex;align-items:center;gap:8px;padding:8px 16px;border-radius:999px;border:1px solid {{ v.border }};background:{{ v.bg }};color:{{ v.fg }};font:{{ v.weight }} 13.5px var(--font-body);cursor:pointer;opacity:{{ v.opacity }}">
+                {{ v.name }}<span style="font-size:11.5px;color:{{ v.countColor }}">{{ v.count }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <!-- active row -->
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="font-size:13px;color:var(--color-neutral-700)">Filtering by</span>
+      <span class="tag tag-accent" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:7px 14px">Portugal<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span>
+      <span class="tag tag-accent" style="display:inline-flex;align-items:center;gap:7px;font-size:13px;padding:7px 14px">Delicate<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span>
+      <a href="#" style="font-size:13px;font-weight:600">Clear all</a>
+    </div>
+    <!-- empty state -->
+    <div style="display:flex;flex-direction:column;align-items:flex-start;gap:20px;padding:52px 56px;background:var(--color-surface);border-radius:calc(var(--radius-lg) * 1.5);max-width:820px">
+      <div style="width:72px;height:72px;border-radius:50%;background:var(--color-accent-100);color:var(--color-accent-700);display:grid;place-items:center">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path><path d="M8 11h6"></path></svg>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <h2 style="margin:0;font-size:32px">No varieties match both filters</h2>
+        <p style="margin:0;font-size:16.5px;line-height:1.6;color:var(--color-neutral-800);max-width:620px;text-wrap:pretty">The library holds three Portuguese varieties — Galega, Cobrançosa and Verdeal Transmontana — and only Galega is classed as delicate on its own. Loosen one filter and you will have results.</p>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-primary" style="height:46px;padding:0 22px;font-size:14.5px">Remove “Delicate” · 3 varieties</button>
+        <button class="btn btn-secondary" style="height:46px;padding:0 22px;font-size:14.5px">Remove “Portugal” · 10 varieties</button>
+        <button class="btn btn-ghost" style="height:46px;padding:0 18px;font-size:14.5px">Clear all · 40 varieties</button>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:11px;padding-top:22px;border-top:1px solid var(--color-divider);width:100%">
+        <span class="card-kicker">Closest to what you asked for</span>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <sc-for list="{{ nearMisses }}" as="n" hint-placeholder-count="3">
+            <a href="#" style="display:flex;flex-direction:column;gap:3px;padding:14px 18px;background:#fff;border-radius:var(--radius-lg);text-decoration:none;color:inherit;min-width:190px">
+              <span style="font-family:var(--font-heading);font-size:18px">{{ n.name }}</span>
+              <span style="font-size:12.5px;color:var(--color-neutral-700)">{{ n.meta }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════ 2 · DETAIL ══════════════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">Artboard 2 · Cultivar detail — Kalamon (unpublished-data case)</div>
+<div data-screen-label="2 Cultivar detail" style="width:1360px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:20px 52px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Olive oils</a><a href="#">Producers &amp; mills</a><a href="#" aria-current="page">Cultivars</a><a href="#">Learn</a><a href="#">HPLC &amp; health</a>
+    <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13.5px;padding:9px 20px">Buy verified bottles</a>
+  </nav>
+  <div style="padding:24px 52px 64px;display:flex;flex-direction:column;gap:52px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px;flex-wrap:wrap"><a href="#" style="color:inherit">Cultivars</a><span>/</span><a href="#" style="color:inherit">Greece</a><span>/</span><span>Kalamon</span></div>
+
+    <!-- hero: answer above the fold -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 470px;gap:56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span class="tag tag-accent-2">Greece · Messenia &amp; Laconia</span>
+          <span class="tag tag-neutral">Dual-purpose</span>
+          <span class="tag" style="background:var(--color-neutral-200);color:var(--color-neutral-700);font-style:italic">Intensity not published</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <h1 style="font-size:64px;margin:0;line-height:1.0">Kalamon</h1>
+          <span style="font-size:16px;color:var(--color-neutral-700);font-style:italic">also called Kalamata, Kalamata olive, Aetonychi</span>
+        </div>
+        <p style="font-size:19px;line-height:1.6;margin:0;color:var(--color-neutral-800);max-width:640px;text-wrap:pretty">Kalamon is grown above all as a table olive, the large almond-shaped black fruit sold across Europe as Kalamata. A small quantity of oil is pressed from it, usually in blends rather than as a monovarietal, which is why published varietal data on the oil is thin.</p>
+        <!-- commonly confused -->
+        <div style="display:flex;gap:16px;align-items:flex-start;padding:22px 26px;background:var(--color-accent-2-100);border-radius:calc(var(--radius-lg) * 1.2);max-width:660px">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent-2-800);flex:none;margin-top:2px"><path d="M8 3H5a2 2 0 0 0-2 2v3"></path><path d="M21 8V5a2 2 0 0 0-2-2h-3"></path><path d="M3 16v3a2 2 0 0 0 2 2h3"></path><path d="M16 21h3a2 2 0 0 0 2-2v-3"></path><path d="M9 15l6-6"></path><path d="M15 15l-6-6"></path></svg>
+          <div style="display:flex;flex-direction:column;gap:5px">
+            <span style="font:600 11.5px var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--color-accent-2-800)">Commonly confused with</span>
+            <span style="font-family:var(--font-heading);font-size:19px;line-height:1.3;color:var(--color-accent-2-900)">Kalamata PDO olive oil, which is pressed from Koroneiki</span>
+            <span style="font-size:14.5px;line-height:1.6;color:var(--color-accent-2-900);text-wrap:pretty">The protected designation refers to the region around Kalamata, not to the Kalamon variety. A bottle labelled Kalamata PDO is almost always Koroneiki oil. <a href="#">See Koroneiki →</a></span>
+          </div>
+        </div>
+        <!-- stat row: two facts, third slot documented -->
+        <div style="display:flex;gap:14px;flex-wrap:wrap">
+          <div style="display:flex;flex-direction:column;gap:4px;padding:20px 26px;background:var(--color-surface);border-radius:var(--radius-lg);min-width:200px">
+            <span style="font-family:var(--font-heading);font-size:30px;line-height:1.05">Table</span>
+            <span style="font-size:12.5px;color:var(--color-neutral-700)">primary use of the fruit</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:20px 26px;background:var(--color-surface);border-radius:var(--radius-lg);min-width:200px">
+            <span style="font-family:var(--font-heading);font-size:30px;line-height:1.05;color:var(--color-neutral-600)">Not published</span>
+            <span style="font-size:12.5px;color:var(--color-neutral-700)">typical polyphenol band</span>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;padding:20px 26px;border:1px dashed var(--color-neutral-300);border-radius:var(--radius-lg);min-width:200px">
+            <span style="font-family:var(--font-heading);font-size:15px;line-height:1.3;color:var(--color-neutral-600)">Third slot appears once<br>the library holds oils</span>
+            <span style="font-size:12.5px;color:var(--color-neutral-700)">computed, not authored</span>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:20px">
+        <div style="position:relative;height:340px"><image-slot id="cv-hero" shape="rounded" radius="40" placeholder="Kalamon fruit — placeholder, no photo yet"></image-slot></div>
+        <!-- reference card -->
+        <div class="card" style="padding:24px 26px;gap:14px">
+          <span class="card-kicker">Reference card</span>
+          <table class="table" style="font-size:13.5px">
+            <tbody>
+              <sc-for list="{{ refCard }}" as="r" hint-placeholder-count="7">
+                <tr><td style="color:var(--color-neutral-700);width:50%">{{ r.label }}</td><td style="font-weight:600;color:{{ r.color }};font-style:{{ r.style }}">{{ r.value }}</td></tr>
+              </sc-for>
+            </tbody>
+          </table>
+          <span style="font-size:11.5px;color:var(--color-neutral-700);line-height:1.5">Shelf stability is the published Rancimat induction time where one exists. It is measured per variety; smoke point is not, so it is not listed here.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- in the grove + aroma -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:16px;max-width:700px">
+        <h2 style="margin:0;font-size:34px">In the grove</h2>
+        <p style="margin:0;font-size:17px;line-height:1.75;text-wrap:pretty">Kalamon grows across Messenia, Laconia and Aetolia, on hillsides where the summer is long enough to ripen the fruit fully but the autumn stays dry. The tree is vigorous and the fruit unusually large for a Greek variety, which is precisely what the table trade wants and what makes mechanical harvesting difficult: most of the crop is still picked by hand into baskets to avoid bruising.</p>
+        <p style="margin:0;font-size:17px;line-height:1.75;text-wrap:pretty">Because the fruit is worth more cured than pressed, oil from Kalamon is usually a by-product — fruit rejected for size or blemish, pressed alongside other varieties. Monovarietal Kalamon oil exists but is rare enough that the literature carries no agreed sensory or phenolic profile for it.</p>
+        <div style="display:flex;gap:16px;margin-top:8px">
+          <div class="washed" style="position:relative;flex:1;height:190px"><image-slot id="cv-grove-1" shape="rounded" radius="24" placeholder="Grove — placeholder"></image-slot></div>
+          <div class="washed" style="position:relative;flex:1;height:190px"><image-slot id="cv-grove-2" shape="rounded" radius="24" placeholder="Fruit at harvest — placeholder"></image-slot></div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:22px">
+        <!-- aroma: descriptors, no numbers -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <h3 style="margin:0">Aroma and flavour descriptors</h3>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <sc-for list="{{ descriptors }}" as="d" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:14px;padding:13px 18px;background:{{ d.bg }};border-radius:999px">
+                <span style="font:600 11px var(--font-body);color:{{ d.rankColor }};width:14px;flex:none">{{ d.rank }}</span>
+                <span style="font-family:var(--font-heading);font-size:{{ d.size }};line-height:1.2;color:{{ d.fg }}">{{ d.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+          <div style="display:flex;gap:10px;align-items:flex-start;padding:14px 16px;border-left:3px solid var(--color-neutral-300);background:var(--color-neutral-100)">
+            <span style="font-size:12.5px;line-height:1.55;color:var(--color-neutral-800);text-wrap:pretty">Descriptors are ordered by how often they recur in the published varietal literature for table-cured fruit, not measured intensities. <strong>Our panel has not tasted a monovarietal Kalamon oil</strong>, and no sensory panel data for the oil is published. Ten of the forty varieties in this library read the same way.</span>
+          </div>
+        </div>
+        <!-- top rated oils: hidden state -->
+        <div style="display:flex;flex-direction:column;gap:12px;padding:24px 26px;border:1px dashed var(--color-neutral-300);border-radius:calc(var(--radius-lg) * 1.2)">
+          <span class="card-kicker" style="color:var(--color-neutral-700)">Oils in the library</span>
+          <span style="font-family:var(--font-heading);font-size:20px;line-height:1.3;color:var(--color-neutral-700)">No Kalamon oils reviewed yet</span>
+          <span style="font-size:13.5px;line-height:1.6;color:var(--color-neutral-800);text-wrap:pretty">This shelf fills automatically when the panel scores an oil made from this variety. Thirty-eight of forty varieties are in this state today.</span>
+          <a href="#" style="font-size:13.5px;font-weight:600;margin-top:2px">Tell us about a Kalamon oil we should taste →</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- comparison table -->
+    <div style="display:flex;flex-direction:column;gap:16px">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px">
+        <h2 style="margin:0;font-size:34px">Kalamon against the other Greek varieties</h2>
+        <a href="#" class="btn btn-secondary" style="font-size:13.5px;padding:9px 18px">Open in compare</a>
+      </div>
+      <table class="table" style="font-size:14px">
+        <thead><tr><th>Variety</th><th>Origin region</th><th>Used for</th><th>Intensity</th><th>Polyphenols</th><th>Shelf stability</th></tr></thead>
+        <tbody>
+          <sc-for list="{{ greekTable }}" as="g" hint-placeholder-count="7">
+            <tr style="background:{{ g.rowBg }}">
+              <td style="font-weight:600">{{ g.name }}</td>
+              <td style="color:var(--color-neutral-700)">{{ g.region }}</td>
+              <td>{{ g.purpose }}</td>
+              <td style="color:{{ g.intColor }};font-style:{{ g.intStyle }}">{{ g.intensity }}</td>
+              <td style="color:{{ g.phColor }};font-style:{{ g.phStyle }}">{{ g.phenol }}</td>
+              <td style="color:{{ g.shColor }};font-style:{{ g.shStyle }}">{{ g.shelf }}</td>
+            </tr>
+          </sc-for>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- map + sources -->
+    <div style="display:grid;grid-template-columns:minmax(0,1fr) 420px;gap:56px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <h3 style="margin:0">Sources</h3>
+        <div style="display:flex;flex-direction:column;gap:9px;max-width:620px">
+          <sc-for list="{{ sources }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;gap:12px;align-items:baseline;padding:11px 0;border-top:1px solid var(--color-divider);font-size:13.5px">
+              <span style="color:var(--color-neutral-600);width:16px;flex:none">{{ s.n }}</span>
+              <div style="display:flex;flex-direction:column;gap:2px"><a href="#" style="font-weight:600">{{ s.title }}</a><span style="color:var(--color-neutral-700);font-size:12.5px">{{ s.meta }}</span></div>
+            </div>
+          </sc-for>
+        </div>
+        <span style="font-size:12.5px;color:var(--color-neutral-700);max-width:560px;line-height:1.55">Every figure on this page carries a source. Where we could not find one we say so rather than estimating. Corrections are welcome and credited.</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="position:relative;width:100%;height:320px"><image-slot id="cv-map" shape="circle" placeholder="Map — Messenia &amp; Laconia, Greece"></image-slot></div>
+        <span style="font-size:13px;color:var(--color-neutral-700)">Principal growing area: Messenia, Laconia and Aetolia-Acarnania.</span>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════ 3 · COMPARE ══════════════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">Artboard 3 · Compare — three cultivars, one row collapsed</div>
+<div data-screen-label="3 Compare" style="width:1360px;background:#fff;border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);overflow:hidden;font-family:var(--font-body);color:var(--color-text)">
+  <nav class="nav" style="padding:20px 52px">
+    <span class="nav-brand">bestoliveoils.eu</span>
+    <a href="#">Olive oils</a><a href="#">Producers &amp; mills</a><a href="#" aria-current="page">Cultivars</a><a href="#">Learn</a><a href="#">HPLC &amp; health</a>
+    <a href="https://olijfoliemarkt.nl" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:13.5px;padding:9px 20px">Buy verified bottles</a>
+  </nav>
+  <div style="padding:24px 52px 64px;display:flex;flex-direction:column;gap:34px">
+    <div style="font-size:13px;color:var(--color-neutral-700);display:flex;gap:8px"><a href="#" style="color:inherit">Cultivars</a><span>/</span><span>Compare</span></div>
+    <div style="display:flex;flex-direction:column;gap:12px;max-width:760px">
+      <h1 style="font-size:48px;margin:0;line-height:1.04">Compare varieties</h1>
+      <p style="font-size:17px;line-height:1.55;margin:0;color:var(--color-neutral-700)">Two to four at a time. Rows where none of the chosen varieties has a published value are collapsed rather than filled with nothing.</p>
+    </div>
+    <!-- picker -->
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:18px 22px;background:var(--color-surface);border-radius:999px">
+      <span style="font:600 12px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700);padding-left:8px">Comparing</span>
+      <sc-for list="{{ comparePicks }}" as="p" hint-placeholder-count="3">
+        <span style="display:inline-flex;align-items:center;gap:9px;padding:9px 16px;background:#fff;border:1px solid var(--color-accent-300);border-radius:999px;font-size:14px;font-weight:600">{{ p.name }}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-accent-700)"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></span>
+      </sc-for>
+      <button style="display:inline-flex;align-items:center;gap:8px;padding:9px 18px;border-radius:999px;border:1px dashed var(--color-neutral-400);background:transparent;font:600 14px var(--font-body);color:var(--color-neutral-800);cursor:pointer">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg>Add a variety
+      </button>
+      <span style="margin-left:auto;font-size:13px;color:var(--color-neutral-700);padding-right:8px">3 of 4 slots used</span>
+    </div>
+    <!-- table -->
+    <div style="border:1px solid var(--color-divider);border-radius:calc(var(--radius-lg) * 1.3);overflow:hidden">
+      <div style="display:grid;grid-template-columns:200px repeat(3,minmax(0,1fr))">
+        <!-- header -->
+        <div style="padding:22px 24px;background:var(--color-surface);border-bottom:1px solid var(--color-divider)"></div>
+        <sc-for list="{{ compareCols }}" as="c" hint-placeholder-count="3">
+          <div style="padding:22px 24px;background:var(--color-surface);border-bottom:1px solid var(--color-divider);border-left:1px solid var(--color-divider);display:flex;flex-direction:column;gap:10px">
+            <div style="position:relative;height:88px"><image-slot id="{{ c.slot }}" shape="rounded" radius="18" placeholder="{{ c.name }}"></image-slot></div>
+            <span style="font-family:var(--font-heading);font-size:23px;line-height:1.1">{{ c.name }}</span>
+            <span style="font-size:12.5px;color:var(--color-neutral-700)">{{ c.country }}</span>
+          </div>
+        </sc-for>
+        <!-- rows -->
+        <sc-for list="{{ compareRows }}" as="r" hint-placeholder-count="7">
+          <div style="padding:16px 24px;background:var(--color-neutral-100);border-bottom:1px solid var(--color-divider);font:600 12.5px var(--font-body);letter-spacing:.04em;text-transform:uppercase;color:var(--color-neutral-700);display:flex;align-items:center">{{ r.label }}</div>
+          <sc-for list="{{ r.cells }}" as="cell" hint-placeholder-count="3">
+            <div style="padding:16px 24px;border-bottom:1px solid var(--color-divider);border-left:1px solid var(--color-divider);font-size:14.5px;color:{{ cell.color }};font-style:{{ cell.style }};display:flex;align-items:center;line-height:1.5">{{ cell.value }}</div>
+          </sc-for>
+        </sc-for>
+      </div>
+      <!-- collapsed row -->
+      <div style="display:flex;align-items:center;gap:12px;padding:16px 24px;background:var(--color-neutral-100)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" style="color:var(--color-neutral-600);flex:none"><path d="m6 9 6 6 6-6"></path></svg>
+        <span style="font-size:13.5px;color:var(--color-neutral-800)"><strong>1 row hidden</strong> — oleic acid is not published for any of these three varieties.</span>
+        <a href="#" style="font-size:13px;font-weight:600;margin-left:auto">Show anyway</a>
+      </div>
+    </div>
+    <span style="font-size:12.5px;color:var(--color-neutral-700)">Row labels stay fixed when the table scrolls sideways. On narrow screens the variety columns scroll horizontally and the label column stays put.</span>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════ 4 · MOBILE ══════════════════ -->
+<div style="display:flex;flex-direction:column;gap:10px">
+<div style="font:600 12px var(--font-body);color:var(--color-neutral-700);letter-spacing:.06em;text-transform:uppercase">Artboard 4 · Mobile index — list, and filter bottom sheet</div>
+<div style="display:flex;gap:36px;align-items:flex-start">
+  <!-- 4a -->
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <span style="font:600 11.5px var(--font-body);color:var(--color-neutral-700)">4a · List</span>
+    <div data-screen-label="4a Mobile list" style="width:390px;height:844px;overflow:hidden;background:#fff;border-radius:40px;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);position:relative;display:flex;flex-direction:column">
+      <div style="padding:52px 20px 14px;display:flex;flex-direction:column;gap:14px;border-bottom:1px solid var(--color-divider)">
+        <div style="display:flex;align-items:center;justify-content:space-between">
+          <span class="nav-brand" style="margin:0;font-size:17px">bestoliveoils.eu</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M4 12h16"></path><path d="M4 18h16"></path></svg>
+        </div>
+        <div style="position:relative">
+          <svg style="position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--color-neutral-600)" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+          <input class="input" style="height:50px;padding-left:44px;font-size:14px" placeholder="Search a variety or label name…" value="">
+        </div>
+      </div>
+      <div style="flex:1;overflow:hidden;display:flex;flex-direction:column">
+        <div style="padding:18px 20px 12px;display:flex;flex-direction:column;gap:10px">
+          <h1 style="margin:0;font-size:30px;line-height:1.08">Forty olive varieties</h1>
+          <div style="display:flex;gap:9px;overflow:hidden;margin-right:-20px;padding-right:20px">
+            <sc-for list="{{ mobileShortcuts }}" as="s" hint-placeholder-count="4">
+              <span style="padding:9px 14px;background:var(--color-accent-100);color:var(--color-accent-900);border-radius:999px;font:600 12.5px var(--font-body);white-space:nowrap;flex:none">{{ s }}</span>
+            </sc-for>
+          </div>
+        </div>
+        <div style="padding:6px 20px 0;display:flex;align-items:center;justify-content:space-between">
+          <span style="font-size:13px;color:var(--color-neutral-700)">40 varieties · A–Z</span>
+          <span style="font-size:13px;font-weight:600;color:var(--color-accent-700)">Sort</span>
+        </div>
+        <div style="padding:14px 20px;display:flex;flex-direction:column;gap:14px;overflow:hidden">
+          <sc-for list="{{ mobileCards }}" as="c" hint-placeholder-count="3">
+            <div class="card elev-sm" style="padding:0;overflow:hidden;gap:0;flex:none">
+              <div style="position:relative;height:96px;background:var(--color-neutral-200)"><image-slot id="{{ c.slot }}" shape="rect" placeholder="{{ c.name }}"></image-slot></div>
+              <div style="padding:14px 16px 16px;display:flex;flex-direction:column;gap:8px">
+                <span class="card-kicker" style="font-size:10.5px">{{ c.country }} · {{ c.region }}</span>
+                <span style="font-family:var(--font-heading);font-size:21px;line-height:1.1">{{ c.name }}</span>
+                <div style="display:flex;gap:6px;flex-wrap:wrap">
+                  <span class="tag" style="background:{{ c.intBg }};color:{{ c.intFg }};font-size:11px;padding:3px 10px;font-weight:600">{{ c.intensity }}</span>
+                  <span class="tag" style="background:{{ c.phBg }};color:{{ c.phFg }};font-size:11px;padding:3px 10px;font-weight:600">{{ c.phenolLabel }}</span>
+                </div>
+                <div style="display:flex;gap:5px;flex-wrap:wrap">
+                  <sc-for list="{{ c.pairings }}" as="p" hint-placeholder-count="2"><span class="tag tag-outline" style="font-size:10.5px;padding:2px 9px">{{ p }}</span></sc-for>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <!-- sticky filter button -->
+      <div style="position:absolute;left:0;right:0;bottom:0;padding:16px 20px 30px;background:linear-gradient(to top, #fff 55%, rgba(255,255,255,0));display:flex;justify-content:center">
+        <button class="btn btn-primary" style="height:52px;padding:0 28px;font-size:15px;gap:10px;box-shadow:var(--shadow-lg)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M7 12h10"></path><path d="M10 18h4"></path></svg>
+          Filter<span style="display:grid;place-items:center;min-width:22px;height:22px;border-radius:999px;background:#fff;color:var(--color-accent-800);font-size:12px;font-weight:700">2</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- 4b -->
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <span style="font:600 11.5px var(--font-body);color:var(--color-neutral-700)">4b · Filter sheet</span>
+    <div data-screen-label="4b Mobile filter sheet" style="width:390px;height:844px;overflow:hidden;background:var(--color-neutral-800);border-radius:40px;box-shadow:var(--shadow-lg);font-family:var(--font-body);color:var(--color-text);position:relative;display:flex;flex-direction:column;justify-content:flex-end">
+      <div style="position:absolute;top:0;left:0;right:0;padding:52px 20px 20px;opacity:.4;display:flex;flex-direction:column;gap:12px">
+        <span class="nav-brand" style="margin:0;font-size:17px;color:#fff">bestoliveoils.eu</span>
+        <div style="height:50px;border-radius:999px;background:rgba(255,255,255,.25)"></div>
+      </div>
+      <div style="background:#fff;border-radius:32px 32px 40px 40px;display:flex;flex-direction:column;max-height:78%;overflow:hidden">
+        <div style="padding:14px 20px 12px;display:flex;flex-direction:column;gap:12px;border-bottom:1px solid var(--color-divider)">
+          <div style="width:44px;height:4px;border-radius:999px;background:var(--color-neutral-300);align-self:center"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <span style="font-family:var(--font-heading);font-size:22px">Filter</span>
+            <a href="#" style="font-size:13.5px;font-weight:600">Clear all</a>
+          </div>
+        </div>
+        <div style="padding:18px 20px 14px;display:flex;flex-direction:column;gap:22px;overflow:hidden">
+          <sc-for list="{{ mobileFacets }}" as="f" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <span style="font:600 11.5px var(--font-body);letter-spacing:.06em;text-transform:uppercase;color:var(--color-neutral-700)">{{ f.label }}</span>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ f.values }}" as="v" hint-placeholder-count="4">
+                  <span style="display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;border:1px solid {{ v.border }};background:{{ v.bg }};color:{{ v.fg }};font:{{ v.weight }} 13px var(--font-body);opacity:{{ v.opacity }}">{{ v.name }}<span style="font-size:11px;color:{{ v.countColor }}">{{ v.count }}</span></span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="padding:14px 20px 30px;border-top:1px solid var(--color-divider);display:flex;gap:10px">
+          <button class="btn btn-secondary" style="height:50px;flex:none;padding:0 20px;font-size:14px">Reset</button>
+          <button class="btn btn-primary" style="height:50px;flex:1;font-size:15px;margin:0">Show 11 varieties</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;cardImages&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Index cards&quot;}}">
+class Component extends DCLogic {
+  // ── the record set: [name, country, originRegion, purpose, intensity, phenolBand, pairings, synonyms, shelfStability]
+  data() {
+    const R = 'Robust', D = 'Delicate', M = 'Medium', NP = 'Not published';
+    const rows = [
+      ['Coratina', 'Italy', 'Bari, Puglia', 'Oil', R, 'Very high', ['Legume soups', 'Grilled vegetables', 'Bread'], ['Cima di Bitonto'], '29.5 h'],
+      ['Frantoio', 'Italy', 'Tuscany', 'Oil', M, 'Medium', ['Tomato', 'Bean soup', 'Steak'], ['Frantoiano', 'Correggiolo'], NP],
+      ['Leccino', 'Italy', 'Tuscany', 'Dual-purpose', D, 'Medium', ['Fish', 'Salad', 'Bread'], ['Leccio'], '17.5 h'],
+      ['Moraiolo', 'Italy', 'Umbria', 'Oil', R, 'Very high', ['Bitter greens', 'Grilled meat'], ['Morinello'], NP],
+      ['Casaliva', 'Italy', 'Lake Garda, Lombardy', 'Oil', D, 'Medium', ['Freshwater fish', 'Risotto'], ['Drizzar'], NP],
+      ['Taggiasca', 'Italy', 'Imperia, Liguria', 'Oil', D, 'Low', ['Seafood', 'Pesto', 'Focaccia'], ['Cailletier', 'Olive de Nice'], NP],
+      ['Nocellara del Belice', 'Italy', 'Trapani, Sicily', 'Table', NP, NP, ['Table olive', 'Antipasti'], ['Nocellara Belice'], NP],
+      ['Nocellara Etnea', 'Italy', 'Catania, Sicily', 'Dual-purpose', NP, NP, ['Table olive', 'Tomato'], ['Augghialora'], NP],
+      ['Ogliarola', 'Italy', 'Puglia & Basilicata', 'Dual-purpose', NP, NP, ['Bread', 'Vegetables'], ['Ogliarola Barese'], NP],
+      ['Peranzana', 'Italy', 'Foggia, Puglia', 'Dual-purpose', M, 'Medium', ['Table olive', 'Fish'], ['Provenzale'], NP],
+      ['Carolea', 'Italy', 'Calabria', 'Dual-purpose', M, 'Medium', ['Table olive', 'Pasta'], ['Cumignana', 'Olivona'], NP],
+
+      ['Picual', 'Spain', 'Jaén, Andalusia', 'Oil', R, 'High', ['Grilled meat', 'Gazpacho', 'Bitter greens'], ['Marteño', 'Lopereño', 'Nevadillo Blanco'], NP],
+      ['Hojiblanca', 'Spain', 'Málaga & Córdoba', 'Dual-purpose', M, 'Medium', ['Salad', 'Table olive', 'Almonds'], ['Lucentino', 'Casta de Cabra'], '~73 h'],
+      ['Arbequina', 'Spain', 'Lleida, Catalonia', 'Oil', D, 'Low', ['Seafood', 'Desserts', 'Light sauces'], ['Arbequí', 'Blancal'], NP],
+      ['Cornicabra', 'Spain', 'Toledo & Ciudad Real', 'Oil', R, 'High', ['Roast lamb', 'Pulses'], ['Cornezuelo', 'Osnal'], NP],
+      ['Picudo', 'Spain', 'Córdoba, Andalusia', 'Oil', M, 'Medium', ['Tomato', 'Fruit', 'Pastry'], ['Carrasqueño de Córdoba', 'Pajarero'], NP],
+      ['Empeltre', 'Spain', 'Aragón & Balearics', 'Dual-purpose', D, 'Low', ['Bread', 'Cured meat'], ['Aragonesa', 'Injerta'], NP],
+      ['Manzanilla', 'Spain', 'Seville, Andalusia', 'Table', NP, NP, ['Table olive', 'Tapas'], ['Manzanilla de Sevilla'], NP],
+      ['Lechín de Sevilla', 'Spain', 'Seville & Cádiz', 'Dual-purpose', NP, NP, ['Bread', 'Stews'], ['Ecijano', 'Zorzaleño'], NP],
+
+      ['Memecik', 'Türkiye', 'Aydın & Muğla', 'Oil', R, 'High', ['Grilled vegetables', 'Meze', 'Bread'], ['Aydın Yağlık'], NP],
+      ['Ayvalık', 'Türkiye', 'Balıkesir, Marmara', 'Dual-purpose', M, 'Medium', ['Salad', 'Fish', 'Cheese'], ['Edremit Yağlık', 'Şakran', 'Yağlık'], NP],
+      ['Gemlik', 'Türkiye', 'Bursa, Marmara', 'Dual-purpose', D, 'Low', ['Table olive', 'Breakfast', 'Cheese'], ['Trilye', 'Kara Zeytin'], NP],
+      ['Kilis Yağlık', 'Türkiye', 'Kilis, Southeast', 'Oil', R, 'Medium', ['Lamb', 'Bulgur dishes'], ['Kilis'], NP],
+      ['Nizip Yağlık', 'Türkiye', 'Gaziantep, Southeast', 'Oil', R, 'Medium', ['Grilled meat', 'Pulses'], ['Nizip'], NP],
+      ['Uslu', 'Türkiye', 'Manisa, Aegean', 'Dual-purpose', NP, 'Low', ['Table olive', 'Salad'], ['Akhisar Uslu'], NP],
+      ['Domat', 'Türkiye', 'Manisa & Akhisar', 'Table', D, 'Low', ['Table olive', 'Stuffed olives'], ['Domat Akhisar'], NP],
+      ['Erkence', 'Türkiye', 'İzmir, Aegean', 'Dual-purpose', NP, NP, ['Table olive', 'Bread'], ['Hurma Zeytin'], NP],
+
+      ['Koroneiki', 'Greece', 'Messenia & Crete', 'Oil', R, 'High', ['Salad', 'Grilled fish', 'Feta'], ['Psilolia', 'Lianolia', 'Vatsiki'], NP],
+      ['Kalamon', 'Greece', 'Messenia & Laconia', 'Dual-purpose', NP, NP, ['Table olive', 'Bread', 'Cheese'], ['Kalamata', 'Aetonychi'], NP],
+      ['Chalkidiki', 'Greece', 'Chalkidiki, Macedonia', 'Dual-purpose', NP, NP, ['Table olive', 'Stuffed olives'], ['Gaidourelia', 'Chondrolia'], '36 h'],
+      ['Athinolia', 'Greece', 'Laconia, Peloponnese', 'Dual-purpose', M, 'Low', ['Vegetables', 'Bread'], ['Tsounati Lakonias'], NP],
+      ['Manaki', 'Greece', 'Argolis & Corinthia', 'Dual-purpose', D, 'Low', ['Salad', 'Fish'], ['Manakolia'], NP],
+      ['Megaritiki', 'Greece', 'Attica', 'Dual-purpose', NP, NP, ['Bread', 'Vegetables'], ['Megara'], NP],
+      ['Tsounati', 'Greece', 'Crete & Peloponnese', 'Dual-purpose', R, 'Medium', ['Pulses', 'Grilled meat'], ['Mastoidis', 'Matolia'], NP],
+
+      ['Galega', 'Portugal', 'Alentejo & Ribatejo', 'Dual-purpose', D, 'Low', ['Bread', 'Cod', 'Soup'], ['Galega Vulgar'], NP],
+      ['Cobrançosa', 'Portugal', 'Trás-os-Montes', 'Dual-purpose', M, 'Medium', ['Grilled fish', 'Vegetables'], ['Cobrançosa Transmontana'], NP],
+      ['Verdeal Transmontana', 'Portugal', 'Trás-os-Montes', 'Dual-purpose', R, 'Medium', ['Pulses', 'Roast meat'], ['Verdeal'], NP],
+
+      ['Picholine', 'France', 'Gard & Provence', 'Dual-purpose', D, 'Low', ['Table olive', 'Aperitif'], ['Coiasse', 'Plant de Collias'], NP],
+      ['Aglandau', 'France', 'Vaucluse, Provence', 'Oil', R, 'High', ['Artichoke', 'Grilled vegetables'], ['Beruguette', 'Verdale de Carpentras'], NP],
+
+      ['Istarska Bjelica', 'Croatia & Slovenia', 'Istria', 'Oil', R, 'High', ['Grilled fish', 'Truffle dishes'], ['Bianchera', 'Belica'], NP],
+    ];
+    return rows.map(r => ({
+      name: r[0], country: r[1], region: r[2], purpose: r[3],
+      intensity: r[4], phenol: r[5], pairings: r[6], also: r[7], shelf: r[8],
+    }));
+  }
+
+  chipStyle(active, zero) {
+    if (zero) return { bg: 'transparent', border: 'var(--color-neutral-200)', fg: 'var(--color-neutral-500)', weight: '400', opacity: '0.45', countColor: 'var(--color-neutral-500)' };
+    if (active) return { bg: 'var(--color-accent)', border: 'var(--color-accent)', fg: '#fff', weight: '600', opacity: '1', countColor: 'rgba(255,255,255,.75)' };
+    return { bg: '#fff', border: 'var(--color-neutral-300)', fg: 'var(--color-text)', weight: '500', opacity: '1', countColor: 'var(--color-neutral-600)' };
+  }
+
+  intChip(v) {
+    if (v === 'Robust') return { intBg: 'var(--color-accent-200)', intFg: 'var(--color-accent-900)', intensity: 'Robust' };
+    if (v === 'Medium') return { intBg: 'var(--color-accent-2-200)', intFg: 'var(--color-accent-2-900)', intensity: 'Medium' };
+    if (v === 'Delicate') return { intBg: 'var(--color-accent-2-100)', intFg: 'var(--color-accent-2-800)', intensity: 'Delicate' };
+    return { intBg: 'var(--color-neutral-200)', intFg: 'var(--color-neutral-700)', intensity: 'Intensity not published' };
+  }
+
+  phChip(v) {
+    const map = {
+      'Very high': ['var(--color-accent-300)', 'var(--color-accent-900)'],
+      'High': ['var(--color-accent-200)', 'var(--color-accent-900)'],
+      'Medium': ['var(--color-accent-2-200)', 'var(--color-accent-2-900)'],
+      'Low': ['var(--color-accent-2-100)', 'var(--color-accent-2-800)'],
+    };
+    if (map[v]) return { phBg: map[v][0], phFg: map[v][1], phenolLabel: v + ' polyphenols' };
+    return { phBg: 'var(--color-neutral-200)', phFg: 'var(--color-neutral-700)', phenolLabel: 'Polyphenols not published' };
+  }
+
+  renderVals() {
+    const all = this.data();
+    const withImages = this.props.cardImages ?? true;
+    const count = (key, val) => all.filter(c => c[key] === val).length;
+
+    const facetDefs = [
+      { label: 'Country', key: 'country', values: ['Italy', 'Spain', 'Türkiye', 'Greece', 'Portugal', 'France', 'Croatia & Slovenia'] },
+      { label: 'Intensity', key: 'intensity', values: ['Delicate', 'Medium', 'Robust', 'Not published'] },
+      { label: 'Polyphenols', key: 'phenol', values: ['Low', 'Medium', 'High', 'Very high', 'Not published'] },
+      { label: 'Used for', key: 'purpose', values: ['Oil', 'Dual-purpose', 'Table'] },
+    ];
+
+    const buildFacets = (active, subset) => facetDefs.map(f => ({
+      label: f.label,
+      values: f.values.map(v => {
+        const n = subset.filter(c => c[f.key] === v).length;
+        const isActive = (active[f.key] || []).indexOf(v) > -1;
+        const zero = n === 0 && !isActive;
+        return Object.assign({ name: v, count: n }, this.chipStyle(isActive, zero));
+      }),
+    }));
+
+    const facets = buildFacets({}, all);
+    // 1c state: Portugal + Delicate selected → counts reflect the other facet's constraint
+    const ptSubset = all.filter(c => c.country === 'Portugal');
+    const delicateSubset = all.filter(c => c.intensity === 'Delicate');
+    const facetsEmpty = facetDefs.map(f => ({
+      label: f.label,
+      values: f.values.map(v => {
+        const isActive = (f.key === 'country' && v === 'Portugal') || (f.key === 'intensity' && v === 'Delicate');
+        let n;
+        if (f.key === 'country') n = delicateSubset.filter(c => c.country === v).length;
+        else if (f.key === 'intensity') n = ptSubset.filter(c => c.intensity === v).length;
+        else n = all.filter(c => c.country === 'Portugal' && c.intensity === 'Delicate' && c[f.key] === v).length;
+        const zero = n === 0 && !isActive;
+        return Object.assign({ name: v, count: n }, this.chipStyle(isActive, zero));
+      }),
+    }));
+
+    const card = (c, i, prefix) => {
+      const npColor = 'var(--color-neutral-600)';
+      const shelfPublished = c.shelf !== 'Not published';
+      return Object.assign({
+        slot: prefix + '-' + i,
+        name: c.name, country: c.country, region: c.region,
+        also: c.also.join(', '), hasAlso: c.also.length > 0,
+        pairings: withImages ? c.pairings : c.pairings,
+        statAValue: c.purpose, statALabel: 'used for', statAColor: 'var(--color-text)',
+        statBValue: shelfPublished ? c.shelf : 'Not published',
+        statBLabel: 'shelf stability (Rancimat)',
+        statBColor: shelfPublished ? 'var(--color-text)' : npColor,
+      }, this.intChip(c.intensity), this.phChip(c.phenol));
+    };
+
+    const az = all.slice().sort((a, b) => a.name.localeCompare(b.name));
+    const gridA = az.slice(0, 9).map((c, i) => card(c, i, 'gridA'));
+    const mobileCards = az.slice(0, 3).map((c, i) => card(c, i, 'mob'));
+
+    const shortcuts = [
+      { title: 'Mildest varieties', body: 'Delicate intensity, low polyphenols — for fish, salads and baking.', count: count('intensity', 'Delicate'), bg: 'var(--color-accent-2-100)' },
+      { title: 'Most peppery', body: 'Robust, high and very high polyphenol bands.', count: count('intensity', 'Robust'), bg: 'var(--color-accent-100)' },
+      { title: 'Turkish varieties', body: 'Memecik, Ayvalık, Gemlik and five more from the Aegean and southeast.', count: count('country', 'Türkiye'), bg: 'var(--color-surface)' },
+      { title: 'Best keepers', body: 'The varieties with a published shelf-stability figure.', count: all.filter(c => c.shelf !== 'Not published').length, bg: 'var(--color-surface)' },
+    ];
+
+    const typeahead = [
+      { initial: 'K', name: 'Kalamon', country: 'Greece', also: 'Kalamata, Aetonychi', hasAlso: true, hasNote: true, bg: 'var(--color-accent-100)', note: 'Kalamata PDO olive oil is pressed from Koroneiki, not Kalamon. The name refers to the region, not the variety.', intBg: 'var(--color-neutral-200)', intFg: 'var(--color-neutral-700)', intensity: 'Intensity not published' },
+      { initial: 'K', name: 'Koroneiki', country: 'Greece', also: 'Psilolia, Lianolia', hasAlso: true, hasNote: false, bg: '#fff', note: '', intBg: 'var(--color-accent-200)', intFg: 'var(--color-accent-900)', intensity: 'Robust' },
+      { initial: 'C', name: 'Chalkidiki', country: 'Greece', also: 'Gaidourelia, Chondrolia', hasAlso: true, hasNote: true, bg: '#fff', note: 'Often sold as “Greek green olives”; the large fruit is cured, rarely pressed.', intBg: 'var(--color-neutral-200)', intFg: 'var(--color-neutral-700)', intensity: 'Intensity not published' },
+    ];
+
+    const nearMisses = [
+      { name: 'Galega', meta: 'Portugal · Delicate · Low polyphenols' },
+      { name: 'Cobrançosa', meta: 'Portugal · Medium · Medium polyphenols' },
+      { name: 'Verdeal Transmontana', meta: 'Portugal · Robust · Medium polyphenols' },
+    ];
+
+    const np = { color: 'var(--color-neutral-600)', style: 'italic' };
+    const ok = { color: 'var(--color-text)', style: 'normal' };
+    const refCard = [
+      { label: 'Also called', value: 'Kalamata, Aetonychi', color: ok.color, style: ok.style },
+      { label: 'Country', value: 'Greece', color: ok.color, style: ok.style },
+      { label: 'Origin region', value: 'Messenia & Laconia', color: ok.color, style: ok.style },
+      { label: 'Used for', value: 'Dual-purpose (mainly table)', color: ok.color, style: ok.style },
+      { label: 'Intensity', value: 'Not published', color: np.color, style: np.style },
+      { label: 'Polyphenol band', value: 'Not published', color: np.color, style: np.style },
+      { label: 'Oleic acid', value: 'Not published', color: np.color, style: np.style },
+      { label: 'Harvest window', value: 'Not published', color: np.color, style: np.style },
+      { label: 'Shelf stability', value: 'Not published', color: np.color, style: np.style },
+    ];
+
+    const descriptors = [
+      { rank: '01', label: 'Ripe black fruit', size: '20px', bg: 'var(--color-accent-100)', fg: 'var(--color-accent-900)', rankColor: 'var(--color-accent-700)' },
+      { rank: '02', label: 'Almond', size: '19px', bg: 'var(--color-accent-100)', fg: 'var(--color-accent-900)', rankColor: 'var(--color-accent-700)' },
+      { rank: '03', label: 'Sweet, low bitterness', size: '17px', bg: 'var(--color-surface)', fg: 'var(--color-text)', rankColor: 'var(--color-neutral-600)' },
+      { rank: '04', label: 'Vinous (from curing)', size: '16px', bg: 'var(--color-surface)', fg: 'var(--color-text)', rankColor: 'var(--color-neutral-600)' },
+      { rank: '05', label: 'Herbal, faint', size: '15px', bg: 'var(--color-surface)', fg: 'var(--color-neutral-800)', rankColor: 'var(--color-neutral-600)' },
+    ];
+
+    const greekTable = all.filter(c => c.country === 'Greece').map(g => ({
+      name: g.name, region: g.region, purpose: g.purpose,
+      intensity: g.intensity, phenol: g.phenol === 'Not published' ? 'Not published' : g.phenol,
+      shelf: g.shelf,
+      rowBg: g.name === 'Kalamon' ? 'var(--color-accent-100)' : 'transparent',
+      intColor: g.intensity === 'Not published' ? np.color : ok.color,
+      intStyle: g.intensity === 'Not published' ? np.style : ok.style,
+      phColor: g.phenol === 'Not published' ? np.color : ok.color,
+      phStyle: g.phenol === 'Not published' ? np.style : ok.style,
+      shColor: g.shelf === 'Not published' ? np.color : ok.color,
+      shStyle: g.shelf === 'Not published' ? np.style : ok.style,
+    }));
+
+    const sources = [
+      { n: '1', title: 'World Catalogue of Olive Varieties', meta: 'International Olive Council — variety records for Kalamon' },
+      { n: '2', title: 'Greek national olive variety register', meta: 'ELGO-DIMITRA — growing areas and fruit characteristics' },
+      { n: '3', title: 'Kalamata PDO product specification', meta: 'EU eAmbrosia register — designation covers Koroneiki oil' },
+    ];
+
+    const cmp = ['Picual', 'Coratina', 'Koroneiki'].map(n => all.filter(c => c.name === n)[0]);
+    const compareCols = cmp.map((c, i) => ({ slot: 'cmp-' + i, name: c.name, country: c.country }));
+    const comparePicks = cmp.map(c => ({ name: c.name }));
+    const harvest = { Picual: 'Early October – December', Coratina: 'Late October – November', Koroneiki: 'October – December' };
+    const cell = v => ({ value: v, color: v === 'Not published' ? np.color : ok.color, style: v === 'Not published' ? np.style : ok.style });
+    const compareRows = [
+      { label: 'Origin', cells: cmp.map(c => cell(c.region)) },
+      { label: 'Used for', cells: cmp.map(c => cell(c.purpose)) },
+      { label: 'Intensity', cells: cmp.map(c => cell(c.intensity)) },
+      { label: 'Polyphenols', cells: cmp.map(c => cell(c.phenol)) },
+      { label: 'Harvest window', cells: cmp.map(c => cell(harvest[c.name] || 'Not published')) },
+      { label: 'Shelf stability', cells: cmp.map(c => cell(c.shelf)) },
+      { label: 'Pairings', cells: cmp.map(c => cell(c.pairings.join(' · '))) },
+    ];
+
+    const mobileShortcuts = ['Mildest', 'Most peppery', 'Turkish', 'Best keepers'];
+    const mobileFacets = buildFacets({ country: ['Türkiye'], phenol: ['Medium'] }, all).slice(0, 3);
+
+    return { facets, facetsEmpty, gridA, mobileCards, shortcuts, typeahead, nearMisses, refCard, descriptors, greekTable, sources, compareCols, comparePicks, compareRows, mobileShortcuts, mobileFacets };
+  }
+}
+</script>
+</body>
+</html>
