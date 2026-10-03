@@ -79,8 +79,8 @@ module.exports = {
       description: 'The mills and estates behind the oils we rate: how they farm, when they harvest, and every one of their oils with our panel score alongside.',
       intro: 'The estates and mills behind the oils in the library — how they farm, when they harvest, and how their oils scored.',
       body: [
-        'A producer earns a page here once we have tasted at least one of their oils blind and scored it. The page covers the groves and the mill, the cultivars they grow, when they pick, and every oil of theirs in the library with the panel score and the reader score side by side.',
-        'We do not charge producers to be listed and we do not accept submissions in exchange for coverage. Oils reach the panel because we bought them or because a reader asked us to look. Where an oil is also stocked at our shop, the listing says so plainly — the score is set before that is ever considered.',
+        'A producer earns a page here once one of their oils is in the library — because our panel tasted it, or because it placed in a competition we follow. The page covers the groves and the mill, the cultivars they grow, when they pick, and every oil of theirs in the library, with the panel score where we have one and the competition placing where we do not.',
+        'We do not charge producers to be listed and we do not accept submissions in exchange for coverage. Oils reach the panel because we bought them or because a reader asked us to look. Where an oil is also stocked by our retail partner, the listing says so plainly — the score is set before that is ever considered.',
       ],
     },
     learn: {
@@ -4909,7 +4909,7 @@ module.exports = {
     score: null, stars: 0, reviews: 0, readerScore: null, readerStars: 0,
     intensity: 'Robust',
     inShop: true,
-    shopUrl: 'https://olijfoliemarkt.nl/products/quattrociocchi-olivastro',
+    shopUrl: 'https://olijfoliemarkt.nl/products/olio-quattrociocchi-olivastro',
     price: '500 ml · €26.95 at our shop',
     priceAmount: 26.95,
     priceCurrency: 'EUR',
@@ -6404,7 +6404,7 @@ module.exports = {
       { value: '1', label: 'available in our shop' },
     ],
     oils: [
-      { name: 'Olivastro', slug: 'quattrociocchi-olivastro', cultivar: 'Itrana', intensity: 'Robust', stars: 0, score: null, readers: '—', inShop: true, shopUrl: 'https://olijfoliemarkt.nl/products/quattrociocchi-olivastro' },
+      { name: 'Olivastro', slug: 'quattrociocchi-olivastro', cultivar: 'Itrana', intensity: 'Robust', stars: 0, score: null, readers: '—', inShop: true, shopUrl: 'https://olijfoliemarkt.nl/products/olio-quattrociocchi-olivastro' },
     ],
     estate: [
       'Around 110 hectares and 25,000 trees, certified organic, planted to Itrana, Leccino, Moraiolo and Frantoio. For about twenty years the estate has brought its harvest forward to the start of October to pick green, polyphenol-rich fruit — a decision that costs yield and defines the house style.',

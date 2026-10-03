@@ -495,6 +495,13 @@ body { background: #fff; }
   color: var(--color-neutral-700);
 }
 .results__sort { display: flex; align-items: center; gap: 8px; }
+.results__note {
+  margin: -4px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-neutral-600);
+}
+.results__note .listing-chip { font-size: 12px; vertical-align: middle; }
 .results__sort .tag { font-size: 13px; padding: 5px 12px; cursor: pointer; }
 .oil-grid-3 {
   display: grid;

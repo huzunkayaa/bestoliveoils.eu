@@ -42,7 +42,7 @@ function starRow(n, modifier) {
 }
 
 const ratingLabel = (score, count) =>
-  count == null
+  !count
     ? `Rated ${score} out of 5`
     : `Rated ${score} out of 5 from ${count} reviews`;
 
@@ -175,7 +175,8 @@ const breadcrumb = (trail) =>
    score we have not given. */
 const listingChip = (oil) =>
   oil.listing
-    ? `<span class="listing-chip">#${esc(oil.listing.rank)} ${esc(oil.listing.sourceShort)}</span>`
+    ? `<span class="listing-chip" title="${esc(`Placed #${oil.listing.rank} in ${oil.listing.source}. A competition ranking, not our panel score — we have not tasted this oil yet.`)}">#${
+        esc(oil.listing.rank)} ${esc(oil.listing.sourceShort)}</span>`
     : '<span class="listing-chip listing-chip--empty">Not yet rated</span>';
 
 

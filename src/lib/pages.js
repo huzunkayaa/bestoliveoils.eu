@@ -302,9 +302,9 @@ function library(D) {
             <select id="sort" class="tag tag-outline results__sort-select" data-sort>
               <option value="score">Expert rating</option>
               <option value="name">Name</option>
-              <option value="reviews">Most reviewed</option>
             </select></div>
         </div>
+        <p class="results__note">A star score means our panel tasted the oil. A chip such as <span class="listing-chip">#13 WBOO 2025/26</span> is that oil's placing in a competition we follow — a credential we report, not a score we gave.</p>
         <div class="results__list" data-oil-grid>${
           D.oils.map((o) => R.oilRow(site, o)).join('')}</div>
         <p class="results__empty" data-results-empty hidden>No oils match these filters.

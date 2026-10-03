@@ -128,9 +128,6 @@
     var SORTS = {
       score: function (a, b) { return Number(b.dataset.score) - Number(a.dataset.score); },
       name: function (a, b) { return a.dataset.name.localeCompare(b.dataset.name); },
-      reviews: function (a, b) {
-        return (Number(b.dataset.reviews) || 0) - (Number(a.dataset.reviews) || 0);
-      },
     };
 
     function apply() {
