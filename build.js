@@ -66,6 +66,9 @@ function build() {
   page(url.cultivars(), pages.cultivarsIndex(D), '0.6', 'monthly');
   page(url.cultivarCompare(), pages.cultivarCompare(D), '0.5', 'monthly');
   page(url.learn(), pages.learnIndex(D), '0.6', 'monthly');
+  for (const rk of D.rankings || []) {
+    page(url.ranking(rk.slug), pages.ranking(D, rk), '0.8', 'monthly');
+  }
   page(url.howWeRate(), pages.howWeRate(D), '0.5', 'yearly');
   page(url.contact(), pages.contact(D), '0.3', 'yearly');
 

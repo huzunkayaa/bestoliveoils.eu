@@ -28,6 +28,7 @@ const url = {
   cultivarCompare: () => '/cultivars/compare/',
   producer: (slug) => `/producers/${slug}/`,
   guide: (slug) => `/learn/${slug}/`,
+  ranking: (slug) => `/rankings/${slug}/`,
   howWeRate: () => '/how-we-rate/',
   contact: () => '/contact/',
 };

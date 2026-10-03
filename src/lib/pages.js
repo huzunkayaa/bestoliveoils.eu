@@ -1066,6 +1066,8 @@ function oil(D, o) {
   // linked — and says in plain words that we have not tasted it. Inventing a
   // score to fill the box is the one thing this site must never do.
   const listing = o.listing;
+  // The credential links to our own republished table when we have one.
+  const rankingPage = listing && (D.rankings || []).find((r) => r.shortName === listing.sourceShort);
   const expertBox = o.score
     ? '<div class="card rating-box rating-box--expert"><span class="card-kicker">Expert rating</span>' +
       `<div class="rating-box__row"><span class="rating-box__value">${esc(o.score)}</span>${
@@ -1080,7 +1082,9 @@ function oil(D, o) {
         : '<span class="rating-box__value">—</span>') +
       '</div><span class="rating-box__note">' +
       (listing
-        ? `${listing.url ? `<a href="${esc(listing.url)}" target="_blank" rel="noopener">${
+        ? `${rankingPage
+            ? `<a href="${url.ranking(rankingPage.slug)}">${esc(listing.source)}</a>`
+            : listing.url ? `<a href="${esc(listing.url)}" target="_blank" rel="noopener">${
             esc(listing.source)}</a>` : esc(listing.source)} · our panel has not tasted this oil yet`
         : 'Our panel has not tasted this oil yet') +
       '</span></div>';
@@ -1631,11 +1635,97 @@ function staticPage(D, key, route) {
   });
 }
 
+/* ══ rankings · a competition table republished in full ══════════════════
+   The competition's rows, not ours: no stars, no score, no reordering beyond
+   what the source does. A row links to the library when we have a page for
+   that oil, and the build refuses a slug that does not resolve, so the table
+   can never point at a page that does not exist. */
+function ranking(D, rk) {
+  const site = D.site;
+  const bySlug = new Map(D.oils.map((o) => [o.slug, o]));
+  rk.rows.forEach((r) => {
+    if (r.oilSlug && !bySlug.has(r.oilSlug)) {
+      throw new Error(`rankings/${rk.slug}: row "${r.oil}" links to unknown oil ${r.oilSlug}`);
+    }
+  });
+  const trail = [
+    { label: 'Home', href: url.home() },
+    { label: 'Rankings' },
+    { label: rk.shortName },
+  ];
+  const ranked = rk.rows.filter((r) => r.rank < 42);
+  const tier = rk.rows.filter((r) => r.rank >= 42);
+  const linked = rk.rows.filter((r) => r.oilSlug).length;
+
+  const row = (r) => {
+    const o = r.oilSlug ? bySlug.get(r.oilSlug) : null;
+    const stocked = o && site.showShopBadges && o.inShop;
+    return '<tr>' +
+      `<th scope="row">${esc(r.rank)}</th>` +
+      `<td>${o ? `<a href="${url.oil(o.slug)}">${esc(r.oil)}</a>` : esc(r.oil)}</td>` +
+      `<td>${esc(r.producer)}</td>` +
+      `<td>${esc(r.country)}</td>` +
+      `<td class="num">${esc(r.points)}</td>` +
+      `<td>${o
+        ? (o.score ? `<span class="tag tag-accent">Panel ${esc(o.score)}/5</span>` : '<span class="tag tag-neutral">In the library</span>') +
+          (stocked ? ' <span class="tag tag-neutral">In our shop</span>' : '')
+        : '<span class="ranking__none">—</span>'}</td>` +
+    '</tr>';
+  };
+  const table = (rows, caption) =>
+    `<div class="table-scroll"><table class="table ranking-table">
+      <caption class="visually-hidden">${esc(caption)}</caption>
+      <thead><tr><th scope="col">#</th><th scope="col">Oil</th><th scope="col">Producer</th>
+        <th scope="col">Country</th><th scope="col" class="num">Points</th><th scope="col">Here</th></tr></thead>
+      <tbody>${rows.map(row).join('')}</tbody></table></div>`;
+
+  const main = R.breadcrumb(trail) +
+    `<header class="article-head">
+      <span class="tag tag-outline">Competition ranking · not our score</span>
+      <h1>${esc(rk.heading)}</h1>
+      <p class="article-head__lede">${esc(rk.lede)}</p>
+    </header>
+    <div class="article-layout article-layout--static article-layout--wide">
+      <article class="article-body">
+        ${rk.intro.map((t) => `<p>${esc(t)}</p>`).join('')}
+        <aside class="card article-callout"><span class="card-kicker">What the last column means</span>
+          <p>“Panel n/5” is our own provisional score for an oil we have tasted. “In the library” is a catalogue page we have researched but not tasted. A dash means we have no page for that oil yet. ${
+            linked} of the ${rk.rows.length} oils have a page here.</p></aside>
+        <h2 id="ranked">Ranks 1–41</h2>
+        ${table(ranked, `${rk.name}, ranks 1 to 41`)}
+        <h2 id="tier">Rank 42 — the 100-point tier (${tier.length} oils)</h2>
+        <p>All of these share 100 points in the source table. The order below is the competition’s own, by producer name; it is not a ranking within the tier.</p>
+        ${table(tier, `${rk.name}, the 100-point tier`)}
+        <aside class="article-sources"><span class="card-kicker">Source and corrections</span>
+          <p>Table republished from <a href="${esc(rk.source.url)}" target="_blank" rel="noopener">${esc(rk.source.label)}</a>. Four details we corrected from the producers’ own registrations:</p>
+          <ul>${rk.corrections.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></aside>
+      </article>
+    </div>`;
+
+  return shell({
+    site,
+    bodyClass: 'page-body--article',
+    nav: R.nav(site, ''),
+    main,
+    headHtml: S.head({
+      site,
+      title: rk.seo.title,
+      description: rk.seo.description,
+      path: url.ranking(rk.slug),
+      schema: [
+        S.itemListPage(site, url.ranking(rk.slug), rk.name, rk.seo.description,
+          rk.rows.filter((r) => r.oilSlug).map((r) => ({ name: r.oil, url: url.oil(r.oilSlug) }))),
+        S.breadcrumbList(site, trail),
+      ],
+    }),
+  });
+}
+
 const howWeRate = (D) => staticPage(D, 'howWeRate', url.howWeRate());
 const contact = (D) => staticPage(D, 'contact', url.contact());
 
 module.exports = {
   cultivarCompare,
   home, library, producersIndex, cultivarsIndex, learnIndex,
-  oil, cultivar, producer, guide, howWeRate, contact,
+  oil, cultivar, producer, guide, howWeRate, contact, ranking,
 };
