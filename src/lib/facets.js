@@ -16,6 +16,7 @@ const fold = (s) =>
 
 const slug = (s) =>
   String(s)
+    .replace(/ı/g, 'i').replace(/I/g, 'I')                // Ayvalık → Ayvalik: dotless ı has no NFD decomposition
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')   // Bailén → Bailen
     .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -35,6 +36,11 @@ const CULTIVAR_SYNONYMS = {
   picuda: 'picudo',
   picuo: 'picudo',
   marteno: 'picual',
+  // Turkish labels: Trilye is the Gemlik olive under its Mudanya name, and
+  // "Edremit" is what the Edremit Gulf calls Ayvalık.
+  trilye: 'gemlik',
+  edremit: 'ayvalik',
+  'edremit-yaglik': 'ayvalik',
 };
 
 const cultivarSlug = (name) => {
