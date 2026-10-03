@@ -349,6 +349,54 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://bestoliveoils.eu/oils/etruna-regular/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/etruna-intense-bio/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/casa-del-agua-picual/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/frantoi-cutrera-selezione/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/marina-palusci-luomo-di-ferro/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/marina-palusci-lextravergine/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/marina-palusci-alchimia/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/oils/marina-palusci-novus/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://bestoliveoils.eu/cultivars/picual/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
@@ -373,13 +421,13 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bestoliveoils.eu/cultivars/coratina/</loc>
+    <loc>https://bestoliveoils.eu/cultivars/leccino/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bestoliveoils.eu/cultivars/itrana/</loc>
+    <loc>https://bestoliveoils.eu/cultivars/coratina/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -391,19 +439,7 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bestoliveoils.eu/cultivars/bosana/</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/cultivars/koroneiki/</loc>
-    <lastmod>2026-10-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/cultivars/leccino/</loc>
+    <loc>https://bestoliveoils.eu/cultivars/itrana/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -416,6 +452,18 @@
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/tonda-iblea/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/cultivars/bosana/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/cultivars/koroneiki/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -776,6 +824,18 @@
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/de-palma/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/producers/etruna/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/producers/marina-palusci/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
