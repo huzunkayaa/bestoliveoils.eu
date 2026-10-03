@@ -96,13 +96,16 @@ const relatedHtml = pages.guide(
 check('related guides appear for the same category', relatedHtml.includes('A sibling guide'));
 
 console.log('\n— hub —');
-const oneCategory = pages.learnIndex(D);
+// Fixtures, not the live data: the hub's behaviour is pinned here whatever
+// the library happens to hold on the day the tests run.
+const oneCategory = pages.learnIndex({ ...D, guides: [base] });
 check('category strip hidden while one shelf has content', !oneCategory.includes('learn-cats__grid'));
 check('feature block renders the newest guide', oneCategory.includes('learn-feature') && oneCategory.includes(base.title));
 
+const otherShelf = D.learnCategories.find((c) => c.slug !== base.category).slug;
 const spread = {
   ...D,
-  guides: [base, { ...base, slug: 'kitchen-guide', category: 'kitchen', title: 'A kitchen guide' }],
+  guides: [base, { ...base, slug: 'other-shelf-guide', category: otherShelf, title: 'A guide on another shelf' }],
 };
 check('category strip appears once two shelves have content',
   pages.learnIndex(spread).includes('learn-cats__grid'));

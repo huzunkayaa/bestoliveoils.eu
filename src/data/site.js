@@ -6102,7 +6102,7 @@ module.exports = {
 
   articles: [
     { slug: 'how-to-taste-olive-oil', category: 'tasting', kicker: 'Tasting', title: 'How to taste olive oil like our panel does', meta: '6 min read', href: '/learn/how-to-taste-olive-oil/', image: null },
-    { slug: 'why-your-oil-goes-flat', category: 'kitchen', kicker: 'Storage', title: 'Why your oil goes flat, and how to stop it',  meta: '4 min read', href: null,            image: null },
+    { slug: 'why-your-oil-goes-flat', category: 'kitchen', kicker: 'Storage', title: 'Why your oil goes flat, and how to stop it',  meta: '5 min read', href: '/learn/why-your-oil-goes-flat/', image: null },
     { slug: 'harvest-date-on-label',  category: 'buying', kicker: 'Buying',  title: 'What the harvest date on the label really tells you', meta: '5 min read', href: null,    image: null },
   ],
 
@@ -7130,6 +7130,110 @@ module.exports = {
 
   /* ── guide pages ─────────────────────────────────────────────────────── */
   guides: [
+    {
+      slug: 'why-your-oil-goes-flat',
+      category: 'kitchen',
+      kicker: 'Storage · 5 min read',
+      seo: {
+        title: 'Why Olive Oil Goes Flat, and How to Stop It | bestoliveoils.eu',
+        description: 'Light, heat, air and time turn a bright extra virgin flat. What each one does, how fast it happens, and four storage habits that keep a bottle tasting fresh.',
+      },
+      datePublished: '2026-10-03',
+      dateModified: '2026-10-03',
+      wordCountNote: 'five minute read',
+      breadcrumb: ['Learn', 'Storage'],
+      title: 'Why your oil goes flat, and how to stop it',
+      lede: 'A good extra virgin does not go off the way milk does. It fades. Here is what fades it, how fast, and the four habits that slow it down.',
+      author: { initial: 'P', name: 'The bestoliveoils.eu panel', updated: 'Published 3 October 2026' },
+      image: { src: 'assets/img/dipping-bread.webp', alt: 'Bread being dipped into a dish of extra virgin olive oil', w: 1040, h: 1040 },
+      toc: [
+        { id: 'what-flat-means',   label: '1. What "flat" means' },
+        { id: 'the-four-enemies',  label: '2. The four enemies' },
+        { id: 'how-fast',          label: '3. How fast it happens' },
+        { id: 'four-habits',       label: '4. Four habits that work' },
+        { id: 'what-does-not-help', label: '5. What does not help' },
+      ],
+      keyFigures: [
+        { value: '12–18 mo', label: 'typical best-before from bottling, sealed and stored dark' },
+        { value: '6–8 wk',   label: 'the window to finish a bottle after opening' },
+        { value: '< 20 °C',  label: 'where to keep it — a cupboard, not the hob' },
+      ],
+      promo: {
+        kicker: 'Taste the difference',
+        oilSlug: 'nobleza-del-sur-novo',
+        note: 'A novello is the freshest oil in the library and the quickest to show fading. Buy it young, open it, finish it.',
+      },
+      sections: [
+        {
+          id: 'what-flat-means',
+          heading: '1. What "flat" means',
+          blocks: [
+            { type: 'p', text: 'Open a bottle of good early-harvest oil and the first thing you get is green: grass, tomato leaf, artichoke. There is a bitterness on the tongue and a pepper in the throat. Three months later the same bottle, left on the counter, has none of it. It is not rancid yet — that comes later and smells of crayons and old nuts — but the greenness has gone and what is left tastes of nothing much. That is flat.' },
+            { type: 'p', text: 'What has happened is chemistry, not magic. The aromas are volatile compounds that escape every time the bottle is opened. The bitterness and pepper come from polyphenols, which are antioxidants: they protect the oil by reacting with oxygen first, and are used up doing it. An oil with 470 mg/kg of polyphenols has a bigger reserve than one with 150, which is why robust oils keep longer than delicate ones, but every oil is spending that reserve from the day it is milled.' },
+            { type: 'callout', kicker: 'Panel note', text: 'We taste every oil in the library within weeks of opening it, from the same bottle. An oil that scored well in October may taste flat by March in your kitchen. That is not a bad oil — it is an oil that was stored badly, and the storing is on us all.' },
+          ],
+        },
+        {
+          id: 'the-four-enemies',
+          heading: '2. The four enemies',
+          blocks: [
+            { type: 'p', text: 'Light. Olive oil contains chlorophyll, which is why it is green and also why light destroys it: chlorophyll under light generates a reactive form of oxygen that attacks the oil far faster than ordinary air does. This is the reason serious producers bottle in dark glass or tins, and why a clear bottle on a sunny shelf is the worst place an oil can be.' },
+            { type: 'p', text: 'Heat. Oxidation roughly doubles in speed for every 10 °C. An oil kept next to the hob at 35 °C is ageing at three or four times the rate of the same oil in a cupboard at 18 °C. Heat also drives off the volatile aromas faster, so the bottle by the stove goes flat first and rancid second.' },
+            { type: 'p', text: 'Air. Every time you open the bottle you exchange the air in the headspace. A half-empty bottle has twice the oxygen of a full one, and oxygen is what the polyphenols are spent on. This is why the last third of a bottle always tastes worse than the first, even when nothing else changed.' },
+            { type: 'p', text: 'Time. Even sealed, dark and cool, an oil is losing aroma and polyphenols slowly. A best-before date of eighteen months from bottling is a promise that the oil will still be extra virgin by the regulatory tests, not that it will taste as it did. Most oils are at their best in the first six to nine months after harvest.' },
+          ],
+        },
+        {
+          id: 'how-fast',
+          heading: '3. How fast it happens',
+          blocks: [
+            { type: 'p', text: 'The figures below are from storage trials on extra virgin oils, which agree on the direction and the rough scale even where the exact numbers differ by cultivar and starting polyphenol level. Treat them as orders of magnitude, not promises about your bottle.' },
+            {
+              type: 'table',
+              columns: ['Stored', 'What it does', 'Aroma and polyphenols lost'],
+              rows: [
+                ['Sealed, dark, 15–20 °C', 'Baseline ageing', '≈ 10–20% in a year'],
+                ['Sealed, clear glass, daylight', 'Chlorophyll photo-oxidation', '≈ 30–50% in a year; defects within months'],
+                ['Open, dark, cool, finished in 8 weeks', 'Headspace oxygen', '≈ 5–10% — barely noticeable'],
+                ['Open, next to the hob, used over 6 months', 'Heat plus repeated air exchange', '≈ 40–60%; flat by month three'],
+              ],
+              caption: 'Indicative ranges drawn from published storage studies on extra virgin olive oil; the loss depends heavily on the starting polyphenol level and cultivar.',
+            },
+            { type: 'pull', text: 'The bottle by the stove goes flat first and rancid second.' },
+          ],
+        },
+        {
+          id: 'four-habits',
+          heading: '4. Four habits that work',
+          blocks: [
+            { type: 'p', text: 'Buy smaller than you think. A 500 ml bottle finished in six weeks will taste better all the way down than a 5-litre tin used over a year. If you do buy the tin, decant from it into a small dark bottle and keep the tin closed and cool; you are then opening the big container once a fortnight rather than twice a day.' },
+            { type: 'p', text: 'Keep it in a cupboard. Dark, closed, away from the oven and the dishwasher. Not the fridge: cold makes the oil cloud and solidify, which does no harm, but condensation on the inside of a cold bottle brought into a warm kitchen does, and the oil is usually too thick to pour when you want it.' },
+            { type: 'p', text: 'Close it. The cap, straight away, every time. A pourer spout left open is a chimney for aroma and a funnel for air. If you like a spout, use one with a flap.' },
+            { type: 'p', text: 'Read the harvest date, not the best-before. A bottle with a harvest date on it was bottled by a producer who expects you to care. Buy the most recent harvest you can find, and buy it when the new harvest arrives — November to January for most of the Mediterranean — rather than in late summer, when the shelves hold the oldest oil of the year.' },
+            { type: 'oil', slug: 'oro-bailen-picual', kicker: 'A bottle that tells you' },
+          ],
+        },
+        {
+          id: 'what-does-not-help',
+          heading: '5. What does not help',
+          blocks: [
+            { type: 'p', text: 'Tasting the oil for colour. Colour is chlorophyll and carotene, which say something about the cultivar and the ripeness at harvest and nothing about freshness. Competition panels taste from blue glasses for exactly this reason.' },
+            { type: 'p', text: 'Nitrogen gadgets and vacuum pumps for the home. They work in a producer\'s steel tank, where the headspace is purged and the tank is never opened. In a kitchen the bottle is opened daily, which undoes the purge each time. Finishing the bottle faster does the same job for free.' },
+            { type: 'p', text: 'Trusting a date without a harvest. "Best before 2028" on a bottle bought in 2026 tells you it was bottled recently; it does not tell you when the olives were picked. Oil can sit in a tank for a year before bottling. The harvest date is the one that matters, and a producer who prints it is a producer who is proud of it.' },
+            {
+              type: 'sources',
+              kicker: 'How we sourced this',
+              text: 'The mechanisms — chlorophyll photo-oxidation, the temperature dependence of oxidation and the role of polyphenols as sacrificial antioxidants — are standard lipid chemistry. The ranges in the table are indicative, drawn from published storage trials on extra virgin oils; the exact loss varies with cultivar and the oil\'s starting polyphenol content.',
+              items: [
+                { label: 'International Olive Council — trade standard for olive oils (quality limits and the tests behind a best-before date)', url: 'https://www.internationaloliveoil.org/what-we-do/chemistry-standardisation-unit/standards-and-methods/' },
+                { label: 'EU Regulation 2022/2104 — marketing standards for olive oil, including the harvest-year labelling rules', url: 'https://eur-lex.europa.eu/eli/reg_del/2022/2104/oj' },
+                { label: 'UC Davis Olive Center — storage and shelf-life research summaries', url: 'https://olivecenter.ucdavis.edu/research/reports' },
+              ],
+            },
+          ],
+        },
+      ],
+    },
     {
       slug: 'how-to-taste-olive-oil',
       category: 'tasting',
