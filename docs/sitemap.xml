@@ -2,811 +2,775 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://bestoliveoils.eu/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/compare/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/learn/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://bestoliveoils.eu/oils/finca-la-torre-picual/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/oils/laudemio-frescobaldi/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/oils/castillo-de-canena-reserva-familiar/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/oils/fonte-di-foiano-grand-cru/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
     <loc>https://bestoliveoils.eu/oils/oro-bailen-picual/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/oils/pruneti-frantoio/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-bailen-arbequina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-bailen-hojiblanca/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-bailen-frantoio/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-bailen-picual-organic/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/nobleza-del-sur-flor-de-abeja-picual-bio/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/nobleza-del-sur-novo/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/nobleza-del-sur-eco-day/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/nobleza-del-sur-flor-de-abeja-arbequina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/nobleza-del-sur-eco-night/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/nobleza-del-sur-only-for-children/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/sabino-leone-don-gioacchino/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/miceli-sensat-unico/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/monini-monocultivar-coratina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/rincon-de-la-subbetica-hojiblanca/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/o-med-picual/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oleicola-jaen-don-remigio/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/parqueoliva-serie-oro/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/knolive-epicure/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/xiangyu-coratina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/virrey-del-pino/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/quattrociocchi-olivastro/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/trappeto-di-caprafico-crognale/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-de-canava/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oleicola-jaen-picual-especial/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/paola-orsini-dop-colline-pontine/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/mimi-premium-blend/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/terracuza-biologico/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/schinosa-la-coratina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/goya-organics/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oleicola-jaen-eco/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-del-desierto-picual/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/olibaeza-premium-picual/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/jabalcuz-gran-seleccion/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/frantoi-cutrera-primo-dop/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/goya-unico/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/miceli-sensat-verde/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/santuario-de-magina-seleccion-temprana/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/artajo-10-koroneiki/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-del-desierto-coupage/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/oro-del-desierto-hojiblanca/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/balcon-del-guadalquivir/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/almaoliva-bio/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/paola-orsini-riserva/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/decimi-emozione/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/marsicani-opera-nostra/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/el-empiedro/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/cetrone-in/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/masoni-becciu-cuncordu/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/oils/de-palma-olio-longevo/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/picual/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/hojiblanca/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/cultivars/arbequina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/picudo/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bestoliveoils.eu/cultivars/frantoio/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <loc>https://bestoliveoils.eu/cultivars/arbequina/</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/coratina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/itrana/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://bestoliveoils.eu/cultivars/leccino/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <loc>https://bestoliveoils.eu/cultivars/frantoio/</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/bosana/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/koroneiki/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/cultivars/leccino/</loc>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/moraiolo/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/tonda-iblea/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/aglandau/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/ayvalik/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/casaliva/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/chalkidiki/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/cobrancosa/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/cornicabra/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/domat/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/empeltre/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/erkence/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/galega-vulgar/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/gemlik/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/istarska-bjelica/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/kalamon/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/konservolia/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/manaki/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/manzanilla-de-sevilla/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/megaritiki/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/memecik/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/nizip-yaglik/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/nocellara-del-belice/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/peranzana/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/picholine/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/royal-de-cazorla/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/sariulak/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/taggiasca/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/tsounati/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/uslu/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/cultivars/verdeal-transmontana/</loc>
-    <lastmod>2026-09-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://bestoliveoils.eu/producers/finca-la-torre/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/oro-bailen/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/nobleza-del-sur/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/sabino-leone/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/miceli-sensat/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/monini/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/almazaras-de-la-subbetica/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/o-med/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/oleicola-jaen/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/knolive/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/xiangyu/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/olivarera-guadalupe/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/quattrociocchi/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/trappeto-di-caprafico/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/oro-de-canava/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/paola-orsini/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/mimi/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/terracuza/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/schinosa/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/goya-espana/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/oro-del-desierto/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/olibaeza/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/jabalcuz/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/frantoi-cutrera/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/santuario-de-magina/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/artajo/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/balcon-del-guadalquivir/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/olivarera-la-purisima/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/decimi/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/marsicani/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/cetrone/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/masoni-becciu/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/producers/de-palma/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://bestoliveoils.eu/learn/how-to-taste-olive-oil/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
