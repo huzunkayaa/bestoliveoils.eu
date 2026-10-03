@@ -28,6 +28,8 @@ const url = {
   cultivarCompare: () => '/cultivars/compare/',
   producer: (slug) => `/producers/${slug}/`,
   guide: (slug) => `/learn/${slug}/`,
+  howWeRate: () => '/how-we-rate/',
+  contact: () => '/contact/',
 };
 
 const absolute = (site, path) => site.url.replace(/\/$/, '') + path;

@@ -37,6 +37,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://bestoliveoils.eu/how-we-rate/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://bestoliveoils.eu/contact/</loc>
+    <lastmod>2026-10-03</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://bestoliveoils.eu/oils/oro-bailen-picual/</loc>
     <lastmod>2026-10-03</lastmod>
     <changefreq>monthly</changefreq>

@@ -1591,8 +1591,51 @@ function guide(D, g) {
   });
 }
 
+/* ══ static pages · How we rate, Contact ════════════════════════════════
+   Plain editorial pages built from the same typed blocks a guide uses, so a
+   record cannot smuggle markup in and the test that covers guide blocks
+   covers these too. The footer links to both from every page, which is why
+   they exist: a link to "#" on a review site is a trust problem, not a todo. */
+function staticPage(D, key, route) {
+  const site = D.site;
+  const pg = D.pages[key];
+  const trail = [{ label: 'Home', href: url.home() }, { label: pg.heading }];
+
+  const n = counts(D);
+  const fill = (t) => R.fillCounts(t, n);
+  const main = R.breadcrumb(trail) +
+    `<header class="article-head">
+      <h1>${esc(pg.heading)}</h1>
+      <p class="article-head__lede">${esc(fill(pg.lede))}</p>
+    </header>
+    <div class="article-layout article-layout--static">
+      <article class="article-body">${pg.sections.map((sec) =>
+        `<h2 id="${esc(sec.id)}">${esc(sec.heading)}</h2>` +
+        sec.blocks.map((b) => guideBlock(D, site,
+          b.type === 'p' ? { ...b, text: fill(b.text) } : b)).join('')).join('')}
+      </article>
+    </div>`;
+
+  return shell({
+    site,
+    bodyClass: 'page-body--article',
+    nav: R.nav(site, ''),
+    main,
+    headHtml: S.head({
+      site,
+      title: pg.title,
+      description: fill(pg.description),
+      path: route,
+      schema: [S.breadcrumbList(site, trail)],
+    }),
+  });
+}
+
+const howWeRate = (D) => staticPage(D, 'howWeRate', url.howWeRate());
+const contact = (D) => staticPage(D, 'contact', url.contact());
+
 module.exports = {
   cultivarCompare,
   home, library, producersIndex, cultivarsIndex, learnIndex,
-  oil, cultivar, producer, guide,
+  oil, cultivar, producer, guide, howWeRate, contact,
 };

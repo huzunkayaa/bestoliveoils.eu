@@ -54,8 +54,8 @@ module.exports = {
       { label: 'Cultivars',   href: '/cultivars/' },
       { label: 'Regions',     href: '/oils/' },
       { label: 'Learn',       href: '/learn/' },
-      { label: 'How we rate', href: '#' },
-      { label: 'Contact',     href: '#' },
+      { label: 'How we rate', href: '/how-we-rate/' },
+      { label: 'Contact',     href: '/contact/' },
     ],
   },
 
@@ -90,6 +90,96 @@ module.exports = {
       body: [
         'These are the working notes behind the scores: how we taste, what the three positives actually are, why colour tells you nothing, and how to keep a good oil from going flat before you finish the bottle.',
         'Each guide is written by a member of the tasting panel and revised as the method changes. Where a guide names an oil, it links to that oil\'s entry in the library so you can taste along with it.',
+      ],
+    },
+    howWeRate: {
+      title: 'How We Rate Olive Oil | bestoliveoils.eu',
+      description: 'What a score on bestoliveoils.eu means, what a competition chip means, who pays for what, and how our retail partner relationship is handled.',
+      heading: 'How we rate',
+      lede: 'What a score on this site means, what it does not mean, and who is paying for what.',
+      sections: [
+        {
+          id: 'two-kinds-of-entry',
+          heading: 'Two kinds of entry',
+          blocks: [
+            { type: 'p', text: 'The library holds {oils} oils. Some carry a star score out of five; the rest carry a competition placing, such as a rank in the World\'s Best Olive Oils list. The difference matters. A star score means our panel tasted the oil and scored it. A competition chip means somebody else\'s panel did, and we are reporting their result with a link to it. We never turn a competition placing into a star score of our own.' },
+            { type: 'callout', kicker: 'Plain rule', text: 'If an oil has stars, we tasted it. If it has a chip, we have not — yet.' },
+          ],
+        },
+        {
+          id: 'the-panel-and-the-method',
+          heading: 'The panel and the method',
+          blocks: [
+            { type: 'p', text: 'We taste the way competition panels do: a tablespoon in a covered glass warmed in the hand, nosed, then stripped across the palate with air drawn in. We score the three positive attributes — fruitiness, bitterness and pungency — and their balance, and we note defects by name. The method is written up in full in our tasting guide, so you can run the same test at your own table.' },
+            { type: 'p', text: 'Our scores are currently marked provisional on every page that carries one. They come from a small panel tasting known oils, not from a blind flight of the whole library. The full blind round for the 2025/26 harvest is scheduled, and scores will be re-issued from it; until then the word "provisional" stays on the page.' },
+          ],
+        },
+        {
+          id: 'what-the-figures-are',
+          heading: 'Where the figures come from',
+          blocks: [
+            { type: 'p', text: 'Polyphenol and acidity figures on an oil\'s page are labelled with their source — nearly always the producer\'s own laboratory report for that harvest. We have not commissioned independent analysis, so the page says "laboratory figures", never "independently verified". Where a producer publishes a bound rather than a figure ("≥ 500 mg/kg"), it is printed as text, not drawn as a bar, because a bar implies a measurement. Where nothing has been published, the page says "Not published" instead of guessing.' },
+            { type: 'p', text: 'A cultivar page prints the polyphenol range published for the variety, and says so. No oil ever borrows that range as its own figure.' },
+          ],
+        },
+        {
+          id: 'money',
+          heading: 'Who pays for what',
+          blocks: [
+            { type: 'p', text: 'No producer pays to be listed, and we do not accept oils in exchange for coverage. An oil is here because we bought it, or because it placed in a competition we follow.' },
+            { type: 'p', text: 'This site is run by the people behind olijfoliemarkt.nl, an olive oil shop in the Netherlands. Where an oil in the library is sold there, its page says so and links to it, and the strip at the top of every page states the relationship. The score is set before the shop is considered, and oils the shop does not carry are scored in the same way as oils it does — most of the library is not for sale there at all.' },
+          ],
+        },
+        {
+          id: 'reader-reviews',
+          heading: 'Reader reviews',
+          blocks: [
+            { type: 'p', text: 'Reader ratings are shown separately from panel scores and are never blended into them. The site does not yet accept reader submissions; the form on each page is there so that when it does, nothing about the layout has to change.' },
+          ],
+        },
+        {
+          id: 'corrections',
+          heading: 'Corrections',
+          blocks: [
+            { type: 'p', text: 'If a figure, an award or a producer detail is wrong, tell us and we will correct it and note the correction on the page. Producers are welcome to send us their current lab report for a harvest; we will cite it as theirs.' },
+          ],
+        },
+      ],
+    },
+    contact: {
+      title: 'Contact | bestoliveoils.eu',
+      description: 'How to reach the people behind bestoliveoils.eu: corrections, lab reports from producers, and questions about the library.',
+      heading: 'Contact',
+      lede: 'One address for everything. We read it ourselves.',
+      sections: [
+        {
+          id: 'write-to-us',
+          heading: 'Write to us',
+          blocks: [
+            { type: 'p', text: 'info@olijfoliemarkt.nl — the mailbox of our retail partner, which is also us. Put "bestoliveoils" in the subject line and it reaches the right person.' },
+          ],
+        },
+        {
+          id: 'producers',
+          heading: 'Producers',
+          blocks: [
+            { type: 'p', text: 'If your oil is in the library and something on its page is wrong, send the correction and we will fix it. If you have a current laboratory report for the harvest on sale, send it and we will cite the figures as yours. If your oil is not in the library, we do not take submissions, but we do follow the major competitions and buy what interests us.' },
+          ],
+        },
+        {
+          id: 'readers',
+          heading: 'Readers',
+          blocks: [
+            { type: 'p', text: 'Found an oil you think the panel should taste? Tell us which and where you bought it. Questions about buying any of the oils stocked by our partner go to the shop itself.' },
+          ],
+        },
+        {
+          id: 'who-we-are',
+          heading: 'Who we are',
+          blocks: [
+            { type: 'p', text: 'bestoliveoils.eu is written and maintained by the team behind olijfoliemarkt.nl in Amstelveen, the Netherlands. How the shop and the library relate is set out on the How we rate page.' },
+          ],
+        },
       ],
     },
     cultivars: {
@@ -3900,8 +3990,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Villanueva de la Reina sits on the Guadalquivir plain in the province of Jaén, the most densely planted olive landscape in the world. Oro Bailén picks weeks before most of its neighbours, which costs yield and buys the green, high-polyphenol style.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Tomato salad', 'Grilled vegetables', 'Bread and salt', 'White fish', 'Gazpacho'],
         expertReview: {
@@ -3961,8 +4051,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Arbequina is a Catalan olive, but Oro Bailén grows it in Jaén alongside its Picual and gives it the same early harvest and fast milling. The result is fruitier and more structured than most Catalan Arbequinas.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['White fish', 'Green salads', 'Fresh cheese', 'Mayonnaise', 'Baking'],
         expertReview: {
@@ -4022,8 +4112,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Hojiblanca — "white leaf", for the pale underside of its leaves — is native to the Córdoba–Málaga border but grows across Andalusia. Oro Bailén\'s block sits in the Sierra Morena foothills above Villanueva de la Reina.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Grilled fish', 'Roasted vegetables', 'Green salads', 'Grilled bread', 'Pasta'],
         expertReview: {
@@ -4083,8 +4173,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Frantoio is native to Tuscany and rarely planted in Andalusia; the warmer, drier Jaén climate ripens it earlier and gives a rounder, less bitter oil than its Italian cousins.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Pasta', 'Grilled fish', 'Red meat', 'Aged cheese', 'Pizza'],
         expertReview: {
@@ -4145,8 +4235,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Organic Picual from the same Villanueva de la Reina estate as the Reserva Familiar. Organic groves in Jaén are still rare; the early-harvest, high-polyphenol style is the same.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Tomato salad', 'Red meat', 'Roasted vegetables', 'Aged cheese', 'Grilled bread'],
         expertReview: {
@@ -4207,8 +4297,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Castellar sits in eastern Jaén, where the Guadalquivir plain climbs towards the Sierra de Segura. Cooler nights and altitude slow ripening, which is part of why an early pick here holds this much phenolic content.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Green salads', 'Roasted vegetables', 'Pulses and soups', 'Beef carpaccio', 'Bread and salt'],
         expertReview: {
@@ -4270,8 +4360,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Finca Vista Alegre lies in central Jaén with a distinct Mediterranean microclimate; it is also the grove behind the estate\'s Centenarium Premium.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Toasted bread', 'Bean and lentil soups', 'Grilled vegetables', 'Burrata', 'A pinch of sea salt'],
         expertReview: {
@@ -4331,8 +4421,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Organic groves in eastern Jaén, farmed to protect the daytime pollinators on the label, and milled on the estate within four hours of picking.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Pan con tomate', 'Green salads', 'Grilled vegetables', 'Pasta', 'Everyday finishing'],
         expertReview: {
@@ -4392,8 +4482,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'The Sierra de Cazorla is the mountainous east of Jaén — higher, cooler and later than the Guadalquivir plain. Slower ripening is part of why an Arbequina grown here can hold this much phenolic content.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Raw fish and carpaccio', 'Steamed vegetables', 'Fresh cheeses', 'Green salads', 'Mayonnaise'],
         expertReview: {
@@ -4453,8 +4543,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'The same organic groves as Eco Day, in eastern Jaén, managed to protect the night-flying pollinators pictured on the label.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Salads', 'Steamed vegetables', 'Pasta', 'Light frying', 'Baking'],
         expertReview: {
@@ -4514,8 +4604,8 @@ module.exports = {
         origin: {
           mapPlaceholder: 'Region map · Jaén',
           note: 'Made on the family estate at Castellar, Jaén, from the same organically farmed groves as the rest of the range.',
-          linkLabel: 'About Andalusia →',
-          linkHref: '#',
+          linkLabel: 'All Andalusian oils in the library →',
+          linkHref: '/oils/?region=andalusia',
         },
         pairings: ['Pasta', 'Purées', 'Steamed vegetables', 'Bread', 'Scrambled eggs'],
         expertReview: {

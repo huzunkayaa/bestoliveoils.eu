@@ -66,6 +66,8 @@ function build() {
   page(url.cultivars(), pages.cultivarsIndex(D), '0.6', 'monthly');
   page(url.cultivarCompare(), pages.cultivarCompare(D), '0.5', 'monthly');
   page(url.learn(), pages.learnIndex(D), '0.6', 'monthly');
+  page(url.howWeRate(), pages.howWeRate(D), '0.5', 'yearly');
+  page(url.contact(), pages.contact(D), '0.3', 'yearly');
 
   for (const oil of D.oils) {
     page(url.oil(oil.slug), pages.oil(D, oil), oil.detail ? '0.8' : '0.5', 'monthly');

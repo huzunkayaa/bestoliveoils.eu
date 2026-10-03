@@ -1600,6 +1600,7 @@ body { background: #fff; }
 
 /* ══ 06 · article — v2 blocks ══════════════════════════════════════════════ */
 
+.article-layout--static { grid-template-columns: minmax(0, 680px); }
 .article-layout--rail { grid-template-columns: 220px minmax(0, 640px) 300px; gap: 56px; }
 .article-rail { display: flex; flex-direction: column; gap: 24px; position: sticky; top: 24px; }
 .article-rail__card { display: flex; flex-direction: column; gap: 12px; }
