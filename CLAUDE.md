@@ -38,6 +38,8 @@ Directory URLs with a trailing slash, so any host resolves them without rewrites
 | Cultivar (v2 03) | `/cultivars/<slug>/` |
 | Guides hub | `/learn/` |
 | 04 Article | `/learn/<slug>/` |
+| Ranking | `/rankings/<slug>/` |
+| How we rate · Contact | `/how-we-rate/` · `/contact/` |
 
 `src/lib/render.js` holds the `url` helper — it is the only place a route is
 named. Change it there and every link, canonical, breadcrumb and sitemap entry
@@ -121,6 +123,13 @@ comment.
   `{producers}`, `{regions}` or `{cultivars}` and `R.fillCounts` fills them from
   the records at build time. The homepage and library descriptions claimed 312
   oils for as long as the library held 55.
+- **A ranking page republishes a competition's table, never reorders it.**
+  `rankings[]` in site.js holds the rows in the source's own order; a row
+  links to the library only through `oilSlug`, and `pages.ranking` throws on
+  a slug that does not exist. Catalogue pages' competition credential links
+  to the ranking page when one carries that competition's `shortName`.
+- **Static pages (How we rate, Contact) are typed blocks** in `pages.howWeRate`
+  and `pages.contact`, rendered by the same `guideBlock` as a guide.
 - **Every nav and mega-menu row's count must match what its link returns.** The
   taxonomy panel is built from `facets.js`, so an option can only offer a view
   that has something in it. There is no "competition ranked" filter, so there is
@@ -161,9 +170,9 @@ Deliberate gaps, listed so nobody assumes they exist:
 - **No `status: draft|published`.** Every record in `site.js` is published.
 - **No admin panel.** `design/Admin Panel.dc.html` (6 screens) is unimplemented.
 - **No region pages.** Region links point at `/oils/` with a query.
-- **Six varieties in the library have no record.** Biancolilla, Cerasuola,
-  Cariasina, Crognalegno, San Felice and the "Royal / Hojiblanca" label — one
-  oil each. They are hub rows that open the filtered library, and need a `lede`
+- **Varieties in the library with no record** — Biancolilla, Cerasuola,
+  Cariasina, Crognalegno, San Felice, Dritta, Leccio del Corno, Moresca and the
+  "Royal / Hojiblanca" label. They are hub rows that open the filtered library, and need a `lede`
   and a `grove` write-up to earn a page.
 - **No grove or map photography for any of the 40.** Each record carries an
   `imagePlaceholder` and a `map.placeholder`, and the labelled block renders
@@ -181,6 +190,6 @@ Deliberate gaps, listed so nobody assumes they exist:
   faceted-search restyle. The
   footer is also still v1 — v2 draws a five-column one whose Method and Trade
   columns point at pages that do not exist.
-- **No "How we rate" or "Contact" page** — both are linked from every footer and
-  currently go nowhere.
+- **Reader review counts are never shown** — nothing has any, and a "0 reviews"
+  next to a score reads as a verdict. The "Most reviewed" sort went with it.
 - **Sign in, Helpful and Report do nothing** — all three need a backend.
