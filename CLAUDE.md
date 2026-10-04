@@ -131,6 +131,14 @@ comment.
   `Organization.logo`; it is not shown on the producer's own page or in the
   ranking table.
   Files go in `src/assets/img/producers/`.
+- **Producer maps are drawn, never fetched or generated.** `tools/make-maps.js`
+  renders a locator SVG per producer from its `geo` (Natural Earth 10m via
+  world-atlas + d3-geo, installed in a scratch folder and run with
+  `NODE_PATH`; they are not project dependencies) into
+  `src/assets/img/maps/<slug>.svg`. The caption under the map is built from
+  `locality`, `country` and `geo` at build time. An oil page's origin slot
+  shows its producer's map when the oil has none of its own. Re-run the
+  tool after adding a producer with `geo`.
 - **A ranking page republishes a competition's table, never reorders it.**
   `rankings[]` in site.js holds the rows in the source's own order; a row
   links to the library only through `oilSlug`, and `pages.ranking` throws on
