@@ -9066,7 +9066,8 @@ module.exports = {
       'The producer states it started with 30 dönüm (3 ha) and now draws on more than 3,000 dönüm (300 ha) through contract growing; its US site says 3,000 acres and a 2023 newspaper profile says over 5,000 dönüm, so the figure is uncertain. Tree count is not published. The 2026 range is Memecik, Koroneiki, Picual, Emerald and Arbequina; Ayvalık, Trilye and Domat were bottled in earlier years.',
       'Cold extraction below 27 °C on the Turkish site, 20–25 °C on the US one. A 2020 newspaper profile stated the company had no mill of its own and also bought olives in; the producer’s current pages describe its own automated line. Certified under Türkiye’s Good Agricultural Practice scheme; organic and kosher claims appear only on the US and wholesale listings. Competition results are as the producer lists them; London IOOC 2023 for Memecik is confirmed on the competition’s site.',
     ],
-    map: { placeholder: 'Map · Köprübaşı', caption: 'Köprübaşı, Manisa · 38.75° N, 28.40° E' },
+    map: {
+      image: { src: 'assets/img/maps/hermus.svg', alt: 'Locator map: Köprübaşı, Manisa, on the Gediz plain inland from the Aegean', w: 600, h: 600 }, placeholder: 'Map · Köprübaşı', caption: 'Köprübaşı, Manisa · 38.75° N, 28.40° E' },
   },
   {
     slug: 'buta-assos',
