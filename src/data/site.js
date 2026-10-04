@@ -7963,6 +7963,7 @@ module.exports = {
       founded: '1640',
       geo: { lat: 38.23, lon: -3.10 },
       website: 'https://www.noblezadelsur.com',
+    logo: { src: 'assets/img/producers/nobleza-del-sur-logo.webp', alt: 'Nobleza del Sur logo', w: 800, h: 329 },
       seo: {
         title: 'Nobleza del Sur — Jaén Estate & Its Oils | bestoliveoils.eu',
         description: 'Twelve generations in Castellar, Jaén: 300 hectares, milling within four hours, Flos Olei 99/100. The full Nobleza del Sur range with our panel scores.',
@@ -8036,6 +8037,7 @@ module.exports = {
     founded: '2017',
     geo: { lat: 38.08, lon: 13.29 },
     website: 'https://miceliandsensat.it',
+    logo: { src: 'assets/img/producers/miceli-sensat-logo.svg', alt: 'Miceli & Sensat logo', w: 297, h: 151 },
     seo: {
       title: 'Miceli & Sensat — Organic Sicilian Estate | bestoliveoils.eu',
       description: 'Spanish Picual grafted onto wild Sicilian rootstock, 48,000 organic trees near Lago Garcia, and the world’s best organic mill for 2025/26.',
@@ -8068,6 +8070,7 @@ module.exports = {
     founded: '1920',
     geo: { lat: 42.73, lon: 12.74 },
     website: 'https://www.monini.com',
+    logo: { src: 'assets/img/producers/monini-logo.webp', alt: 'Monini logo', w: 500, h: 326 },
     seo: {
       title: 'Monini — Umbrian Bottler Since 1920 | bestoliveoils.eu',
       description: 'The one large-scale house in the World’s Best Olive Oils 2025/26 top ten. Two plants, 30 million litres a year, and an organic Coratina at fourth.',
@@ -8099,6 +8102,7 @@ module.exports = {
     founded: '2007',
     geo: { lat: 37.45, lon: -4.28 },
     website: 'https://almazarasdelasubbetica.com',
+    logo: { src: 'assets/img/producers/almazaras-de-la-subbetica-logo.webp', alt: 'Almazaras de la Subbética logo', w: 600, h: 376 },
     seo: {
       title: 'Almazaras de la Subbética — Córdoba Co-op | bestoliveoils.eu',
       description: 'A 4,000-family cooperative inside the Sierras Subbéticas with three oils in the World’s Best Olive Oils 2025/26 top forty. Mills, groves, range.',
@@ -8163,6 +8167,7 @@ module.exports = {
     founded: '1981',
     geo: { lat: 37.99, lon: -3.47 },
     website: 'https://www.oleicolajaen.es',
+    logo: { src: 'assets/img/producers/oleicola-jaen-logo.webp', alt: 'Oleícola Jaén logo', w: 374, h: 205 },
     seo: {
       title: 'Oleícola Jaén — Baeza Mill Since 1981 | bestoliveoils.eu',
       description: 'The fifth-best mill in the world for 2025/26, with three oils in the top twenty. A Baeza mill that buys fruit from growers across the province.',
@@ -8196,6 +8201,7 @@ module.exports = {
     founded: '2015',
     geo: { lat: 37.44, lon: -4.20 },
     website: 'https://knolive.com',
+    logo: { src: 'assets/img/producers/knolive-logo.webp', alt: 'Knolive logo', w: 286, h: 95 },
     seo: {
       title: 'Knolive — Mountain Groves at 600–800 m | bestoliveoils.eu',
       description: 'Ninety-eight hectares of hand-harvested mountain grove below La Tiñosa, milled at night. Sixth-generation family, company founded 2015.',
