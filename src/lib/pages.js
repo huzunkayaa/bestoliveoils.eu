@@ -337,6 +337,30 @@ function library(D) {
    to land somewhere. Without these the nav pointed at one arbitrary record,
    which is a dead end for a reader and a crawler alike. */
 
+/* Two producer stats are counts the record also carries as rows, so they are
+   read from the rows at build time: "N oils in library" counts the rows that
+   have a page (a producer may list bottlings the library has no record of)
+   and "N available in our shop" the rows flagged inShop. The typed value is
+   ignored — the Hermus page said "0 available" with three on the shelf. */
+function producerStats(D, p) {
+  const inLibrary = new Set(D.oils.map((o) => o.slug));
+  const COUNTED = { 'oils in library': () => p.oils.filter((o) => inLibrary.has(o.slug)).length,
+                    'available in our shop': () => p.oils.filter((o) => o.inShop).length };
+  return p.stats.map((s) => COUNTED[s.label] ? { ...s, value: String(COUNTED[s.label]()) } : s);
+}
+
+/* The hub card's picture: the estate photo when there is one, else the
+   producer's logo on white, else the labelled placeholder. */
+const producerCardMedia = (p) => {
+  if (p.image && p.image.src) return media(p.image, p.imagePlaceholder, 'oil-card__media');
+  if (p.logo && p.logo.src) {
+    return `<div class="media media--contain oil-card__media oil-card__media--logo">` +
+      `<img src="/${esc(p.logo.src)}" alt="${esc(p.logo.alt || p.name + ' logo')}"` +
+      ` width="${p.logo.w}" height="${p.logo.h}" loading="lazy" decoding="async"></div>`;
+  }
+  return media(null, p.imagePlaceholder, 'oil-card__media');
+};
+
 function producersIndex(D) {
   const site = D.site;
   const meta = D.pages.producers;
@@ -345,15 +369,16 @@ function producersIndex(D) {
   const main = R.breadcrumb(trail) +
     `<div class="library-head"><h1>Producers</h1><p>${esc(meta.intro)}</p>${
       meta.body.map((para) => `<p class="hub-body">${esc(para)}</p>`).join('')}</div>
-     <div class="oil-grid-3">${D.producers.map((p) =>
-      `<a class="card elev-sm oil-card" href="${url.producer(p.slug)}">` +
-      media(p.image, p.imagePlaceholder, 'oil-card__media') +
+     <div class="oil-grid-3">${D.producers.map((p) => {
+      const stats = producerStats(D, p);
+      return `<a class="card elev-sm oil-card" href="${url.producer(p.slug)}">` +
+      producerCardMedia(p) +
       '<div class="oil-card__body">' +
         `<span class="card-kicker">${esc(p.tags[0])}</span>` +
         `<span class="card-title oil-card__title">${esc(p.name)}</span>` +
-        `<span class="oil-card__sub">${esc(p.stats[0].value)} ${esc(p.stats[0].label)} · ${
-          esc(p.stats[1].value)} ${esc(p.stats[1].label)}</span>` +
-      '</div></a>').join('')}</div>`;
+        `<span class="oil-card__sub">${esc(stats[0].value)} ${esc(stats[0].label)} · ${
+          esc(stats[1].value)} ${esc(stats[1].label)}</span>` +
+      '</div></a>'; }).join('')}</div>`;
 
   return shell({
     site,
@@ -1331,16 +1356,7 @@ function producer(D, p) {
   const site = D.site;
   const path = url.producer(p.slug);
 
-  /* Two of the hero stats are counts the record also carries as rows, so they
-     are read from the rows at build time: "N oils in library" counts the rows
-     that have a page (a producer may list bottlings the library has no record
-     of) and "N available in our shop" is the rows flagged inShop. The typed value
-     is ignored — the Hermus page said "0 available" with three on the shelf. */
-  const inLibrary = new Set(D.oils.map((o) => o.slug));
-  const COUNTED = { 'oils in library': () => p.oils.filter((o) => inLibrary.has(o.slug)).length,
-                    'available in our shop': () => p.oils.filter((o) => o.inShop).length };
-  p = { ...p, stats: p.stats.map((s) =>
-    COUNTED[s.label] ? { ...s, value: String(COUNTED[s.label]()) } : s) };
+  p = { ...p, stats: producerStats(D, p) };
 
   /* v2's award timeline. No producer record carries one, so it is read back
      out of their oils' `detail.awards` — the same strings those oil pages
