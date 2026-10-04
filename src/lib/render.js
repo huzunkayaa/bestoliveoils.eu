@@ -21,6 +21,7 @@ const url = {
   home: () => '/',
   library: () => '/oils/',
   producers: () => '/producers/',
+  regions: () => '/regions/',
   cultivars: () => '/cultivars/',
   learn: () => '/learn/',
   oil: (slug) => `/oils/${slug}/`,
@@ -93,12 +94,12 @@ const searchBar = (size, placeholder) =>
   '<button class="btn btn-primary" type="submit">Search</button></form>';
 
 /* ── counts ───────────────────────────────────────────────────────────────
-   Copy writes {oils} / {producers} / {regions} / {cultivars} and the build
+   Copy writes {oils} / {producers} / {regions} / {countries} / {cultivars} and the build
    fills them from the records. A number typed into a string is a number that
    will be wrong later — these two page descriptions claimed 312 oils for as
    long as the library held 55. */
 const fillCounts = (text, counts) =>
-  String(text).replace(/\{(oils|producers|regions|cultivarPages|cultivars)\}/g,
+  String(text).replace(/\{(oils|producers|regions|countries|cultivarPages|cultivars)\}/g,
     (whole, key) => (counts[key] == null ? whole : String(counts[key])));
 
 /* ── chrome ───────────────────────────────────────────────────────────────

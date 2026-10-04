@@ -17,7 +17,8 @@ const LAB = require('./lab');
 const LEARN = require('./learn');
 const AWARDS = require('./awards');
 const CI = require('./cultivar-index');
-const { facetsFor } = require('./facets');
+const F = require('./facets');
+const { facetsFor } = F;
 const { esc, url, media, starRow, srOnly, ratingLabel, shopBadge, ICON } = R;
 
 const shell = ({ site, headHtml, nav, bodyClass, main }) =>
@@ -49,6 +50,7 @@ function counts(D) {
     oils: D.oils.length,
     producers: D.producers.length,
     regions: lists.regions.length,
+    countries: new Set(lists.regions.map((r) => r.label.split(' · ')[0])).size,
     // Varieties the library's oils actually carry — what this count has always
     // meant, and what the library page's copy is describing.
     cultivars: cultivarList(D).filter((c) => c.count > 0).length,
@@ -361,24 +363,121 @@ const producerCardMedia = (p) => {
   return media(null, p.imagePlaceholder, 'oil-card__media');
 };
 
+/* ── producers hub ──────────────────────────────────────────────────────
+   Every figure on a card and every chip in the rail is counted from the
+   producer's own oil rows against the library, the same way the producer
+   page's stats are. Regions are the regions its oils carry, cultivars the
+   varieties its oils name, so the facets can only offer views with
+   something in them. */
+function producerRows(D) {
+  const inLibrary = new Map(D.oils.map((o) => [o.slug, o]));
+  return D.producers.map((p) => {
+    const oils = p.oils.map((r) => inLibrary.get(r.slug)).filter(Boolean);
+    const regions = [...new Set(oils.map((o) => F.splitRegion(o.region).name))].sort();
+    const cultivars = [...new Set(oils.flatMap((o) => F.cultivars(o)))];
+    const stocked = p.oils.filter((r) => r.inShop).length;
+    const stats = producerStats(D, p);
+    return {
+      p, oils: oils.length, stocked, regions, cultivars, stats,
+      availability: stocked ? 'In our shop' : 'Catalogue only',
+      country: p.country,
+      region: regions[0] || p.regionName || '',
+      terms: [p.name, p.locality, p.regionName, p.country, ...cultivars, ...(p.aliases || [])]
+        .filter(Boolean).join(' · ').toLowerCase(),
+    };
+  });
+}
+
+const producerCard = (r) => {
+  const p = r.p;
+  return `<a class="card elev-sm oil-card" href="${url.producer(p.slug)}"` +
+    ` data-country="${esc(r.country)}" data-region="${esc(r.region)}"` +
+    ` data-availability="${esc(r.availability)}"` +
+    ` data-name="${esc(p.name.toLowerCase())}" data-label="${esc(p.name)}"` +
+    ` data-oils="${r.oils}" data-shop="${r.stocked}"` +
+    ` data-meta="${esc([p.locality, p.country].filter(Boolean).join(', '))}"` +
+    ` data-terms="${esc(r.terms)}">` +
+    producerCardMedia(p) +
+    '<div class="oil-card__body">' +
+      `<span class="card-kicker">${esc(p.tags[0])}</span>` +
+      `<span class="card-title oil-card__title">${esc(p.name)}</span>` +
+      `<span class="oil-card__sub">${esc(r.stats[0].value)} ${esc(r.stats[0].label)} · ${
+        esc(r.stats[1].value)} ${esc(r.stats[1].label)}</span>` +
+      (r.cultivars.length
+        ? `<span class="oil-card__chips">${r.cultivars.slice(0, 3).map((c) =>
+            `<span class="tag tag-outline">${esc(c)}</span>`).join('')}</span>`
+        : '') +
+    '</div></a>';
+};
+
+/* Chip lists for a hub: every distinct value with its count, sorted by
+   count then name, so the rail never offers an option that returns nothing. */
+function tallyFacet(rows, key, label, order) {
+  const counts = new Map();
+  rows.forEach((r) => {
+    const v = r[key];
+    if (!v) return;
+    counts.set(v, (counts.get(v) || 0) + 1);
+  });
+  const values = [...counts].map(([value, count]) => ({ value, count }));
+  values.sort(order || ((a, b) => b.count - a.count || a.value.localeCompare(b.value)));
+  return values.length > 1 ? { key, label, values } : null;
+}
+
+const hubShortcut = (title, body, href, count, nounPlural, bg) => count
+  ? `<a class="card cv-shortcut" style="background:${bg}" href="${href}">` +
+    `<span class="cv-shortcut__title">${esc(title)}</span>` +
+    `<span class="cv-shortcut__body">${esc(body)}</span>` +
+    `<span class="cv-shortcut__count">${count} ${count === 1 ? nounPlural.replace(/s$/, '') : nounPlural} →</span></a>`
+  : '';
+
 function producersIndex(D) {
   const site = D.site;
   const meta = D.pages.producers;
+  const n = counts(D);
+  const fill = (t) => R.fillCounts(t, n);
   const trail = [{ label: 'Home', href: url.home() }, { label: 'Producers' }];
 
-  const main = R.breadcrumb(trail) +
-    `<div class="library-head"><h1>Producers</h1><p>${esc(meta.intro)}</p>${
-      meta.body.map((para) => `<p class="hub-body">${esc(para)}</p>`).join('')}</div>
-     <div class="oil-grid-3">${D.producers.map((p) => {
-      const stats = producerStats(D, p);
-      return `<a class="card elev-sm oil-card" href="${url.producer(p.slug)}">` +
-      producerCardMedia(p) +
-      '<div class="oil-card__body">' +
-        `<span class="card-kicker">${esc(p.tags[0])}</span>` +
-        `<span class="card-title oil-card__title">${esc(p.name)}</span>` +
-        `<span class="oil-card__sub">${esc(stats[0].value)} ${esc(stats[0].label)} · ${
-          esc(stats[1].value)} ${esc(stats[1].label)}</span>` +
-      '</div></a>'; }).join('')}</div>`;
+  const rows = producerRows(D).sort((a, b) => a.p.name.localeCompare(b.p.name));
+  const stocked = rows.filter((r) => r.stocked > 0).length;
+  const byCountry = (c) => rows.filter((r) => r.country === c).length;
+
+  const facets = [
+    tallyFacet(rows, 'country', 'Country'),
+    tallyFacet(rows, 'region', 'Region'),
+    tallyFacet(rows, 'availability', 'Availability'),
+  ].filter(Boolean);
+
+  const shortcuts = [
+    hubShortcut('In our shop', `Estates whose oils ${site.shopName} stocks today.`,
+      `${url.producers()}?availability=${encodeURIComponent('In our shop')}`, stocked, 'producers', 'var(--color-accent-2-100)'),
+    ...['Spain', 'Italy', 'Türkiye', 'Greece'].map((c, i) =>
+      hubShortcut(c, { Spain: 'Jaén, Córdoba, Catalonia and the north.', Italy: 'Puglia to Liguria, Sicily to the lakes.',
+        'Türkiye': 'The Aegean coast, picked early.', Greece: 'Crete and the Peloponnese.' }[c],
+        `${url.producers()}?country=${encodeURIComponent(c)}`, byCountry(c), 'producers',
+        ['var(--color-accent-100)', 'var(--color-surface)', 'var(--color-neutral-100)', 'var(--color-accent-100)'][i])),
+  ].filter(Boolean).join('');
+
+  const main = R.breadcrumb(trail) + hubIndex({
+    root: { noun: 'producer|producers', card: '.oil-card', substat: 'shop',
+            substatText: `{n} of them stocked at ${site.shopName}`, page: 12 },
+    heading: fill(meta.heading || 'Producers'),
+    lede: fill(meta.intro),
+    search: { action: url.producers(), placeholder: 'Search an estate, a mill, a town or a variety — Oro Bailén, Andria, Coratina…',
+              label: 'Search the producers' },
+    note: fill(meta.note || ''),
+    shortcuts,
+    facets,
+    sheetLabel: 'Filter producers', sheetApply: 'Show producers',
+    count: `${rows.length} producers`, substat: `${stocked} of them stocked at ${site.shopName}`,
+    sorts: [{ value: 'name', label: 'A–Z', checked: true }, { value: 'country,region,name', label: 'By country' },
+            { value: '-oils,name', label: 'Oils in library' }],
+    sortLabel: 'Sort producers',
+    grid: 'oil-grid-3', cards: rows.map(producerCard).join(''),
+    emptyTitle: 'No producers match every filter',
+  }) + (meta.body && meta.body.length
+    ? `<div class="hub-foot">${meta.body.map((para) => `<p class="hub-body">${esc(fill(para))}</p>`).join('')}</div>`
+    : '');
 
   return shell({
     site,
@@ -387,14 +486,138 @@ function producersIndex(D) {
     main,
     headHtml: S.head({
       site,
-      title: meta.title,
-      description: meta.description,
+      title: fill(meta.title),
+      description: fill(meta.description),
       path: url.producers(),
       schema: [
-        S.itemListPage(site, url.producers(), 'Producers', meta.description,
+        S.itemListPage(site, url.producers(), 'Producers', fill(meta.description),
           D.producers.map((p) => ({ name: p.name, url: url.producer(p.slug) }))),
         S.breadcrumbList(site, trail),
       ],
+    }),
+  });
+}
+
+/* ── regions hub ────────────────────────────────────────────────────────
+   There are no region pages (CLAUDE.md, "Not built"), so each card opens the
+   library filtered to that region — the same link the mega-menu and the
+   library's own sidebar use, so the count on the card is the count the
+   click returns. Rows are the library's region facet with the producers,
+   varieties and stocked oils behind each one counted from the oils. */
+function regionRows(D) {
+  const groups = new Map();
+  D.oils.forEach((o) => {
+    const f = F.facetsFor(o);
+    const g = groups.get(f.region) || { slug: f.region, name: f.regionName, country: f.country,
+      oils: 0, stocked: 0, producers: new Set(), cultivars: new Map(), score: [] };
+    g.oils++;
+    if (o.inShop) g.stocked++;
+    g.producers.add(o.producerSlug || o.producer);
+    f.cultivarNames.forEach((c) => g.cultivars.set(c, (g.cultivars.get(c) || 0) + 1));
+    groups.set(f.region, g);
+  });
+  /* The card's picture: the grove illustration of the region's lead variety,
+     but only when that variety's record places its origin in this region —
+     a Picual landscape is a Jaén landscape, so Andalusia may carry it; it
+     would not stand for Navarra. Otherwise the labelled placeholder. */
+  const records = new Map((D.cultivars || []).map((c) => [F.slug(c.name), c]));
+  const pictureFor = (g, cultivars) => {
+    for (const name of cultivars) {
+      const rec = records.get(F.cultivarSlug ? F.cultivarSlug(name) : F.slug(name));
+      if (rec && rec.image && rec.image.src && new RegExp(`\\b${g.name}\\b`, 'i').test(rec.originRegion || '')) {
+        return { ...rec.image, alt: `Olive country in ${g.name} — a generated illustration, not a photograph of a specific grove` };
+      }
+    }
+    return null;
+  };
+  return [...groups.values()].map((g) => {
+    const cultivars = [...g.cultivars].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0])).map(([c]) => c);
+    return {
+      ...g,
+      producers: g.producers.size,
+      cultivars,
+      image: pictureFor(g, cultivars),
+      terms: [g.name, g.country, ...g.cultivars.keys()].join(' · ').toLowerCase(),
+    };
+  });
+}
+
+const regionCard = (r) => {
+  const stat = (value, label) =>
+    `<div class="cv-card__stat"><span class="cv-card__statvalue">${esc(value)}</span>` +
+    `<span class="cv-card__statlabel">${esc(label)}</span></div>`;
+  return `<a class="card elev-sm cv-card" href="${url.library()}?region=${encodeURIComponent(r.slug)}"` +
+    ` data-country="${esc(r.country)}" data-name="${esc(r.name.toLowerCase())}" data-label="${esc(r.name)}"` +
+    ` data-oils="${r.oils}" data-shop="${r.stocked}" data-producers="${r.producers}"` +
+    ` data-terms="${esc(r.terms)}">` +
+    media(r.image, `${r.name} — landscape`, 'cv-card__media') +
+    '<div class="cv-card__body">' +
+      '<div class="cv-card__head">' +
+        `<span class="card-kicker">${esc(r.country)}</span>` +
+        `<span class="cv-card__name">${esc(r.name)}</span>` +
+      '</div>' +
+      '<div class="cv-card__stats">' +
+        stat(String(r.oils), r.oils === 1 ? 'oil in library' : 'oils in library') +
+        stat(String(r.producers), r.producers === 1 ? 'producer' : 'producers') +
+      '</div>' +
+      (r.cultivars.length
+        ? `<div class="cv-card__pairings">${r.cultivars.slice(0, 3).map((c) =>
+            `<span class="tag tag-outline">${esc(c)}</span>`).join('')}</div>`
+        : '') +
+    '</div></a>';
+};
+
+function regionsIndex(D) {
+  const site = D.site;
+  const meta = D.pages.regions;
+  const n = counts(D);
+  const fill = (t) => R.fillCounts(t, n);
+  const trail = [{ label: 'Home', href: url.home() }, { label: 'Regions' }];
+
+  const rows = regionRows(D).sort((a, b) => b.oils - a.oils || a.name.localeCompare(b.name));
+  const countries = [...new Set(rows.map((r) => r.country))];
+  const facets = [tallyFacet(rows, 'country', 'Country')].filter(Boolean);
+
+  const shortcuts = countries.slice(0, 4).map((c, i) => {
+    const inC = rows.filter((r) => r.country === c);
+    const oils = inC.reduce((t, r) => t + r.oils, 0);
+    return hubShortcut(c, `${oils} ${oils === 1 ? 'oil' : 'oils'} across ${inC.length} ${inC.length === 1 ? 'region' : 'regions'}.`,
+      `${url.regions()}?country=${encodeURIComponent(c)}`, inC.length, 'regions',
+      ['var(--color-accent-100)', 'var(--color-accent-2-100)', 'var(--color-surface)', 'var(--color-neutral-100)'][i]);
+  }).join('');
+
+  const main = R.breadcrumb(trail) + hubIndex({
+    root: { noun: 'region|regions', card: '.cv-card', substat: 'shop',
+            substatText: `{n} of them have an oil in our shop` },
+    heading: fill(meta.heading || 'Regions'),
+    lede: fill(meta.intro),
+    search: { action: url.regions(), placeholder: 'Search a region, a country or a variety — Puglia, Türkiye, Coratina…',
+              label: 'Search the regions' },
+    note: fill(meta.note || ''),
+    shortcuts,
+    facets,
+    sheetLabel: 'Filter regions', sheetApply: 'Show regions',
+    count: `${rows.length} regions`, substat: `${rows.filter((r) => r.stocked).length} of them have an oil in our shop`,
+    sorts: [{ value: '-oils,name', label: 'Most oils', checked: true }, { value: 'name', label: 'A–Z' },
+            { value: 'country,name', label: 'By country' }],
+    sortLabel: 'Sort regions',
+    grid: 'cv-grid', cards: rows.map(regionCard).join(''),
+    emptyTitle: 'No regions match every filter',
+  }) + (meta.body && meta.body.length
+    ? `<div class="hub-foot">${meta.body.map((para) => `<p class="hub-body">${esc(fill(para))}</p>`).join('')}</div>`
+    : '');
+
+  return shell({
+    site,
+    bodyClass: 'page-body--library',
+    nav: R.nav(site, 'regions'),
+    main,
+    headHtml: S.head({
+      site,
+      title: fill(meta.title),
+      description: fill(meta.description),
+      path: url.regions(),
+      schema: [S.breadcrumbList(site, trail)],
     }),
   });
 }
@@ -440,6 +663,7 @@ function cultivarCard(row) {
     ` data-phenol="${esc(row.phenolBand || CI.NOT_PUBLISHED)}"` +
     ` data-intensity="${esc(row.intensity || CI.NOT_PUBLISHED)}"` +
     ` data-name="${esc(row.name.toLowerCase())}"` +
+    ` data-label="${esc(row.name)}"` +
     ` data-oils="${row.oils}"` +
     ` data-terms="${esc([row.name, ...row.synonyms].join(' · ').toLowerCase())}"` +
     // The same names with their capitals intact, for display in the typeahead.
@@ -464,6 +688,104 @@ function cultivarCard(row) {
             `<span class="tag tag-outline">${esc(pairing)}</span>`).join('')}</div>`
         : '') +
     '</div></a>';
+}
+
+const ATTR_OF = { phenolBand: 'phenol' };
+
+/* ── hub index ──────────────────────────────────────────────────────────
+   One template for the Cultivars, Producers and Regions hubs: hero with
+   search, optional "start here" shortcuts, a facet rail (and its mobile
+   sheet), the result bar with sort, the card grid, paging and the empty
+   state. app.js's initIndex reads everything it needs off the attributes
+   written here, so the three hubs share one script and cannot drift. */
+function hubIndex(h) {
+  const facetRail = h.facets.map((f) =>
+    `<div class="cv-facet" data-facet="${esc(f.key)}"${f.attr && f.attr !== f.key ? ` data-attr="${esc(f.attr)}"` : ''}>` +
+      `<span class="cv-facet__label">${esc(f.label)}</span>` +
+      '<div class="cv-facet__values">' + f.values.map((v) =>
+        `<button type="button" class="cv-chipbtn" data-value="${esc(v.value)}"` +
+        ` aria-pressed="false"${v.count ? '' : ' data-zero="1"'}>${esc(v.value)}` +
+        `<span class="cv-chipbtn__count">${v.count}</span></button>`).join('') +
+    '</div></div>').join('');
+  const r = h.root;
+  return `<div class="cv-index" data-index data-noun="${esc(r.noun)}" data-card="${esc(r.card)}"${
+      r.substat ? ` data-substat="${esc(r.substat)}" data-substat-text="${esc(r.substatText)}"` : ''}${
+      r.unpublished ? ` data-unpublished="${esc(r.unpublished)}"` : ''}${
+      r.page ? ` data-page="${r.page}"` : ''}>
+      <div class="cv-hero">
+        <h1>${esc(h.heading)}</h1>
+        <p class="cv-hero__lede">${esc(h.lede)}</p>
+        <div class="cv-search">
+          <form class="cv-search__form" role="search" action="${esc(h.search.action)}">
+            <div class="cv-search__field">${ICON.search}
+              <input class="input" type="search" name="q" autocomplete="off"
+                placeholder="${esc(h.search.placeholder)}"
+                aria-label="${esc(h.search.label)}" data-cv-search>
+            </div>
+            <button class="btn btn-primary" type="submit">Search</button>
+          </form>
+          <div class="cv-typeahead" data-cv-typeahead hidden></div>
+        </div>
+        ${h.note ? `<span class="cv-hero__note">${esc(h.note)}</span>` : ''}
+      </div>
+
+      ${h.shortcuts ? `<div class="cv-section">
+        <span class="card-kicker">Start here</span>
+        <div class="cv-shortcuts">${h.shortcuts}</div>
+      </div>` : ''}
+
+      ${h.facets.length ? `<div class="cv-facets" data-cv-facets>${facetRail}</div>
+
+      <!-- Narrow screens get the same chips in a bottom sheet. It is the same
+           markup moved, not a second copy of the facets: the sheet is
+           populated from the rail above at runtime. -->
+      <button type="button" class="cv-fab" data-cv-fab hidden>
+        Filter<span class="cv-fab__count" data-cv-fabcount hidden>0</span>
+      </button>
+      <div class="cv-sheet" data-cv-sheet hidden>
+        <div class="cv-sheet__scrim" data-cv-sheetclose></div>
+        <div class="cv-sheet__panel" role="dialog" aria-modal="true" aria-label="${esc(h.sheetLabel)}">
+          <div class="cv-sheet__grip"></div>
+          <div class="cv-sheet__head">
+            <span class="cv-sheet__title">Filter</span>
+            <button type="button" class="btn btn-ghost" data-cv-sheetclear>Clear all</button>
+          </div>
+          <div class="cv-sheet__body" data-cv-sheetbody></div>
+          <div class="cv-sheet__foot">
+            <button type="button" class="btn btn-secondary" data-cv-sheetreset>Reset</button>
+            <button type="button" class="btn btn-primary" data-cv-sheetapply>${esc(h.sheetApply)}</button>
+          </div>
+        </div>
+      </div>` : ''}
+
+      <div class="cv-active" data-cv-active hidden></div>
+
+      <div class="cv-resultbar">
+        <div class="cv-resultbar__count">
+          <h2 data-cv-count>${esc(h.count)}</h2>
+          <span data-cv-filterstate>${esc(h.substat || '')}</span>
+        </div>
+        <div class="cv-sort">Sort
+          <div class="seg" role="radiogroup" aria-label="${esc(h.sortLabel)}">${h.sorts.map((o) =>
+            `<label class="seg-opt"><input type="radio" name="hubsort" value="${esc(o.value)}"${o.checked ? ' checked' : ''}>${esc(o.label)}</label>`).join('')}
+          </div>
+        </div>
+      </div>
+
+      <div class="${esc(h.grid)}" data-cv-grid>${h.cards}</div>
+
+      <div class="cv-more" data-cv-more hidden>
+        <span data-cv-showing></span>
+        <button type="button" class="btn btn-secondary" data-cv-showmore>Show more</button>
+      </div>
+
+      <div class="cv-empty" data-cv-empty hidden>
+        <div class="cv-empty__icon">${ICON.search}</div>
+        <h2>${esc(h.emptyTitle)}</h2>
+        <p data-cv-empty-text></p>
+        <div class="cv-empty__actions" data-cv-empty-actions></div>
+      </div>
+    </div>`;
 }
 
 function cultivarsIndex(D) {
@@ -502,95 +824,24 @@ function cultivarsIndex(D) {
       'phenolBand', CI.NOT_PUBLISHED, 'var(--color-neutral-100)'),
   ].filter(Boolean).join('');
 
-  const facetRail = facets.map((f) =>
-    '<div class="cv-facet" data-facet="' + esc(f.key) + '">' +
-      `<span class="cv-facet__label">${esc(f.label)}</span>` +
-      '<div class="cv-facet__values">' + f.values.map((v) =>
-        `<button type="button" class="cv-chipbtn" data-value="${esc(v.value)}"` +
-        ` aria-pressed="false"${v.count ? '' : ' data-zero="1"'}>${esc(v.value)}` +
-        `<span class="cv-chipbtn__count">${v.count}</span></button>`).join('') +
-    '</div></div>').join('');
-
-  const main = R.breadcrumb(trail) +
-    `<div class="cv-index" data-cultivar-index>
-      <div class="cv-hero">
-        <h1>${esc(fill(meta.heading || 'Olive varieties'))}</h1>
-        <p class="cv-hero__lede">${esc(meta.intro)}</p>
-        <div class="cv-search">
-          <form class="cv-search__form" role="search" action="${url.cultivars()}">
-            <div class="cv-search__field">${ICON.search}
-              <input class="input" type="search" name="q" autocomplete="off"
-                placeholder="Search a variety or a name on a label — Kalamata, Edremit, Bianchera…"
-                aria-label="Search the varieties" data-cv-search>
-            </div>
-            <button class="btn btn-primary" type="submit">Search</button>
-          </form>
-          <div class="cv-typeahead" data-cv-typeahead hidden></div>
-        </div>
-        <span class="cv-hero__note">${CI.synonymCount(rows)} alternative names are indexed,
-          so a regional synonym finds the right variety.</span>
-      </div>
-
-      ${shortcuts ? `<div class="cv-section">
-        <span class="card-kicker">Start here</span>
-        <div class="cv-shortcuts">${shortcuts}</div>
-      </div>` : ''}
-
-      <div class="cv-facets" data-cv-facets>${facetRail}</div>
-
-      <!-- Narrow screens get the same chips in a bottom sheet (artboard 4b).
-           It is the same markup moved, not a second copy of the facets: the
-           sheet is populated from the rail above at runtime, so the two can
-           never fall out of step. -->
-      <button type="button" class="cv-fab" data-cv-fab hidden>
-        Filter<span class="cv-fab__count" data-cv-fabcount hidden>0</span>
-      </button>
-      <div class="cv-sheet" data-cv-sheet hidden>
-        <div class="cv-sheet__scrim" data-cv-sheetclose></div>
-        <div class="cv-sheet__panel" role="dialog" aria-modal="true" aria-label="Filter varieties">
-          <div class="cv-sheet__grip"></div>
-          <div class="cv-sheet__head">
-            <span class="cv-sheet__title">Filter</span>
-            <button type="button" class="btn btn-ghost" data-cv-sheetclear>Clear all</button>
-          </div>
-          <div class="cv-sheet__body" data-cv-sheetbody></div>
-          <div class="cv-sheet__foot">
-            <button type="button" class="btn btn-secondary" data-cv-sheetreset>Reset</button>
-            <button type="button" class="btn btn-primary" data-cv-sheetapply>Show varieties</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="cv-active" data-cv-active hidden></div>
-
-      <div class="cv-resultbar">
-        <div class="cv-resultbar__count">
-          <h2 data-cv-count>${rows.length} varieties</h2>
-          <span data-cv-filterstate>${withOils} of them have an oil in the library</span>
-        </div>
-        <div class="cv-sort">Sort
-          <div class="seg" role="radiogroup" aria-label="Sort varieties">
-            <label class="seg-opt"><input type="radio" name="cvsort" value="az" checked>A–Z</label>
-            <label class="seg-opt"><input type="radio" name="cvsort" value="country">By country</label>
-            <label class="seg-opt"><input type="radio" name="cvsort" value="oils">Oils in library</label>
-          </div>
-        </div>
-      </div>
-
-      <div class="cv-grid" data-cv-grid>${rows.map(cultivarCard).join('')}</div>
-
-      <div class="cv-more" data-cv-more hidden>
-        <span data-cv-showing></span>
-        <button type="button" class="btn btn-secondary" data-cv-showmore>Show more</button>
-      </div>
-
-      <div class="cv-empty" data-cv-empty hidden>
-        <div class="cv-empty__icon">${ICON.search}</div>
-        <h2>No varieties match every filter</h2>
-        <p data-cv-empty-text></p>
-        <div class="cv-empty__actions" data-cv-empty-actions></div>
-      </div>
-    </div>`;
+  const main = R.breadcrumb(trail) + hubIndex({
+    root: { noun: 'variety|varieties', card: '.cv-card', substat: 'oils',
+            substatText: '{n} of them have an oil in the library', unpublished: CI.NOT_PUBLISHED },
+    heading: fill(meta.heading || 'Olive varieties'),
+    lede: meta.intro,
+    search: { action: url.cultivars(), placeholder: 'Search a variety or a name on a label — Kalamata, Edremit, Bianchera…',
+              label: 'Search the varieties' },
+    note: `${CI.synonymCount(rows)} alternative names are indexed, so a regional synonym finds the right variety.`,
+    shortcuts,
+    facets: facets.map((f) => ({ key: f.key, attr: ATTR_OF[f.key] || f.key, label: f.label, values: f.values })),
+    sheetLabel: 'Filter varieties', sheetApply: 'Show varieties',
+    count: `${rows.length} varieties`, substat: `${withOils} of them have an oil in the library`,
+    sorts: [{ value: 'name', label: 'A–Z', checked: true }, { value: 'country,name', label: 'By country' },
+            { value: '-oils,name', label: 'Oils in library' }],
+    sortLabel: 'Sort varieties',
+    grid: 'cv-grid', cards: rows.map(cultivarCard).join(''),
+    emptyTitle: 'No varieties match every filter',
+  });
 
   return shell({
     site,
@@ -1761,6 +2012,6 @@ const contact = (D) => staticPage(D, 'contact', url.contact());
 
 module.exports = {
   cultivarCompare,
-  home, library, producersIndex, cultivarsIndex, learnIndex,
+  home, library, producersIndex, regionsIndex, cultivarsIndex, learnIndex,
   oil, cultivar, producer, guide, howWeRate, contact, ranking,
 };

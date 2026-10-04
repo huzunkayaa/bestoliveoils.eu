@@ -354,19 +354,30 @@
   }
 
 
-  /* ── cultivars index: facets, synonym typeahead, sort ─────────────────────
-     Same bargain as the library. Every card is in the HTML already; this only
-     hides, reorders and counts. With JS off the forty varieties are all there
-     and the chips are inert.
+  /* ── index hubs: facets, typeahead, sort ──────────────────────────────
+     Shared by the Cultivars, Producers and Regions hubs. Same bargain as the
+     library: every card is in the HTML already; this only hides, reorders and
+     counts. With JS off the whole list is there and the chips are inert.
+
+     Everything page-specific is read off the markup, so one function serves
+     three hubs and none of them can disagree with its own build:
+       root  [data-index]            data-noun="variety|varieties"
+                                     data-card=".cv-card"
+                                     data-substat="oils" + data-substat-text="…"
+       facet [data-facet="purpose"]  data-attr="purpose" (card attribute, if
+                                     it differs from the facet key)
+       card  data-<attr>="…" data-name="sortable name" data-label="shown name"
+             data-terms="folded search text" data-synonyms="shown synonyms"
+       sort  input[name="hubsort"] value="name" | "country,name" | "-oils,name"
+             (comma-separated card attributes; a leading "-" sorts a number
+             descending)
 
      The counts are recomputed on every change from the cards themselves, so a
      chip can never advertise a number that clicking it will not produce. */
-  function initCultivarIndex() {
-    var root = document.querySelector('[data-cultivar-index]');
-    if (!root) return;
-
+  function initIndex(root) {
     var grid = root.querySelector('[data-cv-grid]');
-    var cards = Array.prototype.slice.call(grid.querySelectorAll('.cv-card'));
+    var CARD = root.getAttribute('data-card') || '.cv-card';
+    var cards = Array.prototype.slice.call(grid.querySelectorAll(CARD));
     var order = cards.slice();
     var countEl = root.querySelector('[data-cv-count]');
     var stateEl = root.querySelector('[data-cv-filterstate]');
@@ -380,14 +391,26 @@
     var search = root.querySelector('[data-cv-search]');
     var typeahead = root.querySelector('[data-cv-typeahead]');
 
-    var PAGE = 9;
-    var shown = PAGE;
-    var state = { country: [], purpose: [], phenol: [], intensity: [] };
-    var KEYS = { country: 'country', purpose: 'purpose', phenolBand: 'phenol', intensity: 'intensity' };
-    var ATTR = { country: 'country', purpose: 'purpose', phenol: 'phenol', intensity: 'intensity' };
-    var LABEL = { country: 'Country', purpose: 'Used for', phenol: 'Polyphenols', intensity: 'Intensity' };
+    var nounPair = (root.getAttribute('data-noun') || 'item|items').split('|');
+    var noun = function (n) { return n === 1 ? nounPair[0] : nounPair[1]; };
+    var SUBSTAT = root.getAttribute('data-substat');
+    var SUBSTAT_TEXT = root.getAttribute('data-substat-text') || '';
+    var NOT = root.getAttribute('data-unpublished') || 'Not published';
 
-    function valueOf(card, key) { return card.getAttribute('data-' + ATTR[key]) || 'Not published'; }
+    var PAGE = Number(root.getAttribute('data-page')) || 9;
+    var shown = PAGE;
+
+    // Facet keys, their card attribute and label, read from the rail.
+    var state = {}, ATTR = {}, LABEL = {};
+    root.querySelectorAll('[data-facet]').forEach(function (group) {
+      var key = group.getAttribute('data-facet');
+      state[key] = [];
+      ATTR[key] = group.getAttribute('data-attr') || key;
+      var lab = group.querySelector('.cv-facet__label');
+      LABEL[key] = lab ? lab.textContent : key;
+    });
+
+    function valueOf(card, key) { return card.getAttribute('data-' + ATTR[key]) || NOT; }
 
     /* Cards matching every active facet except the one named — the base a
        chip's own count is measured against. */
@@ -400,30 +423,35 @@
       });
     }
 
-    function sortCards(mode) {
-      var by = {
-        az: function (a, b) { return a.dataset.name.localeCompare(b.dataset.name); },
-        country: function (a, b) {
-          return a.dataset.country.localeCompare(b.dataset.country) ||
-                 a.dataset.name.localeCompare(b.dataset.name);
-        },
-        oils: function (a, b) {
-          return (Number(b.dataset.oils) || 0) - (Number(a.dataset.oils) || 0) ||
-                 a.dataset.name.localeCompare(b.dataset.name);
-        },
-      };
-      order = cards.slice().sort(by[mode] || by.az);
+    function sortCards(spec) {
+      var keys = String(spec || 'name').split(',');
+      order = cards.slice().sort(function (a, b) {
+        for (var i = 0; i < keys.length; i++) {
+          var k = keys[i], desc = k.charAt(0) === '-';
+          if (desc) k = k.slice(1);
+          var av = a.getAttribute('data-' + k) || '', bv = b.getAttribute('data-' + k) || '';
+          var d = desc ? (Number(bv) || 0) - (Number(av) || 0) : av.localeCompare(bv);
+          if (d) return d;
+        }
+        return 0;
+      });
       order.forEach(function (card) { grid.appendChild(card); });
     }
 
+    function cloneState() {
+      var c = {};
+      Object.keys(state).forEach(function (k) { c[k] = state[k].slice(); });
+      return c;
+    }
+    function clearState() { Object.keys(state).forEach(function (k) { state[k] = []; }); }
+
     /* The escape hatches the design puts in the empty state: each one names the
-       filter it would drop and how many varieties that leaves. */
-    function renderEmpty(total) {
+       filter it would drop and how many results that leaves. */
+    function renderEmpty() {
       var chips = [];
       Object.keys(state).forEach(function (key) {
         state[key].forEach(function (value) {
-          var without = { country: state.country.slice(), purpose: state.purpose.slice(),
-            phenol: state.phenol.slice(), intensity: state.intensity.slice() };
+          var without = cloneState();
           without[key] = without[key].filter(function (v) { return v !== value; });
           var n = cards.filter(function (card) {
             return Object.keys(without).every(function (k) {
@@ -442,7 +470,7 @@
         var b = document.createElement('button');
         b.type = 'button';
         b.className = 'btn ' + (i === 0 ? 'btn-primary' : 'btn-secondary');
-        b.textContent = 'Remove “' + c.value + '” · ' + c.n + ' varieties';
+        b.textContent = 'Remove “' + c.value + '” · ' + c.n + ' ' + noun(c.n);
         b.addEventListener('click', function () {
           state[c.key] = state[c.key].filter(function (v) { return v !== c.value; });
           apply();
@@ -453,14 +481,10 @@
         var clear = document.createElement('button');
         clear.type = 'button';
         clear.className = 'btn btn-ghost';
-        clear.textContent = 'Clear all · ' + cards.length + ' varieties';
-        clear.addEventListener('click', function () {
-          Object.keys(state).forEach(function (k) { state[k] = []; });
-          apply();
-        });
+        clear.textContent = 'Clear all · ' + cards.length + ' ' + noun(cards.length);
+        clear.addEventListener('click', function () { clearState(); apply(); });
         emptyActions.appendChild(clear);
       }
-      return total;
     }
 
     function apply() {
@@ -472,8 +496,7 @@
 
       // chip counts and pressed state
       root.querySelectorAll('[data-facet]').forEach(function (group) {
-        var raw = group.getAttribute('data-facet');
-        var key = KEYS[raw] || raw;
+        var key = group.getAttribute('data-facet');
         var base = matching(key);
         group.querySelectorAll('.cv-chipbtn').forEach(function (btn) {
           var value = btn.getAttribute('data-value');
@@ -502,7 +525,6 @@
           var b = document.createElement('button');
           b.type = 'button';
           b.className = 'tag tag-accent cv-active__chip';
-          b.innerHTML = '';
           b.appendChild(document.createTextNode(a.value + ' ×'));
           b.setAttribute('aria-label', 'Remove filter ' + LABEL[a.key] + ': ' + a.value);
           b.addEventListener('click', function () {
@@ -515,21 +537,19 @@
         all.type = 'button';
         all.className = 'btn btn-ghost';
         all.textContent = 'Clear all';
-        all.addEventListener('click', function () {
-          Object.keys(state).forEach(function (k) { state[k] = []; });
-          apply();
-        });
+        all.addEventListener('click', function () { clearState(); apply(); });
         activeEl.appendChild(all);
       }
 
-      countEl.textContent = visible.length + (visible.length === 1 ? ' variety' : ' varieties');
-      stateEl.textContent = active.length
-        ? 'filtered from ' + cards.length
-        : visible.filter(function (c) { return Number(c.dataset.oils) > 0; }).length +
-          ' of them have an oil in the library';
+      countEl.textContent = visible.length + ' ' + noun(visible.length);
+      if (active.length) stateEl.textContent = 'filtered from ' + cards.length;
+      else if (SUBSTAT) {
+        var k = visible.filter(function (c) { return Number(c.getAttribute('data-' + SUBSTAT)) > 0; }).length;
+        stateEl.textContent = SUBSTAT_TEXT.replace('{n}', k);
+      } else stateEl.textContent = '';
 
       emptyEl.hidden = visible.length !== 0;
-      if (!visible.length) renderEmpty(visible.length);
+      if (!visible.length) renderEmpty();
 
       var hiddenByPaging = Math.max(0, visible.length - shown);
       moreEl.hidden = hiddenByPaging === 0;
@@ -541,9 +561,7 @@
 
     root.querySelectorAll('.cv-chipbtn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var group = btn.closest('[data-facet]');
-        var raw = group.getAttribute('data-facet');
-        var key = KEYS[raw] || raw;
+        var key = btn.closest('[data-facet]').getAttribute('data-facet');
         var value = btn.getAttribute('data-value');
         var at = state[key].indexOf(value);
         if (at === -1) state[key].push(value); else state[key].splice(at, 1);
@@ -552,21 +570,22 @@
       });
     });
 
-    root.querySelectorAll('input[name="cvsort"]').forEach(function (el) {
+    var sortInputs = root.querySelectorAll('input[name="hubsort"]');
+    sortInputs.forEach(function (el) {
       el.addEventListener('change', function () { sortCards(el.value); apply(); });
     });
 
     moreBtn.addEventListener('click', function () { shown += PAGE; apply(); });
 
-    /* Typeahead. Matches the variety's own name and every synonym on the card,
-       so "kalamata" surfaces Kalamon and says which name it matched. */
+    /* Typeahead. Matches the card's own name and every synonym on it, so
+       "kalamata" surfaces Kalamon and says which name it matched. */
     if (search && typeahead) {
       var closeTypeahead = function () { typeahead.hidden = true; typeahead.innerHTML = ''; };
       search.addEventListener('input', function () {
         var q = fold(search.value.trim());
         if (q.length < 2) return closeTypeahead();
         var hits = cards.filter(function (card) {
-          return fold(card.dataset.terms).indexOf(q) !== -1;
+          return fold(card.getAttribute('data-terms') || '').indexOf(q) !== -1;
         }).slice(0, 6);
         if (!hits.length) return closeTypeahead();
         typeahead.innerHTML = '';
@@ -576,10 +595,10 @@
           ' for “' + search.value.trim() + '”';
         typeahead.appendChild(head);
         hits.forEach(function (card) {
-          var name = card.querySelector('.cv-card__name').textContent;
+          var name = card.getAttribute('data-label') || card.getAttribute('data-name');
           // Show the synonym as it is written, not as it was folded for matching.
           var via = null;
-          (card.dataset.synonyms || '').split(' · ').forEach(function (term) {
+          (card.getAttribute('data-synonyms') || '').split(' · ').forEach(function (term) {
             if (!via && term && fold(term).indexOf(q) !== -1 && fold(term) !== fold(name)) via = term;
           });
           var a = document.createElement('a');
@@ -589,7 +608,8 @@
             '<span class="cv-typeahead__meta"></span>';
           a.querySelector('.cv-typeahead__name').textContent = name;
           a.querySelector('.cv-typeahead__meta').textContent =
-            card.dataset.country + (via ? ' · also called ' + via : '');
+            (card.getAttribute('data-meta') || card.getAttribute('data-country') || '') +
+            (via ? ' · also called ' + via : '');
           typeahead.appendChild(a);
         });
         typeahead.hidden = false;
@@ -603,9 +623,9 @@
     /* A shortcut card or a shared link arrives as ?purpose=Oil — honour it so
        the URL is the state, the way the library's filters already work. */
     var params = new URLSearchParams(location.search);
-    ['country', 'purpose', 'phenolBand', 'intensity'].forEach(function (raw) {
-      var v = params.get(raw);
-      if (v) state[KEYS[raw] || raw].push(v);
+    Object.keys(state).forEach(function (key) {
+      var v = params.get(key);
+      if (v) state[key].push(v);
     });
 
     /* ── mobile: the same chips in a bottom sheet ──────────────────────────
@@ -629,13 +649,13 @@
         fabCount.textContent = n;
         if (!sheet.hidden) {
           var visible = matching(null).length;
-          applyBtn.textContent = 'Show ' + visible + (visible === 1 ? ' variety' : ' varieties');
+          applyBtn.textContent = 'Show ' + visible + ' ' + noun(visible);
         }
       };
 
       /* Named openSheet/closeSheet rather than open/close: `var` hoists to the
-         whole of initCultivarIndex, and a plain `close` here would shadow the
-         typeahead's, so dismissing the suggestions would shut the sheet. */
+         whole function, and a plain `close` here would shadow the typeahead's,
+         so dismissing the suggestions would shut the sheet. */
       var openSheet = function () {
         body.appendChild(rail);
         sheet.hidden = false;
@@ -652,14 +672,8 @@
       fab.addEventListener('click', openSheet);
       sheet.querySelector('[data-cv-sheetclose]').addEventListener('click', closeSheet);
       applyBtn.addEventListener('click', closeSheet);
-      sheet.querySelector('[data-cv-sheetreset]').addEventListener('click', function () {
-        Object.keys(state).forEach(function (k) { state[k] = []; });
-        apply();
-      });
-      sheet.querySelector('[data-cv-sheetclear]').addEventListener('click', function () {
-        Object.keys(state).forEach(function (k) { state[k] = []; });
-        apply();
-      });
+      sheet.querySelector('[data-cv-sheetreset]').addEventListener('click', function () { clearState(); apply(); });
+      sheet.querySelector('[data-cv-sheetclear]').addEventListener('click', function () { clearState(); apply(); });
       document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && !sheet.hidden) closeSheet();
       });
@@ -675,8 +689,13 @@
     // mobile layout hand them to the sheet.
     root.setAttribute('data-cv-enhanced', '');
 
-    sortCards('az');
+    var checked = root.querySelector('input[name="hubsort"]:checked');
+    sortCards(checked ? checked.value : 'name');
     apply();
+  }
+
+  function initIndexes() {
+    document.querySelectorAll('[data-index]').forEach(initIndex);
   }
 
 
@@ -827,6 +846,6 @@
   initStarPicker();
   initTocHighlight();
   initMegaMenu();
-  initCultivarIndex();
+  initIndexes();
   initCultivarCompare();
 })();

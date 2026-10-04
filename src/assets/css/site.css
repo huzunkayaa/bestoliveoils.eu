@@ -262,6 +262,8 @@ body { background: #fff; }
 /* A logo standing in for the estate photo: contained on white with room
    around it, so a wordmark is not stretched edge to edge. */
 .oil-card__media--logo { padding: 36px 40px; box-sizing: border-box; }
+.oil-card__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.hub-foot { max-width: 760px; display: flex; flex-direction: column; gap: 12px; margin-top: 48px; }
 .oil-card__badge {
   position: absolute;
   top: 12px;
