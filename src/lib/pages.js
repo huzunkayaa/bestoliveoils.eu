@@ -51,6 +51,7 @@ function counts(D) {
     producers: D.producers.length,
     regions: lists.regions.length,
     countries: new Set(lists.regions.map((r) => r.label.split(' · ')[0])).size,
+    competitions: (D.competitions || []).length,
     // Varieties the library's oils actually carry — what this count has always
     // meant, and what the library page's copy is describing.
     cultivars: cultivarList(D).filter((c) => c.count > 0).length,
@@ -857,6 +858,132 @@ function cultivarsIndex(D) {
         S.itemListPage(site, url.cultivars(), 'Cultivars', meta.description,
           joined.filter((c) => c.hasPage)
             .map((c) => ({ name: c.name, url: url.cultivar(c.slug) }))),
+        S.breadcrumbList(site, trail),
+      ],
+    }),
+  });
+}
+
+/* ── rankings hub ───────────────────────────────────────────────────────
+   The competitions and guides we follow, from `competitions[]`. A card
+   links to a results table on this site only through a `rankings[]`
+   record whose `competition` names it; everything else is the organiser's
+   own facts plus one count we can stand behind — how many library oils
+   carry a result from it, found by the spellings the oils' award strings
+   use. Nothing here summarises a competition's results from memory. */
+function competitionRows(D) {
+  const tables = new Map();
+  (D.rankings || []).forEach((rk) => {
+    if (!rk.competition) return;
+    const list = tables.get(rk.competition) || [];
+    list.push(rk);
+    tables.set(rk.competition, list);
+  });
+  const awardText = (o) => [
+    ...((o.detail && o.detail.awards) || []),
+    ...(((o.detail && o.detail.facts) || []).map((f) => f.join(' '))),
+  ].join(' \n ');
+  return (D.competitions || []).map((c) => {
+    const pats = (c.cites || [c.shortName]).map((t) => new RegExp(`(^|[^A-Za-z])${t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![A-Za-z])`, 'i'));
+    const cites = D.oils.filter((o) => { const t = awardText(o); return pats.some((re) => re.test(t)); }).length;
+    const published = tables.get(c.shortName) || [];
+    return {
+      c, cites, published,
+      onSite: published.length ? 'Table republished' : cites ? 'Cited by library oils' : 'Followed',
+      place: [c.city, c.country].filter(Boolean).join(', '),
+      terms: [c.name, c.shortName, c.organiser, c.city, c.country, c.format].filter(Boolean).join(' · ').toLowerCase(),
+    };
+  });
+}
+
+const competitionCard = (r) => {
+  const c = r.c;
+  const stat = (value, label) =>
+    `<div class="cv-card__stat"><span class="cv-card__statvalue">${esc(value)}</span>` +
+    `<span class="cv-card__statlabel">${esc(label)}</span></div>`;
+  const table = r.published[0];
+  const href = table ? url.ranking(table.slug) : c.website;
+  const ext = table ? '' : ' target="_blank" rel="noopener"';
+  return `<a class="card elev-sm cv-card rk-card" href="${esc(href)}"${ext}` +
+    ` data-country="${esc(c.country || 'International')}" data-format="${esc(c.format)}"` +
+    ` data-onsite="${esc(r.onSite)}"` +
+    ` data-name="${esc(c.name.toLowerCase())}" data-label="${esc(c.shortName)}"` +
+    ` data-since="${c.since || 9999}" data-cites="${r.cites}"` +
+    ` data-meta="${esc(r.place || c.organiser || '')}" data-terms="${esc(r.terms)}">` +
+    '<div class="cv-card__body">' +
+      '<div class="cv-card__head">' +
+        `<span class="card-kicker">${esc(r.place || 'International')}${c.since ? ` · since ${c.since}` : ''}</span>` +
+        `<span class="cv-card__name">${esc(c.shortName)}</span>` +
+        `<span class="cv-card__also">${esc(c.name)}</span>` +
+      '</div>' +
+      `<div class="cv-card__chips"><span class="cv-chip">${esc(c.format)}</span>${
+        table ? '<span class="tag tag-accent-2">Table on this site</span>' : ''}</div>` +
+      (c.note ? `<p class="rk-card__note">${esc(c.note)}</p>` : '') +
+      '<div class="cv-card__stats">' +
+        stat(c.scale, 'award scale') +
+        stat(c.season || '—', 'results') +
+      '</div>' +
+      `<span class="rk-card__foot">${esc(r.cites)} ${r.cites === 1 ? 'oil' : 'oils'} in the library cite it${
+        table ? ` · <strong>${esc(table.shortName)} table →</strong>` : ' · website ↗'}</span>` +
+    '</div></a>';
+};
+
+function rankingsIndex(D) {
+  const site = D.site;
+  const meta = D.pages.rankings;
+  const n = counts(D);
+  const fill = (t) => R.fillCounts(t, n);
+  const trail = [{ label: 'Home', href: url.home() }, { label: 'Rankings' }];
+
+  const rows = competitionRows(D).sort((a, b) => b.cites - a.cites || a.c.name.localeCompare(b.c.name));
+  const facets = [
+    tallyFacet(rows.map((r) => ({ ...r, format: r.c.format })), 'format', 'Kind'),
+    tallyFacet(rows.map((r) => ({ ...r, country: r.c.country || 'International' })), 'country', 'Where'),
+    tallyFacet(rows, 'onSite', 'On this site', (a, b) => a.value.localeCompare(b.value)),
+  ].filter(Boolean);
+
+  // The tables we have republished, each as a "start here" card.
+  const shortcuts = (D.rankings || []).map((rk, i) => {
+    const linked = rk.rows.filter((r) => r.oilSlug).length;
+    return hubShortcut(rk.name, `${rk.rows.length} oils in the table, ${linked} with a page here.`,
+      url.ranking(rk.slug), rk.rows.length, 'oils',
+      ['var(--color-accent-100)', 'var(--color-accent-2-100)', 'var(--color-surface)'][i % 3]);
+  }).join('');
+
+  const main = R.breadcrumb(trail) + hubIndex({
+    root: { noun: 'competition|competitions', card: '.rk-card', substat: 'cites',
+            substatText: '{n} of them have results on library oils', page: 18 },
+    heading: fill(meta.heading || 'Rankings'),
+    lede: fill(meta.intro),
+    search: { action: url.rankings(), placeholder: 'Search a competition, a city or an organiser — NYIOOC, Verona, Olive Oil Times…',
+              label: 'Search the competitions' },
+    note: fill(meta.note || ''),
+    shortcuts,
+    facets,
+    sheetLabel: 'Filter competitions', sheetApply: 'Show competitions',
+    count: `${rows.length} competitions`, substat: `${rows.filter((r) => r.cites).length} of them have results on library oils`,
+    sorts: [{ value: '-cites,name', label: 'Most cited', checked: true }, { value: 'name', label: 'A–Z' },
+            { value: 'since,name', label: 'Oldest first' }],
+    sortLabel: 'Sort competitions',
+    grid: 'cv-grid', cards: rows.map(competitionCard).join(''),
+    emptyTitle: 'No competitions match every filter',
+  }) + (meta.body && meta.body.length
+    ? `<div class="hub-foot">${meta.body.map((para) => `<p class="hub-body">${esc(fill(para))}</p>`).join('')}</div>`
+    : '');
+
+  return shell({
+    site,
+    bodyClass: 'page-body--library',
+    nav: R.nav(site, 'rankings'),
+    main,
+    headHtml: S.head({
+      site,
+      title: fill(meta.title),
+      description: fill(meta.description),
+      path: url.rankings(),
+      schema: [
+        S.itemListPage(site, url.rankings(), 'Rankings', fill(meta.description),
+          (D.rankings || []).map((rk) => ({ name: rk.name, url: url.ranking(rk.slug) }))),
         S.breadcrumbList(site, trail),
       ],
     }),
@@ -1928,7 +2055,7 @@ function ranking(D, rk) {
   });
   const trail = [
     { label: 'Home', href: url.home() },
-    { label: 'Rankings' },
+    { label: 'Rankings', href: url.rankings() },
     { label: rk.shortName },
   ];
   const ranked = rk.rows.filter((r) => r.rank < 42);
@@ -2013,5 +2140,5 @@ const contact = (D) => staticPage(D, 'contact', url.contact());
 module.exports = {
   cultivarCompare,
   home, library, producersIndex, regionsIndex, cultivarsIndex, learnIndex,
-  oil, cultivar, producer, guide, howWeRate, contact, ranking,
+  oil, cultivar, producer, guide, howWeRate, contact, ranking, rankingsIndex,
 };

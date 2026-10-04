@@ -263,6 +263,9 @@ body { background: #fff; }
    around it, so a wordmark is not stretched edge to edge. */
 .oil-card__media--logo { padding: 36px 40px; box-sizing: border-box; }
 .oil-card__chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.rk-card__note { margin: 0; font-size: 14px; line-height: 1.55; color: var(--color-neutral-800); }
+.rk-card .cv-card__statvalue { font-size: 15px; line-height: 1.35; }
+.rk-card__foot { font-size: 13px; color: var(--color-neutral-700); margin-top: auto; }
 .hub-foot { max-width: 760px; display: flex; flex-direction: column; gap: 12px; margin-top: 48px; }
 .oil-card__badge {
   position: absolute;

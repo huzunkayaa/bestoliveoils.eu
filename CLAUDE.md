@@ -34,11 +34,12 @@ Directory URLs with a trailing slash, so any host resolves them without rewrites
 | 02 Oil detail | `/oils/<slug>/` |
 | Producers hub | `/producers/` |
 | 03 Producer | `/producers/<slug>/` |
+| Regions hub | `/regions/` |
 | Cultivars hub | `/cultivars/` |
 | Cultivar (v2 03) | `/cultivars/<slug>/` |
 | Guides hub | `/learn/` |
 | 04 Article | `/learn/<slug>/` |
-| Ranking | `/rankings/<slug>/` |
+| Rankings hub · Ranking | `/rankings/` · `/rankings/<slug>/` |
 | How we rate · Contact | `/how-we-rate/` · `/contact/` |
 
 `src/lib/render.js` holds the `url` helper — it is the only place a route is
@@ -135,6 +136,24 @@ comment.
   links to the library only through `oilSlug`, and `pages.ranking` throws on
   a slug that does not exist. Catalogue pages' competition credential links
   to the ranking page when one carries that competition's `shortName`.
+- **The three hubs share one template and one script.** `hubIndex()` in
+  pages.js renders Cultivars, Producers, Regions and Rankings — hero with
+  search, "start here" shortcuts, facet rail (and its mobile sheet), result
+  bar with sort, grid, paging, empty state — and `initIndex()` in app.js reads
+  everything it needs off the markup (`data-noun`, `data-card`, `data-facet`
+  + `data-attr`, sort radios whose value is a list of card attributes). A new
+  hub is a row builder and a card; it never gets its own script.
+- **Region cards open the filtered library.** There are no region pages; the
+  count on a `/regions/` card is the count `/oils/?region=` returns, because
+  both come from `facets.js`. A region card borrows its lead variety's grove
+  illustration only when that cultivar record's `originRegion` names the
+  region.
+- **`competitions[]` lists what we follow; `rankings[]` holds what we
+  republish.** A competition card links to a table on this site only through
+  a `rankings[]` record whose `competition` names its `shortName`; otherwise
+  it links to the organiser. A field we could not confirm is left out, never
+  guessed. "N oils in the library cite it" is counted from the oils' award
+  strings via the record's `cites` spellings.
 - **Static pages (How we rate, Contact) are typed blocks** in `pages.howWeRate`
   and `pages.contact`, rendered by the same `guideBlock` as a guide.
 - **Every nav and mega-menu row's count must match what its link returns.** The
@@ -176,7 +195,7 @@ Deliberate gaps, listed so nobody assumes they exist:
   works, but there is no backend. Reader scores in the data are static.
 - **No `status: draft|published`.** Every record in `site.js` is published.
 - **No admin panel.** `design/Admin Panel.dc.html` (6 screens) is unimplemented.
-- **No region pages.** Region links point at `/oils/` with a query.
+- **No region pages.** `/regions/` is a hub; its cards point at `/oils/` with a query.
 - **Varieties in the library with no record** — Biancolilla, Cerasuola,
   Cariasina, Crognalegno, San Felice, Dritta, Leccio del Corno, Moresca and the
   "Royal / Hojiblanca" label. They are hub rows that open the filtered library, and need a `lede`
