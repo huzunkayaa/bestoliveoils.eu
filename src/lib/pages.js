@@ -1684,17 +1684,13 @@ function ranking(D, rk) {
   const tier = rk.rows.filter((r) => r.rank >= 42);
   const linked = rk.rows.filter((r) => r.oilSlug).length;
 
-  /* The producer cell carries the producer's own mark when the row links to
-     an oil whose producer has a record with a `logo`; the name stays as the
-     competition printed it, and links to the producer page when there is one. */
+  /* The producer name stays as the competition printed it, and links to the
+     producer page when the linked oil's producer has a record. */
   const producers = new Map(D.producers.map((p) => [p.slug, p]));
   const producerCell = (r, o) => {
     const p = o && o.producerSlug ? producers.get(o.producerSlug) : null;
     const name = p ? `<a href="${url.producer(p.slug)}">${esc(r.producer)}</a>` : esc(r.producer);
-    const mark = p && p.logo && p.logo.src
-      ? `<img src="/${esc(p.logo.src)}" alt="${esc(p.logo.alt || p.name + ' logo')}" width="${p.logo.w}" height="${p.logo.h}" loading="lazy" decoding="async">`
-      : '';
-    return `<td class="ranking__producer"><span class="ranking__logo">${mark}</span>${name}</td>`;
+    return `<td>${name}</td>`;
   };
   const row = (r) => {
     const o = r.oilSlug ? bySlug.get(r.oilSlug) : null;
@@ -1744,7 +1740,7 @@ function ranking(D, rk) {
   return shell({
     site,
     bodyClass: 'page-body--article',
-    nav: R.nav(site, ''),
+    nav: R.nav(site, 'rankings'),
     main,
     headHtml: S.head({
       site,

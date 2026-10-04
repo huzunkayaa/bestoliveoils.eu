@@ -126,9 +126,9 @@ comment.
   A producer's "oils in library" and "available in our shop" stats are
   likewise counted from its `oils[]` rows at build time; the typed value is
   ignored. A producer's `logo: { src, alt, w, h }` is drawn on its `/producers/` hub card
-  (in place of the estate photo, until one exists) and in the ranking table's
-  producer column (a 90×28 box on every row), and emitted as
-  `Organization.logo`; it is not shown on the producer's own page.
+  (in place of the estate photo, until one exists) and emitted as
+  `Organization.logo`; it is not shown on the producer's own page or in the
+  ranking table.
   Files go in `src/assets/img/producers/`.
 - **A ranking page republishes a competition's table, never reorders it.**
   `rankings[]` in site.js holds the rows in the source's own order; a row

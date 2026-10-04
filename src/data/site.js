@@ -47,6 +47,7 @@ module.exports = {
       { label: 'Cultivars', href: '/cultivars/', key: 'cultivars' },
       { label: 'Regions',   href: '/oils/',  key: 'regions' },
       { label: 'Learn',     href: '/learn/',     key: 'learn' },
+      { label: 'Rankings',  href: '/rankings/worlds-best-olive-oils-2025-26/', key: 'rankings' },
     ],
     footerLinks: [
       { label: 'Library',     href: '/oils/' },
