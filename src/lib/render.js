@@ -33,6 +33,7 @@ const url = {
   ranking: (slug) => `/rankings/${slug}/`,
   howWeRate: () => '/how-we-rate/',
   contact: () => '/contact/',
+  trade: () => '/trade/',
 };
 
 const absolute = (site, path) => site.url.replace(/\/$/, '') + path;
@@ -100,7 +101,7 @@ const searchBar = (size, placeholder) =>
    will be wrong later — these two page descriptions claimed 312 oils for as
    long as the library held 55. */
 const fillCounts = (text, counts) =>
-  String(text).replace(/\{(oils|producers|regions|countries|competitions|cultivarPages|cultivars)\}/g,
+  String(text).replace(/\{(oils|shopOils|producers|regions|countries|competitions|cultivarPages|cultivars)\}/g,
     (whole, key) => (counts[key] == null ? whole : String(counts[key])));
 
 /* ── chrome ───────────────────────────────────────────────────────────────

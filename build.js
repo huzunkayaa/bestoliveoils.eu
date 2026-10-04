@@ -73,6 +73,7 @@ function build() {
   }
   page(url.howWeRate(), pages.howWeRate(D), '0.5', 'yearly');
   page(url.contact(), pages.contact(D), '0.3', 'yearly');
+  page(url.trade(), pages.trade(D), '0.5', 'yearly');
 
   for (const oil of D.oils) {
     page(url.oil(oil.slug), pages.oil(D, oil), oil.detail ? '0.8' : '0.5', 'monthly');

@@ -40,7 +40,7 @@ Directory URLs with a trailing slash, so any host resolves them without rewrites
 | Guides hub | `/learn/` |
 | 04 Article | `/learn/<slug>/` |
 | Rankings hub · Ranking | `/rankings/` · `/rankings/<slug>/` |
-| How we rate · Contact | `/how-we-rate/` · `/contact/` |
+| How we rate · Trade · Contact | `/how-we-rate/` · `/trade/` · `/contact/` |
 
 `src/lib/render.js` holds the `url` helper — it is the only place a route is
 named. Change it there and every link, canonical, breadcrumb and sitemap entry
@@ -162,8 +162,9 @@ comment.
   it links to the organiser. A field we could not confirm is left out, never
   guessed. "N oils in the library cite it" is counted from the oils' award
   strings via the record's `cites` spellings.
-- **Static pages (How we rate, Contact) are typed blocks** in `pages.howWeRate`
-  and `pages.contact`, rendered by the same `guideBlock` as a guide.
+- **Static pages (How we rate, Trade, Contact) are typed blocks** in
+  `pages.howWeRate`, `pages.trade` and `pages.contact`, rendered by the same
+  `guideBlock` as a guide. `{shopOils}` interpolates the stocked count.
 - **Every nav and mega-menu row's count must match what its link returns.** The
   taxonomy panel is built from `facets.js`, so an option can only offer a view
   that has something in it. There is no "competition ranked" filter, so there is
@@ -215,9 +216,9 @@ Deliberate gaps, listed so nobody assumes they exist:
   slots and `map.placeholder` stay labelled placeholders until a real
   photograph exists — never put a generated image where a page implies a
   real place or a real fruit.
-- **No EU language switcher and no B2B/Horeca page.** v2's partner strip carries
-  EN/NL/DE/FR/IT and a trade link. There are no translations and no trade page,
-  so the strip ships with the partner disclosure only.
+- **No EU language switcher.** v2's partner strip carries EN/NL/DE/FR/IT. There
+  are no translations, so the strip ships with the partner disclosure only;
+  the trade page exists at `/trade/` and is linked from the footer.
 - **The v2 producer page is unbuilt**, and the oil page is part-way. Built from
   `design/Olive Oil Library v2.dc.html`: the sensory radar, the laboratory
   panel with its EU 432/2012 callout, and the alternatives row (v2 shows it when

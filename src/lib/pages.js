@@ -52,6 +52,7 @@ function counts(D) {
     regions: lists.regions.length,
     countries: new Set(lists.regions.map((r) => r.label.split(' · ')[0])).size,
     competitions: (D.competitions || []).length,
+    shopOils: D.oils.filter((o) => o.inShop).length,
     // Varieties the library's oils actually carry — what this count has always
     // meant, and what the library page's copy is describing.
     cultivars: cultivarList(D).filter((c) => c.count > 0).length,
@@ -2153,9 +2154,10 @@ function ranking(D, rk) {
 
 const howWeRate = (D) => staticPage(D, 'howWeRate', url.howWeRate());
 const contact = (D) => staticPage(D, 'contact', url.contact());
+const trade = (D) => staticPage(D, 'trade', url.trade());
 
 module.exports = {
   cultivarCompare,
   home, library, producersIndex, regionsIndex, cultivarsIndex, learnIndex,
-  oil, cultivar, producer, guide, howWeRate, contact, ranking, rankingsIndex,
+  oil, cultivar, producer, guide, howWeRate, contact, trade, ranking, rankingsIndex,
 };

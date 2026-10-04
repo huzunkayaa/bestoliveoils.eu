@@ -57,6 +57,7 @@ module.exports = {
       { label: 'Learn',       href: '/learn/' },
       { label: 'Rankings',    href: '/rankings/' },
       { label: 'How we rate', href: '/how-we-rate/' },
+      { label: 'Trade',       href: '/trade/' },
       { label: 'Contact',     href: '/contact/' },
     ],
   },
@@ -144,6 +145,64 @@ module.exports = {
           heading: 'Corrections',
           blocks: [
             { type: 'p', text: 'If a figure, an award or a producer detail is wrong, tell us and we will correct it and note the correction on the page. Producers are welcome to send us their current lab report for a harvest; we will cite it as theirs.' },
+          ],
+        },
+      ],
+    },
+    trade: {
+      title: 'Trade & Partnerships — Shops, Kitchens, Importers, Producers',
+      description: 'How shops, restaurants and importers buy the oils in this library through our retail partner — small estates, lab data per bottle — and how producers get listed.',
+      heading: 'Trade & partnerships',
+      lede: 'The oils in this library are bought by shops, kitchens and importers as well as by readers. This page is for them, and for producers who want to be here. Everything commercial runs through our retail partner, olijfoliemarkt.nl; everything editorial stays with us.',
+      sections: [
+        {
+          id: 'who-this-is-for',
+          heading: 'Who this is for',
+          blocks: [
+            { type: 'p', text: 'Three kinds of buyer write to us: a delicatessen or farm shop that wants a shelf of olive oil it can stand behind; a restaurant that wants one honest kitchen oil in tins and two or three bottles to sell at the table; and an importer abroad who wants several premium producers from one supplier instead of chasing exclusivity deals one by one. Each is served by olijfoliemarkt.nl, the Amstelveen retailer that stocks {shopOils} of the {oils} oils here and is run by the same people who write this site.' },
+            { type: 'callout', kicker: 'The line we keep', text: 'A score on this site is never changed by whether an oil is stocked, and a producer never pays to be listed. Trade terms live on the shop’s side of that line.' },
+          ],
+        },
+        {
+          id: 'shops-and-delis',
+          heading: 'Shops and delicatessens',
+          blocks: [
+            { type: 'p', text: 'Classic wholesale: you buy at trade price in consumer packaging — 250 ml and 500 ml bottles, gift sets in season — and sell at the shelf price you choose. Minimums are by the case, not the pallet, and a first assortment of two shelves is a normal starting order. Every bottle comes with what the library shows for it: harvest year, variety, the producer’s laboratory figures where they exist. Delivery in the Netherlands and Belgium within days; the rest of the EU by arrangement.' },
+            { type: 'p', text: 'What you cannot get elsewhere is the point. These are small and mid-sized estates — Oro Bailén, Nobleza del Sur, Guglielmi, Le Ferre, Hermus, Cretan Heritage, Corinto — that the national wholesalers do not carry, with a page of sourced facts behind each bottle that your customers can read.' },
+          ],
+        },
+        {
+          id: 'restaurants',
+          heading: 'Restaurants and kitchens',
+          blocks: [
+            { type: 'p', text: 'Two needs, two answers. For the kitchen, a 5-litre tin of a producer’s everyday oil — Casa del Agua from Oro Bailén, One Root from Cretan Heritage, Corinto’s Manaki — at a price that works for daily use, delivered on a standing order. For the table and the till, two or three bottles that tell a story: a robust Picual, a soft Arbequina, a Greek early harvest. We will bring samples and do a tasting with the team; several Amsterdam kitchens buy this way.' },
+          ],
+        },
+        {
+          id: 'importers',
+          heading: 'Importers and export',
+          blocks: [
+            { type: 'p', text: 'Outside the EU the retailer ships by the box, the pallet or several pallets, and has done so to South Korea. The offer is breadth: a dozen premium producers from Spain, Italy, Greece and Türkiye on one invoice, with the documentation each market needs. Payment is split on confirmation and before shipment; no full-advance clause. Some producers have exclusive importers in some countries — Oro Bailén in Korea, for one — and we will tell you where that applies rather than let you find out at customs.' },
+            { type: 'p', text: 'The export page on the shop carries the current terms and a Korean-language section.' },
+          ],
+        },
+        {
+          id: 'producers',
+          heading: 'Producers',
+          blocks: [
+            { type: 'p', text: 'Listing in the library is free and cannot be bought. An oil gets a page because our panel tasted it or because it placed in a competition we follow; a producer gets a page once one of its oils has one. If your oil is here, send us a current laboratory report and we will cite your figures as yours, and tell us what is wrong on the page and we will fix it. If your oil is not here, enter the competitions on our rankings hub — that is how most of the catalogue arrived.' },
+            { type: 'p', text: 'Stocking is a separate conversation with the retailer. It buys direct from estates, pays on terms, and prefers producers who publish harvest dates and laboratory figures, because that is what its customers have learned to ask for here.' },
+          ],
+        },
+        {
+          id: 'get-in-touch',
+          heading: 'Get in touch',
+          blocks: [
+            { type: 'p', text: 'info@olijfoliemarkt.nl, with “trade” in the subject line, reaches the person who handles all of the above. Tell us what kind of business you are, roughly what volume, and which oils caught your eye — or let us suggest a first assortment from the library.' },
+            { type: 'sources', kicker: 'Where the terms live', text: 'This page describes the relationship; prices, minimums and current conditions are the retailer’s and are kept on its own site.', items: [
+              { label: 'olijfoliemarkt.nl — export and trade page', url: 'https://olijfoliemarkt.nl/pages/export' },
+              { label: 'How we rate — how the shop and the library are kept apart', url: '/how-we-rate/' },
+            ] },
           ],
         },
       ],
