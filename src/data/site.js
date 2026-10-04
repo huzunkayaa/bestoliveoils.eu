@@ -7974,7 +7974,8 @@ module.exports = {
         'Two farms, Los Juncales and La Casa del Agua, around Villanueva de la Reina in the heart of Jaén — the province that alone produces more olive oil than all of Italy. Most of that oil is late-harvest, bulk Picual. Oro Bailén went the other way: in the early 2000s José Gálvez, third generation, moved the family from selling fruit to the cooperative to making premium single-varietal oils, and the estate has since collected most of the industry\'s top awards, including 99/100 in the Flos Olei guide and EVOOLEUM\'s world number one.',
         'Harvest starts in early October, well before the region, and fruit is cold-extracted within hours of picking. The range is four monovarietals — Picual, Arbequina, Hojiblanca and Frantoio — plus an organic Picual; all five are in the library and all five are stocked in our shop.',
       ],
-      map: { placeholder: 'Map · Villanueva de la Reina', caption: 'Villanueva de la Reina, Jaén · 38.00° N, 3.92° W' },
+      map: {
+      image: { src: 'assets/img/maps/oro-bailen.svg', alt: "Locator map: Villanueva de la Reina, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Villanueva de la Reina', caption: 'Villanueva de la Reina, Jaén · 38.00° N, 3.92° W' },
     },
     {
       slug: 'nobleza-del-sur',
@@ -8018,7 +8019,8 @@ module.exports = {
         'One working rule explains most of what is in the bottles: olives reach the press within four hours of leaving the tree, cold-extracted. That is why free acidity across the range sits at 0.10–0.15% against a legal ceiling of 0.8%, and why the volatile green aromas survive to the bottle. Picking starts early, while the fruit is still turning, with drone monitoring and soil and leaf analysis used to fix the date. It costs yield — roughly 10 to 14 kilos of olives per litre at that stage — and buys polyphenols. The mill runs on its own photovoltaic array.',
         'The two organic oils carry endangered pollinators on the label rather than a family crest: a bee for Day, a night moth for Night. On this estate that is a farming decision, not a graphic one. Alongside them sit Flor de Abeja, the high-polyphenol line aimed squarely at people who buy olive oil as a health decision, and Novo, the first pressing of the season, made once a year and gone by spring. Between the six oils we have reviewed, polyphenol counts run from 373 to 837 mg/kg — an unusually wide range from one mill, and a good illustration of how much harvest date alone decides.',
       ],
-      map: { placeholder: 'Map · Castellar, Jaén', caption: 'Castellar, Jaén · 38.23° N, 3.10° W' },
+      map: {
+      image: { src: 'assets/img/maps/nobleza-del-sur.svg', alt: "Locator map: Castellar, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Castellar, Jaén', caption: 'Castellar, Jaén · 38.23° N, 3.10° W' },
     },
   {
     slug: 'sabino-leone',
@@ -8050,7 +8052,8 @@ module.exports = {
       'A trade magazine profile puts the holding at roughly 300 hectares, about 150 of them olive groves with some 45,000 trees, planted to Coratina, Peranzana, Frantoio and Carolea. The estate itself publishes neither figure. What it does state is the age of the trees behind its flagship oil: over 220 years.',
       'Six oils are bottled, each from a separate cultivar or selection. Harvest is early and extraction cold at controlled temperature, with a short gap between picking and milling; the oil is filtered. The estate publishes no polyphenol or acidity figures, so the numbers on our oil page come from its US importer.',
     ],
-    map: { placeholder: 'Map · Canosa di Puglia', caption: 'Canosa di Puglia, Puglia · 41.22° N, 16.07° E' },
+    map: {
+      image: { src: 'assets/img/maps/sabino-leone.svg', alt: "Locator map: Canosa di Puglia, Barletta-Andria-Trani, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Canosa di Puglia', caption: 'Canosa di Puglia, Puglia · 41.22° N, 16.07° E' },
   },
   {
     slug: 'miceli-sensat',
@@ -8083,7 +8086,8 @@ module.exports = {
       'One hundred and fifteen hectares of certified organic groves and 48,000 trees between 200 and 450 metres near Lago Garcia, west of Palermo. The estate grows native Cerasuola and Biancolilla alongside two Spanish cultivars, Picual and Arbequina — and the Spanish vines are not planted directly but grafted onto wild Sicilian olive rootstock.',
       'Olives are hand-picked early and milled within hours at the estate’s own mill, with temperature monitored through extraction and storage. Irrigation is subsurface drip from on-site reservoirs. Output is over 45,000 litres a year, roughly 85% of it exported.',
     ],
-    map: { placeholder: 'Map · Monreale', caption: 'Monreale, Palermo, Sicily · 38.08° N, 13.29° E' },
+    map: {
+      image: { src: 'assets/img/maps/miceli-sensat.svg', alt: "Locator map: Monreale, Palermo, Sicily, Italy", w: 600, h: 600 }, placeholder: 'Map · Monreale', caption: 'Monreale, Palermo, Sicily · 38.08° N, 13.29° E' },
   },
   {
     slug: 'monini',
@@ -8115,7 +8119,8 @@ module.exports = {
       'Two production plants with a combined capacity of around 30 million litres a year, exporting to some sixty countries. The Coratina olives come from Puglia, where the company runs a plant at Carpino in the heart of the cultivar’s home ground.',
       'Monini also owns the Frantoio del Poggiolo above the Spoleto valley, which works as a mill and a tasting and education centre. In the Monocultivar range each variety is milled separately rather than blended — which is the whole point of the line, and the reason a Coratina from a company this size can hold its own against single estates.',
     ],
-    map: { placeholder: 'Map · Spoleto', caption: 'Spoleto, Umbria · 42.73° N, 12.74° E' },
+    map: {
+      image: { src: 'assets/img/maps/monini.svg', alt: "Locator map: Spoleto, Perugia, Umbria, Italy", w: 600, h: 600 }, placeholder: 'Map · Spoleto', caption: 'Spoleto, Umbria · 42.73° N, 12.74° E' },
   },
   {
     slug: 'almazaras-de-la-subbetica',
@@ -8149,7 +8154,8 @@ module.exports = {
       'The two founding cooperatives were Virgen del Castillo at Carcabuey, founded in 1954, and Nuestro Padre Jesús Nazareno at Priego de Córdoba, founded in the early 1960s. Both mills still run; Carcabuey also houses bottling and design. The groves are Hojiblanca, Picuda and Picual, spread across Carcabuey, Priego de Córdoba, Fuente-Tójar and Almedinilla.',
       'This is mountain country by Andalusian standards: higher rainfall than the plain, wide day-to-night temperature swings, and a harvest picked by hand in late autumn. The premium oils are bottled under DOP Priego de Córdoba; the organic coupage is sold outside it.',
     ],
-    map: { placeholder: 'Map · Carcabuey', caption: 'Carcabuey, Córdoba · 37.45° N, 4.28° W' },
+    map: {
+      image: { src: 'assets/img/maps/almazaras-de-la-subbetica.svg', alt: "Locator map: Carcabuey, Córdoba, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Carcabuey', caption: 'Carcabuey, Córdoba · 37.45° N, 4.28° W' },
   },
   {
     slug: 'o-med',
@@ -8181,7 +8187,8 @@ module.exports = {
       'Picual and Arbequina, both bottled as monovarietals. The harvest is compressed into three or four days at the end of October, with green fruit going to the mill within about three hours of picking and extraction kept cold.',
       'The estate irrigates by subsurface drip on solar power, reuses its process water, runs experimental plots with the IFAPA research centre and the University of Córdoba, and takes part in the Olivares Vivos biodiversity programme. Its award record is one of the longest in Spain, going back to 2010.',
     ],
-    map: { placeholder: 'Map · Ácula', caption: 'Ácula, Granada · 37.05° N, 3.89° W' },
+    map: {
+      image: { src: 'assets/img/maps/o-med.svg', alt: "Locator map: Ácula, Ventas de Huelma, Granada, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Ácula', caption: 'Ácula, Granada · 37.05° N, 3.89° W' },
   },
   {
     slug: 'oleicola-jaen',
@@ -8215,7 +8222,8 @@ module.exports = {
       'The company owns no groves. It buys olives from growers around Baeza, Úbeda, Linares and Mancha Real, which makes its results a statement about milling rather than about farming. Picual, Arbequina, Frantoio, Royal, Hojiblanca and Coratina all pass through it.',
       'It began burning olive stones as fuel in 1986, switched from three-phase to two-phase extraction in 1994, took organic certification in 2013 and started bottling monovarietals in 2015. The new mill, reported at around six million euros, opened in 2022. Premium lots are picked green in October and November and milled straight away.',
     ],
-    map: { placeholder: 'Map · Baeza', caption: 'Baeza, Jaén · 37.99° N, 3.47° W' },
+    map: {
+      image: { src: 'assets/img/maps/oleicola-jaen.svg', alt: "Locator map: Baeza, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Baeza', caption: 'Baeza, Jaén · 37.99° N, 3.47° W' },
   },
   {
     slug: 'knolive',
@@ -8247,7 +8255,8 @@ module.exports = {
       'Ninety-eight hectares across two orchards, about 9,800 trees at roughly a hundred to the hectare, planted to Picual, Picuda and Hojiblanca in roughly equal thirds. Everything is picked by hand because the terrain gives no other option.',
       'Milling is done at night, cold, at the company’s own facility in Priego de Córdoba. Storage is about sixty stainless-steel tanks of 54 tonnes each, held at 15 °C under nitrogen. Total output is around 3.5 million litres a year, of which roughly half a million comes from the family’s own groves and the rest from seventy to eighty local farmers.',
     ],
-    map: { placeholder: 'Map · Priego de Córdoba', caption: 'Priego de Córdoba, Córdoba · 37.44° N, 4.20° W' },
+    map: {
+      image: { src: 'assets/img/maps/knolive.svg', alt: "Locator map: Priego de Córdoba, Córdoba, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Priego de Córdoba', caption: 'Priego de Córdoba, Córdoba · 37.44° N, 4.20° W' },
   },
   {
     slug: 'xiangyu',
@@ -8278,7 +8287,8 @@ module.exports = {
       'The company runs processing plants and a bottling line in Longnan and works through a contract-growing model with local farmers rather than farming a single estate. Its industrial site is designated a National Industrial Tourism Demonstration Base. Coratina is the cultivar we could confirm; grove area, altitude, harvest timing and mill technology are not published anywhere we could reach.',
       'A note on sourcing: the company website would not load for us, and no product data sheet exists in English. Figures circulating in Chinese press about hectares under olives describe the Longnan region as a whole, not this company, so we have left them out rather than repeat them as if they were the estate’s own.',
     ],
-    map: { placeholder: 'Map · Longnan', caption: 'Wudu District, Longnan, Gansu · 33.39° N, 104.93° E' },
+    map: {
+      image: { src: 'assets/img/maps/xiangyu.svg', alt: "Locator map: Wudu District, Longnan, Gansu, China", w: 600, h: 600 }, placeholder: 'Map · Longnan', caption: 'Wudu District, Longnan, Gansu · 33.39° N, 104.93° E' },
   },
   {
     slug: 'olivarera-guadalupe',
@@ -8309,7 +8319,8 @@ module.exports = {
       'The mill runs four crushing lines, each with two hammer mills feeding malaxers, a decanter and vertical centrifuges, with 24 hoppers on the intake and olives processed within 24 hours of delivery. Oil is held in on-site bodegas before bottling.',
       'The cooperative works inside DOP Baena, which covers eight towns and is built on Picuda alongside Lechín, Hojiblanca and Picual. It also bottles an organic line, Virrey Ecológico, and a separate early-harvest oil. Neither its founding year nor its membership is published.',
     ],
-    map: { placeholder: 'Map · Baena', caption: 'Baena, Córdoba · 37.62° N, 4.32° W' },
+    map: {
+      image: { src: 'assets/img/maps/olivarera-guadalupe.svg', alt: "Locator map: Baena, Córdoba, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Baena', caption: 'Baena, Córdoba · 37.62° N, 4.32° W' },
   },
   {
     slug: 'quattrociocchi',
@@ -8341,7 +8352,8 @@ module.exports = {
       'Around 110 hectares and 25,000 trees, certified organic, planted to Itrana, Leccino, Moraiolo and Frantoio. For about twenty years the estate has brought its harvest forward to the start of October to pick green, polyphenol-rich fruit — a decision that costs yield and defines the house style.',
       'Olives are hand-harvested and milled the same day using cold extraction. The oil is left unfiltered and kept in stainless steel. Trees are hand-pruned in February. The company is registered with the Olio di Roma IGP consortium.',
     ],
-    map: { placeholder: 'Map · Alatri', caption: 'Alatri, Frosinone, Lazio · 41.73° N, 13.34° E' },
+    map: {
+      image: { src: 'assets/img/maps/quattrociocchi.svg', alt: "Locator map: Alatri, Frosinone, Lazio, Italy", w: 600, h: 600 }, placeholder: 'Map · Alatri', caption: 'Alatri, Frosinone, Lazio · 41.73° N, 13.34° E' },
   },
   {
     slug: 'trappeto-di-caprafico',
@@ -8372,7 +8384,8 @@ module.exports = {
       'Over five thousand trees, more than half of them over a century old, on ground the producer describes as stony, harsh and skeletal. The cultivars are Gentile di Chieti, Intosso, Crognalegno and Leccino; the farm also grows Montepulciano, Pecorino and Passerina for wine.',
       'Olives are picked early and milled within a few hours on granite millstones, with no intermediate storage. The oil stays unfiltered in nitrogen-blanketed steel in rooms held at 15–18 °C, and is bottled only when ordered.',
     ],
-    map: { placeholder: 'Map · Casoli', caption: 'Caprafico di Casoli, Chieti · 42.12° N, 14.29° E' },
+    map: {
+      image: { src: 'assets/img/maps/trappeto-di-caprafico.svg', alt: "Locator map: Caprafico di Casoli, Chieti, Abruzzo, Italy", w: 600, h: 600 }, placeholder: 'Map · Casoli', caption: 'Caprafico di Casoli, Chieti · 42.12° N, 14.29° E' },
   },
   {
     slug: 'oro-de-canava',
@@ -8403,7 +8416,8 @@ module.exports = {
       'The oils are Picual, bottled under DOP Sierra Mágina in four formats — an early-harvest bottling, a standard glass line, PET for everyday use and tins. Fruit is picked green from October and taken straight to the mill; storage is stainless steel at the mill, which also keeps an exhibition room of the cooperative’s awards.',
       'Since 2020 it has taken Jaén Selección four times, the IOC’s Mario Solinas prize three times — first place for intense green fruity in 2023 — and, in 2026, best Picual in the world at the AOVE World Cup and the number one spot in the Iberoleum guide.',
     ],
-    map: { placeholder: 'Map · Jimena', caption: 'Jimena, Jaén · 37.86° N, 3.48° W' },
+    map: {
+      image: { src: 'assets/img/maps/oro-de-canava.svg', alt: "Locator map: Jimena, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Jimena', caption: 'Jimena, Jaén · 37.86° N, 3.48° W' },
   },
   {
     slug: 'paola-orsini',
@@ -8435,7 +8449,8 @@ module.exports = {
       'The groves face the Tyrrhenian from the Lepini slopes, and the oils are monovarietal Itrana, bottled both as DOP Colline Pontine and as a numbered organic Riserva. The DOP oil also carries a Slow Food presidium designation.',
       'The mill runs two decanters and deliberately no centrifugal separator, which the producer says preserves the oil’s character. Alongside oil the farm makes table olives, olive creams, artichokes in oil, honey, citrus and wine.',
     ],
-    map: { placeholder: 'Map · Priverno', caption: 'Priverno, Latina, Lazio · 41.47° N, 13.18° E' },
+    map: {
+      image: { src: 'assets/img/maps/paola-orsini.svg', alt: "Locator map: Priverno, Latina, Lazio, Italy", w: 600, h: 600 }, placeholder: 'Map · Priverno', caption: 'Priverno, Latina, Lazio · 41.47° N, 13.18° E' },
   },
   {
     slug: 'mimi',
@@ -8466,7 +8481,8 @@ module.exports = {
       'Around eighty hectares and 24,000 trees at Contrada Gravinella, planted to Ogliarola, Peranzana, Coratina, Cima di Melfi and Nocellara, each bottled as a monovarietal alongside the blend.',
       'Olives are washed and dried before crushing so that wash water never enters the process. The paste is chilled through a heat exchanger to a maximum of 19–20 °C before malaxation in vertically arranged malaxers, then run through a two-phase decanter. Oil is filtered immediately and stored under nitrogen with temperature monitored throughout.',
     ],
-    map: { placeholder: 'Map · Modugno', caption: 'Modugno, Bari, Puglia · 41.09° N, 16.78° E' },
+    map: {
+      image: { src: 'assets/img/maps/mimi.svg', alt: "Locator map: Modugno, Bari, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Modugno', caption: 'Modugno, Bari, Puglia · 41.09° N, 16.78° E' },
   },
   {
     slug: 'terracuza',
@@ -8497,7 +8513,8 @@ module.exports = {
       'About 2,500 trees averaging some 150 years old, some reported at up to six hundred, in plots of between seventy and a thousand trees each at roughly 300–700 m with south-western exposure. The cultivars are Bosana and Cariasina, with Tonda di Cagliari for the table. Certification is organic, through Suolo e Salute.',
       'The farm has no mill of its own: olives are taken to a partner mill and cold-extracted on a two-phase system within twelve hours of picking. A second label, Ozzastrera, carries the Bosana monovarietal, and the farm also runs nomadic beekeeping.',
     ],
-    map: { placeholder: 'Map · Bolotana', caption: 'Bolotana, Nuoro, Sardinia · 40.32° N, 8.96° E' },
+    map: {
+      image: { src: 'assets/img/maps/terracuza.svg', alt: "Locator map: Bolotana, Nuoro, Sardinia, Italy", w: 600, h: 600 }, placeholder: 'Map · Bolotana', caption: 'Bolotana, Nuoro, Sardinia · 40.32° N, 8.96° E' },
   },
   {
     slug: 'schinosa',
@@ -8528,7 +8545,8 @@ module.exports = {
       'About 28,000 trees, most of them 150 to 200 years old, across the Santa Perpetua, Dote and San Giovanni districts. Coratina dominates, with roughly nine hectares of Peranzana and six of Nocellara, plus Leccino, Picholine and Bella di Cerignola for the table.',
       'Each variety is picked at its own moment — table olives first, Peranzana next, Coratina last. Milling is on an Amenduni continuous two-phase line with automated temperature control during crushing. An organic line, Stellare Bio, is bottled from Leccino.',
     ],
-    map: { placeholder: 'Map · Trani', caption: 'Trani, Puglia · 41.28° N, 16.42° E' },
+    map: {
+      image: { src: 'assets/img/maps/schinosa.svg', alt: "Locator map: Trani, Barletta-Andria-Trani, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Trani', caption: 'Trani, Puglia · 41.28° N, 16.42° E' },
   },
   {
     slug: 'goya-espana',
@@ -8560,7 +8578,8 @@ module.exports = {
       'The Alcalá de Guadaíra site began as a processing and bottling plant for oil and table olives, gained a dedicated olive factory in 1985 and was rebuilt as an integrated plant in 1998. Oil is held under controlled atmosphere and temperature, and finished bottles are nitrogen-flushed.',
       'Output is around four million kilos of olive oil and as much again in olives and capers a year, almost all of it exported. Goya publishes no polyphenol figures, no acidity and no harvest years — which is worth knowing before comparing its numbers with an estate’s, because there are none to compare.',
     ],
-    map: { placeholder: 'Map · Alcalá de Guadaíra', caption: 'Alcalá de Guadaíra, Seville · 37.34° N, 5.84° W' },
+    map: {
+      image: { src: 'assets/img/maps/goya-espana.svg', alt: "Locator map: Alcalá de Guadaíra, Seville, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Alcalá de Guadaíra', caption: 'Alcalá de Guadaíra, Seville · 37.34° N, 5.84° W' },
   },
   {
     slug: 'oro-del-desierto',
@@ -8593,7 +8612,8 @@ module.exports = {
       'One hundred and thirty hectares of olives on Finca El Vicario, planted to Picual, Hojiblanca, Lechín and Arbequina, all certified organic. Irrigation is drip-based and stated to use 30–35% less water than conventional systems; mill pomace is composted back into the groves and burned as biomass.',
       'The estate does something almost no producer does: it publishes its polyphenol results by variety and by harvest year, measured by an outside laboratory. That series is the reason our oil pages here can carry real numbers instead of a marketing range.',
     ],
-    map: { placeholder: 'Map · Tabernas', caption: 'Tabernas, Almería · 37.05° N, 2.39° W' },
+    map: {
+      image: { src: 'assets/img/maps/oro-del-desierto.svg', alt: "Locator map: Tabernas, Almería, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Tabernas', caption: 'Tabernas, Almería · 37.05° N, 2.39° W' },
   },
   {
     slug: 'olibaeza',
@@ -8624,7 +8644,8 @@ module.exports = {
       'The members grow Picual, with some Arbequina, on La Loma around Baeza. About 35 million kilos of olives pass through the mill in an average season, and nearly two thousand local families are connected to the cooperative.',
       'For the Olibaeza premium line, fruit is selected from members’ groves and picked in early October while still green, before it turns purple, then cold-extracted. The bottles carry two designs referencing Baeza cathedral and the town’s ceramics, one of them with a Machado quotation.',
     ],
-    map: { placeholder: 'Map · Baeza', caption: 'Baeza, Jaén · 37.99° N, 3.47° W' },
+    map: {
+      image: { src: 'assets/img/maps/olibaeza.svg', alt: "Locator map: Baeza, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Baeza', caption: 'Baeza, Jaén · 37.99° N, 3.47° W' },
   },
   {
     slug: 'jabalcuz',
@@ -8655,7 +8676,8 @@ module.exports = {
       'Around 1,400 member families, and 17 million kilos of olives processed in the 2025/26 season. Storage runs to more than 5.2 million kilos across 54 stainless-steel tanks.',
       'The cooperative sells its output explicitly as mountain oil — family-sized holdings on steep ground in the Sierra Sur, picked in October and, it states, milled the same day. Its predecessor label, La Pandera Premium, scored 94 points in the EVOOLEUM guide.',
     ],
-    map: { placeholder: 'Map · Los Villares', caption: 'Los Villares, Jaén · 37.72° N, 3.83° W' },
+    map: {
+      image: { src: 'assets/img/maps/jabalcuz.svg', alt: "Locator map: Los Villares, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Los Villares', caption: 'Los Villares, Jaén · 37.72° N, 3.83° W' },
   },
   {
     slug: 'frantoi-cutrera',
@@ -8687,7 +8709,8 @@ module.exports = {
       'One hundred and fifty hectares farmed directly in south-eastern Sicily, planted only to native varieties — Tonda Iblea and Nocellara del Belice among them — and harvested before full ripeness. Organic, IGP Sicilia and DOP Monti Iblei oils are all produced.',
       'The mill runs Pieralisi equipment and, the company states, was the first in the world to integrate infrared optical sorters that assess olives individually. Extraction is continuous-cycle and two-phase, without added water, below 27 °C, in a closed facility under a nitrogen atmosphere.',
     ],
-    map: { placeholder: 'Map · Chiaramonte Gulfi', caption: 'Chiaramonte Gulfi, Ragusa, Sicily · 37.03° N, 14.70° E' },
+    map: {
+      image: { src: 'assets/img/maps/frantoi-cutrera.svg', alt: "Locator map: Chiaramonte Gulfi, Ragusa, Sicily, Italy", w: 600, h: 600 }, placeholder: 'Map · Chiaramonte Gulfi', caption: 'Chiaramonte Gulfi, Ragusa, Sicily · 37.03° N, 14.70° E' },
   },
   {
     slug: 'santuario-de-magina',
@@ -8718,7 +8741,8 @@ module.exports = {
       'The oils are Picual under DOP Sierra Mágina. The plant has six automatic weighing lines, five continuous milling lines and 52 stainless-steel tanks holding four million kilos of oil, plus a bottling line added in 2001.',
       'The cooperative moved to the A-324 road site in 1969–70 and expanded to six presses, adopted two-phase continuous extraction in the 1990s and opened its current facilities on 1 October 2005. It also runs a diesel station and an agricultural supply outlet for members.',
     ],
-    map: { placeholder: 'Map · Huelma', caption: 'Huelma, Jaén · 37.65° N, 3.46° W' },
+    map: {
+      image: { src: 'assets/img/maps/santuario-de-magina.svg', alt: "Locator map: Huelma, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Huelma', caption: 'Huelma, Jaén · 37.65° N, 3.46° W' },
   },
   {
     slug: 'artajo',
@@ -8749,7 +8773,8 @@ module.exports = {
       'Koroneiki, Arbequina, Arbosana, Manzanilla Cacereña and Arróniz are the named cultivars, all farmed organically. The valley gets over 3,300 hours of sun a year, with Mediterranean, continental and Atlantic influences meeting in the same place.',
       'The mill sits on the plantation, so olives reach it within two hours of picking. Extraction runs at 18–20 °C with a double-cut mill, a refrigerated malaxer and refrigerated centrifuges, with in-line filtering; the oil is stored under nitrogen at 18–20 °C and bottled on demand into dark, inert bottles.',
     ],
-    map: { placeholder: 'Map · Fontellas', caption: 'Fontellas, Navarra · 42.02° N, 1.64° W' },
+    map: {
+      image: { src: 'assets/img/maps/artajo.svg', alt: "Locator map: Fontellas, Navarra, Spain", w: 600, h: 600 }, placeholder: 'Map · Fontellas', caption: 'Fontellas, Navarra · 42.02° N, 1.64° W' },
   },
   {
     slug: 'balcon-del-guadalquivir',
@@ -8780,7 +8805,8 @@ module.exports = {
       'Member groves cover roughly 2,100 hectares of La Loma around Baeza, in the upper Guadalquivir valley. The cooperative publishes conflicting tree counts — 200,000 on one page, 240,000 on another — and does not state its cultivar, though retailers and trade press describe the oil as Picual.',
       'It moved to new facilities in 2004–05 with machinery sized so that the entire day’s harvest can be milled the same day. The plant includes a large bodega, its own bottling line, a pitting machine and a wash-water treatment plant.',
     ],
-    map: { placeholder: 'Map · Baeza', caption: 'Baeza, Jaén · 37.99° N, 3.47° W' },
+    map: {
+      image: { src: 'assets/img/maps/balcon-del-guadalquivir.svg', alt: "Locator map: Baeza, Jaén, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Baeza', caption: 'Baeza, Jaén · 37.99° N, 3.47° W' },
   },
   {
     slug: 'olivarera-la-purisima',
@@ -8811,7 +8837,8 @@ module.exports = {
       'The cooperative runs its own mill on the Priego–Luque road and bottles four labels: El Empiedro, the organic BioEmpiedro, Bajondillo and Prados de Olivo. Its production manager, Antonio Jesús Mérida Jiménez, has been named Spain’s best mill master by the AEMO.',
       'El Empiedro took first prize in the sweet green fruity class at the Alimentos de España awards for 2023/24. Mill technology, storage, harvest window and grove altitude are not published, and the cooperative gives no polyphenol or acidity figures.',
     ],
-    map: { placeholder: 'Map · Priego de Córdoba', caption: 'Priego de Córdoba, Córdoba · 37.44° N, 4.20° W' },
+    map: {
+      image: { src: 'assets/img/maps/olivarera-la-purisima.svg', alt: "Locator map: Priego de Córdoba, Córdoba, Andalusia, Spain", w: 600, h: 600 }, placeholder: 'Map · Priego de Córdoba', caption: 'Priego de Córdoba, Córdoba · 37.44° N, 4.20° W' },
   },
   {
     slug: 'decimi',
@@ -8842,7 +8869,8 @@ module.exports = {
       'Groves at Bettona, Collemancio and Giano dell’Umbria, planted to Moraiolo, San Felice, Frantoio and Leccino. Harvest runs October to November and olives are milled within four hours of picking.',
       'The mill is a two-phase MORI-TEM plant run under closely controlled cold extraction. Oil is stored in stainless steel under nitrogen, shielded from light and temperature-controlled. The site runs on photovoltaic power, burns olive pits as fuel and sends its by-products to biogas.',
     ],
-    map: { placeholder: 'Map · Bettona', caption: 'Bettona, Perugia, Umbria · 43.01° N, 12.48° E' },
+    map: {
+      image: { src: 'assets/img/maps/decimi.svg', alt: "Locator map: Bettona, Perugia, Umbria, Italy", w: 600, h: 600 }, placeholder: 'Map · Bettona', caption: 'Bettona, Perugia, Umbria · 43.01° N, 12.48° E' },
   },
   {
     slug: 'marsicani',
@@ -8873,7 +8901,8 @@ module.exports = {
       'The native cultivars are Pisciottana, Frantoio, Rotondella and Leccino, and the mill also works Itrana and Coratina for others. Around 1,500 quintals of olives pass through a year, of which roughly a hundred become the house extra virgin — about five thousand bottles plus tins. Three full-time sensory evaluators work on site.',
       'The published labels are Alter Ego, Viride, NU-EVO, Algoritmo and Plusvalore, and the mill’s DOP oil is Cilento DOP. The label credited in the World’s Best Olive Oils ranking, "Opera Nostra Campania IGP", does not appear in that range, and we have flagged it on the oil page rather than assume a match.',
     ],
-    map: { placeholder: 'Map · Morigerati', caption: 'Sicilì di Morigerati, Salerno · 40.15° N, 15.55° E' },
+    map: {
+      image: { src: 'assets/img/maps/marsicani.svg', alt: "Locator map: Sicilì di Morigerati, Salerno, Campania, Italy", w: 600, h: 600 }, placeholder: 'Map · Morigerati', caption: 'Sicilì di Morigerati, Salerno · 40.15° N, 15.55° E' },
   },
   {
     slug: 'cetrone',
@@ -8904,7 +8933,8 @@ module.exports = {
       'Roughly a hundred hectares and nearly twenty thousand trees, all Itrana. Picking is by brucatura — stripping the fruit from the branch by hand — and milling is cold, on the same day, at the family’s own mill.',
       'The published range is Novolio, Intenso, Delicato, DOP Colline Pontine, Monocultivar Itrana and a Blend. The label listed in the World’s Best Olive Oils ranking, "In", does not appear among them; Intenso is the likeliest match, but the producer has not confirmed it and neither will we.',
     ],
-    map: { placeholder: 'Map · Sonnino', caption: 'Sonnino, Latina, Lazio · 41.42° N, 13.24° E' },
+    map: {
+      image: { src: 'assets/img/maps/cetrone.svg', alt: "Locator map: Sonnino, Latina, Lazio, Italy", w: 600, h: 600 }, placeholder: 'Map · Sonnino', caption: 'Sonnino, Latina, Lazio · 41.42° N, 13.24° E' },
   },
   {
     slug: 'masoni-becciu',
@@ -8935,7 +8965,8 @@ module.exports = {
       'Sixty-five hectares and over fourteen thousand trees at 267 metres, between the Campidano plain and the Monte Linas massif. The plantings deliberately mix traditional 10 × 10 m spacing with intensive 8 × 7 and 6 × 4 m layouts across the same estate.',
       'The property also runs an agriturismo with a tasting panel room, courses and slow-tourism activities. The estate publishes no cultivar names, harvest timing or chemistry for its oils, which is a real gap given how decorated they are.',
     ],
-    map: { placeholder: 'Map · Villacidro', caption: 'Villacidro, South Sardinia · 39.46° N, 8.74° E' },
+    map: {
+      image: { src: 'assets/img/maps/masoni-becciu.svg', alt: "Locator map: Villacidro, South Sardinia, Italy", w: 600, h: 600 }, placeholder: 'Map · Villacidro', caption: 'Villacidro, South Sardinia · 39.46° N, 8.74° E' },
   },
   {
     slug: 'de-palma',
@@ -8966,7 +8997,8 @@ module.exports = {
       'No reachable company website, no product data sheet in any language, no published town, founding year, hectares, cultivars or chemistry. Two candidate domains resolve in DNS but would not load, and we could not confirm that either belongs to this company.',
       'This is more common than it sounds. Puglia produces around half of all Italian olive oil, and a great many of its mills sell locally with essentially no presence online. A competition placing is sometimes the only public trace such a producer leaves.',
     ],
-    map: { placeholder: 'Map · Puglia', caption: 'Puglia, Italy' },
+    map: {
+      image: { src: 'assets/img/maps/de-palma.svg', alt: "Locator map: Puglia, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Puglia', caption: 'Puglia, Italy' },
   },
   {
     slug: 'etruna',
@@ -8998,7 +9030,8 @@ module.exports = {
       'The olives grow in the Colli Assisi, the hill zone north of Spoleto that gives the DOP Umbria its best-known sub-denomination. Regular is picked in early October as the fruit turns; Intense is hand-picked green at the end of September and cold-pressed within hours.',
       'The label is owned by our retail partner, which is why it is disclosed as such on every page that carries it. The mill is not named in the producer’s published material.',
     ],
-    map: { placeholder: 'Map · Colli Assisi', caption: 'Colli Assisi, Perugia, Umbria · 43.07° N, 12.62° E' },
+    map: {
+      image: { src: 'assets/img/maps/etruna.svg', alt: "Locator map: Colli Assisi, Perugia, Umbria, Italy", w: 600, h: 600 }, placeholder: 'Map · Colli Assisi', caption: 'Colli Assisi, Perugia, Umbria · 43.07° N, 12.62° E' },
   },
   {
     slug: 'marina-palusci',
@@ -9032,7 +9065,8 @@ module.exports = {
       'Groves on clay and clay-limestone soils at roughly 280 m, between the Gran Sasso massif and the Adriatic. Dritta dominates, with Leccino as the blending partner and a forty-year-old block of Leccio del Corno for the late-harvest Alchimia. The oldest Dritta trees, which go into L’Uomo di Ferro, are stated to be 450 years and older.',
       'Harvest starts in the last week of September for the green bottlings and runs to late November for Alchimia. Fruit is cold-processed within twelve hours of picking; the oils rest in tanks under inert gas at controlled temperature. Polyphenol and acidity figures are the producer’s own.',
     ],
-    map: { placeholder: 'Map · Pianella', caption: 'Pianella, Pescara, Abruzzo · 42.40° N, 14.05° E' },
+    map: {
+      image: { src: 'assets/img/maps/marina-palusci.svg', alt: "Locator map: Pianella, Pescara, Abruzzo, Italy", w: 600, h: 600 }, placeholder: 'Map · Pianella', caption: 'Pianella, Pescara, Abruzzo · 42.40° N, 14.05° E' },
   },
   {
     slug: 'hermus',
@@ -9100,7 +9134,8 @@ module.exports = {
       'Estate size, tree count, altitude and soil are not published. A Turkish olive journal counts about five hundred Hanım Parmağı trees mixed through the Kulfal grove. Harvest is early and by hand, with fruit never touching the ground and pressed the same day; the Golden Taste blend is picked in August. The producer lists FDA, kosher and organic-agriculture certificates without naming the issuers.',
       'Extraction on a Mori-Tem line at the estate; storage in stainless steel at 16–18 °C under argon; filled to order into dark glass with a nitrogen flush. Company-level credentials: Flos Olei 2026 at 91 points, and a claimed 40 international awards. Freyya Nefes sits in the 100-point tier of the World’s Best Olive Oils 2025/26 under the company name. An Olive Japan 2026 Double Gold claimed on the Japanese site could not be found in Olive Japan’s published results.',
     ],
-    map: { placeholder: 'Map · Ayvacık', caption: 'Kulfal, Ayvacık, Çanakkale · 39.53° N, 26.40° E' },
+    map: {
+      image: { src: 'assets/img/maps/buta-assos.svg', alt: "Locator map: Ayvacık, Çanakkale, North Aegean, Türkiye", w: 600, h: 600 }, placeholder: 'Map · Ayvacık', caption: 'Kulfal, Ayvacık, Çanakkale · 39.53° N, 26.40° E' },
   },
   {
     slug: 'nermin-hanim',
@@ -9135,7 +9170,8 @@ module.exports = {
       'Groves in Altınoluk-Avcılar, Güre, Çamlıbel, Kızılkeçili, İnönü, Büyükdere, Kalabak, Dereli, Murateli and Keremköy. The producer’s own story says 4,200 dönüm (420 ha) and 60,000 century-old trees; its homepage says 50,000 trees and its US site 55,000 on 865 acres, so take the scale as “tens of thousands of old trees” rather than a number. Altitude and soil are not published. Early harvest runs September–October, mature harvest November–December.',
       'Own mill, own fruit only; cold extraction with the paste at about 20 °C, no hot water and no enzymes; nitrogen-blanketed steel tanks at 18 °C; bottled to order. No organic or other certification is published. Lab reports for peroxide, pesticides, chemistry and polyphenols are linked from each product page; the laboratory is not named. Competition results are as the producer lists them; London IOOC 2022 and JOOP 2022 are confirmed on the competitions’ sides, and Canada IOOC 2024 shows a Silver the producer’s list does not.',
     ],
-    map: { placeholder: 'Map · Havran', caption: 'Havran, Balıkesir · 39.56° N, 27.10° E' },
+    map: {
+      image: { src: 'assets/img/maps/nermin-hanim.svg', alt: "Locator map: Havran, Balıkesir, Edremit Gulf, Türkiye", w: 600, h: 600 }, placeholder: 'Map · Havran', caption: 'Havran, Balıkesir · 39.56° N, 27.10° E' },
   },
   {
     slug: 'guglielmi',
@@ -9169,7 +9205,8 @@ module.exports = {
       'Hectares and tree count are not published. The producer describes its mill as built on research and technological innovation, and bottles under several labels — Monogram, Le Monocultivar, Arso, Fior d’O, Leaf, Tales — of which the library carries the four our partner stocks. Oils are cold-pressed within hours of picking.',
       'Awards are claimed on the producer’s own pages — a NYIOOC Gold for Monogram Intenso, Bibenda 5 Gocce 2025 and a Gambero Rosso listing for the IGP — and have not been checked on the competitions’ sides.',
     ],
-    map: { placeholder: 'Map · Andria', caption: 'Andria, BAT, Puglia · 41.23° N, 16.30° E' },
+    map: {
+      image: { src: 'assets/img/maps/guglielmi.svg', alt: "Locator map: Andria, Barletta-Andria-Trani, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Andria', caption: 'Andria, BAT, Puglia · 41.23° N, 16.30° E' },
   },
   {
     slug: 'le-ferre',
@@ -9203,7 +9240,8 @@ module.exports = {
       'Groves between 230 and 290 m on neutral-pH soils, planted to Coratina, Ogliarola, Frantoio and Leccino. Olives are machine-harvested and processed within 24 hours; extraction is cold, below 27 °C, on a continuous two-phase line; oil is held in stainless steel under nitrogen.',
       'The producer positions blending as its craft, and publishes a technical sheet and laboratory report for each oil. Selezione’s figures are from Chemiservice in Monopoli, an ISO/IEC 17025 laboratory, by the IOC HPLC method.',
     ],
-    map: { placeholder: 'Map · Castellaneta', caption: 'Castellaneta, Taranto, Puglia · 40.63° N, 16.94° E' },
+    map: {
+      image: { src: 'assets/img/maps/le-ferre.svg', alt: "Locator map: Castellaneta, Taranto, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Castellaneta', caption: 'Castellaneta, Taranto, Puglia · 40.63° N, 16.94° E' },
   },
   {
     slug: 'frantoio-muraglia',
@@ -9235,7 +9273,8 @@ module.exports = {
       'Coratina from the Andria plain, cold-extracted and filtered; the producer publishes a polyphenol figure for the Coratina (770 mg/L) and nothing for the Peranzana.',
       'The ceramic jars are decorated by hand in Puglia and have made the brand a design object; the oil is the same as in the bottles.',
     ],
-    map: { placeholder: 'Map · Andria', caption: 'Andria, Barletta-Andria-Trani, Puglia · 41.23° N, 16.29° E' },
+    map: {
+      image: { src: 'assets/img/maps/frantoio-muraglia.svg', alt: "Locator map: Andria, Barletta-Andria-Trani, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Andria', caption: 'Andria, Barletta-Andria-Trani, Puglia · 41.23° N, 16.29° E' },
   },
   {
     slug: 'olio-intini',
@@ -9266,7 +9305,8 @@ module.exports = {
       'Organic groves on the Murgia dei Trulli, higher and cooler than the Bari plain.',
       'Recognitions claimed by the producer for the Coratina: Slow Food Presidio 2023, Gambero Rosso Tre Foglie 2023, Olive Japan 2023.',
     ],
-    map: { placeholder: 'Map · Alberobello', caption: 'Alberobello, Bari, Puglia · 40.78° N, 17.24° E' },
+    map: {
+      image: { src: 'assets/img/maps/olio-intini.svg', alt: "Locator map: Alberobello, Bari, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Alberobello', caption: 'Alberobello, Bari, Puglia · 40.78° N, 17.24° E' },
   },
   {
     slug: 'frantoio-galantino',
@@ -9297,7 +9337,8 @@ module.exports = {
       'Coratina from centuries-old groves north of Bari, cold-extracted.',
       'Also known for flavoured oils and a baby line; the Intenso is the serious bottle.',
     ],
-    map: { placeholder: 'Map · Bisceglie', caption: 'Bisceglie, Barletta-Andria-Trani, Puglia · 41.24° N, 16.5° E' },
+    map: {
+      image: { src: 'assets/img/maps/frantoio-galantino.svg', alt: "Locator map: Bisceglie, Barletta-Andria-Trani, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Bisceglie', caption: 'Bisceglie, Barletta-Andria-Trani, Puglia · 41.24° N, 16.5° E' },
   },
   {
     slug: 'frantoio-dorazio',
@@ -9328,7 +9369,8 @@ module.exports = {
       'About 300,000 litres a year; export share above 40% (regional producer profile).',
       'Tasting notes and figures are not published for the monocultivars.',
     ],
-    map: { placeholder: 'Map · Conversano', caption: 'Conversano, Bari, Puglia · 40.97° N, 17.11° E' },
+    map: {
+      image: { src: 'assets/img/maps/frantoio-dorazio.svg', alt: "Locator map: Conversano, Bari, Puglia, Italy", w: 600, h: 600 }, placeholder: 'Map · Conversano', caption: 'Conversano, Bari, Puglia · 40.97° N, 17.11° E' },
   },
   {
     slug: 'frantoio-franci',
@@ -9360,7 +9402,8 @@ module.exports = {
       'Own mill at Montenero d’Orcia; harvest October–November. Hectares and trees are not published.',
       'Villa Magra Grand Cru is made in about 10,000 bottles; Flos Olei 2026 scored it 100/100 and Bibenda named it best EVOO of Italy in 2022.',
     ],
-    map: { placeholder: 'Map · Montenero d’Orcia', caption: 'Montenero d’Orcia, Grosseto, Tuscany · 42.9° N, 11.43° E' },
+    map: {
+      image: { src: 'assets/img/maps/frantoio-franci.svg', alt: "Locator map: Montenero d’Orcia, Grosseto, Tuscany, Italy", w: 600, h: 600 }, placeholder: 'Map · Montenero d’Orcia', caption: 'Montenero d’Orcia, Grosseto, Tuscany · 42.9° N, 11.43° E' },
   },
   {
     slug: 'frescobaldi',
@@ -9391,7 +9434,8 @@ module.exports = {
       'Frantoio, Moraiolo and Leccino from the Rufina estates, picked early by consortium rule and cold-extracted. Hectares and trees for olives are not published.',
       'Awards as listed by a US retailer: NYIOOC Gold 2025 and 2026, JOOP Gold 2025, Gambero Rosso Tre Foglie 2024/25.',
     ],
-    map: { placeholder: 'Map · Chianti Rufina', caption: 'Chianti Rufina, Florence, Tuscany · 43.83° N, 11.48° E' },
+    map: {
+      image: { src: 'assets/img/maps/frescobaldi.svg', alt: "Locator map: Chianti Rufina, Florence, Tuscany, Italy", w: 600, h: 600 }, placeholder: 'Map · Chianti Rufina', caption: 'Chianti Rufina, Florence, Tuscany · 43.83° N, 11.48° E' },
   },
   {
     slug: 'fattoria-di-volmiano',
@@ -9422,7 +9466,8 @@ module.exports = {
       '70 ha of olives, >20,000 trees, 250–1,000 m (Laudemio consortium profile).',
       'Traditional stone mill and press; organic certification.',
     ],
-    map: { placeholder: 'Map · Calenzano', caption: 'Calenzano, Florence, Tuscany · 43.87° N, 11.17° E' },
+    map: {
+      image: { src: 'assets/img/maps/fattoria-di-volmiano.svg', alt: "Locator map: Calenzano, Florence, Tuscany, Italy", w: 600, h: 600 }, placeholder: 'Map · Calenzano', caption: 'Calenzano, Florence, Tuscany · 43.87° N, 11.17° E' },
   },
   {
     slug: 'marfuga',
@@ -9453,7 +9498,8 @@ module.exports = {
       'Hillside terraces in the DOP Umbria Colli Assisi–Spoleto zone; harvest 15 October – 10 November for Sassente. Hectares and trees are not published.',
       'Flos Olei 2027 top-20 and a Gambero Rosso 40th-anniversary recognition in 2024, per the producer.',
     ],
-    map: { placeholder: 'Map · Campello sul Clitunno', caption: 'Campello sul Clitunno, Perugia, Umbria · 42.82° N, 12.78° E' },
+    map: {
+      image: { src: 'assets/img/maps/marfuga.svg', alt: "Locator map: Campello sul Clitunno, Perugia, Umbria, Italy", w: 600, h: 600 }, placeholder: 'Map · Campello sul Clitunno', caption: 'Campello sul Clitunno, Perugia, Umbria · 42.82° N, 12.78° E' },
   },
   {
     slug: 'agraria-riva-del-garda',
@@ -9485,7 +9531,8 @@ module.exports = {
       'Member groves around the north shore of the lake; the DOP Garda Trentino Imperiale and an organic Bianco complete the range.',
       'Awards for the Casaliva monocultivar as listed by the producer: Bibenda 5 Gocce 2024–2026, Gambero Rosso 3 Foglie 2026.',
     ],
-    map: { placeholder: 'Map · Riva del Garda', caption: 'Riva del Garda, Trento, Trentino · 45.89° N, 10.84° E' },
+    map: {
+      image: { src: 'assets/img/maps/agraria-riva-del-garda.svg', alt: "Locator map: Riva del Garda, Trento, Trentino, Italy", w: 600, h: 600 }, placeholder: 'Map · Riva del Garda', caption: 'Riva del Garda, Trento, Trentino · 45.89° N, 10.84° E' },
   },
   {
     slug: 'olearia-caldera',
@@ -9516,7 +9563,8 @@ module.exports = {
       'Monocultivars of Casaliva, Frantoio, Leccino and FS17 (producer).',
       'Tasting notes published; no figures.',
     ],
-    map: { placeholder: 'Map · Manerba del Garda', caption: 'Manerba del Garda, Brescia, Lombardy · 45.55° N, 10.55° E' },
+    map: {
+      image: { src: 'assets/img/maps/olearia-caldera.svg', alt: "Locator map: Manerba del Garda, Brescia, Lombardy, Italy", w: 600, h: 600 }, placeholder: 'Map · Manerba del Garda', caption: 'Manerba del Garda, Brescia, Lombardy · 45.55° N, 10.55° E' },
   },
   {
     slug: 'olio-anfosso',
@@ -9547,7 +9595,8 @@ module.exports = {
       'Taggiasca from the terraced valley groves of the Imperia hinterland.',
       'No figures published.',
     ],
-    map: { placeholder: 'Map · Chiusavecchia', caption: 'Chiusavecchia, Imperia, Liguria · 43.97° N, 7.98° E' },
+    map: {
+      image: { src: 'assets/img/maps/olio-anfosso.svg', alt: "Locator map: Chiusavecchia, Imperia, Liguria, Italy", w: 600, h: 600 }, placeholder: 'Map · Chiusavecchia', caption: 'Chiusavecchia, Imperia, Liguria · 43.97° N, 7.98° E' },
   },
   {
     slug: 'frantoio-di-santagata',
@@ -9578,7 +9627,8 @@ module.exports = {
       'Hand-pruned and hand-picked Taggiasca, cold-pressed the same day (producer).',
       'Recognitions per the producer: Ercole Olivario 2018, WineHunter Platinum 2019, Los Angeles IOOC 2019.',
     ],
-    map: { placeholder: 'Map · Imperia', caption: 'Imperia, Imperia, Liguria · 43.9° N, 8.04° E' },
+    map: {
+      image: { src: 'assets/img/maps/frantoio-di-santagata.svg', alt: "Locator map: Imperia, Imperia, Liguria, Italy", w: 600, h: 600 }, placeholder: 'Map · Imperia', caption: 'Imperia, Imperia, Liguria · 43.9° N, 8.04° E' },
   },
   {
     slug: 'ursini',
@@ -9609,7 +9659,8 @@ module.exports = {
       'Organic groves on three sites along the Costa dei Trabocchi.',
       'No figures published for the oils.',
     ],
-    map: { placeholder: 'Map · Fossacesia', caption: 'Fossacesia, Chieti, Abruzzo · 42.24° N, 14.48° E' },
+    map: {
+      image: { src: 'assets/img/maps/ursini.svg', alt: "Locator map: Fossacesia, Chieti, Abruzzo, Italy", w: 600, h: 600 }, placeholder: 'Map · Fossacesia', caption: 'Fossacesia, Chieti, Abruzzo · 42.24° N, 14.48° E' },
   },
   {
     slug: 'olearia-san-giorgio',
@@ -9640,7 +9691,8 @@ module.exports = {
       'The Gioia Tauro plain, Italy’s densest olive landscape after Puglia, with very large Ottobratica trees.',
       'Altanum carries the IGP Olio di Calabria; no figures published.',
     ],
-    map: { placeholder: 'Map · San Giorgio Morgeto', caption: 'San Giorgio Morgeto, Reggio Calabria, Calabria · 38.43° N, 16.1° E' },
+    map: {
+      image: { src: 'assets/img/maps/olearia-san-giorgio.svg', alt: "Locator map: San Giorgio Morgeto, Reggio Calabria, Calabria, Italy", w: 600, h: 600 }, placeholder: 'Map · San Giorgio Morgeto', caption: 'San Giorgio Morgeto, Reggio Calabria, Calabria · 38.43° N, 16.1° E' },
   },
   {
     slug: 'san-giuliano',
@@ -9671,7 +9723,8 @@ module.exports = {
       'Bosana-based DOP Sardegna and an organic version; L’Originale blends Bosana with mainland varieties.',
       'No figures published.',
     ],
-    map: { placeholder: 'Map · Alghero', caption: 'Alghero, Sassari, Sardinia · 40.56° N, 8.32° E' },
+    map: {
+      image: { src: 'assets/img/maps/san-giuliano.svg', alt: "Locator map: Alghero, Sassari, Sardinia, Italy", w: 600, h: 600 }, placeholder: 'Map · Alghero', caption: 'Alghero, Sassari, Sardinia · 40.56° N, 8.32° E' },
   },
   ],
 

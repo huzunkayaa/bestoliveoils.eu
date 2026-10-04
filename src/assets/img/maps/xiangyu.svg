@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Locator map: Wudu District, Longnan">
+<rect width="600" height="600" fill="#d3e1e2"/>
+<path d="M-2,-2L602,-2L602,602L-2,602Z" fill="#f5f0e6"/>
+<path d="null" fill="none" stroke="#8fa6a8" stroke-width="2"/>
+<path d="null" fill="none" stroke="#b8ab95" stroke-width="2" stroke-dasharray="6 5"/>
+<circle cx="300" cy="300" r="22" fill="#c2622f" fill-opacity="0.18"/>
+<circle cx="300" cy="300" r="9" fill="#c2622f" stroke="#fff" stroke-width="3"/>
+<text x="300" y="344" text-anchor="middle" font-family="Inter, Helvetica, Arial, sans-serif" font-size="22" font-weight="600" fill="#2e2b25" stroke="#f5f0e6" stroke-width="6" paint-order="stroke">Wudu District, Longnan</text>
+</svg>

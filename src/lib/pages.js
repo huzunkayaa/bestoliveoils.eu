@@ -1589,10 +1589,15 @@ function oil(D, o) {
         </div>`
     : '';
 
+  /* The origin map: the oil's own if it has one, else its producer's locator
+     map — the mill's coordinates, which is where the oil is from. */
+  const producerRec = o.producerSlug ? D.producers.find((p) => p.slug === o.producerSlug) : null;
+  const originImage = (d.origin && d.origin.image) ||
+    (producerRec && producerRec.map && producerRec.map.image) || null;
   const originCol = d.origin
     ? `<div class="detail-col detail-col--map">
           <h2>Where it's from</h2>
-          ${media(d.origin.image, d.origin.mapPlaceholder, 'detail-map media--circle')}
+          ${media(originImage, d.origin.mapPlaceholder, 'detail-map media--circle')}
           <p class="detail-map__note">${esc(d.origin.note)}</p>
           ${d.origin.linkHref ? `<a href="${esc(d.origin.linkHref)}" class="detail-map__link">${
             esc(d.origin.linkLabel)}</a>` : ''}
@@ -1730,6 +1735,18 @@ const reviewForm = () =>
 
 /* ══ 03 · producer ══════════════════════════════════════════════════════ */
 
+/* The map caption: the place as the record writes it, the country added
+   when it is not already there, and the coordinates printed from `geo` so
+   the caption can never disagree with the dot. */
+function mapCaption(p) {
+  let place = ((p.map && p.map.caption) || '').split(' · ')[0].trim() ||
+    [p.locality, p.regionName].filter(Boolean).join(', ');
+  if (p.country && !place.includes(p.country)) place += `, ${p.country}`;
+  if (!p.geo) return place;
+  const deg = (v, pos, neg) => `${Math.abs(v).toFixed(2)}° ${v >= 0 ? pos : neg}`;
+  return `${place} · ${deg(p.geo.lat, 'N', 'S')}, ${deg(p.geo.lon, 'E', 'W')}`;
+}
+
 function producer(D, p) {
   const site = D.site;
   const path = url.producer(p.slug);
@@ -1823,7 +1840,7 @@ function producer(D, p) {
         p.estate.map((para) => `<p>${esc(para)}</p>`).join('')}</div>
       <div class="producer-estate__map">${
         media(p.map.image, p.map.placeholder, 'detail-map media--circle')}
-        <span class="producer-estate__coords">${esc(p.map.caption)}</span></div>
+        <span class="producer-estate__coords">${esc(mapCaption(p))}</span></div>
     </section>`;
 
   return shell({
