@@ -253,6 +253,7 @@ const producerOrg = (site, p, path) => ({
   description: p.lede,
   url: absolute(site, path),
   ...(p.website ? { sameAs: [p.website] } : {}),
+  ...(p.logo && p.logo.src ? { logo: absolute(site, '/' + p.logo.src) } : {}),
   ...(p.founded ? { foundingDate: p.founded } : {}),
   ...(p.locality ? {
     address: {

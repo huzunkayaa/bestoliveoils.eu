@@ -123,6 +123,11 @@ comment.
   `{producers}`, `{regions}` or `{cultivars}` and `R.fillCounts` fills them from
   the records at build time. The homepage and library descriptions claimed 312
   oils for as long as the library held 55.
+  A producer's "oils in library" and "available in our shop" stats are
+  likewise counted from its `oils[]` rows at build time; the typed value is
+  ignored. Add `logo: { src, alt, w, h }` to a producer for its mark above
+  the name (56 px tall, also `Organization.logo`); files go in
+  `src/assets/img/producers/`.
 - **A ranking page republishes a competition's table, never reorders it.**
   `rankings[]` in site.js holds the rows in the source's own order; a row
   links to the library only through `oilSlug`, and `pages.ranking` throws on

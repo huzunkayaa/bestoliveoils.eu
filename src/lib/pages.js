@@ -1331,6 +1331,17 @@ function producer(D, p) {
   const site = D.site;
   const path = url.producer(p.slug);
 
+  /* Two of the hero stats are counts the record also carries as rows, so they
+     are read from the rows at build time: "N oils in library" counts the rows
+     that have a page (a producer may list bottlings the library has no record
+     of) and "N available in our shop" is the rows flagged inShop. The typed value
+     is ignored — the Hermus page said "0 available" with three on the shelf. */
+  const inLibrary = new Set(D.oils.map((o) => o.slug));
+  const COUNTED = { 'oils in library': () => p.oils.filter((o) => inLibrary.has(o.slug)).length,
+                    'available in our shop': () => p.oils.filter((o) => o.inShop).length };
+  p = { ...p, stats: p.stats.map((s) =>
+    COUNTED[s.label] ? { ...s, value: String(COUNTED[s.label]()) } : s) };
+
   /* v2's award timeline. No producer record carries one, so it is read back
      out of their oils' `detail.awards` — the same strings those oil pages
      already show. Awards whose string has no year stay on the oil page and out
@@ -1366,6 +1377,10 @@ function producer(D, p) {
       <div class="producer-hero__copy">
         <div class="producer-hero__tags">${p.tags.map((t, i) =>
           `<span class="tag ${i === 0 ? 'tag-accent-2' : 'tag-neutral'}">${esc(t)}</span>`).join('')}</div>
+        ${p.logo && p.logo.src
+          ? `<img class="producer-hero__logo" src="/${esc(p.logo.src)}" alt="${esc(p.logo.alt || p.name + ' logo')}"` +
+            ` width="${p.logo.w}" height="${p.logo.h}" loading="eager" decoding="async">`
+          : ''}
         <h1>${esc(p.name)}</h1>
         <p class="producer-hero__lede">${esc(p.lede)}</p>
         <div class="producer-stats">${p.stats.map((s) =>

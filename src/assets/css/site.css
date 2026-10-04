@@ -870,6 +870,9 @@ body { background: #fff; }
 .producer-hero__copy { display: flex; flex-direction: column; gap: 20px; }
 .producer-hero__tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .producer-hero h1 { font-size: 56px; margin: 0; line-height: 1.05; }
+/* A producer's own mark, at the size of a letterhead: height is fixed so a
+   wide wordmark and a square crest sit on the same line; width follows. */
+.producer-hero__logo { display: block; height: 56px; width: auto; max-width: 240px; object-fit: contain; object-position: left center; }
 .producer-hero__lede {
   font-size: 18px;
   line-height: 1.6;

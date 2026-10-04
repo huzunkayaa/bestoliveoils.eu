@@ -85,6 +85,7 @@ and reviews sections left out rather than rendered empty.
   website,                           // omit → no Website button
   tags: ['Andalusia, Spain', 'Est. 1904'],   // first one renders as accent
   lede, image, imagePlaceholder,
+  logo: { src: 'assets/img/producers/<slug>-logo.png', alt, w, h },  // optional — the producer's own mark, 56px tall above the name; also Organization.logo
   stats: [{ value: '3', label: 'oils in library' }],
   oils: [{ name, slug, cultivar, intensity, stars, score, readers, inShop }],
   estate: ['paragraph one', 'paragraph two'],
