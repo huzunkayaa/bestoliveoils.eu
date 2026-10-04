@@ -870,9 +870,9 @@ body { background: #fff; }
 .producer-hero__copy { display: flex; flex-direction: column; gap: 20px; }
 .producer-hero__tags { display: flex; flex-wrap: wrap; gap: 8px; }
 .producer-hero h1 { font-size: 56px; margin: 0; line-height: 1.05; }
-/* A producer's own mark, at the size of a letterhead: height is fixed so a
-   wide wordmark and a square crest sit on the same line; width follows. */
-.producer-hero__logo { display: block; height: 56px; width: auto; max-width: 240px; object-fit: contain; object-position: left center; }
+/* A producer's own mark, at the size of a letterhead. A wide wordmark fills
+   the 260px width; a tall crest the 128px height; neither is upscaled. */
+.producer-hero__logo { display: block; width: auto; height: auto; max-height: 128px; max-width: 260px; object-fit: contain; object-position: left center; }
 .producer-hero__lede {
   font-size: 18px;
   line-height: 1.6;

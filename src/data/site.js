@@ -7925,6 +7925,7 @@ module.exports = {
       founded: '2005',
       geo: { lat: 38.00, lon: -3.92 },
       website: 'https://www.orobailen.com',
+    logo: { src: 'assets/img/producers/oro-bailen-logo.webp', alt: 'Oro Bailén logo', w: 557, h: 800 },
       seo: {
         title: 'Oro Bailén — Family Mill in Jaén & Its Oils | bestoliveoils.eu',
         description: 'The Gálvez family mill in Villanueva de la Reina, Jaén: farm bought in 1999, mill since 2005, Flos Olei 99/100. All five oils with our panel scores.',

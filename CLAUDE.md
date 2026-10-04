@@ -126,7 +126,7 @@ comment.
   A producer's "oils in library" and "available in our shop" stats are
   likewise counted from its `oils[]` rows at build time; the typed value is
   ignored. Add `logo: { src, alt, w, h }` to a producer for its mark above
-  the name (56 px tall, also `Organization.logo`); files go in
+  the name (at most 128 px tall / 260 px wide above the name, also `Organization.logo`); files go in
   `src/assets/img/producers/`.
 - **A ranking page republishes a competition's table, never reorders it.**
   `rankings[]` in site.js holds the rows in the source's own order; a row
