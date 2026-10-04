@@ -174,9 +174,13 @@ Deliberate gaps, listed so nobody assumes they exist:
   Cariasina, Crognalegno, San Felice, Dritta, Leccio del Corno, Moresca and the
   "Royal / Hojiblanca" label. They are hub rows that open the filtered library, and need a `lede`
   and a `grove` write-up to earn a page.
-- **No grove or map photography for any of the 40.** Each record carries an
-  `imagePlaceholder` and a `map.placeholder`, and the labelled block renders
-  until a file exists.
+- **No photography for any of the 40 cultivars.** Each hero carries a
+  *generated* grove landscape (`src/assets/img/cultivars/<slug>.webp`, made
+  with Topview from a region-specific prompt) whose `alt` says it is an
+  illustration, not a photograph of a specific grove. The "In the grove"
+  slots and `map.placeholder` stay labelled placeholders until a real
+  photograph exists — never put a generated image where a page implies a
+  real place or a real fruit.
 - **No EU language switcher and no B2B/Horeca page.** v2's partner strip carries
   EN/NL/DE/FR/IT and a trade link. There are no translations and no trade page,
   so the strip ships with the partner disclosure only.

@@ -248,7 +248,7 @@ module.exports = {
         "Very high phenolic"
       ],
       "lede": "The most planted olive variety on earth and the backbone of Andalusian oil. Naturally rich in oleic acid and polyphenols, which makes it both the most stable extra virgin on the shelf and one of the most assertive on the palate.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/picual.webp", "alt": "Olive grove in Jaén, Andalusia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Picual olives / grove photo",
       "stats": [
         {
@@ -344,7 +344,7 @@ module.exports = {
         "Low phenolic"
       ],
       "lede": "The variety that made modern hedgerow olive growing possible. Weak-growing, easy to root, quick to bear and self-fertile — and now planted on three continents, though it gives the least stable and lowest-phenol oil of the major Spanish cultivars.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/arbequina.webp", "alt": "Olive grove in Les Garrigues, Lleida, Catalonia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Arbequina olives / grove photo",
       "stats": [
         {
@@ -440,7 +440,7 @@ module.exports = {
         "High phenolic"
       ],
       "lede": "Spain’s second variety by area and the only one that is genuinely dual-purpose at commercial scale. Its firm, large fruit is the basis of the Spanish black table olive industry; its early-harvest oil is the classic green-almond and bitter-herb Andalusian profile.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/hojiblanca.webp", "alt": "Olive grove in Lucena, Córdoba, Andalusia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Hojiblanca olives / grove photo",
       "stats": [
         {
@@ -536,7 +536,7 @@ module.exports = {
         "Very high phenolic"
       ],
       "lede": "The variety of the central Spanish plateau, and the highest-phenol of the big four Spanish cultivars in the one study that measured them side by side. It has stayed home: adapted to cold, dry, poor soils, it has essentially no commercial presence outside Spain.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/cornicabra.webp", "alt": "Olive grove in Toledo, Castilla-La Mancha — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Cornicabra olives / grove photo",
       "stats": [
         {
@@ -632,7 +632,7 @@ module.exports = {
         "Low bitterness"
       ],
       "lede": "The soft, aromatic counterweight in the great Córdoba blends. Picudo is what gives DOP Priego de Córdoba and DOP Baena their sweet entry — and its pollen quality makes it a standard pollinator in mixed Andalusian orchards.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/picudo.webp", "alt": "Olive grove in Córdoba, Andalusia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Picudo olives / grove photo",
       "stats": [
         {
@@ -723,7 +723,7 @@ module.exports = {
         "Oil is secondary"
       ],
       "lede": "The most widely planted table olive in the world, and the fruit behind Sevillian-style green olives. Thin skin, firm and non-fibrous flesh, and a stone that releases cleanly — bred by centuries of selection for the brine barrel, not the mill.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/manzanilla-de-sevilla.webp", "alt": "Olive grove in Guadalquivir valley, Seville — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Manzanilla olives / grove photo",
       "stats": [
         {
@@ -813,7 +813,7 @@ module.exports = {
         "Sweet, no bitterness"
       ],
       "lede": "The olive of the Ebro valley, and the one whose name is an agronomic fact: empeltre means \"grafted\" in Aragonese, because the variety will not root from cuttings in any practical way. Its oil is yellow, smooth and almost without bitterness.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/empeltre.webp", "alt": "Olive grove in Bajo Aragón, Ebro valley — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Empeltre olives / grove photo",
       "stats": [
         {
@@ -904,7 +904,7 @@ module.exports = {
         "Aromatic, low bitterness"
       ],
       "lede": "A mountain variety that survives as a six per cent minority inside a Picual monoculture, kept alive by its aroma rather than its yield. Royal gives less oil than Picual and measures higher in volatile compounds than any of the major Spanish cultivars.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/royal-de-cazorla.webp", "alt": "Olive grove in Sierra de Cazorla, Jaén — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Royal olives / grove photo",
       "stats": [
         {
@@ -995,7 +995,7 @@ module.exports = {
         "Very high phenolic"
       ],
       "lede": "The reference high-phenol Italian variety, and the one whose phenol load has been shown to translate directly into shelf life. In a same-site, same-mill comparison of eleven cultivars, Coratina measured 29.5 hours of oxidative stability against Leccino’s 17.5.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/coratina.webp", "alt": "Olive grove in Corato, Bari, Puglia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Coratina olives / grove photo",
       "stats": [
         {
@@ -1091,7 +1091,7 @@ module.exports = {
         "The standard pollinator"
       ],
       "lede": "The genetic backbone of Italian oil growing. The same genotype circulates as Frantoio in Tuscany, Correggiolo in Romagna, Razza in the Veneto and Casaliva on Lake Garda — and at roughly 28% self-fertility it is the default pollinator for everything that cannot pollinate itself.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/frantoio.webp", "alt": "Olive grove in Tuscany — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Frantoio olives / grove photo",
       "stats": [
         {
@@ -1186,7 +1186,7 @@ module.exports = {
         "Low phenolic"
       ],
       "lede": "The mild, early-ripening blending partner of Tuscan oil — deliberately low in phenols — and, right now, the most agronomically important olive in Italy, because it is one of only two cultivars approved for replanting the Xylella-devastated groves of Salento.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/leccino.webp", "alt": "Olive grove in Tuscany — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Leccino olives / grove photo",
       "stats": [
         {
@@ -1280,7 +1280,7 @@ module.exports = {
         "High phenolic"
       ],
       "lede": "The hillside variety of central Italy: low-growing, upright, drought-tolerant and distinctly cold-sensitive — a combination that keeps it in the Umbrian and Tuscan hills and out of the flat coastal plantings. Its oil sits at the opposite end of the intensity scale from Leccino.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/moraiolo.webp", "alt": "Olive grove in Tuscany and Umbria — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Moraiolo olives / grove photo",
       "stats": [
         {
@@ -1371,7 +1371,7 @@ module.exports = {
         "Delicate by regulation"
       ],
       "lede": "The rare cultivar whose protected designation requires its oil to be gentle. The Riviera dei Fiori DOP caps bitterness at \"barely perceptible\" and fruitiness at light-to-medium — the inverse of how almost every other quality specification is written.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/taggiasca.webp", "alt": "Olive grove in Taggia, Imperia, Liguria — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Taggiasca olives / grove photo",
       "stats": [
         {
@@ -1466,7 +1466,7 @@ module.exports = {
         "Northern limit"
       ],
       "lede": "The northernmost commercially significant Italian oil variety, grown at the thermal limit of olive cultivation. Genetic fingerprinting shows it is the Garda name for the Frantoio genotype — and its oils are measurably lower in phenols than the same genotype grown further south.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/casaliva.webp", "alt": "Olive grove in Lake Garda — Trentino, Brescia, Verona — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Casaliva olives / grove photo",
       "stats": [
         {
@@ -1554,7 +1554,7 @@ module.exports = {
         "DOP in two categories"
       ],
       "lede": "The variety sold worldwide as the Castelvetrano table olive — and the reason those olives are green rather than black is simply that the fruit stays green at full ripeness. It is one of very few olives that is a first-rank table variety and a serious oil variety at the same time.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/nocellara-del-belice.webp", "alt": "Olive grove in Valle del Belìce, Sicily — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Nocellara del Belice olives / grove photo",
       "stats": [
         {
@@ -1645,7 +1645,7 @@ module.exports = {
         "Tomato character"
       ],
       "lede": "The reference Sicilian variety for the tomato-leaf aroma type, and the one with the highest pulp-to-stone ratio in this whole set — about 88% flesh. That makes a superb table olive and, inconveniently, a poor oil yield for the size of the fruit.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/tonda-iblea.webp", "alt": "Olive grove in Monti Iblei, Ragusa and Siracusa, Sicily — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Tonda Iblea olives / grove photo",
       "stats": [
         {
@@ -1741,7 +1741,7 @@ module.exports = {
         "High oleic"
       ],
       "lede": "One variety, two harvests months apart: picked green in autumn it gives a high-oleic, green-tomato oil, and left to turn fully black it becomes the Oliva di Gaeta. It also carries real winter cold tolerance, which is rare in this company.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/itrana.webp", "alt": "Olive grove in Itri, Latina, Lazio — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Itrana olives / grove photo",
       "stats": [
         {
@@ -1832,7 +1832,7 @@ module.exports = {
         "Needs pollinators"
       ],
       "lede": "Puglia has always told a story about this variety arriving from Provence — the local names Provenzale and Francese preserve it. The molecular evidence points somewhere else entirely: Peranzana is the same genotype as Sardinia’s Bosana.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/peranzana.webp", "alt": "Olive grove in Alto Tavoliere, Foggia, Puglia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Peranzana olives / grove photo",
       "stats": [
         {
@@ -1927,7 +1927,7 @@ module.exports = {
         "High phenolic"
       ],
       "lede": "The cultivar of an entire island — over half of Sardinian production — and the highest mean phenol content in Italy’s national monovarietal dataset. It is also, genetically, the same variety as Puglia’s Peranzana.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/bosana.webp", "alt": "Olive grove in Sardinia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Bosana olives / grove photo",
       "stats": [
         {
@@ -2018,7 +2018,7 @@ module.exports = {
         "High pigment"
       ],
       "lede": "Türkiye’s second oil variety, from the Edremit Gulf on the north Aegean coast. Among the major Turkish cultivars it is the low-phenol, high-pigment one — a greener-looking oil with a gentler bitter and pungent load than Memecik.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/ayvalik.webp", "alt": "Olive grove in Edremit Gulf, Balıkesir — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Ayvalık olives / grove photo",
       "stats": [
         {
@@ -2114,7 +2114,7 @@ module.exports = {
         "Robust"
       ],
       "lede": "Türkiye’s leading oil cultivar and the most assertive of them on the palate — published Turkish panel work puts it at the top of both the bitterness and the pungency scale. It is also highly drought resistant, which matters more every year in the southern Aegean.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/memecik.webp", "alt": "Olive grove in Muğla, southern Aegean — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Memecik olives / grove photo",
       "stats": [
         {
@@ -2209,7 +2209,7 @@ module.exports = {
         "Mild"
       ],
       "lede": "The most widely planted olive in Türkiye — 48.7% of the country’s trees — and it got there on agronomy, not on oil. Easy rooting, cold hardiness, early bearing and low alternate bearing are why it spread; as an oil it is the mildest of the major Turkish varieties.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/gemlik.webp", "alt": "Olive grove in Gemlik, Bursa, southern Marmara — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Gemlik olives / grove photo",
       "stats": [
         {
@@ -2303,7 +2303,7 @@ module.exports = {
         "Surprisingly phenolic"
       ],
       "lede": "Catalogued as Türkiye’s leading green table variety — and yet in the one peer-reviewed head-to-head comparison, its oil came out the most phenol-rich, most bitter and most pungent of the Turkish cultivars tested. The largest gap in this set between a variety’s commercial role and its oil.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/domat.webp", "alt": "Olive grove in Akhisar, Manisa — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Domat olives / grove photo",
       "stats": [
         {
@@ -2393,7 +2393,7 @@ module.exports = {
         "Tree-ripened black"
       ],
       "lede": "One of the few Turkish varieties whose reputation rests on the fully black, tree-ripened table olive rather than on oil. Its protected designation is written entirely around that use — harvested in November, at a brilliant dark black.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/uslu.webp", "alt": "Olive grove in Akhisar, Manisa — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Uslu olives / grove photo",
       "stats": [
         {
@@ -2485,7 +2485,7 @@ module.exports = {
         "High oleic"
       ],
       "lede": "The oil variety of southeastern Anatolia, and one of a group there that stands out for oleic acid above 75% — high by Turkish standards. Its harvest window is unusually long, running from November into the first week of February.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/nizip-yaglik.webp", "alt": "Olive grove in Nizip, Gaziantep, southeastern Anatolia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Nizip Yağlık olives / grove photo",
       "stats": [
         {
@@ -2573,7 +2573,7 @@ module.exports = {
         "High phenolic"
       ],
       "lede": "The one Turkish variety here with a full protected-designation specification giving hard numbers — and they make an unusual pair: comparatively low oleic acid at 65–70%, alongside total phenols of 600 to 836 mg/kg.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/sariulak.webp", "alt": "Olive grove in Tarsus, Mersin — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Sarıulak olives / grove photo",
       "stats": [
         {
@@ -2661,7 +2661,7 @@ module.exports = {
         "The hurma olive"
       ],
       "lede": "On certain trees of İzmir’s western peninsula, Erkence fruit loses its bitterness while still hanging on the branch and becomes edible with no brine, no lye and no curing at all. The olives are called hurma, and why it happens is still not settled.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/erkence.webp", "alt": "Olive grove in İzmir — Karaburun, Urla, Seferihisar — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Erkence olives / grove photo",
       "stats": [
         {
@@ -2755,7 +2755,7 @@ module.exports = {
         "High oleic"
       ],
       "lede": "A very small fruit with a disproportionately high and stable oil yield — the combination that made Koroneiki the only Greek variety adopted at scale in mechanised hedgerow orchards around the world. It covers 50 to 60% of Greece’s olive area.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/koroneiki.webp", "alt": "Olive grove in Koroni, Messinia, Peloponnese — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Koroneiki olives / grove photo",
       "stats": [
         {
@@ -2850,7 +2850,7 @@ module.exports = {
         "Name confusion"
       ],
       "lede": "The large, elongated, freestone olive sold everywhere as \"Kalamata\". Worth getting straight: Kalamon is the variety, while Kalamata PDO olive oil is made from Koroneiki — so a bottle of Kalamata PDO oil contains no Kalamon at all.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/kalamon.webp", "alt": "Olive grove in Messinia, southern Peloponnese — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Kalamon olives / grove photo",
       "stats": [
         {
@@ -2942,7 +2942,7 @@ module.exports = {
         "Low oleic"
       ],
       "lede": "Chemically the opposite pole from Koroneiki: the lowest oleic acid and the highest linoleic of the four widely studied Greek cultivars. It is also a high-altitude variety, hardy to cold and wind, grown up to a thousand metres.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/manaki.webp", "alt": "Olive grove in Central Greece and the northeastern Peloponnese — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Manaki olives / grove photo",
       "stats": [
         {
@@ -3032,7 +3032,7 @@ module.exports = {
         "Cold-hardy"
       ],
       "lede": "The cold-hardy upland counterweight to Koroneiki, and an ancient variety in the literal sense — the IOC notes thousand-year-old Tsounati trees on Crete that are still in production. It holds 15 to 20% of Greece’s olive area.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/tsounati.webp", "alt": "Olive grove in Western Crete and the southern Peloponnese — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Tsounati olives / grove photo",
       "stats": [
         {
@@ -3120,7 +3120,7 @@ module.exports = {
         "Chemical outlier"
       ],
       "lede": "The chemical outlier among widespread Greek oil varieties — markedly lower in oleic acid and higher in palmitic than Koroneiki or Konservolia. Its oils do not simply taste less intense; they age differently.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/megaritiki.webp", "alt": "Olive grove in Megara, Attica — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Megaritiki olives / grove photo",
       "stats": [
         {
@@ -3210,7 +3210,7 @@ module.exports = {
         "High oleic"
       ],
       "lede": "Grown almost entirely as a table olive, yet its oil carries the highest mean oleic acid of the four widely planted Greek cultivars measured side by side. The fruit’s commercial role and its oil chemistry point in opposite directions.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/konservolia.webp", "alt": "Olive grove in Amfissa and Fthiotida, central Greece — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Konservolia olives / grove photo",
       "stats": [
         {
@@ -3298,7 +3298,7 @@ module.exports = {
         "Measured stability"
       ],
       "lede": "A very large green table olive — six to twelve grams — whose early-harvest oil turns out to be among the more stable Greek monovarietals actually measured: 76 to 78% oleic acid with a Rancimat induction period up to 36 hours.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/chalkidiki.webp", "alt": "Olive grove in Chalkidiki, Central Macedonia — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Chalkidiki olives / grove photo",
       "stats": [
         {
@@ -3390,7 +3390,7 @@ module.exports = {
         "Being displaced"
       ],
       "lede": "Portugal’s dominant traditional variety by tree count — about 60% of the country’s olives — and one of its lowest yielding. Under 18% oil from fruit weighing less than two grams is precisely why it is being replaced in new intensive plantings.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/galega-vulgar.webp", "alt": "Olive grove in Portugal — polyclonal origin — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Galega olives / grove photo",
       "stats": [
         {
@@ -3482,7 +3482,7 @@ module.exports = {
         "Very high phenolic"
       ],
       "lede": "In a same-orchard, same-season comparison it produced roughly twice the total phenols of Galega — 803 against 416 mg/kg — at a lower oleic acid. It also roots easily and takes a trunk shaker, which is why it spread out of Trás-os-Montes into the Alentejo.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/cobrancosa.webp", "alt": "Olive grove in Trás-os-Montes and Beira Alta — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Cobrançosa olives / grove photo",
       "stats": [
         {
@@ -3577,7 +3577,7 @@ module.exports = {
         "Measured stability"
       ],
       "lede": "The bitterness-and-pungency backbone of Trás-os-Montes blends, and the one Portuguese variety here with a directly measured Rancimat figure — 23 to 27 hours, roughly double a Madural from the same orchards and harvests.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/verdeal-transmontana.webp", "alt": "Olive grove in Trás-os-Montes — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Verdeal Transmontana olives / grove photo",
       "stats": [
         {
@@ -3668,7 +3668,7 @@ module.exports = {
         "Self-sterile"
       ],
       "lede": "The backbone of Provençal AOP oil, accounting for around a fifth of French production, and one of the few French cultivars documented as self-sterile — so an orchard has to be planted with pollinators. Its oils are aggressive when young and soften with time.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/aglandau.webp", "alt": "Olive grove in Provence — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Aglandau olives / grove photo",
       "stats": [
         {
@@ -3759,7 +3759,7 @@ module.exports = {
         "Name confusion"
       ],
       "lede": "The reference French cocktail olive — lye-treated then brine-fermented for up to a year — and the sole principal variety of AOP Nîmes. Its name has been borrowed by an unrelated Moroccan cultivar that now dominates an entire national industry.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/picholine.webp", "alt": "Olive grove in Collias, Gard, Languedoc — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Picholine olives / grove photo",
       "stats": [
         {
@@ -3854,7 +3854,7 @@ module.exports = {
         "Very high phenolic"
       ],
       "lede": "One of the highest-phenol commercial cultivars documented in the northern Adriatic: 642 mg/kg against Leccino’s 199 in the same trial. The phenol fraction is unusually rich in oleocanthal, which is exactly what produces its hallmark throat burn.",
-      "image": null,
+      "image": { "src": "assets/img/cultivars/istarska-bjelica.webp", "alt": "Olive grove in Istria — a generated illustration, not a photograph of a specific grove", "w": 1200, "h": 805 },
       "imagePlaceholder": "Istarska Bjelica olives / grove photo",
       "stats": [
         {
