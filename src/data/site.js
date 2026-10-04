@@ -8006,6 +8006,7 @@ module.exports = {
     founded: '2010',
     geo: { lat: 41.22, lon: 16.07 },
     website: 'https://www.sabinoleone.it',
+    logo: { src: 'assets/img/producers/sabino-leone-logo.webp', alt: 'Sabino Leone logo', w: 613, h: 197 },
     seo: {
       title: 'Sabino Leone — Canosa di Puglia Estate | bestoliveoils.eu',
       description: 'The Puglian estate whose Don Gioacchino DOP topped the World’s Best Olive Oils 2025/26. Groves, cultivars, and the oil that won.',
@@ -8136,6 +8137,7 @@ module.exports = {
     founded: '2004',
     geo: { lat: 37.05, lon: -3.89 },
     website: 'https://www.omedoil.com',
+    logo: { src: 'assets/img/producers/o-med-logo.webp', alt: 'O-Med logo', w: 188, h: 50 },
     seo: {
       title: 'O-Med — Solar Mill in the Grove, Granada | bestoliveoils.eu',
       description: 'A glass-and-polycarbonate mill built inside its own 200-hectare grove near Granada, milling Picual within three hours of picking.',

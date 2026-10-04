@@ -1377,10 +1377,6 @@ function producer(D, p) {
       <div class="producer-hero__copy">
         <div class="producer-hero__tags">${p.tags.map((t, i) =>
           `<span class="tag ${i === 0 ? 'tag-accent-2' : 'tag-neutral'}">${esc(t)}</span>`).join('')}</div>
-        ${p.logo && p.logo.src
-          ? `<img class="producer-hero__logo" src="/${esc(p.logo.src)}" alt="${esc(p.logo.alt || p.name + ' logo')}"` +
-            ` width="${p.logo.w}" height="${p.logo.h}" loading="eager" decoding="async">`
-          : ''}
         <h1>${esc(p.name)}</h1>
         <p class="producer-hero__lede">${esc(p.lede)}</p>
         <div class="producer-stats">${p.stats.map((s) =>
@@ -1672,13 +1668,25 @@ function ranking(D, rk) {
   const tier = rk.rows.filter((r) => r.rank >= 42);
   const linked = rk.rows.filter((r) => r.oilSlug).length;
 
+  /* The producer cell carries the producer's own mark when the row links to
+     an oil whose producer has a record with a `logo`; the name stays as the
+     competition printed it, and links to the producer page when there is one. */
+  const producers = new Map(D.producers.map((p) => [p.slug, p]));
+  const producerCell = (r, o) => {
+    const p = o && o.producerSlug ? producers.get(o.producerSlug) : null;
+    const name = p ? `<a href="${url.producer(p.slug)}">${esc(r.producer)}</a>` : esc(r.producer);
+    const mark = p && p.logo && p.logo.src
+      ? `<img src="/${esc(p.logo.src)}" alt="${esc(p.logo.alt || p.name + ' logo')}" width="${p.logo.w}" height="${p.logo.h}" loading="lazy" decoding="async">`
+      : '';
+    return `<td class="ranking__producer"><span class="ranking__logo">${mark}</span>${name}</td>`;
+  };
   const row = (r) => {
     const o = r.oilSlug ? bySlug.get(r.oilSlug) : null;
     const stocked = o && site.showShopBadges && o.inShop;
     return '<tr>' +
       `<th scope="row">${esc(r.rank)}</th>` +
       `<td>${o ? `<a href="${url.oil(o.slug)}">${esc(r.oil)}</a>` : esc(r.oil)}</td>` +
-      `<td>${esc(r.producer)}</td>` +
+      producerCell(r, o) +
       `<td>${esc(r.country)}</td>` +
       `<td class="num">${esc(r.points)}</td>` +
       `<td>${o
