@@ -151,7 +151,7 @@ module.exports = {
     },
     trade: {
       title: 'Wholesale Olive Oil from Spain, Italy, Greece & Türkiye',
-      description: 'Wholesale and export extra virgin olive oil for shops, restaurants and importers: Oro Bailén, Guglielmi, Le Ferre, Cretan Heritage, Hermus and more, from one Dutch supplier.',
+      description: 'Wholesale and export extra virgin olive oil for shops, restaurants and importers: Oro Bailén, Guglielmi, Le Ferre, Cretan Heritage, Hermus, from one Dutch supplier.',
       heading: 'Trade & partnerships',
       lede: 'Premium extra virgin olive oil from Spain, Italy, Greece and Türkiye for shops, restaurants and importers — {shopOils} oils from small and mid-sized estates, supplied from the Netherlands by our retail partner olijfoliemarkt.nl.',
       sections: [
